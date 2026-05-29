@@ -2,7 +2,7 @@ import { normalizeOptionalString as normalizeString } from "@openclaw/normalizat
 import type { HistoryMediaEntry } from "../../auto-reply/reply/history.types.js";
 import type { InboundMediaFacts } from "../turn/types.js";
 
-/** Shared type for Channel Inbound Media Input in src/channels/inbound-event. */
+/** Raw media item accepted from channel adapters before normalization. */
 export type ChannelInboundMediaInput = {
   path?: string | null;
   url?: string | null;
@@ -12,7 +12,7 @@ export type ChannelInboundMediaInput = {
   messageId?: string | null;
 };
 
-/** Shared type for Channel Inbound Media Payload in src/channels/inbound-event. */
+/** Legacy model/context payload fields generated from normalized media facts. */
 export type ChannelInboundMediaPayload = {
   MediaPath?: string;
   MediaUrl?: string;
@@ -38,7 +38,7 @@ function mediaType(media: InboundMediaFacts): string | undefined {
   return media.contentType ?? media.kind;
 }
 
-/** Reused helper for to Inbound Media Facts behavior in src/channels/inbound-event. */
+/** Normalize channel media input into turn facts, applying default kind/message/transcription. */
 export function toInboundMediaFacts(
   media: readonly ChannelInboundMediaInput[] | null | undefined,
   defaults: {
@@ -60,7 +60,7 @@ export function toInboundMediaFacts(
   }));
 }
 
-/** Reused helper for to History Media Entries behavior in src/channels/inbound-event. */
+/** Convert inbound media into history entries without turn-only transcription metadata. */
 export function toHistoryMediaEntries(
   media: readonly ChannelInboundMediaInput[] | null | undefined,
   defaults: {
@@ -77,7 +77,7 @@ export function toHistoryMediaEntries(
   }));
 }
 
-/** Reused helper for build Channel Inbound Media Payload behavior in src/channels/inbound-event. */
+/** Build legacy single and aligned multi-media payload fields for prompt/context consumers. */
 export function buildChannelInboundMediaPayload(
   media: readonly InboundMediaFacts[] | null | undefined,
 ): ChannelInboundMediaPayload {
