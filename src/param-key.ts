@@ -7,7 +7,7 @@ function toSnakeCaseKey(key: string): string {
   return lowercasePreservingWhitespace(snakeKey);
 }
 
-/** Reused helper for resolve Snake Case Param Key behavior in src. */
+/** Resolves a parameter key by exact name or equivalent snake_case name. */
 export function resolveSnakeCaseParamKey(
   params: Record<string, unknown>,
   key: string,
@@ -22,7 +22,7 @@ export function resolveSnakeCaseParamKey(
   return undefined;
 }
 
-/** Reused helper for read Snake Case Param Raw behavior in src. */
+/** Reads a raw tool parameter by exact or snake_case key. */
 export function readSnakeCaseParamRaw(params: Record<string, unknown>, key: string): unknown {
   const resolvedKey = resolveSnakeCaseParamKey(params, key);
   if (resolvedKey) {

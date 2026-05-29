@@ -10,25 +10,25 @@ const DeliveryModeFieldSchema = z
   .preprocess(trimLowercaseStringPreprocess, z.enum(["deliver", "announce", "none", "webhook"]))
   .transform((value) => (value === "deliver" ? "announce" : value));
 
-/** Reused constant for Lowercase Non Empty String Field Schema behavior in src/cron. */
+/** Field schema for lowercased non-empty delivery values. */
 export const LowercaseNonEmptyStringFieldSchema = z.preprocess(
   trimLowercaseStringPreprocess,
   z.string().min(1),
 );
 
-/** Reused constant for Trimmed Non Empty String Field Schema behavior in src/cron. */
+/** Field schema for trimmed non-empty delivery values that preserve case. */
 export const TrimmedNonEmptyStringFieldSchema = z.preprocess(
   trimStringPreprocess,
   z.string().min(1),
 );
 
-/** Reused constant for Delivery Thread Id Field Schema behavior in src/cron. */
+/** Field schema accepting string or numeric thread identifiers. */
 export const DeliveryThreadIdFieldSchema = z.union([
   TrimmedNonEmptyStringFieldSchema,
   z.number().finite(),
 ]);
 
-/** Reused constant for Timeout Seconds Field Schema behavior in src/cron. */
+/** Field schema for non-negative timeout values in seconds. */
 export const TimeoutSecondsFieldSchema = z.number().finite().nonnegative();
 
 type ParsedDeliveryInput = {
@@ -39,7 +39,7 @@ type ParsedDeliveryInput = {
   accountId?: string;
 };
 
-/** Reused helper for parse Delivery Input behavior in src/cron. */
+/** Parses optional delivery fields while dropping invalid values. */
 export function parseDeliveryInput(input: Record<string, unknown>): ParsedDeliveryInput {
   return {
     mode: parseOptionalField(DeliveryModeFieldSchema, input.mode),
@@ -50,7 +50,7 @@ export function parseDeliveryInput(input: Record<string, unknown>): ParsedDelive
   };
 }
 
-/** Reused helper for parse Optional Field behavior in src/cron. */
+/** Parses one optional field and returns undefined when validation fails. */
 export function parseOptionalField<T>(schema: ZodType<T>, value: unknown): T | undefined {
   const parsed = schema.safeParse(value);
   return parsed.success ? parsed.data : undefined;

@@ -8,7 +8,7 @@ import type { CronFailureDestinationConfig } from "../config/types.cron.js";
 import { resolveTargetPrefixedChannel } from "../infra/outbound/channel-target-prefix.js";
 import type { CronDelivery, CronDeliveryMode, CronJob, CronMessageChannel } from "./types.js";
 
-/** Shared type for Cron Delivery Plan in src/cron. */
+/** Effective delivery behavior for a cron job after normalization. */
 export type CronDeliveryPlan = {
   mode: CronDeliveryMode;
   channel?: CronMessageChannel;
@@ -20,7 +20,7 @@ export type CronDeliveryPlan = {
   requested: boolean;
 };
 
-/** Reused helper for has Explicit Cron Delivery Target behavior in src/cron. */
+/** Returns whether a delivery plan names a concrete channel, recipient, thread, or account. */
 export function hasExplicitCronDeliveryTarget(plan: CronDeliveryPlan): boolean {
   return Boolean(
     (plan.channel && plan.channel !== "last") || plan.to || plan.threadId != null || plan.accountId,
@@ -49,7 +49,7 @@ function resolveAnnounceChannel(params: {
   );
 }
 
-/** Reused helper for resolve Cron Delivery Plan behavior in src/cron. */
+/** Resolves a cron job's delivery config into an effective delivery plan. */
 export function resolveCronDeliveryPlan(job: CronJob): CronDeliveryPlan {
   const delivery = job.delivery;
   const hasDelivery = delivery && typeof delivery === "object";
@@ -113,7 +113,7 @@ export function resolveCronDeliveryPlan(job: CronJob): CronDeliveryPlan {
   };
 }
 
-/** Shared type for Cron Failure Delivery Plan in src/cron. */
+/** Effective destination for cron failure notifications. */
 export type CronFailureDeliveryPlan = {
   mode: "announce" | "webhook";
   channel?: CronMessageChannel;
@@ -121,7 +121,7 @@ export type CronFailureDeliveryPlan = {
   accountId?: string;
 };
 
-/** Shared type for Cron Failure Destination Input in src/cron. */
+/** Failure destination override accepted from job delivery config. */
 export type CronFailureDestinationInput = {
   channel?: CronMessageChannel;
   to?: string;
@@ -137,7 +137,7 @@ function normalizeFailureMode(value: unknown): "announce" | "webhook" | undefine
   return undefined;
 }
 
-/** Reused helper for resolve Failure Destination behavior in src/cron. */
+/** Resolves job-level failure delivery overrides on top of global failure config. */
 export function resolveFailureDestination(
   job: CronJob,
   globalConfig?: CronFailureDestinationConfig,
