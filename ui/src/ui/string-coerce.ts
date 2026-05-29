@@ -1,5 +1,5 @@
-// ui/src/ui string coerce helpers and runtime behavior.
-/** Re-exported API for ui/src/ui. */
+// UI barrel for shared string coercion and normalization helpers.
+/** Lowercase/optional string coercion helpers shared with core code. */
 export {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
