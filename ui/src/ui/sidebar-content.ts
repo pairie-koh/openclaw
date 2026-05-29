@@ -13,7 +13,7 @@ export type MarkdownSidebarContent = {
   unavailableReason?: "not_found" | "oversized" | "not_visible" | null;
 };
 
-/** Shared type for Canvas Sidebar Content in ui/src/ui. */
+/** Canvas sidebar content rendered from a gateway document entry URL. */
 export type CanvasSidebarContent = {
   kind: "canvas";
   docId: string;
@@ -25,5 +25,5 @@ export type CanvasSidebarContent = {
   unavailableReason?: "not_found" | "oversized" | "not_visible" | null;
 };
 
-/** Shared type for Sidebar Content in ui/src/ui. */
+/** Union of supported sidebar content payloads. */
 export type SidebarContent = MarkdownSidebarContent | CanvasSidebarContent;
