@@ -1,7 +1,7 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { isBlockedObjectKey } from "../infra/prototype-keys.js";
 
-/** Reused constant for DEFAULT ACCOUNT ID behavior in src/routing. */
+/** Fallback account id used when no explicit account is configured. */
 export const DEFAULT_ACCOUNT_ID = "default";
 
 const VALID_ID_RE = /^[a-z0-9][a-z0-9_-]{0,63}$/i;
@@ -33,7 +33,7 @@ function normalizeCanonicalAccountId(value: string): string | undefined {
   return canonical;
 }
 
-/** Reused helper for normalize Account Id behavior in src/routing. */
+/** Normalizes an account id, falling back to the default account for empty/unsafe input. */
 export function normalizeAccountId(value: string | undefined | null): string {
   const trimmed = (value ?? "").trim();
   if (!trimmed) {
@@ -48,7 +48,7 @@ export function normalizeAccountId(value: string | undefined | null): string {
   return normalized;
 }
 
-/** Reused helper for normalize Optional Account Id behavior in src/routing. */
+/** Normalizes an optional account id, returning undefined for empty/unsafe input. */
 export function normalizeOptionalAccountId(value: string | undefined | null): string | undefined {
   const trimmed = (value ?? "").trim();
   if (!trimmed) {

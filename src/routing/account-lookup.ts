@@ -1,6 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for resolve Account Entry behavior in src/routing. */
+/** Resolves an account entry by exact key, then case-insensitive key match. */
 export function resolveAccountEntry<T>(
   accounts: Record<string, T> | undefined,
   accountId: string,
@@ -18,7 +18,7 @@ export function resolveAccountEntry<T>(
   return matchKey ? accounts[matchKey] : undefined;
 }
 
-/** Reused helper for resolve Normalized Account Entry behavior in src/routing. */
+/** Resolves an account entry using a caller-provided account-id normalizer. */
 export function resolveNormalizedAccountEntry<T>(
   accounts: Record<string, T> | undefined,
   accountId: string,
