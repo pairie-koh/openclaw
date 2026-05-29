@@ -1,7 +1,7 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { parseAgentSessionKey } from "./session-key-utils.js";
 
-/** Shared type for Session Key Chat Type in src/sessions. */
+/** Chat type inferred from a session key, or unknown when no signal exists. */
 export type SessionKeyChatType = "direct" | "group" | "channel" | "unknown";
 
 function deriveBuiltInLegacySessionChatType(
@@ -19,7 +19,7 @@ function deriveBuiltInLegacySessionChatType(
   return undefined;
 }
 
-/** Reused helper for derive Session Chat Type From Scoped Key behavior in src/sessions. */
+/** Infers chat type from a session key with the agent prefix already removed. */
 export function deriveSessionChatTypeFromScopedKey(
   scopedSessionKey: string,
   deriveLegacySessionChatTypes: Array<
