@@ -17,7 +17,7 @@ function canOwnerAccessTask(task: TaskRecord, callerOwnerKey: string): boolean {
   );
 }
 
-/** Reused helper for get Task By Id For Owner behavior in src/tasks. */
+/** Looks up a task by id only when it belongs to the caller's owner key. */
 export function getTaskByIdForOwner(params: {
   taskId: string;
   callerOwnerKey: string;
@@ -26,7 +26,7 @@ export function getTaskByIdForOwner(params: {
   return task && canOwnerAccessTask(task, params.callerOwnerKey) ? task : undefined;
 }
 
-/** Reused helper for find Task By Run Id For Owner behavior in src/tasks. */
+/** Looks up a task by run id only when it belongs to the caller's owner key. */
 export function findTaskByRunIdForOwner(params: {
   runId: string;
   callerOwnerKey: string;
@@ -76,7 +76,7 @@ export function cancelTaskByIdForOwner(params: {
   });
 }
 
-/** Reused helper for list Tasks For Related Session Key For Owner behavior in src/tasks. */
+/** Lists tasks related to a session key, filtered to the caller's owner key. */
 export function listTasksForRelatedSessionKeyForOwner(params: {
   relatedSessionKey: string;
   callerOwnerKey: string;
@@ -86,7 +86,7 @@ export function listTasksForRelatedSessionKeyForOwner(params: {
   );
 }
 
-/** Reused helper for build Task Status Snapshot For Related Session Key For Owner behavior in src/tasks. */
+/** Builds an owner-filtered task status snapshot for a related session key. */
 export function buildTaskStatusSnapshotForRelatedSessionKeyForOwner(params: {
   relatedSessionKey: string;
   callerOwnerKey: string;
@@ -99,7 +99,7 @@ export function buildTaskStatusSnapshotForRelatedSessionKeyForOwner(params: {
   );
 }
 
-/** Reused helper for find Latest Task For Related Session Key For Owner behavior in src/tasks. */
+/** Returns the latest owner-visible task for a related session key. */
 export function findLatestTaskForRelatedSessionKeyForOwner(params: {
   relatedSessionKey: string;
   callerOwnerKey: string;
@@ -107,7 +107,7 @@ export function findLatestTaskForRelatedSessionKeyForOwner(params: {
   return listTasksForRelatedSessionKeyForOwner(params)[0];
 }
 
-/** Reused helper for resolve Task For Lookup Token For Owner behavior in src/tasks. */
+/** Resolves an owner-visible task by task id, run id, related session key, or registry lookup token. */
 export function resolveTaskForLookupTokenForOwner(params: {
   token: string;
   callerOwnerKey: string;
