@@ -12,7 +12,7 @@ import {
 } from "../../routing/session-key.js";
 import type { ChannelAccountSnapshot } from "./types.core.js";
 
-/** Reused helper for create Account List Helpers behavior in src/channels/plugins. */
+/** Create channel-specific account listing/default helpers with optional implicit account support. */
 export function createAccountListHelpers(
   channelKey: string,
   options?: {
@@ -94,7 +94,7 @@ export function createAccountListHelpers(
   return { listConfiguredAccountIds, listAccountIds, resolveDefaultAccountId };
 }
 
-/** Reused helper for has Configured Account Value behavior in src/channels/plugins. */
+/** Treat non-empty strings and non-null values as configured account credentials/settings. */
 export function hasConfiguredAccountValue(value: unknown): boolean {
   if (typeof value === "string") {
     return value.trim().length > 0;
@@ -102,7 +102,7 @@ export function hasConfiguredAccountValue(value: unknown): boolean {
   return value !== undefined && value !== null;
 }
 
-/** Reused helper for list Combined Account Ids behavior in src/channels/plugins. */
+/** Merge configured, additional, and implicit account ids with a fallback when empty. */
 export function listCombinedAccountIds(params: {
   configuredAccountIds: Iterable<string>;
   additionalAccountIds?: Iterable<string>;
@@ -131,7 +131,7 @@ export function listCombinedAccountIds(params: {
   return [...ids].toSorted((a, b) => a.localeCompare(b));
 }
 
-/** Reused helper for resolve Listed Default Account Id behavior in src/channels/plugins. */
+/** Resolve the default account from explicit config, default id, ambiguity fallback, or first id. */
 export function resolveListedDefaultAccountId(params: {
   accountIds: readonly string[];
   configuredDefaultAccountId?: string | undefined;
@@ -157,7 +157,7 @@ export function resolveListedDefaultAccountId(params: {
   return params.accountIds[0] ?? DEFAULT_ACCOUNT_ID;
 }
 
-/** Reused helper for merge Account Config behavior in src/channels/plugins. */
+/** Merge root channel config with account overrides while omitting account-container keys. */
 export function mergeAccountConfig<TConfig extends Record<string, unknown>>(params: {
   channelConfig: TConfig | undefined;
   accountConfig: Partial<TConfig> | undefined;
@@ -194,7 +194,7 @@ export function mergeAccountConfig<TConfig extends Record<string, unknown>>(para
   return merged;
 }
 
-/** Reused helper for resolve Merged Account Config behavior in src/channels/plugins. */
+/** Resolve an account entry by id and merge it over the root channel config. */
 export function resolveMergedAccountConfig<TConfig extends Record<string, unknown>>(params: {
   channelConfig: TConfig | undefined;
   accounts: Record<string, Partial<TConfig>> | undefined;
@@ -220,7 +220,7 @@ type AccountSnapshotInput = {
   name?: string | null | undefined;
 };
 
-/** Reused helper for describe Account Snapshot behavior in src/channels/plugins. */
+/** Convert account config into the status/read-model snapshot shape. */
 export function describeAccountSnapshot(params: {
   account: AccountSnapshotInput;
   configured?: boolean | undefined;
@@ -235,7 +235,7 @@ export function describeAccountSnapshot(params: {
   };
 }
 
-/** Reused helper for describe Webhook Account Snapshot behavior in src/channels/plugins. */
+/** Convert webhook-style account config into a status snapshot with mode metadata. */
 export function describeWebhookAccountSnapshot(params: {
   account: AccountSnapshotInput;
   configured?: boolean | undefined;
