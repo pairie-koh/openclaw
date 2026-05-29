@@ -1,4 +1,5 @@
-// media-understanding runner helpers and runtime behavior.
+// Media-understanding runtime orchestration for provider/CLI entry selection,
+// attachment caching, and per-capability execution.
 import { constants as fsConstants } from "node:fs";
 import fs from "node:fs/promises";
 import os from "node:os";
@@ -62,9 +63,9 @@ import type {
   MediaUnderstandingOutput,
   MediaUnderstandingProvider,
 } from "./types.js";
-/** Re-exported API for src/media-understanding, starting with create Media Attachment Cache. */
+/** Attachment cache helpers exported for callers that pre-normalize media inputs. */
 export { createMediaAttachmentCache, normalizeMediaAttachments } from "./runner.attachments.js";
-/** Re-exported API for src/media-understanding, starting with Active Media Model. */
+/** Active model type exported with the media-understanding runner facade. */
 export type { ActiveMediaModel } from "./active-model.types.js";
 
 type ProviderRegistry = Map<string, MediaUnderstandingProvider>;
@@ -73,7 +74,7 @@ type HasAvailableAuthForProvider =
 type ModelCatalogApi = typeof import("../agents/model-catalog.js");
 type ModelCatalog = Awaited<ReturnType<ModelCatalogApi["loadModelCatalog"]>>;
 
-/** Shared type for Run Capability Result in src/media-understanding. */
+/** Outputs and decision record produced by one media-understanding capability run. */
 export type RunCapabilityResult = {
   outputs: MediaUnderstandingOutput[];
   decision: MediaUnderstandingDecision;
@@ -294,7 +295,7 @@ async function resolveAutoImageModelId(params: {
   });
 }
 
-/** Reused helper for build Provider Registry behavior in src/media-understanding. */
+/** Build the hydrated provider registry used by runner operations. */
 export function buildProviderRegistry(
   overrides?: Record<string, MediaUnderstandingProvider>,
   cfg?: OpenClawConfig,
@@ -302,7 +303,7 @@ export function buildProviderRegistry(
   return buildMediaUnderstandingRegistry(overrides, cfg);
 }
 
-/** Reused helper for resolve Media Attachment Local Roots behavior in src/media-understanding. */
+/** Resolve host roots allowed for inbound media attachment loading. */
 export function resolveMediaAttachmentLocalRoots(params: {
   cfg: OpenClawConfig;
   ctx: MsgContext;
@@ -324,7 +325,7 @@ export function resolveMediaAttachmentLocalRoots(params: {
 const binaryCache = new Map<string, Promise<string | null>>();
 const antigravityCliCache = new Map<string, Promise<string | null>>();
 
-/** Reused helper for clear Media Understanding Binary Cache For Tests behavior in src/media-understanding. */
+/** Clear cached CLI binary probes used by media-understanding tests. */
 export function clearMediaUnderstandingBinaryCacheForTests(): void {
   binaryCache.clear();
   antigravityCliCache.clear();
@@ -763,7 +764,7 @@ async function resolveAutoEntries(params: {
   return [];
 }
 
-/** Reused helper for resolve Auto Image Model behavior in src/media-understanding. */
+/** Resolve the image-capable active model fallback for automatic media understanding. */
 export async function resolveAutoImageModel(params: {
   cfg: OpenClawConfig;
   agentId?: string;
@@ -976,7 +977,7 @@ function hasFailedMediaAttempt(attachments: MediaUnderstandingDecision["attachme
   );
 }
 
-/** Reused helper for run Capability behavior in src/media-understanding. */
+/** Run media understanding for selected attachments for one capability. */
 export async function runCapability(params: {
   capability: MediaUnderstandingCapability;
   cfg: OpenClawConfig;
