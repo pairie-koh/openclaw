@@ -15,13 +15,13 @@ const SHARED_POLL_CREATION_PARAM_DEFS = {
   pollMulti: { kind: "boolean" },
 } satisfies Record<string, PollCreationParamDef>;
 
-/** Reused constant for POLL CREATION PARAM DEFS behavior in src. */
+/** Shared poll-creation params understood across channel adapters. */
 export const POLL_CREATION_PARAM_DEFS: Record<string, PollCreationParamDef> =
   SHARED_POLL_CREATION_PARAM_DEFS;
 
 type SharedPollCreationParamName = keyof typeof SHARED_POLL_CREATION_PARAM_DEFS;
 
-/** Reused constant for SHARED POLL CREATION PARAM NAMES behavior in src. */
+/** Stable list of canonical shared poll-creation parameter names. */
 export const SHARED_POLL_CREATION_PARAM_NAMES = Object.keys(
   SHARED_POLL_CREATION_PARAM_DEFS,
 ) as SharedPollCreationParamName[];
@@ -76,7 +76,7 @@ function hasExplicitUnknownPollValue(key: string, value: unknown): boolean {
   return false;
 }
 
-/** Reused helper for has Poll Creation Params behavior in src. */
+/** Returns true when params contain explicit shared or channel-specific poll creation intent. */
 export function hasPollCreationParams(params: Record<string, unknown>): boolean {
   for (const key of SHARED_POLL_CREATION_PARAM_NAMES) {
     const def = POLL_CREATION_PARAM_DEFS[key];
