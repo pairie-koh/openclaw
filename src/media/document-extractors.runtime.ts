@@ -11,7 +11,7 @@ const documentExtractorLoader = createConfigScopedPromiseLoader((config?: OpenCl
   resolvePluginDocumentExtractors(config ? { config } : undefined),
 );
 
-/** Reused helper for extract Document Content behavior in src/media. */
+/** Extract document text/images with the first plugin extractor matching the MIME type. */
 export async function extractDocumentContent(
   params: DocumentExtractionRequest & {
     config?: OpenClawConfig;

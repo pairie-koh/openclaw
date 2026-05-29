@@ -3,7 +3,7 @@ import { normalizeChatChannelId } from "../channels/ids.js";
 import { normalizeAnyChannelId } from "../channels/registry-normalize.js";
 import { INTERNAL_MESSAGE_CHANNEL } from "./message-channel-constants.js";
 
-/** Reused helper for normalize Message Channel behavior in src/utils. */
+/** Normalize built-in, internal, and plugin channel ids into canonical form. */
 export function normalizeMessageChannel(raw?: string | null): string | undefined {
   const normalized = normalizeOptionalLowercaseString(raw);
   if (!normalized) {
@@ -19,7 +19,7 @@ export function normalizeMessageChannel(raw?: string | null): string | undefined
   return normalizeAnyChannelId(normalized) ?? normalized;
 }
 
-/** Reused helper for is Deliverable Message Channel behavior in src/utils. */
+/** Return true for concrete channels that can receive outbound messages. */
 export function isDeliverableMessageChannel(value: string): boolean {
   const normalized = normalizeMessageChannel(value);
   return (
