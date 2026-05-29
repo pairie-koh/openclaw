@@ -3,6 +3,7 @@ import type { MsgContext } from "../auto-reply/templating.js";
 import type { GroupKeyResolution } from "../config/sessions/types.js";
 import { normalizeSessionKeyPreservingOpaquePeerIds } from "../sessions/session-key-utils.js";
 import type { InboundLastRouteUpdate } from "./session.types.js";
+/** Re-exported API for src/channels, starting with Inbound Last Route Update. */
 export type { InboundLastRouteUpdate, RecordInboundSession } from "./session.types.js";
 
 let inboundSessionRuntimePromise: Promise<
@@ -29,6 +30,7 @@ function shouldSkipPinnedMainDmRouteUpdate(
   return true;
 }
 
+/** Reused helper for record Inbound Session behavior in src/channels. */
 export async function recordInboundSession(params: {
   storePath: string;
   sessionKey: string;

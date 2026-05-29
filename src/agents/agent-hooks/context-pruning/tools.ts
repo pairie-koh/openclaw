@@ -6,6 +6,7 @@ function normalizeGlob(value: string) {
   return normalizeLowercaseStringOrEmpty(value ?? "");
 }
 
+/** Creates a tool-name predicate from include/exclude glob-like settings. */
 export function makeToolPrunablePredicate(
   match: ContextPruningToolMatch,
 ): (toolName: string) => boolean {

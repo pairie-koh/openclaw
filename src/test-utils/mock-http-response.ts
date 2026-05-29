@@ -1,6 +1,8 @@
+// test-utils mock http response helpers and runtime behavior.
 import type { ServerResponse } from "node:http";
 import { lowercasePreservingWhitespace } from "@openclaw/normalization-core/string-coerce";
 
+/** Reused helper for create Mock Server Response behavior in src/test-utils. */
 export function createMockServerResponse(): ServerResponse & { body?: string } {
   const headers: Record<string, string> = {};
   const res: {

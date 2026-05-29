@@ -34,6 +34,7 @@ function isSafeProviderConfigKey(value: string): boolean {
   return value !== "" && !DANGEROUS_PROVIDER_KEYS.has(value);
 }
 
+/** Shared type for Resolve Runtime Plugin Discovery Providers Params in src/plugins. */
 export type ResolveRuntimePluginDiscoveryProvidersParams = {
   config?: OpenClawConfig;
   workspaceDir?: string;
@@ -46,11 +47,13 @@ export type ResolveRuntimePluginDiscoveryProvidersParams = {
   pluginMetadataSnapshot?: PluginMetadataRegistryView;
 };
 
+/** Shared type for Resolve Installed Plugin Provider Contribution Ids Params in src/plugins. */
 export type ResolveInstalledPluginProviderContributionIdsParams = LoadPluginRegistryParams & {
   index?: PluginRegistrySnapshot;
   includeDisabled?: boolean;
 };
 
+/** Reused helper for resolve Installed Plugin Provider Contribution Ids behavior in src/plugins. */
 export function resolveInstalledPluginProviderContributionIds(
   params: ResolveInstalledPluginProviderContributionIdsParams = {},
 ): string[] {
@@ -67,6 +70,7 @@ export function resolveInstalledPluginProviderContributionIds(
   );
 }
 
+/** Reused helper for resolve Runtime Plugin Discovery Providers behavior in src/plugins. */
 export async function resolveRuntimePluginDiscoveryProviders(
   params: ResolveRuntimePluginDiscoveryProvidersParams,
 ): Promise<ProviderPlugin[]> {
@@ -75,6 +79,7 @@ export async function resolveRuntimePluginDiscoveryProviders(
     .filter((provider) => resolveProviderCatalogOrderHook(provider));
 }
 
+/** Reused helper for group Plugin Discovery Providers By Order behavior in src/plugins. */
 export function groupPluginDiscoveryProvidersByOrder(
   providers: ProviderPlugin[],
 ): Record<ProviderDiscoveryOrder, ProviderPlugin[]> {
@@ -97,6 +102,7 @@ export function groupPluginDiscoveryProvidersByOrder(
   return grouped;
 }
 
+/** Reused helper for normalize Plugin Discovery Result behavior in src/plugins. */
 export function normalizePluginDiscoveryResult(params: {
   provider: ProviderPlugin;
   result:
@@ -137,6 +143,7 @@ export function normalizePluginDiscoveryResult(params: {
   return normalized;
 }
 
+/** Reused helper for run Provider Catalog behavior in src/plugins. */
 export function runProviderCatalog(params: {
   provider: ProviderPlugin;
   config: OpenClawConfig;
@@ -168,6 +175,7 @@ export function runProviderCatalog(params: {
   });
 }
 
+/** Reused helper for run Provider Static Catalog behavior in src/plugins. */
 export function runProviderStaticCatalog(params: {
   provider: ProviderPlugin;
   config: OpenClawConfig;

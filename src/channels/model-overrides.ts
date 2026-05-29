@@ -21,6 +21,7 @@ import {
   resolveSessionConversationRef,
 } from "./plugins/session-conversation.js";
 
+/** Resolved model override plus channel config match metadata. */
 export type ChannelModelOverride = {
   channel: string;
   model: string;
@@ -154,6 +155,7 @@ function resolveDirectChannelModelMatch(params: {
   return { model, matchKey: match.matchKey, matchSource: match.matchSource };
 }
 
+/** Resolve the model override that applies to a channel/group/thread context. */
 export function resolveChannelModelOverride(
   params: ChannelModelOverrideParams,
 ): ChannelModelOverride | null {

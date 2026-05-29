@@ -20,6 +20,7 @@ import {
   type SessionDeliveryTarget,
 } from "./targets.js";
 
+/** Shared type for Agent Delivery Plan in src/infra/outbound. */
 export type AgentDeliveryPlan = {
   baseDelivery: SessionDeliveryTarget;
   resolvedChannel: GatewayMessageChannel;
@@ -29,6 +30,7 @@ export type AgentDeliveryPlan = {
   deliveryTargetMode?: ChannelOutboundTargetMode;
 };
 
+/** Reused helper for resolve Agent Delivery Plan behavior in src/infra/outbound. */
 export function resolveAgentDeliveryPlan(params: {
   sessionEntry?: SessionEntry;
   requestedChannel?: string;
@@ -133,6 +135,7 @@ export function resolveAgentDeliveryPlan(params: {
   };
 }
 
+/** Reused helper for resolve Agent Delivery Plan With Session Route behavior in src/infra/outbound. */
 export async function resolveAgentDeliveryPlanWithSessionRoute(
   params: Parameters<typeof resolveAgentDeliveryPlan>[0] & {
     cfg: OpenClawConfig;
@@ -194,6 +197,7 @@ export async function resolveAgentDeliveryPlanWithSessionRoute(
   };
 }
 
+/** Reused helper for resolve Agent Outbound Target behavior in src/infra/outbound. */
 export function resolveAgentOutboundTarget(params: {
   cfg: OpenClawConfig;
   plan: AgentDeliveryPlan;

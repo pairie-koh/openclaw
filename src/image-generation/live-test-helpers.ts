@@ -8,8 +8,10 @@ import {
   resolveLiveAuthStore,
 } from "../media-generation/live-test-helpers.js";
 
+/** Re-exported API for src/image-generation, starting with parse Provider Model Map. */
 export { parseProviderModelMap, redactLiveApiKey };
 
+/** Reused constant for DEFAULT LIVE IMAGE MODELS behavior in src/image-generation. */
 export const DEFAULT_LIVE_IMAGE_MODELS: Record<string, string> = {
   deepinfra: "deepinfra/black-forest-labs/FLUX-1-schnell",
   fal: "fal/fal-ai/flux/dev",
@@ -21,6 +23,7 @@ export const DEFAULT_LIVE_IMAGE_MODELS: Record<string, string> = {
   xai: "xai/grok-imagine-image",
 };
 
+/** Reused helper for parse Case Filter behavior in src/image-generation. */
 export function parseCaseFilter(raw?: string): Set<string> | null {
   const trimmed = raw?.trim();
   if (!trimmed || trimmed === "all") {
@@ -33,14 +36,17 @@ export function parseCaseFilter(raw?: string): Set<string> | null {
   return values.length > 0 ? new Set(values) : null;
 }
 
+/** Reused helper for parse Csv Filter behavior in src/image-generation. */
 export function parseCsvFilter(raw?: string): Set<string> | null {
   return parseLiveCsvFilter(raw, { lowercase: false });
 }
 
+/** Reused helper for resolve Configured Live Image Models behavior in src/image-generation. */
 export function resolveConfiguredLiveImageModels(cfg: OpenClawConfig): Map<string, string> {
   return resolveConfiguredLiveProviderModels(cfg.agents?.defaults?.imageGenerationModel);
 }
 
+/** Reused helper for resolve Live Image Auth Store behavior in src/image-generation. */
 export function resolveLiveImageAuthStore(params: {
   requireProfileKeys: boolean;
   hasLiveKeys: boolean;

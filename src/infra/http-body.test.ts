@@ -1,3 +1,4 @@
+// Tests infra http body test behavior.
 import { EventEmitter } from "node:events";
 import type { IncomingMessage } from "node:http";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";

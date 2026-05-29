@@ -16,6 +16,7 @@ function normalizeSupportedDurationValues(
   return normalized.length > 0 ? normalized : undefined;
 }
 
+/** Reused helper for resolve Video Generation Supported Durations behavior in src/video-generation. */
 export function resolveVideoGenerationSupportedDurations(params: {
   provider?: VideoGenerationProvider;
   model?: string;
@@ -36,6 +37,7 @@ export function resolveVideoGenerationSupportedDurations(params: {
   return normalizeSupportedDurationValues(modelSpecific ?? caps?.supportedDurationSeconds);
 }
 
+/** Reused helper for normalize Video Generation Duration behavior in src/video-generation. */
 export function normalizeVideoGenerationDuration(params: {
   provider?: VideoGenerationProvider;
   model?: string;

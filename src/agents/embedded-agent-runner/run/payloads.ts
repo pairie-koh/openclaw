@@ -198,6 +198,7 @@ function resolveToolErrorWarningPolicy(params: {
   };
 }
 
+/** Converts a completed embedded run into reply payloads for delivery. */
 export function buildEmbeddedRunPayloads(params: {
   assistantTexts: string[];
   toolMetas: ToolMetaEntry[];

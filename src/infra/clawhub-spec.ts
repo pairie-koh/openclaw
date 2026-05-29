@@ -1,5 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
+/** Reused helper for parse Claw Hub Plugin Spec behavior in src/infra. */
 export function parseClawHubPluginSpec(raw: string): {
   name: string;
   version?: string;

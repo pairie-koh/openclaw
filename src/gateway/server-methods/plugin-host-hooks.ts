@@ -37,6 +37,7 @@ function validatePluginSessionActionJsonFields(
   return undefined;
 }
 
+/** Reused constant for plugin Host Hook Handlers behavior in src/gateway/server-methods. */
 export const pluginHostHookHandlers: GatewayRequestHandlers = {
   "plugins.uiDescriptors": ({ params, respond }) => {
     if (!validatePluginsUiDescriptorsParams(params)) {

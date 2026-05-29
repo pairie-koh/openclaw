@@ -26,6 +26,7 @@ function normalizeEnvironment(value: unknown): "sandbox" | "production" | null {
   return null;
 }
 
+/** Reused helper for register Nodes Push Command behavior in src/cli/nodes-cli. */
 export function registerNodesPushCommand(nodes: Command) {
   nodesCallOpts(
     nodes

@@ -1,6 +1,7 @@
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
 import type { SandboxToolPolicy } from "./sandbox/types.js";
 
+/** Marker for policies where alsoAllow implied a permissive base allowlist. */
 export const IMPLICIT_ALLOW_ALL_FROM_ALSO_ALLOW = Symbol.for(
   "openclaw.toolPolicy.implicitAllowAllFromAlsoAllow",
 );
@@ -28,6 +29,7 @@ function hasExplicitAllowAll(list?: string[]): boolean {
   return Array.isArray(list) && list.some((entry) => entry.trim() === "*");
 }
 
+/** Pick sandbox tool policy from config, preserving alsoAllow semantics. */
 export function pickSandboxToolPolicy(
   config?: SandboxToolPolicyConfig,
 ): SandboxToolPolicy | undefined {

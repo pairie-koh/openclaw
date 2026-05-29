@@ -55,6 +55,7 @@ function duplicateSignature(message: unknown): { key: string; timestamp: number 
   };
 }
 
+/** Reused helper for dedupe Duplicate User Messages For Compaction behavior in src/agents/embedded-agent-runner. */
 export function dedupeDuplicateUserMessagesForCompaction<T extends MessageLike>(
   messages: readonly T[],
   options: DuplicateUserMessageOptions = {},
@@ -80,6 +81,7 @@ export function dedupeDuplicateUserMessagesForCompaction<T extends MessageLike>(
   return removed > 0 ? result : [...messages];
 }
 
+/** Reused helper for collect Duplicate User Message Entry Ids For Compaction behavior in src/agents/embedded-agent-runner. */
 export function collectDuplicateUserMessageEntryIdsForCompaction(
   entries: readonly EntryLike[],
   options: DuplicateUserMessageOptions = {},

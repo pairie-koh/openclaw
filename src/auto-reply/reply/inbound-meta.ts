@@ -344,6 +344,7 @@ function formatTelegramCurrentMessageContext(ctx: TemplateContext): string | und
     .join("\n");
 }
 
+/** Reused helper for resolve Inbound User Context Prompt Joiner behavior in src/auto-reply/reply. */
 export function resolveInboundUserContextPromptJoiner(ctx: TemplateContext): " " | undefined {
   return formatTelegramCurrentMessageContext(ctx) ? " " : undefined;
 }
@@ -388,6 +389,7 @@ function resolveInboundFormattingHints(ctx: TemplateContext):
   });
 }
 
+/** Reused helper for build Inbound Meta System Prompt behavior in src/auto-reply/reply. */
 export function buildInboundMetaSystemPrompt(
   ctx: TemplateContext,
   options?: { includeFormattingHints?: boolean },
@@ -431,6 +433,7 @@ export function buildInboundMetaSystemPrompt(
   ].join("\n");
 }
 
+/** Reused helper for build Inbound User Context Prefix behavior in src/auto-reply/reply. */
 export function buildInboundUserContextPrefix(
   ctx: TemplateContext,
   envelope?: EnvelopeFormatOptions,

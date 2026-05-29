@@ -1080,6 +1080,7 @@ function refreshSessionEntryFromStore(params: {
   }
 }
 
+/** Reused helper for run Reply Agent behavior in src/auto-reply/reply. */
 export async function runReplyAgent(params: {
   commandBody: string;
   transcriptCommandBody?: string;

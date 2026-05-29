@@ -1,6 +1,7 @@
 import { asRecord } from "@openclaw/normalization-core/record-coerce";
 import type { NodeListNode, PairedNode, PairingList, PendingRequest } from "./node-list-types.js";
 
+/** Reused helper for parse Pairing List behavior in src/shared. */
 export function parsePairingList(value: unknown): PairingList {
   const obj = asRecord(value);
   const pending = Array.isArray(obj.pending) ? (obj.pending as PendingRequest[]) : [];
@@ -8,6 +9,7 @@ export function parsePairingList(value: unknown): PairingList {
   return { pending, paired };
 }
 
+/** Reused helper for parse Node List behavior in src/shared. */
 export function parseNodeList(value: unknown): NodeListNode[] {
   const obj = asRecord(value);
   return Array.isArray(obj.nodes) ? (obj.nodes as NodeListNode[]) : [];

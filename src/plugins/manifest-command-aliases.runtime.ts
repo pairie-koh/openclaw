@@ -15,6 +15,7 @@ import {
 } from "./manifest-contract-eligibility.js";
 import { hasManifestToolAvailability } from "./manifest-tool-availability.js";
 
+/** Reused helper for resolve Manifest Command Alias Owner behavior in src/plugins. */
 export function resolveManifestCommandAliasOwner(params: {
   command: string | undefined;
   config?: OpenClawConfig;
@@ -35,6 +36,7 @@ export function resolveManifestCommandAliasOwner(params: {
   });
 }
 
+/** Reused helper for resolve Manifest Cli Command Surface Owner behavior in src/plugins. */
 export function resolveManifestCliCommandSurfaceOwner(params: {
   command: string | undefined;
   config?: OpenClawConfig;

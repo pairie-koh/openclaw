@@ -1,3 +1,4 @@
+// Tests extensions/browser/src/browser config test behavior.
 import os from "node:os";
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";

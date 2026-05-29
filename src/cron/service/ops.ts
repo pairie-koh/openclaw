@@ -163,6 +163,7 @@ async function ensureLoadedForRead(state: CronServiceState) {
   }
 }
 
+/** Reused helper for start behavior in src/cron/service. */
 export async function start(state: CronServiceState) {
   if (!state.deps.cronEnabled) {
     state.deps.log.info({ enabled: false }, "cron: disabled");
@@ -238,10 +239,12 @@ export async function start(state: CronServiceState) {
   });
 }
 
+/** Reused helper for stop behavior in src/cron/service. */
 export function stop(state: CronServiceState) {
   stopTimer(state);
 }
 
+/** Reused helper for status behavior in src/cron/service. */
 export async function status(state: CronServiceState) {
   return await locked(state, async () => {
     await ensureLoadedForRead(state);
@@ -254,6 +257,7 @@ export async function status(state: CronServiceState) {
   });
 }
 
+/** Reused helper for list behavior in src/cron/service. */
 export async function list(state: CronServiceState, opts?: { includeDisabled?: boolean }) {
   return await locked(state, async () => {
     await ensureLoadedForRead(state);
@@ -263,6 +267,7 @@ export async function list(state: CronServiceState, opts?: { includeDisabled?: b
   });
 }
 
+/** Reused helper for read Job behavior in src/cron/service. */
 export async function readJob(state: CronServiceState, id: string) {
   return await locked(state, async () => {
     await ensureLoadedForRead(state);
@@ -346,6 +351,7 @@ function resolveEffectiveJobAgentId(job: CronJob, defaultAgentId: string | undef
   );
 }
 
+/** Reused helper for list Page behavior in src/cron/service. */
 export async function listPage(state: CronServiceState, opts?: CronListPageOptions) {
   return await locked(state, async () => {
     await ensureLoadedForRead(state);
@@ -402,6 +408,7 @@ export async function listPage(state: CronServiceState, opts?: CronListPageOptio
   });
 }
 
+/** Reused helper for add behavior in src/cron/service. */
 export async function add(state: CronServiceState, input: CronJobCreate) {
   return await locked(state, async () => {
     warnIfDisabled(state, "add");
@@ -437,6 +444,7 @@ export async function add(state: CronServiceState, input: CronJobCreate) {
   });
 }
 
+/** Reused helper for update behavior in src/cron/service. */
 export async function update(state: CronServiceState, id: string, patch: CronJobPatch) {
   return await locked(state, async () => {
     warnIfDisabled(state, "update");
@@ -499,6 +507,7 @@ export async function update(state: CronServiceState, id: string, patch: CronJob
   });
 }
 
+/** Reused helper for remove behavior in src/cron/service. */
 export async function remove(state: CronServiceState, id: string) {
   return await locked(state, async () => {
     warnIfDisabled(state, "remove");
@@ -879,6 +888,7 @@ async function finishPreparedManualRun(
   }
 }
 
+/** Reused helper for run behavior in src/cron/service. */
 export async function run(
   state: CronServiceState,
   id: string,
@@ -893,6 +903,7 @@ export async function run(
   return { ok: true, ran: true } as const;
 }
 
+/** Reused helper for enqueue Run behavior in src/cron/service. */
 export async function enqueueRun(state: CronServiceState, id: string, mode?: "due" | "force") {
   const disposition = await inspectManualRunDisposition(state, id, mode);
   if (!disposition.ok || !("runnable" in disposition && disposition.runnable)) {
@@ -930,6 +941,7 @@ export async function enqueueRun(state: CronServiceState, id: string, mode?: "du
   return { ok: true, enqueued: true, runId } as const;
 }
 
+/** Reused helper for wake Now behavior in src/cron/service. */
 export function wakeNow(
   state: CronServiceState,
   opts: { mode: CronWakeMode; text: string; sessionKey?: string },

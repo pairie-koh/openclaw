@@ -18,6 +18,7 @@ import type {
 } from "../../utils/message-channel-normalize.js";
 import { resolveTargetPrefixedChannel } from "./channel-target-prefix.js";
 
+/** Shared type for Session Delivery Target in src/infra/outbound. */
 export type SessionDeliveryTarget = {
   channel?: DeliverableMessageChannel;
   to?: string;
@@ -56,6 +57,7 @@ function resolveParsedRouteTarget(params: {
   };
 }
 
+/** Reused helper for resolve Session Delivery Target behavior in src/infra/outbound. */
 export function resolveSessionDeliveryTarget(params: {
   entry?: SessionEntry;
   requestedChannel?: GatewayMessageChannel;

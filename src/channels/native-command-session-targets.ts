@@ -1,5 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
+/** Inputs for resolving native command session and command-target keys. */
 export type ResolveNativeCommandSessionTargetsParams = {
   agentId: string;
   sessionPrefix: string;
@@ -9,6 +10,7 @@ export type ResolveNativeCommandSessionTargetsParams = {
   lowercaseSessionKey?: boolean;
 };
 
+/** Resolve session keys used by native command dispatch. */
 export function resolveNativeCommandSessionTargets(
   params: ResolveNativeCommandSessionTargetsParams,
 ) {

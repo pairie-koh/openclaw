@@ -61,6 +61,7 @@ async function loadCronJobForEditSchedulePatch(
   throw new Error("cron.list pagination exceeded maximum pages while looking up cron job");
 }
 
+/** Reused helper for register Cron Edit Command behavior in src/cli/cron-cli. */
 export function registerCronEditCommand(cron: Command) {
   addGatewayClientOptions(
     cron

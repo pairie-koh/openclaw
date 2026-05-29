@@ -20,8 +20,10 @@ import type {
   PluginLogger,
 } from "./types.js";
 
+/** Shared type for Plugin Cli Loader Options in src/plugins. */
 export type PluginCliLoaderOptions = Pick<PluginLoadOptions, "pluginSdkResolution">;
 
+/** Shared type for Plugin Cli Public Load Params in src/plugins. */
 export type PluginCliPublicLoadParams = {
   cfg?: OpenClawConfig;
   env?: NodeJS.ProcessEnv;
@@ -30,12 +32,15 @@ export type PluginCliPublicLoadParams = {
   primaryCommand?: string;
 };
 
+/** Shared type for Plugin Cli Load Context in src/plugins. */
 export type PluginCliLoadContext = PluginRuntimeLoadContext;
 
+/** Shared type for Plugin Cli Registry Load Result in src/plugins. */
 export type PluginCliRegistryLoadResult = PluginCliLoadContext & {
   registry: PluginRegistry;
 };
 
+/** Shared type for Plugin Cli Command Group Entry in src/plugins. */
 export type PluginCliCommandGroupEntry = {
   pluginId: string;
   parentPath: readonly string[];
@@ -44,6 +49,7 @@ export type PluginCliCommandGroupEntry = {
   register: (program: OpenClawPluginCliContext["program"]) => Promise<void>;
 };
 
+/** Reused helper for create Plugin Cli Logger behavior in src/plugins. */
 export function createPluginCliLogger(): PluginLogger {
   return createPluginRuntimeLoaderLogger();
 }
@@ -127,6 +133,7 @@ async function resolvePrimaryCommandPluginIds(
   return listPluginCliRootOwnerIds(registry, normalizedPrimary);
 }
 
+/** Reused helper for resolve Plugin Cli Load Context behavior in src/plugins. */
 export function resolvePluginCliLoadContext(params: {
   cfg?: OpenClawConfig;
   env?: NodeJS.ProcessEnv;
@@ -139,6 +146,7 @@ export function resolvePluginCliLoadContext(params: {
   });
 }
 
+/** Reused helper for load Plugin Cli Metadata Registry With Context behavior in src/plugins. */
 export async function loadPluginCliMetadataRegistryWithContext(
   context: PluginCliLoadContext,
   params?: { primaryCommand?: string },
@@ -152,6 +160,7 @@ export async function loadPluginCliMetadataRegistryWithContext(
   };
 }
 
+/** Reused helper for load Plugin Cli Command Registry With Context behavior in src/plugins. */
 export async function loadPluginCliCommandRegistryWithContext(params: {
   context: PluginCliLoadContext;
   primaryCommand?: string;
@@ -212,6 +221,7 @@ function buildPluginCliCommandGroupEntries(params: {
   }));
 }
 
+/** Reused helper for load Plugin Cli Descriptors behavior in src/plugins. */
 export async function loadPluginCliDescriptors(
   params: PluginCliPublicLoadParams,
 ): Promise<OpenClawPluginCliCommandDescriptor[]> {
@@ -237,6 +247,7 @@ export async function loadPluginCliDescriptors(
   }
 }
 
+/** Reused helper for load Plugin Cli Registration Entries behavior in src/plugins. */
 export async function loadPluginCliRegistrationEntries(params: {
   cfg?: OpenClawConfig;
   env?: NodeJS.ProcessEnv;
@@ -263,6 +274,7 @@ export async function loadPluginCliRegistrationEntries(params: {
   });
 }
 
+/** Reused helper for resolve Plugin Cli Root Owner Ids behavior in src/plugins. */
 export async function resolvePluginCliRootOwnerIds(
   params: PluginCliPublicLoadParams,
 ): Promise<string[] | null> {
@@ -281,6 +293,7 @@ export async function resolvePluginCliRootOwnerIds(
   );
 }
 
+/** Reused helper for load Plugin Cli Registration Entries With Defaults behavior in src/plugins. */
 export async function loadPluginCliRegistrationEntriesWithDefaults(
   params: PluginCliPublicLoadParams,
 ): Promise<PluginCliCommandGroupEntry[]> {

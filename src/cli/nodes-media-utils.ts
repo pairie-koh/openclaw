@@ -1,3 +1,4 @@
+/** Shared helpers for writing node media responses to temporary files. */
 import { randomUUID } from "node:crypto";
 import fs from "node:fs";
 import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
@@ -6,8 +7,10 @@ import { readStringValue } from "../../packages/normalization-core/src/string-co
 export { asRecord } from "../../packages/normalization-core/src/record-coerce.js";
 export { asBoolean } from "../utils/boolean.js";
 
+/** Reused constant for as String behavior in src/cli. */
 export const asString = readStringValue;
 
+/** Reused helper for resolve Temp Path Parts behavior in src/cli. */
 export function resolveTempPathParts(opts: { ext: string; tmpDir?: string; id?: string }): {
   ext: string;
   tmpDir: string;

@@ -20,6 +20,7 @@ function extractSupportedValues(raw: string): string[] {
   );
 }
 
+/** Reused helper for pick Fallback Thinking Level behavior in src/agents/embedded-agent-helpers. */
 export function pickFallbackThinkingLevel(params: {
   message?: string;
   attempted: Set<ThinkLevel>;

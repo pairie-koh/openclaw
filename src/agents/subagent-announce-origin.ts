@@ -16,6 +16,7 @@ import type {
   DeliveryContextSessionSource,
 } from "../utils/delivery-context.types.js";
 import { isInternalMessageChannel } from "../utils/message-channel.js";
+/** Re-exported API for src/agents, starting with Delivery Context. */
 export type { DeliveryContext } from "../utils/delivery-context.types.js";
 
 function normalizeAnnounceRouteTarget(context?: DeliveryContext): string | undefined {
@@ -53,6 +54,7 @@ function shouldStripThreadFromAnnounceEntry(
   return false;
 }
 
+/** Merges requester and session delivery context, dropping stale thread ids when targets differ. */
 export function resolveAnnounceOrigin(
   entry?: DeliveryContextSessionSource,
   requesterOrigin?: DeliveryContext,

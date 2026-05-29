@@ -15,6 +15,7 @@ import { deriveSessionChatTypeFromKey } from "../sessions/session-chat-type-shar
 
 type UnknownRecord = Record<string, unknown>;
 
+/** Shared type for Event Session Routing Policy in src/infra. */
 export type EventSessionRoutingPolicy = {
   mainKey?: string;
   sessionScope?: SessionScope;
@@ -61,6 +62,7 @@ function normalizeEntry(value: string): string | undefined {
   return normalizeLowercaseStringOrEmpty(value) || undefined;
 }
 
+/** Reused helper for parse Direct Agent Session Target behavior in src/infra. */
 export function parseDirectAgentSessionTarget(
   sessionKey: string | undefined | null,
 ): DirectSessionTarget | null {
@@ -87,6 +89,7 @@ export function parseDirectAgentSessionTarget(
   };
 }
 
+/** Reused helper for resolve Event Session Allow From behavior in src/infra. */
 export function resolveEventSessionAllowFrom(params: {
   cfg?: OpenClawConfig;
   sessionKey?: string | null;
@@ -148,6 +151,7 @@ function shouldPreserveDirectSessionKeyFromRoute(params: {
   }
 }
 
+/** Reused helper for resolve Event Session Routing Policy behavior in src/infra. */
 export function resolveEventSessionRoutingPolicy(params: {
   cfg?: OpenClawConfig;
   sessionKey?: string | null;
@@ -185,6 +189,7 @@ export function resolveEventSessionRoutingPolicy(params: {
   };
 }
 
+/** Reused helper for resolve Main Scoped Event Session Key behavior in src/infra. */
 export function resolveMainScopedEventSessionKey(params: {
   cfg?: OpenClawConfig;
   sessionKey: string;
@@ -237,6 +242,7 @@ export function resolveMainScopedEventSessionKey(params: {
   });
 }
 
+/** Reused helper for resolve Event Session Key For Policy behavior in src/infra. */
 export function resolveEventSessionKeyForPolicy(
   sessionKey: string,
   policy?: EventSessionRoutingPolicy,
@@ -248,6 +254,7 @@ export function resolveEventSessionKeyForPolicy(
   return resolveMainScopedEventSessionKey({ sessionKey, policy }) ?? sessionKey;
 }
 
+/** Reused helper for scoped Heartbeat Wake Options For Policy behavior in src/infra. */
 export function scopedHeartbeatWakeOptionsForPolicy<T extends object>(
   sessionKey: string,
   wakeOptions: T,

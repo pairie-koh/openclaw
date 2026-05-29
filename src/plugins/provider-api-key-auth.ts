@@ -90,6 +90,7 @@ async function applyApiKeyConfig(params: {
   return params.defaultModel ? applyPrimaryModel(next, params.defaultModel) : next;
 }
 
+/** Reused helper for create Provider Api Key Auth Method behavior in src/plugins. */
 export function createProviderApiKeyAuthMethod(
   params: ProviderApiKeyAuthMethodOptions,
 ): ProviderAuthMethod {

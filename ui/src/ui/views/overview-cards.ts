@@ -21,6 +21,7 @@ import type {
   ModelAuthStatusResult,
 } from "../types.ts";
 
+/** Shared type for Overview Cards Props in ui/src/ui/views. */
 export type OverviewCardsProps = {
   usageResult: SessionsUsageResult | null;
   sessionsResult: SessionsListResult | null;
@@ -112,6 +113,7 @@ function renderSkeletonCards() {
   `;
 }
 
+/** Reused helper for render Overview Cards behavior in ui/src/ui/views. */
 export function renderOverviewCards(props: OverviewCardsProps) {
   const dataLoaded =
     props.usageResult != null || props.sessionsResult != null || props.skillsReport != null;

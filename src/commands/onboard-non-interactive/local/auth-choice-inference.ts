@@ -10,6 +10,7 @@ type AuthChoiceFlag = {
   label: string;
 };
 
+/** Shared type for Auth Choice Inference in src/commands/onboard-non-interactive. */
 export type AuthChoiceInference = {
   choice?: AuthChoice;
   matches: AuthChoiceFlag[];
@@ -20,6 +21,7 @@ function hasStringValue(value: unknown): boolean {
 }
 
 // Infer auth choice from explicit provider API key flags.
+/** Reused helper for infer Auth Choice From Flags behavior in src/commands/onboard-non-interactive. */
 export function inferAuthChoiceFromFlags(
   opts: OnboardOptions,
   params?: {

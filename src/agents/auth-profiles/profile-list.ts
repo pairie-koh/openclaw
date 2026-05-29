@@ -2,10 +2,12 @@ import { uniqueStrings } from "@openclaw/normalization-core/string-normalization
 import { resolveProviderIdForAuth } from "../provider-auth-aliases.js";
 import type { AuthProfileStore } from "./types.js";
 
+/** Reused helper for dedupe Profile Ids behavior in src/agents/auth-profiles. */
 export function dedupeProfileIds(profileIds: string[]): string[] {
   return uniqueStrings(profileIds);
 }
 
+/** Reused helper for list Profiles For Provider behavior in src/agents/auth-profiles. */
 export function listProfilesForProvider(store: AuthProfileStore, provider: string): string[] {
   const providerKey = resolveProviderIdForAuth(provider);
   return Object.entries(store.profiles)

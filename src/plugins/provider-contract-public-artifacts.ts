@@ -58,6 +58,7 @@ function collectProviderContractEntries(params: {
   return providers;
 }
 
+/** Reused helper for resolve Bundled Explicit Provider Contracts From Public Artifacts behavior in src/plugins. */
 export function resolveBundledExplicitProviderContractsFromPublicArtifacts(params: {
   onlyPluginIds: readonly string[];
 }): ProviderContractEntry[] | null {

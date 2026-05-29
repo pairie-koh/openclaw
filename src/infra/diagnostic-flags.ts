@@ -37,6 +37,7 @@ function uniqueFlags(flags: string[]): string[] {
   return normalizeUniqueStringEntriesLower(flags);
 }
 
+/** Reused helper for resolve Diagnostic Flags behavior in src/infra. */
 export function resolveDiagnosticFlags(
   cfg?: OpenClawConfig,
   env: NodeJS.ProcessEnv = process.env,
@@ -49,6 +50,7 @@ export function resolveDiagnosticFlags(
   return uniqueFlags([...configFlags, ...envFlags.flags]);
 }
 
+/** Reused helper for matches Diagnostic Flag behavior in src/infra. */
 export function matchesDiagnosticFlag(flag: string, enabledFlags: string[]): boolean {
   const target = normalizeLowercaseStringOrEmpty(flag);
   if (!target) {
@@ -81,6 +83,7 @@ export function matchesDiagnosticFlag(flag: string, enabledFlags: string[]): boo
   return false;
 }
 
+/** Reused helper for is Diagnostic Flag Enabled behavior in src/infra. */
 export function isDiagnosticFlagEnabled(
   flag: string,
   cfg?: OpenClawConfig,

@@ -6,8 +6,10 @@ import { getBootstrapChannelPlugin } from "../../channels/plugins/bootstrap-regi
 import type { ChannelMessageActionName } from "../../channels/plugins/types.public.js";
 import { hasPotentialPluginActionParam } from "./message-action-param-keys.js";
 
+/** Shared type for Message Action Target Mode in src/infra/outbound. */
 export type MessageActionTargetMode = "to" | "channelId" | "none";
 
+/** Reused constant for MESSAGE ACTION TARGET MODE behavior in src/infra/outbound. */
 export const MESSAGE_ACTION_TARGET_MODE: Record<ChannelMessageActionName, MessageActionTargetMode> =
   {
     send: "to",
@@ -105,10 +107,12 @@ function listActionTargetAliasSpecs(
   return specs;
 }
 
+/** Reused helper for action Requires Target behavior in src/infra/outbound. */
 export function actionRequiresTarget(action: ChannelMessageActionName): boolean {
   return MESSAGE_ACTION_TARGET_MODE[action] !== "none";
 }
 
+/** Reused helper for action Has Target behavior in src/infra/outbound. */
 export function actionHasTarget(
   action: ChannelMessageActionName,
   params: Record<string, unknown>,

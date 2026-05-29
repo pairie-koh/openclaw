@@ -94,6 +94,7 @@ function findCronJobInPage(jobs: CronJob[], idOrName: string): CronJob | undefin
   );
 }
 
+/** Reused helper for load Cron Job For Show behavior in src/cli/cron-cli. */
 export async function loadCronJobForShow(
   opts: GatewayRpcOpts,
   idOrName: string,
@@ -152,6 +153,7 @@ function registerCronToggleCommand(params: {
   );
 }
 
+/** Reused helper for register Cron Simple Commands behavior in src/cli/cron-cli. */
 export function registerCronSimpleCommands(cron: Command) {
   addGatewayClientOptions(
     cron

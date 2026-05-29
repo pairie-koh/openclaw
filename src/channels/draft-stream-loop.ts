@@ -9,6 +9,7 @@ export type DraftStreamLoop = {
   waitForInFlight: () => Promise<void>;
 };
 
+/** Create a throttled loop that sends or edits draft stream text. */
 export function createDraftStreamLoop(params: {
   throttleMs: number;
   isStopped: () => boolean;

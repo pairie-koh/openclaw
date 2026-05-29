@@ -2,6 +2,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
 import { basenameFromAnyPath } from "../media/file-name.js";
 
+/** Generated attachment metadata passed between child and parent tasks. */
 export type AgentGeneratedAttachment = {
   type?: "image" | "audio" | "video" | "file";
   path?: string;
@@ -12,6 +13,7 @@ export type AgentGeneratedAttachment = {
   name?: string;
 };
 
+/** Build a stable generated-attachment reference token. */
 export function generatedAttachmentReference(
   attachment: AgentGeneratedAttachment,
 ): string | undefined {
@@ -20,6 +22,7 @@ export function generatedAttachmentReference(
   );
 }
 
+/** Extract media URLs from generated attachments. */
 export function mediaUrlsFromGeneratedAttachments(
   attachments: readonly AgentGeneratedAttachment[] | undefined,
 ): string[] {
@@ -28,6 +31,7 @@ export function mediaUrlsFromGeneratedAttachments(
   );
 }
 
+/** Resolve a display name for a generated attachment. */
 export function nameFromGeneratedAttachment(
   attachment: AgentGeneratedAttachment,
 ): string | undefined {
@@ -37,6 +41,7 @@ export function nameFromGeneratedAttachment(
   );
 }
 
+/** Format generated attachment lines for internal prompt context. */
 export function formatGeneratedAttachmentLines(
   attachments: readonly AgentGeneratedAttachment[] | undefined,
 ): string[] {

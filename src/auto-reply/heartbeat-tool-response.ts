@@ -3,9 +3,11 @@ import { normalizeOptionalString as readString } from "@openclaw/normalization-c
 import type { ReplyPayload } from "./reply-payload.js";
 import { HEARTBEAT_TOKEN } from "./tokens.js";
 
+/** Reused constant for HEARTBEAT RESPONSE TOOL NAME behavior in src/auto-reply. */
 export const HEARTBEAT_RESPONSE_TOOL_NAME = "heartbeat_respond";
 const HEARTBEAT_RESPONSE_CHANNEL_DATA_KEY = "openclawHeartbeatResponse";
 
+/** Reused constant for HEARTBEAT TOOL OUTCOMES behavior in src/auto-reply. */
 export const HEARTBEAT_TOOL_OUTCOMES = [
   "no_change",
   "progress",
@@ -15,9 +17,11 @@ export const HEARTBEAT_TOOL_OUTCOMES = [
 ] as const;
 type HeartbeatToolOutcome = (typeof HEARTBEAT_TOOL_OUTCOMES)[number];
 
+/** Reused constant for HEARTBEAT TOOL PRIORITIES behavior in src/auto-reply. */
 export const HEARTBEAT_TOOL_PRIORITIES = ["low", "normal", "high"] as const;
 type HeartbeatToolPriority = (typeof HEARTBEAT_TOOL_PRIORITIES)[number];
 
+/** Shared type for Heartbeat Tool Response in src/auto-reply. */
 export type HeartbeatToolResponse = {
   outcome: HeartbeatToolOutcome;
   notify: boolean;
@@ -51,6 +55,7 @@ function readBooleanAlias(record: Record<string, unknown>, ...keys: string[]) {
   return undefined;
 }
 
+/** Reused helper for normalize Heartbeat Tool Response behavior in src/auto-reply. */
 export function normalizeHeartbeatToolResponse(value: unknown): HeartbeatToolResponse | undefined {
   if (!isRecord(value)) {
     return undefined;
@@ -79,10 +84,12 @@ export function normalizeHeartbeatToolResponse(value: unknown): HeartbeatToolRes
   };
 }
 
+/** Reused helper for get Heartbeat Tool Notification Text behavior in src/auto-reply. */
 export function getHeartbeatToolNotificationText(response: HeartbeatToolResponse): string {
   return response.notify ? (response.notificationText ?? response.summary).trim() : "";
 }
 
+/** Reused helper for create Heartbeat Tool Response Payload behavior in src/auto-reply. */
 export function createHeartbeatToolResponsePayload(response: HeartbeatToolResponse): ReplyPayload {
   return {
     text: response.notify ? getHeartbeatToolNotificationText(response) : HEARTBEAT_TOKEN,
@@ -100,6 +107,7 @@ function getHeartbeatToolResponseFromPayload(
   );
 }
 
+/** Reused helper for resolve Heartbeat Tool Response From Reply Result behavior in src/auto-reply. */
 export function resolveHeartbeatToolResponseFromReplyResult(
   replyResult: ReplyPayload | ReplyPayload[] | undefined,
 ): HeartbeatToolResponse | undefined {

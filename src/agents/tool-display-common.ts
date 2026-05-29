@@ -11,6 +11,7 @@ type ToolDisplayActionSpec = {
   detailKeys?: string[];
 };
 
+/** Shared type for Tool Display Spec in src/agents. */
 export type ToolDisplaySpec = {
   title?: string;
   label?: string;
@@ -18,6 +19,7 @@ export type ToolDisplaySpec = {
   actions?: Record<string, ToolDisplayActionSpec>;
 };
 
+/** Shared type for Tool Search Code Display Target in src/agents. */
 export type ToolSearchCodeDisplayTarget = {
   toolName: string;
   displayToolName?: string;
@@ -34,10 +36,12 @@ type CoerceDisplayValueOptions = {
   maxArrayEntries?: number;
 };
 
+/** Reused helper for normalize Tool Name behavior in src/agents. */
 export function normalizeToolName(name?: string): string {
   return (name ?? "tool").trim();
 }
 
+/** Reused helper for default Title behavior in src/agents. */
 export function defaultTitle(name: string): string {
   const cleaned = name.replace(/_/g, " ").trim();
   if (!cleaned) {
@@ -74,6 +78,7 @@ function resolveActionArg(args: unknown): string | undefined {
   return action || undefined;
 }
 
+/** Reused helper for resolve Tool Verb And Detail For Args behavior in src/agents. */
 export function resolveToolVerbAndDetailForArgs(params: {
   toolKey: string;
   args?: unknown;
@@ -180,6 +185,7 @@ function lookupValueByPath(args: unknown, path: string): unknown {
   return current;
 }
 
+/** Reused helper for format Detail Key behavior in src/agents. */
 export function formatDetailKey(raw: string, overrides: Record<string, string> = {}): string {
   let last = "";
   for (const segment of raw.split(".")) {
@@ -562,6 +568,7 @@ function summarizeToolSearchCallInput(raw: string | undefined): string | undefin
   return undefined;
 }
 
+/** Reused helper for resolve Tool Search Code Display Target behavior in src/agents. */
 export function resolveToolSearchCodeDisplayTarget(
   args: unknown,
 ): ToolSearchCodeDisplayTarget | undefined {
@@ -768,6 +775,7 @@ function resolveToolVerbAndDetail(params: {
   return { verb, detail };
 }
 
+/** Reused helper for format Tool Detail Text behavior in src/agents. */
 export function formatToolDetailText(
   detail: string | undefined,
   opts: { prefixWithWith?: boolean } = {},

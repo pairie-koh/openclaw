@@ -38,6 +38,7 @@ import type {
   RuntimeWebSearchConfig as WebSearchConfig,
 } from "./runtime-types.js";
 
+/** Re-exported API for src/web-search. */
 export type {
   ListWebSearchProvidersParams,
   ResolveWebSearchDefinitionParams,
@@ -66,6 +67,7 @@ function resolveWebSearchRuntimeConfig(params?: {
   });
 }
 
+/** Reused helper for resolve Web Search Enabled behavior in src/web-search. */
 export function resolveWebSearchEnabled(params: {
   search?: WebSearchConfig;
   sandboxed?: boolean;
@@ -114,6 +116,7 @@ function hasEntryCredential(
   });
 }
 
+/** Reused helper for is Web Search Provider Configured behavior in src/web-search. */
 export function isWebSearchProviderConfigured(params: {
   provider: Pick<
     PluginWebSearchProviderEntry,
@@ -132,6 +135,7 @@ export function isWebSearchProviderConfigured(params: {
   return hasEntryCredential(params.provider, config, resolveSearchConfig(config));
 }
 
+/** Reused helper for list Web Search Providers behavior in src/web-search. */
 export function listWebSearchProviders(params?: {
   config?: OpenClawConfig;
 }): PluginWebSearchProviderEntry[] {
@@ -141,6 +145,7 @@ export function listWebSearchProviders(params?: {
   });
 }
 
+/** Reused helper for list Configured Web Search Providers behavior in src/web-search. */
 export function listConfiguredWebSearchProviders(params?: {
   config?: OpenClawConfig;
 }): PluginWebSearchProviderEntry[] {
@@ -150,6 +155,7 @@ export function listConfiguredWebSearchProviders(params?: {
   });
 }
 
+/** Reused helper for resolve Web Search Provider Id behavior in src/web-search. */
 export function resolveWebSearchProviderId(params: {
   search?: WebSearchConfig;
   config?: OpenClawConfig;
@@ -438,6 +444,7 @@ function isStructuredAvailabilityError(result: unknown): result is { error: stri
   return typeof error === "string" && /^missing_[a-z0-9_]*api_key$/i.test(error);
 }
 
+/** Reused helper for run Web Search behavior in src/web-search. */
 export async function runWebSearch(params: RunWebSearchParams): Promise<RunWebSearchResult> {
   const config = resolveWebSearchRuntimeConfig({
     config: params.config,
@@ -501,6 +508,7 @@ export async function runWebSearch(params: RunWebSearchParams): Promise<RunWebSe
   throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
 
+/** Reused constant for testing behavior in src/web-search. */
 export const testing = {
   resolveSearchConfig,
   resolveSearchProvider: resolveWebSearchProviderId,
@@ -510,4 +518,5 @@ export const testing = {
   resolveExplicitWebSearchProviderPluginIds,
   hasExplicitWebSearchSelection,
 };
+/** Re-exported API for src/web-search, starting with testing. */
 export { testing as __testing };

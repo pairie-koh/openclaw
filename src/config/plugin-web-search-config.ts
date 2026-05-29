@@ -11,6 +11,7 @@ type PluginWebSearchConfigCarrier = {
   };
 };
 
+/** Reused helper for resolve Plugin Web Search Config behavior in src/config. */
 export function resolvePluginWebSearchConfig(
   config: PluginWebSearchConfigCarrier | undefined,
   pluginId: string,

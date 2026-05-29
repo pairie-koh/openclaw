@@ -1,3 +1,4 @@
+// Main dispatch orchestration from normalized config and inbound context.
 import crypto from "node:crypto";
 import {
   normalizeLowercaseStringOrEmpty,
@@ -478,6 +479,7 @@ function createReplyDispatchEvent(
   }) as PluginHookReplyDispatchEvent;
 }
 
+/** Reused constant for testing behavior in src/auto-reply/reply. */
 export const testing = {
   createReplyDispatchEvent,
 };
@@ -1004,11 +1006,13 @@ function createReplyHotPathTimingTracker(options: { profilerEnabled?: boolean } 
   };
 }
 
+/** Re-exported API for src/auto-reply/reply. */
 export type {
   DispatchFromConfigParams,
   DispatchFromConfigResult,
 } from "./dispatch-from-config.types.js";
 
+/** Reused helper for dispatch Reply From Config behavior in src/auto-reply/reply. */
 export async function dispatchReplyFromConfig(
   params: DispatchFromConfigParams,
 ): Promise<DispatchFromConfigResult> {

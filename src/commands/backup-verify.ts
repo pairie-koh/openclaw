@@ -1,3 +1,4 @@
+/** Verifies OpenClaw backup archives and reports contents. */
 import path from "node:path";
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import * as tar from "tar";
@@ -38,11 +39,13 @@ type BackupManifest = {
   }>;
 };
 
+/** Shared type for Backup Verify Options in src/commands. */
 export type BackupVerifyOptions = {
   archive: string;
   json?: boolean;
 };
 
+/** Shared type for Backup Verify Result in src/commands. */
 export type BackupVerifyResult = {
   ok: true;
   archivePath: string;
@@ -338,6 +341,7 @@ function findDuplicateNormalizedEntryPath(
   return undefined;
 }
 
+/** Reused helper for backup Verify Command behavior in src/commands. */
 export async function backupVerifyCommand(
   runtime: RuntimeEnv,
   opts: BackupVerifyOptions,

@@ -309,6 +309,7 @@ function normalizeProviderWizard(params: {
   };
 }
 
+/** Reused helper for normalize Registered Provider behavior in src/plugins. */
 export function normalizeRegisteredProvider(params: {
   pluginId: string;
   source: string;

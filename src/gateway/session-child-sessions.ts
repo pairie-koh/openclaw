@@ -3,11 +3,13 @@ import { loadCombinedSessionStoreForGateway } from "../config/sessions/combined-
 import type { SessionEntry } from "../config/sessions/types.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
+/** Shared type for Direct Child Session Entry in src/gateway. */
 export type DirectChildSessionEntry = {
   sessionKey: string;
   entry: SessionEntry;
 };
 
+/** Reused helper for is Direct Child Session Entry behavior in src/gateway. */
 export function isDirectChildSessionEntry(params: {
   sessionKey: string;
   entry: SessionEntry | undefined;
@@ -23,6 +25,7 @@ export function isDirectChildSessionEntry(params: {
   );
 }
 
+/** Reused helper for find Direct Child Sessions For Parent behavior in src/gateway. */
 export function findDirectChildSessionsForParent(params: {
   cfg: OpenClawConfig;
   parentKey: string;

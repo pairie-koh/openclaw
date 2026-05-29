@@ -39,6 +39,7 @@ function isBackendPluginBlockedByAllowlist(params: {
   );
 }
 
+/** Reused helper for handle Acp Doctor Action behavior in src/auto-reply/reply. */
 export async function handleAcpDoctorAction(
   params: HandleCommandsParams,
   restTokens: string[],
@@ -138,6 +139,7 @@ export async function handleAcpDoctorAction(
   }
 }
 
+/** Reused helper for handle Acp Install Action behavior in src/auto-reply/reply. */
 export function handleAcpInstallAction(
   params: HandleCommandsParams,
   restTokens: string[],
@@ -174,6 +176,7 @@ function formatAcpSessionLine(params: {
   return `${marker} ${label} (${acp.mode}, ${acp.state}, backend:${acp.backend}${threadText}) -> ${params.key}`;
 }
 
+/** Reused helper for handle Acp Sessions Action behavior in src/auto-reply/reply. */
 export function handleAcpSessionsAction(
   params: HandleCommandsParams,
   restTokens: string[],

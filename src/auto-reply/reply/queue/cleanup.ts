@@ -4,6 +4,7 @@ import { clearCommandLane } from "../../../process/command-queue.js";
 import { clearFollowupDrainCallback } from "./drain.js";
 import { clearFollowupQueue } from "./state.js";
 
+/** Shared type for Clear Session Queue Result in src/auto-reply/reply. */
 export type ClearSessionQueueResult = {
   followupCleared: number;
   laneCleared: number;
@@ -31,6 +32,7 @@ function resolveQueueCleanupLaneClearer() {
     : defaultQueueCleanupDeps.clearCommandLane;
 }
 
+/** Reused constant for testing behavior in src/auto-reply/reply. */
 export const testing = {
   setDepsForTests(deps: Partial<typeof defaultQueueCleanupDeps> | undefined): void {
     queueCleanupDeps.resolveEmbeddedSessionLane =
@@ -49,6 +51,7 @@ export const testing = {
   },
 };
 
+/** Reused helper for clear Session Queues behavior in src/auto-reply/reply. */
 export function clearSessionQueues(keys: Array<string | undefined>): ClearSessionQueueResult {
   const seen = new Set<string>();
   let followupCleared = 0;
@@ -71,4 +74,5 @@ export function clearSessionQueues(keys: Array<string | undefined>): ClearSessio
 
   return { followupCleared, laneCleared, keys: clearedKeys };
 }
+/** Re-exported API for src/auto-reply/reply, starting with testing. */
 export { testing as __testing };

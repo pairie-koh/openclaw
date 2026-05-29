@@ -1,16 +1,19 @@
 import { normalizeOptionalString } from "../../packages/normalization-core/src/string-coerce.js";
 
+/** Provider shape that can participate in automatic selection. */
 export type AutoSelectableProvider = {
   id: string;
   autoSelectOrder?: number;
 };
 
+/** Result of picking a configured provider or falling back to auto selection. */
 export type ProviderSelection<TProvider> = {
   configuredProviderId?: string;
   missingConfiguredProvider: boolean;
   provider: TProvider | undefined;
 };
 
+/** Provider plus resolved config, or the precise reason no provider can serve the capability. */
 export type ResolvedConfiguredProvider<TProvider, TConfig> =
   | {
       ok: true;
@@ -25,6 +28,7 @@ export type ResolvedConfiguredProvider<TProvider, TConfig> =
       provider?: TProvider;
     };
 
+/** Select the configured provider when present, otherwise the lowest auto-select order provider. */
 export function selectConfiguredOrAutoProvider<TProvider extends AutoSelectableProvider>(params: {
   configuredProviderId?: string;
   getConfiguredProvider: (providerId: string | undefined) => TProvider | undefined;
@@ -50,6 +54,7 @@ export function selectConfiguredOrAutoProvider<TProvider extends AutoSelectableP
   };
 }
 
+/** Merge canonical provider config with selected provider override config. */
 export function resolveProviderRawConfig(params: {
   providerId: string;
   configuredProviderId?: string;
@@ -67,6 +72,7 @@ export function resolveProviderRawConfig(params: {
   };
 }
 
+/** Resolve a configured capability provider and validate that its provider config is usable. */
 export function resolveConfiguredCapabilityProvider<
   TConfig,
   TFullConfig,

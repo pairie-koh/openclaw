@@ -11,6 +11,7 @@ import { buildConfiguredModelCatalog } from "./model-selection-shared.js";
 
 type ThinkLevel = "off" | "minimal" | "low" | "medium" | "high" | "xhigh" | "adaptive" | "max";
 
+/** Resolve thinking default from per-model config, global config, or catalog hints. */
 export function resolveThinkingDefault(params: {
   cfg: OpenClawConfig;
   provider: string;
@@ -90,6 +91,7 @@ export function resolveThinkingDefault(params: {
   });
 }
 
+/** Resolve thinking default after loading runtime catalog entries. */
 export async function resolveThinkingDefaultWithRuntimeCatalog(params: {
   cfg: OpenClawConfig;
   provider: string;

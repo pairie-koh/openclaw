@@ -16,6 +16,7 @@ import { listSystemPresence, updateSystemPresence } from "../../infra/system-pre
 import { broadcastPresenceSnapshot } from "../server/presence-events.js";
 import type { GatewayRequestHandlers } from "./types.js";
 
+/** Reused constant for system Handlers behavior in src/gateway/server-methods. */
 export const systemHandlers: GatewayRequestHandlers = {
   "gateway.identity.get": ({ respond }) => {
     const identity = loadOrCreateDeviceIdentity();

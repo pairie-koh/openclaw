@@ -7,6 +7,7 @@ import type {
   SandboxBackendRegistration,
 } from "./backend.types.js";
 
+/** Re-exported API for src/agents/sandbox. */
 export type {
   CreateSandboxBackendParams,
   SandboxBackendFactory,
@@ -15,6 +16,7 @@ export type {
   SandboxBackendRegistration,
   SandboxBackendRuntimeInfo,
 } from "./backend.types.js";
+/** Re-exported API for src/agents/sandbox. */
 export type {
   SandboxBackendCommandParams,
   SandboxBackendCommandResult,
@@ -40,6 +42,7 @@ function normalizeSandboxBackendId(id: string): SandboxBackendId {
   return normalized;
 }
 
+/** Registers a sandbox backend factory and optional manager. */
 export function registerSandboxBackend(
   id: string,
   registration: SandboxBackendRegistration,
@@ -59,14 +62,17 @@ export function registerSandboxBackend(
   };
 }
 
+/** Returns a backend factory by normalized id. */
 export function getSandboxBackendFactory(id: string): SandboxBackendFactory | null {
   return getSandboxBackendFactories().get(normalizeSandboxBackendId(id))?.factory ?? null;
 }
 
+/** Returns backend manager operations by normalized id. */
 export function getSandboxBackendManager(id: string): SandboxBackendManager | null {
   return getSandboxBackendFactories().get(normalizeSandboxBackendId(id))?.manager ?? null;
 }
 
+/** Returns a backend factory or throws for unsupported backend ids. */
 export function requireSandboxBackendFactory(id: string): SandboxBackendFactory {
   const factory = getSandboxBackendFactory(id);
   if (factory) {

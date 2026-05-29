@@ -24,6 +24,7 @@ function parsePortOption(value: unknown, fallback: number): number | null {
   return parsePort(value);
 }
 
+/** Reused helper for register Node Cli behavior in src/cli/node-cli. */
 export function registerNodeCli(program: Command) {
   const node = program
     .command("node")

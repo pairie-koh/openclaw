@@ -1,5 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
+/** Shared type for Systemd Unavailable Kind in src/daemon. */
 export type SystemdUnavailableKind =
   | "missing_systemctl"
   | "user_bus_unavailable"
@@ -9,6 +10,7 @@ function normalizeDetail(detail?: string): string {
   return normalizeLowercaseStringOrEmpty(detail);
 }
 
+/** Reused helper for is Systemctl Missing Detail behavior in src/daemon. */
 export function isSystemctlMissingDetail(detail?: string): boolean {
   const normalized = normalizeDetail(detail);
   return (
@@ -20,6 +22,7 @@ export function isSystemctlMissingDetail(detail?: string): boolean {
   );
 }
 
+/** Reused helper for is Systemd User Bus Unavailable Detail behavior in src/daemon. */
 export function isSystemdUserBusUnavailableDetail(detail?: string): boolean {
   const normalized = normalizeDetail(detail);
   return (
@@ -32,6 +35,7 @@ export function isSystemdUserBusUnavailableDetail(detail?: string): boolean {
   );
 }
 
+/** Reused helper for classify Systemd Unavailable Detail behavior in src/daemon. */
 export function classifySystemdUnavailableDetail(detail?: string): SystemdUnavailableKind | null {
   const normalized = normalizeDetail(detail);
   if (!normalized) {

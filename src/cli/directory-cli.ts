@@ -60,6 +60,7 @@ function printDirectoryList(params: {
   );
 }
 
+/** Reused helper for register Directory Cli behavior in src/cli. */
 export function registerDirectoryCli(program: Command) {
   const directory = program
     .command("directory")

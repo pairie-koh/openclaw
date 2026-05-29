@@ -1,7 +1,9 @@
 import { normalizeStringifiedOptionalString } from "@openclaw/normalization-core/string-coerce";
 
+/** Re-exported API for src/cli/nodes-cli, starting with parse Node List. */
 export { parseNodeList, parsePairingList } from "../../shared/node-list-parse.js";
 
+/** Reused helper for format Permissions behavior in src/cli/nodes-cli. */
 export function formatPermissions(raw: unknown) {
   if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
     return null;

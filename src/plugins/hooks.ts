@@ -93,6 +93,7 @@ import type {
 } from "./hook-types.js";
 
 // Re-export types for consumers
+/** Re-exported API for src/plugins. */
 export type {
   PluginHookAgentContext,
   PluginHookBeforeAgentReplyEvent,
@@ -163,13 +164,16 @@ export type {
   PluginHookBeforeInstallResult,
 };
 
+/** Shared type for Hook Runner Logger in src/plugins. */
 export type HookRunnerLogger = {
   debug?: (message: string) => void;
   warn: (message: string) => void;
   error: (message: string) => void;
 };
 
+/** Shared type for Hook Failure Policy in src/plugins. */
 export type HookFailurePolicy = "fail-open" | "fail-closed";
+/** Shared type for Void Hook Run Options in src/plugins. */
 export type VoidHookRunOptions = {
   unrefTimeout?: boolean;
 };
@@ -179,6 +183,7 @@ type BeforeAgentFinalizeResultWithRetryCandidates = PluginHookBeforeAgentFinaliz
   retryCandidates?: BeforeAgentFinalizeRetry[];
 };
 
+/** Shared type for Hook Runner Options in src/plugins. */
 export type HookRunnerOptions = {
   logger?: HookRunnerLogger;
   /** If true, errors in hooks will be caught and logged instead of thrown */
@@ -239,6 +244,7 @@ type ModifyingHookPolicy<K extends PluginHookName, TResult> = {
   onTerminal?: (params: { hookName: K; pluginId: string; result: TResult }) => void;
 };
 
+/** Shared type for Plugin Targeted Inbound Claim Outcome in src/plugins. */
 export type PluginTargetedInboundClaimOutcome =
   | {
       status: "handled";
@@ -1655,8 +1661,10 @@ export function createHookRunner(
   };
 }
 
+/** Shared type for Hook Runner in src/plugins. */
 export type HookRunner = ReturnType<typeof createHookRunner>;
 
+/** Shared type for Subagent Lifecycle Hook Runner in src/plugins. */
 export type SubagentLifecycleHookRunner = Pick<
   HookRunner,
   "hasHooks" | "runSubagentSpawning" | "runSubagentSpawned" | "runSubagentEnded"

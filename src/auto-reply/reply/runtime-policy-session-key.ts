@@ -83,6 +83,7 @@ function isMainSessionAlias(params: {
   );
 }
 
+/** Reused helper for resolve Runtime Policy Session Key behavior in src/auto-reply/reply. */
 export function resolveRuntimePolicySessionKey(params: {
   cfg?: OpenClawConfig;
   ctx?: RuntimePolicyContext;

@@ -2,6 +2,7 @@ import { normalizeUniqueStringEntries } from "@openclaw/normalization-core/strin
 import { DEFAULT_SUBAGENT_MAX_SPAWN_DEPTH } from "../config/agent-limits.js";
 import type { DeliveryContext } from "../utils/delivery-context.types.js";
 
+/** Builds focused role/rules/context instructions for one child subagent session. */
 export function buildSubagentSystemPrompt(params: {
   requesterSessionKey?: string;
   requesterOrigin?: DeliveryContext;

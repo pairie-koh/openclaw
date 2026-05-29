@@ -491,6 +491,7 @@ export function pluginStateRegister(params: {
   }
 }
 
+/** Reused helper for plugin State Register If Absent behavior in src/plugin-state. */
 export function pluginStateRegisterIfAbsent(params: {
   pluginId: string;
   namespace: string;
@@ -552,6 +553,7 @@ export function pluginStateRegisterIfAbsent(params: {
   }
 }
 
+/** Reused helper for plugin State Lookup behavior in src/plugin-state. */
 export function pluginStateLookup(params: {
   pluginId: string;
   namespace: string;
@@ -577,6 +579,7 @@ export function pluginStateLookup(params: {
   }
 }
 
+/** Reused helper for plugin State Consume behavior in src/plugin-state. */
 export function pluginStateConsume(params: {
   pluginId: string;
   namespace: string;
@@ -611,6 +614,7 @@ export function pluginStateConsume(params: {
   }
 }
 
+/** Reused helper for plugin State Delete behavior in src/plugin-state. */
 export function pluginStateDelete(params: {
   pluginId: string;
   namespace: string;
@@ -635,6 +639,7 @@ export function pluginStateDelete(params: {
   }
 }
 
+/** Reused helper for plugin State Entries behavior in src/plugin-state. */
 export function pluginStateEntries(params: {
   pluginId: string;
   namespace: string;
@@ -658,6 +663,7 @@ export function pluginStateEntries(params: {
   }
 }
 
+/** Reused helper for plugin State Clear behavior in src/plugin-state. */
 export function pluginStateClear(params: {
   pluginId: string;
   namespace: string;
@@ -687,6 +693,7 @@ export function pluginStateClear(params: {
   }
 }
 
+/** Reused helper for sweep Expired Plugin State Entries behavior in src/plugin-state. */
 export function sweepExpiredPluginStateEntries(): number {
   try {
     return runWriteTransaction("sweep", ({ db }) =>
@@ -702,6 +709,7 @@ export function sweepExpiredPluginStateEntries(): number {
   }
 }
 
+/** Reused helper for is Plugin State Database Open behavior in src/plugin-state. */
 export function isPluginStateDatabaseOpen(): boolean {
   return cachedDatabase?.db.isOpen === true;
 }
@@ -758,6 +766,7 @@ export function seedPluginStateDatabaseEntriesForTests(
   });
 }
 
+/** Reused helper for probe Plugin State Store behavior in src/plugin-state. */
 export function probePluginStateStore(): PluginStateStoreProbeResult {
   const databasePath = resolveOpenClawStateSqlitePath(process.env);
   const steps: PluginStateStoreProbeStep[] = [];

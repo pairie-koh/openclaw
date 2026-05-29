@@ -25,6 +25,7 @@ import type { WizardPrompter } from "../wizard/prompts.js";
 import type { FlowContribution, FlowOption } from "./types.js";
 import { sortFlowContributionsByLabel } from "./types.js";
 
+/** Shared type for Search Provider in src/flows. */
 export type SearchProvider = NonNullable<
   NonNullable<NonNullable<NonNullable<OpenClawConfig["tools"]>["web"]>["search"]>["provider"]
 >;
@@ -59,6 +60,7 @@ function resolveSearchProviderCredentialLabel(
   return normalizeOptionalString(entry.credentialLabel) || `${entry.label} API key`;
 }
 
+/** Reused helper for list Search Provider Options behavior in src/flows. */
 export function listSearchProviderOptions(
   config?: OpenClawConfig,
 ): readonly PluginWebSearchProviderEntry[] {
@@ -71,6 +73,7 @@ function showsSearchProviderInSetup(
   return entry.onboardingScopes?.includes("text-inference") ?? false;
 }
 
+/** Reused helper for resolve Search Provider Options behavior in src/flows. */
 export function resolveSearchProviderOptions(
   config?: OpenClawConfig,
 ): readonly PluginWebSearchProviderEntry[] {
@@ -146,6 +149,7 @@ function resolveSearchProviderEntry(
   return resolveSearchProviderOptions(config).find((entry) => entry.id === provider);
 }
 
+/** Reused helper for has Key In Env behavior in src/flows. */
 export function hasKeyInEnv(entry: Pick<PluginWebSearchProviderEntry, "envVars">): boolean {
   return entry.envVars.some((k) => Boolean(normalizeOptionalString(process.env[k])));
 }
@@ -187,6 +191,7 @@ function rawKeyValue(config: OpenClawConfig, provider: SearchProvider): unknown 
   return entry?.getConfiguredCredentialValue?.(config);
 }
 
+/** Reused helper for resolve Existing Key behavior in src/flows. */
 export function resolveExistingKey(
   config: OpenClawConfig,
   provider: SearchProvider,
@@ -194,6 +199,7 @@ export function resolveExistingKey(
   return normalizeSecretInputString(rawKeyValue(config, provider));
 }
 
+/** Reused helper for has Existing Key behavior in src/flows. */
 export function hasExistingKey(config: OpenClawConfig, provider: SearchProvider): boolean {
   return hasConfiguredSecretInput(rawKeyValue(config, provider));
 }
@@ -227,6 +233,7 @@ function resolveSearchSecretInput(
   return key;
 }
 
+/** Reused helper for apply Search Key behavior in src/flows. */
 export function applySearchKey(
   config: OpenClawConfig,
   provider: SearchProvider,
@@ -265,6 +272,7 @@ function applySearchProviderSelectionConfig(
   return config;
 }
 
+/** Reused helper for apply Search Provider Selection behavior in src/flows. */
 export function applySearchProviderSelection(
   config: OpenClawConfig,
   provider: SearchProvider,
@@ -349,6 +357,7 @@ function preserveDisabledState(original: OpenClawConfig, result: OpenClawConfig)
   };
 }
 
+/** Shared type for Setup Search Options in src/flows. */
 export type SetupSearchOptions = {
   quickstartDefaults?: boolean;
   secretInputMode?: SecretInputMode;
@@ -400,6 +409,7 @@ async function finalizeSearchProviderSetup(params: {
   return preserveDisabledState(params.originalConfig, next);
 }
 
+/** Reused helper for run Search Setup Flow behavior in src/flows. */
 export async function runSearchSetupFlow(
   config: OpenClawConfig,
   runtime: RuntimeEnv,

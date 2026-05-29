@@ -8,8 +8,10 @@ import {
   getActivePluginRegistryWorkspaceDir,
 } from "./runtime.js";
 
+/** Shared type for Active Runtime Plugin Registry Surface in src/plugins. */
 export type ActiveRuntimePluginRegistrySurface = "active" | "channel" | "http-route";
 
+/** Reused helper for get Active Runtime Plugin Registry behavior in src/plugins. */
 export function getActiveRuntimePluginRegistry(): PluginRegistry | null {
   return getActivePluginRegistry();
 }
@@ -21,6 +23,7 @@ function normalizeRequiredPluginIds(ids?: readonly string[]): string[] | undefin
   return normalizeSortedUniqueStringEntries(ids);
 }
 
+/** Reused helper for registry Contains Runtime Plugin Ids behavior in src/plugins. */
 export function registryContainsRuntimePluginIds(
   registry: PluginRegistry,
   pluginIds: readonly string[] | undefined,
@@ -78,6 +81,7 @@ function resolveSurfaceRegistry(
   return null;
 }
 
+/** Reused helper for get Loaded Runtime Plugin Registry behavior in src/plugins. */
 export function getLoadedRuntimePluginRegistry(
   params: {
     env?: NodeJS.ProcessEnv;

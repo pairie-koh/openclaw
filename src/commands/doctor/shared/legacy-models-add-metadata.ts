@@ -7,6 +7,7 @@ const LEGACY_MODELS_ADD_CODEX_APIS = new Set([
   "openai-chatgpt-responses",
 ]);
 
+/** Reused helper for is Legacy Models Add Codex Metadata Model behavior in src/commands/doctor. */
 export function isLegacyModelsAddCodexMetadataModel(params: {
   provider: string;
   model: Partial<ModelDefinitionConfig> | undefined;

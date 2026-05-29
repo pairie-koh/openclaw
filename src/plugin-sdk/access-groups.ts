@@ -7,8 +7,10 @@ import type { ChannelId } from "../channels/plugins/types.public.js";
 import type { AccessGroupConfig } from "../config/types.access-groups.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
+/** Re-exported API for src/plugin-sdk, starting with ACCESS GROUP ALLOW FROM PREFIX. */
 export { ACCESS_GROUP_ALLOW_FROM_PREFIX, parseAccessGroupAllowFromEntry };
 
+/** Host-provided resolver that can evaluate a named access group against full config. */
 export type AccessGroupMembershipResolver = (params: {
   cfg: OpenClawConfig;
   name: string;
@@ -18,6 +20,7 @@ export type AccessGroupMembershipResolver = (params: {
   senderId: string;
 }) => boolean | Promise<boolean>;
 
+/** Narrow resolver used after callers have already chosen the access-group map. */
 export type AccessGroupMembershipLookup = (params: {
   name: string;
   group: AccessGroupConfig;
@@ -26,6 +29,7 @@ export type AccessGroupMembershipLookup = (params: {
   senderId: string;
 }) => boolean | Promise<boolean>;
 
+/** Full resolution state for diagnostics, config repair, and allowFrom expansion. */
 export type ResolvedAccessGroupAllowFromState = {
   referenced: string[];
   matched: string[];
@@ -47,6 +51,7 @@ function resolveMessageSenderGroupEntries(params: {
   return [...(params.group.members["*"] ?? []), ...(params.group.members[params.channel] ?? [])];
 }
 
+/** Resolve all access-group references from an allowFrom list without mutating the original list. */
 export async function resolveAccessGroupAllowFromState(params: {
   accessGroups?: Record<string, AccessGroupConfig>;
   allowFrom: Array<string | number> | null | undefined;
@@ -102,6 +107,8 @@ export async function resolveAccessGroupAllowFromState(params: {
 
     let allowed = false;
     try {
+      // Membership resolvers may call channel/plugin code; keep failures visible without
+      // turning one broken group into a hard allowlist failure.
       allowed = await params.resolveMembership({
         name,
         group,
@@ -124,6 +131,7 @@ export async function resolveAccessGroupAllowFromState(params: {
   return state;
 }
 
+/** Return only the allowFrom entries that matched named access groups. */
 export async function resolveAccessGroupAllowFromMatches(params: {
   cfg?: OpenClawConfig;
   allowFrom: Array<string | number> | null | undefined;
@@ -154,6 +162,7 @@ export async function resolveAccessGroupAllowFromMatches(params: {
   return state.matchedAllowFromEntries;
 }
 
+/** Add the concrete sender entry when any access-group reference authorizes that sender. */
 export async function expandAllowFromWithAccessGroups(params: {
   cfg?: OpenClawConfig;
   allowFrom: Array<string | number> | null | undefined;

@@ -17,6 +17,7 @@ const CROSS_ORIGIN_REDIRECT_SAFE_HEADERS = new Set([
   "user-agent",
 ]);
 
+/** Reused helper for retain Safe Headers For Cross Origin Redirect behavior in src/infra/net. */
 export function retainSafeHeadersForCrossOriginRedirect(
   headers?: HeadersInit | Record<string, string>,
 ): Record<string, string> | undefined {

@@ -31,6 +31,7 @@ export type TypingController = {
   cleanup: () => void;
 };
 
+/** Reused helper for create Typing Controller behavior in src/auto-reply/reply. */
 export function createTypingController(params: {
   onReplyStart?: () => Promise<void> | void;
   onCleanup?: () => void;

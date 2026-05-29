@@ -349,6 +349,7 @@ export function validateGeminiTurns(messages: AgentMessage[]): AgentMessage[] {
   });
 }
 
+/** Reused helper for merge Consecutive User Turns behavior in src/agents/embedded-agent-helpers. */
 export function mergeConsecutiveUserTurns(
   previous: Extract<AgentMessage, { role: "user" }>,
   current: Extract<AgentMessage, { role: "user" }>,

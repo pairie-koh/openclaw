@@ -22,6 +22,7 @@ type TextRange = {
   end: number;
 };
 
+/** Shared type for Tts Directive Text Stream Cleaner in src/tts. */
 export type TtsDirectiveTextStreamCleaner = {
   push: (text: string) => string;
   flush: () => string;
@@ -176,6 +177,7 @@ function classifyTtsTag(body: string): "hidden-open" | "hidden-close" | "tts" | 
   return "other";
 }
 
+/** Reused helper for create Tts Directive Text Stream Cleaner behavior in src/tts. */
 export function createTtsDirectiveTextStreamCleaner(): TtsDirectiveTextStreamCleaner {
   let pending = "";
   let insideHiddenTextBlock = false;
@@ -232,6 +234,7 @@ export function createTtsDirectiveTextStreamCleaner(): TtsDirectiveTextStreamCle
   };
 }
 
+/** Reused helper for parse Tts Directives behavior in src/tts. */
 export function parseTtsDirectives(
   text: string,
   policy: SpeechModelOverridePolicy,

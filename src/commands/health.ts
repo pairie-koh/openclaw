@@ -49,7 +49,9 @@ import type {
   PluginHealthSummary,
 } from "./health.types.js";
 import { logGatewayConnectionDetails } from "./status.gateway-connection.js";
+/** Re-exported API for src/commands, starting with format Health Channel Lines. */
 export { formatHealthChannelLines } from "./health-format.js";
+/** Re-exported API for src/commands. */
 export type {
   AgentHealthSummary,
   ChannelAccountHealthSummary,
@@ -147,6 +149,7 @@ function formatEventLoopHealthLine(summary: HealthSummary): string | null {
   }`;
 }
 
+/** Reused helper for format Model Pricing Health Line behavior in src/commands. */
 export function formatModelPricingHealthLine(summary: HealthSummary): string | null {
   const modelPricing = summary.modelPricing;
   if (!modelPricing || modelPricing.state === "disabled") {
@@ -176,6 +179,7 @@ function buildContextEngineHealthSummary(): ContextEngineHealthSummary | undefin
   return quarantined.length > 0 ? { quarantined } : undefined;
 }
 
+/** Reused helper for format Context Engine Health Line behavior in src/commands. */
 export function formatContextEngineHealthLine(summary: HealthSummary): string | null {
   const quarantined = summary.contextEngines?.quarantined ?? [];
   if (quarantined.length === 0) {
@@ -395,6 +399,7 @@ async function resolveHealthAccountContext(params: {
   };
 }
 
+/** Reused helper for get Health Snapshot behavior in src/commands. */
 export async function getHealthSnapshot(params?: {
   timeoutMs?: number;
   probe?: boolean;
@@ -615,6 +620,7 @@ export async function getHealthSnapshot(params?: {
   return summary;
 }
 
+/** Reused helper for health Command behavior in src/commands. */
 export async function healthCommand(
   opts: {
     json?: boolean;

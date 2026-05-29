@@ -1,3 +1,4 @@
+/** Tests normalized provider auth result payload construction. */
 import { describe, expect, it } from "vitest";
 import { MAX_DATE_TIMESTAMP_MS } from "../../packages/normalization-core/src/number-coercion.js";
 import { buildOauthProviderAuthResult } from "./provider-auth-result.js";

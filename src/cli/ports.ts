@@ -1,3 +1,4 @@
+/** Finds and frees local TCP ports used by CLI-managed services. */
 import { execFileSync } from "node:child_process";
 import { createServer } from "node:net";
 import { formatErrorMessage } from "../infra/errors.js";
@@ -6,8 +7,10 @@ import { tryListenOnPort } from "../infra/ports-probe.js";
 import { resolvePositiveTimerTimeoutMs, resolveTimerTimeoutMs } from "../shared/number-coercion.js";
 import { sleep } from "../utils.js";
 
+/** Shared type for Port Process in src/cli. */
 export type PortProcess = { pid: number; command?: string };
 
+/** Shared type for Force Free Port Result in src/cli. */
 export type ForceFreePortResult = {
   killed: PortProcess[];
   waitedMs: number;
@@ -140,6 +143,7 @@ async function isPortBusy(port: number): Promise<boolean> {
   }
 }
 
+/** Reused helper for parse Lsof Output behavior in src/cli. */
 export function parseLsofOutput(output: string): PortProcess[] {
   const lines = output.split(/\r?\n/).filter(Boolean);
   const results: PortProcess[] = [];
@@ -160,6 +164,7 @@ export function parseLsofOutput(output: string): PortProcess[] {
   return results;
 }
 
+/** Reused helper for list Port Listeners behavior in src/cli. */
 export function listPortListeners(port: number): PortProcess[] {
   if (process.platform === "win32") {
     try {
@@ -221,6 +226,7 @@ export function listPortListeners(port: number): PortProcess[] {
   }
 }
 
+/** Reused helper for force Free Port behavior in src/cli. */
 export function forceFreePort(port: number): PortProcess[] {
   const listeners = listPortListeners(port);
   for (const proc of listeners) {
@@ -249,6 +255,7 @@ function killPids(listeners: PortProcess[], signal: NodeJS.Signals) {
   }
 }
 
+/** Reused helper for force Free Port And Wait behavior in src/cli. */
 export async function forceFreePortAndWait(
   port: number,
   opts: {

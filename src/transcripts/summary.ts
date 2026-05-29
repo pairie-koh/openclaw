@@ -1,6 +1,7 @@
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import type { TranscriptSessionDescriptor, TranscriptUtterance } from "./provider-types.js";
 
+/** Shared type for Transcripts Summary in src/transcripts. */
 export type TranscriptsSummary = {
   sessionId: string;
   title: string;
@@ -46,6 +47,7 @@ function formatTranscript(utterances: TranscriptUtterance[]): string[] {
   return utterances.map(formatSpeakerLine).filter(Boolean);
 }
 
+/** Reused helper for summarize Transcripts behavior in src/transcripts. */
 export function summarizeTranscripts(params: {
   session: TranscriptSessionDescriptor;
   utterances: TranscriptUtterance[];
@@ -69,6 +71,7 @@ function renderList(items: string[]): string {
   return items.length > 0 ? items.map((item) => `- ${item}`).join("\n") : "- None captured";
 }
 
+/** Reused helper for render Transcripts Markdown behavior in src/transcripts. */
 export function renderTranscriptsMarkdown(summary: TranscriptsSummary): string {
   return [
     `# ${summary.title}`,

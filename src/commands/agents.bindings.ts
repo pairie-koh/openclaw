@@ -13,6 +13,7 @@ import { listManifestChannelContributionIds } from "../plugins/manifest-contribu
 import { DEFAULT_ACCOUNT_ID, normalizeAgentId } from "../routing/session-key.js";
 import type { ChannelChoice } from "./onboard-types.js";
 
+/** Re-exported API for src/commands, starting with describe Binding. */
 export { describeBinding } from "./agents.binding-format.js";
 
 function bindingMatchKey(match: AgentRouteBinding["match"]) {
@@ -53,6 +54,7 @@ function canUpgradeBindingAccountScope(params: {
   );
 }
 
+/** Reused helper for apply Agent Bindings behavior in src/commands. */
 export function applyAgentBindings(
   cfg: OpenClawConfig,
   bindings: AgentRouteBinding[],
@@ -139,6 +141,7 @@ export function applyAgentBindings(
   };
 }
 
+/** Reused helper for remove Agent Bindings behavior in src/commands. */
 export function removeAgentBindings(
   cfg: OpenClawConfig,
   bindings: AgentRouteBinding[],
@@ -275,6 +278,7 @@ function resolveBindingAccountId(params: {
   return undefined;
 }
 
+/** Reused helper for build Channel Bindings behavior in src/commands. */
 export function buildChannelBindings(params: {
   agentId: string;
   selection: ChannelChoice[];
@@ -299,6 +303,7 @@ export function buildChannelBindings(params: {
   return bindings;
 }
 
+/** Reused helper for parse Binding Specs behavior in src/commands. */
 export function parseBindingSpecs(params: {
   agentId: string;
   specs?: string[];

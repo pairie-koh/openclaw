@@ -21,6 +21,7 @@ import { resolveSnakeCaseParamKey } from "../../param-key.js";
 import { readBooleanParam as readBooleanParamShared } from "../../plugin-sdk/boolean-param.js";
 import { hasPotentialPluginActionParam } from "./message-action-param-keys.js";
 
+/** Reused constant for read Boolean Param behavior in src/infra/outbound. */
 export const readBooleanParam = readBooleanParamShared;
 
 const BASE_ACTION_MEDIA_SOURCE_PARAM_KEYS = [
@@ -140,6 +141,7 @@ function buildActionMediaSourceParamKeys(extraParamKeys?: readonly string[]): st
   return Array.from(keys);
 }
 
+/** Reused helper for resolve Extra Action Media Source Param Keys behavior in src/infra/outbound. */
 export function resolveExtraActionMediaSourceParamKeys(params: {
   cfg: OpenClawConfig;
   action?: ChannelMessageActionName;
@@ -168,6 +170,7 @@ export function resolveExtraActionMediaSourceParamKeys(params: {
   });
 }
 
+/** Reused helper for collect Action Media Source Hints behavior in src/infra/outbound. */
 export function collectActionMediaSourceHints(
   args: Record<string, unknown>,
   extraParamKeys?: readonly string[],
@@ -248,6 +251,7 @@ function normalizeBase64Payload(params: { base64?: string; contentType?: string 
   };
 }
 
+/** Shared type for Attachment Media Policy in src/infra/outbound. */
 export type AttachmentMediaPolicy =
   | {
       mode: "sandbox";
@@ -260,6 +264,7 @@ export type AttachmentMediaPolicy =
       mediaReadFile?: OutboundMediaReadFile;
     };
 
+/** Reused helper for resolve Attachment Media Policy behavior in src/infra/outbound. */
 export function resolveAttachmentMediaPolicy(params: {
   sandboxRoot?: string;
   mediaAccess?: OutboundMediaAccess;
@@ -391,6 +396,7 @@ async function hydrateAttachmentPayload(params: {
   }
 }
 
+/** Reused helper for normalize Sandbox Media Params behavior in src/infra/outbound. */
 export async function normalizeSandboxMediaParams(params: {
   args: Record<string, unknown>;
   mediaPolicy: AttachmentMediaPolicy;
@@ -437,6 +443,7 @@ export async function normalizeSandboxMediaParams(params: {
   }
 }
 
+/** Reused helper for normalize Sandbox Media List behavior in src/infra/outbound. */
 export async function normalizeSandboxMediaList(params: {
   values: string[];
   sandboxRoot?: string;
@@ -511,6 +518,7 @@ async function hydrateAttachmentActionPayload(params: {
   });
 }
 
+/** Reused helper for hydrate Attachment Params For Action behavior in src/infra/outbound. */
 export async function hydrateAttachmentParamsForAction(params: {
   cfg: OpenClawConfig;
   channel: ChannelId;
@@ -551,6 +559,7 @@ export async function hydrateAttachmentParamsForAction(params: {
   });
 }
 
+/** Reused helper for parse Json Message Param behavior in src/infra/outbound. */
 export function parseJsonMessageParam(params: Record<string, unknown>, key: string): void {
   const raw = params[key];
   if (typeof raw !== "string") {
@@ -568,6 +577,7 @@ export function parseJsonMessageParam(params: Record<string, unknown>, key: stri
   }
 }
 
+/** Reused helper for parse Interactive Param behavior in src/infra/outbound. */
 export function parseInteractiveParam(params: Record<string, unknown>): void {
   const raw = params.interactive;
   if (typeof raw !== "string") {

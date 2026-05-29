@@ -1,3 +1,4 @@
+// Tests hooks fire and forget test behavior.
 import { describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 import { fireAndForgetBoundedHook, fireAndForgetHook } from "./fire-and-forget.js";

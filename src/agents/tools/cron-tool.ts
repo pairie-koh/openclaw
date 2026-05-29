@@ -300,6 +300,7 @@ const CronPatchObjectSchema = Type.Optional(
 );
 
 // Flattened schema: runtime validates per-action requirements.
+/** Reused constant for Cron Tool Schema behavior in src/agents/tools. */
 export const CronToolSchema = Type.Object(
   {
     action: stringEnum(CRON_ACTIONS),
@@ -498,6 +499,7 @@ async function buildReminderContextLines(params: {
   }
 }
 
+/** Creates the cron management AgentTool. */
 export function createCronTool(opts?: CronToolOptions, deps?: CronToolDeps): AnyAgentTool {
   const callGateway = deps?.callGatewayTool ?? callGatewayTool;
   return {

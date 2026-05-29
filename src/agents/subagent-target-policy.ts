@@ -44,6 +44,7 @@ function filterConfiguredAllowedIds(params: {
   return params.allowedIds.filter((id) => configuredIds.has(id));
 }
 
+/** Reused helper for resolve Subagent Allowed Target Ids behavior in src/agents. */
 export function resolveSubagentAllowedTargetIds(params: {
   requesterAgentId: string;
   allowAgents?: readonly string[];
@@ -76,6 +77,7 @@ export function resolveSubagentAllowedTargetIds(params: {
   };
 }
 
+/** Reused helper for resolve Subagent Target Policy behavior in src/agents. */
 export function resolveSubagentTargetPolicy(params: {
   requesterAgentId: string;
   targetAgentId: string;

@@ -8,6 +8,7 @@ import type {
   ResolvedIngressAllowlist,
 } from "./types.js";
 
+/** Return the reason code for access-group allowlist failures. */
 export function allowlistFailureReason(
   allowlist: ResolvedIngressAllowlist,
 ): IngressReasonCode | null {
@@ -23,6 +24,7 @@ export function allowlistFailureReason(
   return null;
 }
 
+/** Build redacted allowlist diagnostics for access graph gates. */
 export function redactedAllowlistDiagnostics(
   allowlist: ResolvedIngressAllowlist,
   reasonCode: IngressReasonCode,
@@ -72,6 +74,7 @@ function mergeResolvedAllowlists(
   };
 }
 
+/** Apply the configured policy for dangerous/mutable identifiers. */
 export function applyMutableIdentifierPolicy(
   allowlist: ResolvedIngressAllowlist,
   policy: ChannelIngressPolicyInput,
@@ -109,6 +112,7 @@ export function applyMutableIdentifierPolicy(
   };
 }
 
+/** Resolve the effective group sender allowlist after route policy is applied. */
 export function effectiveGroupSenderAllowlist(params: {
   state: ChannelIngressState;
   policy: ChannelIngressPolicyInput;

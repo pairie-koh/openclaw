@@ -1,3 +1,4 @@
+/** Coordinates OAuth credential refresh, contention, adoption, and API-key building. */
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import { normalizeSecretInputString } from "../../config/types.secrets.js";
 import { formatErrorMessage } from "../../infra/errors.js";
@@ -38,6 +39,7 @@ import {
 } from "./store.js";
 import type { AuthProfileStore, OAuthCredential, OAuthCredentials } from "./types.js";
 
+/** Provider adapter contract used by the generic OAuth manager. */
 export type OAuthManagerAdapter = {
   buildApiKey: (
     provider: string,
@@ -56,11 +58,13 @@ export type OAuthManagerAdapter = {
   isRefreshTokenReusedError: (error: unknown) => boolean;
 };
 
+/** API key plus credential selected for an OAuth-backed request. */
 export type ResolvedOAuthAccess = {
   apiKey: string;
   credential: OAuthCredential;
 };
 
+/** Refresh failure carrying the refreshed store and redacted credential context. */
 export class OAuthManagerRefreshError extends Error {
   readonly profileId: string;
   readonly provider: string;
@@ -132,6 +136,7 @@ export class OAuthManagerRefreshError extends Error {
   }
 }
 
+/** Re-exported API for src/agents/auth-profiles. */
 export {
   areOAuthCredentialsEquivalent,
   hasUsableOAuthCredential,
@@ -143,6 +148,7 @@ export {
   shouldPersistRuntimeExternalOAuthProfile,
   shouldReplaceStoredOAuthCredential,
 };
+/** Re-exported API for src/agents/auth-profiles, starting with Runtime External OAuth Profile. */
 export type { RuntimeExternalOAuthProfile };
 
 function hasOAuthCredentialChanged(
@@ -267,6 +273,7 @@ async function loadFreshStoredOAuthCredential(params: {
   return reloaded;
 }
 
+/** Reused helper for resolve Effective OAuth Credential behavior in src/agents/auth-profiles. */
 export function resolveEffectiveOAuthCredential(params: {
   profileId: string;
   credential: OAuthCredential;
@@ -311,6 +318,7 @@ export function resolveEffectiveOAuthCredential(params: {
   return params.credential;
 }
 
+/** Reused helper for create OAuth Manager behavior in src/agents/auth-profiles. */
 export function createOAuthManager(adapter: OAuthManagerAdapter) {
   function adoptNewerMainOAuthCredential(params: {
     store: AuthProfileStore;

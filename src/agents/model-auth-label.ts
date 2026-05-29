@@ -16,6 +16,7 @@ import {
 import { resolveEnvApiKey, resolveUsableCustomProviderApiKey } from "./model-auth.js";
 import { normalizeProviderId } from "./model-selection.js";
 
+/** Resolve a short label describing the active auth source for a provider. */
 export function resolveModelAuthLabel(params: {
   provider?: string;
   cfg?: OpenClawConfig;

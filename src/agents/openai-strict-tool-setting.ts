@@ -36,6 +36,7 @@ function resolvesToNativeOpenAIStrictTools(
   );
 }
 
+/** Return the strict tool flag to send or omit for a model/transport. */
 export function resolveOpenAIStrictToolSetting(
   model: OpenAIStrictToolModel,
   options?: { transport?: OpenAITransportKind; supportsStrictMode?: boolean },

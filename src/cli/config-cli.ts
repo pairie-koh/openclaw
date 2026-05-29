@@ -1,3 +1,4 @@
+/** Registers config inspection and mutation commands for the CLI. */
 import fs from "node:fs";
 import { isRecord as isPlainRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
@@ -2225,6 +2226,7 @@ function handleConfigMutationError(params: {
   params.runtime.exit(1);
 }
 
+/** Reused helper for run Config Set behavior in src/cli. */
 export async function runConfigSet(opts: {
   path?: string;
   value?: string;
@@ -2274,6 +2276,7 @@ export async function runConfigSet(opts: {
   }
 }
 
+/** Reused helper for run Config Patch behavior in src/cli. */
 export async function runConfigPatch(opts: {
   cliOptions: ConfigPatchOptions;
   runtime?: RuntimeEnv;
@@ -2306,6 +2309,7 @@ export async function runConfigPatch(opts: {
   }
 }
 
+/** Reused helper for run Config Get behavior in src/cli. */
 export async function runConfigGet(opts: { path: string; json?: boolean; runtime?: RuntimeEnv }) {
   const runtime = opts.runtime ?? defaultRuntime;
   try {
@@ -2341,6 +2345,7 @@ export async function runConfigGet(opts: { path: string; json?: boolean; runtime
   }
 }
 
+/** Reused helper for run Config Unset behavior in src/cli. */
 export async function runConfigUnset(opts: {
   path: string;
   cliOptions?: ConfigUnsetOptions;
@@ -2418,6 +2423,7 @@ export async function runConfigUnset(opts: {
   }
 }
 
+/** Reused helper for run Config File behavior in src/cli. */
 export async function runConfigFile(opts: { runtime?: RuntimeEnv }) {
   const runtime = opts.runtime ?? defaultRuntime;
   try {
@@ -2443,6 +2449,7 @@ async function buildCliConfigSchema(): Promise<Record<string, unknown>> {
   return schema;
 }
 
+/** Reused helper for run Config Schema behavior in src/cli. */
 export async function runConfigSchema(opts: { runtime?: RuntimeEnv } = {}) {
   const runtime = opts.runtime ?? defaultRuntime;
   try {
@@ -2453,6 +2460,7 @@ export async function runConfigSchema(opts: { runtime?: RuntimeEnv } = {}) {
   }
 }
 
+/** Reused helper for run Config Validate behavior in src/cli. */
 export async function runConfigValidate(opts: { json?: boolean; runtime?: RuntimeEnv } = {}) {
   const runtime = opts.runtime ?? defaultRuntime;
   let outputPath = CONFIG_PATH ?? "openclaw.json";
@@ -2510,6 +2518,7 @@ export async function runConfigValidate(opts: { json?: boolean; runtime?: Runtim
   }
 }
 
+/** Reused helper for register Config Cli behavior in src/cli. */
 export function registerConfigCli(program: Command) {
   const cmd = program
     .command("config")

@@ -7,6 +7,7 @@ type GatewaySelfPresence = {
   platform?: string;
 };
 
+/** Reused helper for pick Gateway Self Presence behavior in src/commands. */
 export function pickGatewaySelfPresence(presence: unknown): GatewaySelfPresence | null {
   if (!Array.isArray(presence)) {
     return null;

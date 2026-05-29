@@ -18,13 +18,16 @@ import {
 } from "../shell-wrapper-resolution.js";
 import { detectInterpreterInlineEvalArgv, type InterpreterInlineEvalHit } from "./inline-eval.js";
 
+/** Re-exported API for src/infra/command-analysis, starting with COMMAND CARRIER EXECUTABLES. */
 export { COMMAND_CARRIER_EXECUTABLES, resolveCarrierCommandArgv, SOURCE_EXECUTABLES };
 
+/** Shared type for Command Carrier Hit in src/infra/command-analysis. */
 export type CommandCarrierHit = {
   command: string;
   flag?: string;
 };
 
+/** Shared type for Carried Shell Builtin Hit in src/infra/command-analysis. */
 export type CarriedShellBuiltinHit = { kind: "eval" } | { kind: "source"; command: string };
 
 function commandArgvKey(argv: readonly string[]): string {
@@ -38,6 +41,7 @@ function isCommandCarrierExecutable(executable: string, options?: { includeExec?
   );
 }
 
+/** Reused helper for build Command Payload Candidates behavior in src/infra/command-analysis. */
 export function buildCommandPayloadCandidates(
   argv: string[],
   seenArgv = new Set<string>(),
@@ -235,6 +239,7 @@ function detectCarrierInlineEvalArgvInternal(
   return detectInlineEvalArgvInternal(carriedArgv, seenArgv);
 }
 
+/** Reused helper for detect Carrier Inline Eval Argv behavior in src/infra/command-analysis. */
 export function detectCarrierInlineEvalArgv(argv: string[]): InterpreterInlineEvalHit | null {
   return detectCarrierInlineEvalArgvInternal(argv, new Set());
 }
@@ -253,12 +258,14 @@ function detectInlineEvalArgvInternal(
   );
 }
 
+/** Reused helper for detect Inline Eval Argv behavior in src/infra/command-analysis. */
 export function detectInlineEvalArgv(
   argv: string[] | undefined | null,
 ): InterpreterInlineEvalHit | null {
   return detectInlineEvalArgvInternal(argv, new Set());
 }
 
+/** Reused helper for detect Inline Eval In Segments behavior in src/infra/command-analysis. */
 export function detectInlineEvalInSegments(
   segments: readonly ExecCommandSegment[],
 ): InterpreterInlineEvalHit | null {
@@ -272,6 +279,7 @@ export function detectInlineEvalInSegments(
   return null;
 }
 
+/** Reused helper for detect Command Carrier Argv behavior in src/infra/command-analysis. */
 export function detectCommandCarrierArgv(argv: string[]): CommandCarrierHit[] {
   const executable = argv[0];
   if (!executable) {
@@ -295,6 +303,7 @@ export function detectCommandCarrierArgv(argv: string[]): CommandCarrierHit[] {
   return hits;
 }
 
+/** Reused helper for detect Env Split String Flag behavior in src/infra/command-analysis. */
 export function detectEnvSplitStringFlag(argv: string[]): string | null {
   if (normalizeExecutableToken(argv[0] ?? "") !== "env") {
     return null;
@@ -328,6 +337,7 @@ export function detectEnvSplitStringFlag(argv: string[]): string | null {
   return null;
 }
 
+/** Reused helper for detect Shell Wrapper Through Carrier Argv behavior in src/infra/command-analysis. */
 export function detectShellWrapperThroughCarrierArgv(
   argv: string[],
   shellCommandFlag: (argv: string[], startIndex: number) => unknown,
@@ -346,6 +356,7 @@ export function detectShellWrapperThroughCarrierArgv(
   return detectShellWrapperThroughCarrierArgv(carriedArgv, shellCommandFlag) ? executable : null;
 }
 
+/** Reused helper for detect Carried Shell Builtin Argv behavior in src/infra/command-analysis. */
 export function detectCarriedShellBuiltinArgv(argv: string[]): CarriedShellBuiltinHit | null {
   const executable = normalizeExecutableToken(argv[0] ?? "");
   if (!isCommandCarrierExecutable(executable, { includeExec: true })) {

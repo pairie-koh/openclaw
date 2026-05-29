@@ -134,6 +134,7 @@ function compareHistoryMessages(
   return a.order - b.order;
 }
 
+/** Reused helper for merge Imported Chat History Messages behavior in src/gateway. */
 export function mergeImportedChatHistoryMessages(params: {
   localMessages: unknown[];
   importedMessages: unknown[];

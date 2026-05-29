@@ -6,10 +6,12 @@ type ToolAggregateOptions = {
   markdown?: boolean;
 };
 
+/** Reused helper for shorten Path behavior in src/auto-reply. */
 export function shortenPath(p: string): string {
   return shortenHomePath(p);
 }
 
+/** Reused helper for shorten Meta behavior in src/auto-reply. */
 export function shortenMeta(meta: string): string {
   if (!meta) {
     return meta;
@@ -17,6 +19,7 @@ export function shortenMeta(meta: string): string {
   return shortenHomeInString(meta);
 }
 
+/** Reused helper for format Tool Aggregate behavior in src/auto-reply. */
 export function formatToolAggregate(
   toolName?: string,
   metas?: string[],
@@ -74,6 +77,7 @@ export function formatToolAggregate(
   return compactCommandSummary ? `${prefix} ${formattedMeta}` : `${prefix}: ${formattedMeta}`;
 }
 
+/** Reused helper for format Tool Prefix behavior in src/auto-reply. */
 export function formatToolPrefix(toolName?: string, meta?: string) {
   const extra = meta?.trim() ? shortenMeta(meta) : undefined;
   const display = resolveToolDisplay({ name: toolName, meta: extra });

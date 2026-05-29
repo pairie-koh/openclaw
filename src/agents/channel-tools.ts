@@ -36,10 +36,12 @@ type ChannelMessageActionDiscoveryParams = {
 
 const channelAgentToolMeta = new WeakMap<ChannelAgentTool, ChannelAgentToolMeta>();
 
+/** Read channel metadata attached to an agent tool. */
 export function getChannelAgentToolMeta(tool: ChannelAgentTool): ChannelAgentToolMeta | undefined {
   return channelAgentToolMeta.get(tool);
 }
 
+/** Copy channel metadata between wrapped tool objects. */
 export function copyChannelAgentToolMeta(source: ChannelAgentTool, target: ChannelAgentTool): void {
   const meta = channelAgentToolMeta.get(source);
   if (meta) {
@@ -96,6 +98,7 @@ export function listAllChannelSupportedActions(
   return Array.from(actions);
 }
 
+/** List agent tools contributed by loaded channel plugins. */
 export function listChannelAgentTools(params: { cfg?: OpenClawConfig }): ChannelAgentTool[] {
   // Channel docking: aggregate channel-owned tools (login, etc.).
   const tools: ChannelAgentTool[] = [];
@@ -115,6 +118,7 @@ export function listChannelAgentTools(params: { cfg?: OpenClawConfig }): Channel
   return tools;
 }
 
+/** Resolve channel-specific message tool prompt hints. */
 export function resolveChannelMessageToolHints(params: {
   cfg?: OpenClawConfig;
   channel?: string | null;
@@ -132,6 +136,7 @@ export function resolveChannelMessageToolHints(params: {
   return normalizeStringEntries(resolve({ cfg, accountId: params.accountId }));
 }
 
+/** Resolve channel prompt capabilities for the current channel/account. */
 export function resolveChannelPromptCapabilities(params: {
   cfg?: OpenClawConfig;
   channel?: string | null;
@@ -156,6 +161,7 @@ function normalizePromptCapabilities(capabilities?: readonly string[] | null): s
   return normalizeStringEntries(capabilities ?? []);
 }
 
+/** Resolve prompt guidance for channel reaction usage. */
 export function resolveChannelReactionGuidance(params: {
   cfg?: OpenClawConfig;
   channel?: string | null;
@@ -180,9 +186,11 @@ export function resolveChannelReactionGuidance(params: {
   };
 }
 
+/** Test hooks for channel tool discovery state. */
 export const testing = {
   resetLoggedListActionErrors() {
     messageActionTesting.resetLoggedMessageActionErrors();
   },
 };
+/** Re-exported API for src/agents, starting with testing. */
 export { testing as __testing };

@@ -8,6 +8,7 @@ function formatTomlKey(key: string): string {
   return /^[A-Za-z0-9_-]+$/.test(key) ? key : `"${escapeTomlString(key)}"`;
 }
 
+/** Reused helper for serialize Toml Inline Value behavior in src/agents/cli-runner. */
 export function serializeTomlInlineValue(value: unknown): string {
   if (typeof value === "string") {
     return `"${escapeTomlString(value)}"`;
@@ -29,6 +30,7 @@ export function serializeTomlInlineValue(value: unknown): string {
   throw new Error(`Unsupported TOML inline value: ${String(value)}`);
 }
 
+/** Reused helper for format Toml Config Override behavior in src/agents/cli-runner. */
 export function formatTomlConfigOverride(key: string, value: unknown): string {
   return `${key}=${serializeTomlInlineValue(value)}`;
 }

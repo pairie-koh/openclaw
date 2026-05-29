@@ -53,6 +53,7 @@ function toAllowedValueDedupKey(value: unknown): string {
   return `${kind}:${safeStringify(value)}`;
 }
 
+/** Reused helper for summarize Allowed Values behavior in src/config. */
 export function summarizeAllowedValues(
   values: ReadonlyArray<unknown>,
 ): AllowedValuesSummary | null {
@@ -92,6 +93,7 @@ function messageAlreadyIncludesAllowedValues(message: string): boolean {
   return lower.includes("(allowed:") || lower.includes("expected one of");
 }
 
+/** Reused helper for append Allowed Values Hint behavior in src/config. */
 export function appendAllowedValuesHint(message: string, summary: AllowedValuesSummary): string {
   if (messageAlreadyIncludesAllowedValues(message)) {
     return message;

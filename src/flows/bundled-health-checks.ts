@@ -9,6 +9,7 @@ type BundledHealthApi = {
   registerPolicyDoctorChecks?: (host: { registerHealthCheck: typeof registerHealthCheck }) => void;
 };
 
+/** Reused helper for register Bundled Health Checks behavior in src/flows. */
 export function registerBundledHealthChecks(params: { cfg: OpenClawConfig; cwd?: string }): void {
   if (!shouldRegisterPolicyHealth(params)) {
     return;

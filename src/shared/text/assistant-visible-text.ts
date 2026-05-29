@@ -316,6 +316,7 @@ function parseToolCallTagAt(text: string, start: number): ParsedToolCallTag | nu
   };
 }
 
+/** Reused helper for strip Tool Call Xml Tags behavior in src/shared/text. */
 export function stripToolCallXmlTags(
   text: string,
   options: {
@@ -513,6 +514,7 @@ function isLegacyBracketToolResultPayload(value: string): boolean {
   );
 }
 
+/** Reused helper for strip Legacy Bracket Tool Call Blocks behavior in src/shared/text. */
 export function stripLegacyBracketToolCallBlocks(text: string): string {
   if (!text || !LEGACY_BRACKET_TOOL_BLOCK_QUICK_RE.test(text)) {
     return text;
@@ -760,6 +762,7 @@ function stripRelevantMemoriesTags(text: string): string {
   return result;
 }
 
+/** Shared type for Assistant Visible Text Sanitizer Profile in src/shared/text. */
 export type AssistantVisibleTextSanitizerProfile = "delivery" | "history" | "internal-scaffolding";
 
 type AssistantVisibleTextPipelineOptions = {
@@ -848,6 +851,7 @@ function applyAssistantVisibleTextStagePipeline(
   return applyFinalTrim(stripReasoning(stripNonReasoningStages(text)));
 }
 
+/** Reused helper for sanitize Assistant Visible Text With Profile behavior in src/shared/text. */
 export function sanitizeAssistantVisibleTextWithProfile(
   text: string,
   profile: AssistantVisibleTextSanitizerProfile = "delivery",
@@ -858,6 +862,7 @@ export function sanitizeAssistantVisibleTextWithProfile(
   );
 }
 
+/** Reused helper for strip Assistant Internal Scaffolding behavior in src/shared/text. */
 export function stripAssistantInternalScaffolding(text: string): string {
   return sanitizeAssistantVisibleTextWithProfile(text, "internal-scaffolding");
 }

@@ -1,16 +1,19 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
+/** Shared type for Custom Command Input in src/shared. */
 export type CustomCommandInput = {
   command?: string | null;
   description?: string | null;
 };
 
+/** Shared type for Custom Command Issue in src/shared. */
 export type CustomCommandIssue = {
   index: number;
   field: "command" | "description";
   message: string;
 };
 
+/** Shared type for Custom Command Config in src/shared. */
 export type CustomCommandConfig = {
   label: string;
   pattern: RegExp;
@@ -20,6 +23,7 @@ export type CustomCommandConfig = {
 
 const DEFAULT_PREFIX = "/";
 
+/** Reused helper for normalize Slash Command Name behavior in src/shared. */
 export function normalizeSlashCommandName(value: string): string {
   const trimmed = value.trim();
   if (!trimmed) {
@@ -29,10 +33,12 @@ export function normalizeSlashCommandName(value: string): string {
   return normalizeLowercaseStringOrEmpty(withoutSlash).replace(/-/g, "_");
 }
 
+/** Reused helper for normalize Command Description behavior in src/shared. */
 export function normalizeCommandDescription(value: string): string {
   return value.trim();
 }
 
+/** Reused helper for resolve Custom Commands behavior in src/shared. */
 export function resolveCustomCommands(params: {
   commands?: CustomCommandInput[] | null;
   reservedCommands?: Set<string>;

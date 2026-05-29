@@ -4,6 +4,7 @@ import type { NodeListNode } from "../../shared/node-list-types.js";
 import { resolveNodeFromNodeList, resolveNodeIdFromNodeList } from "../../shared/node-resolve.js";
 import { callGatewayTool, type GatewayCallOptions } from "./gateway.js";
 
+/** Re-exported API for src/agents/tools, starting with Node List Node. */
 export type { NodeListNode };
 
 type DefaultNodeFallback = "none" | "first";
@@ -88,6 +89,7 @@ function compareDefaultNodeOrder(a: NodeListNode, b: NodeListNode): number {
   return a.nodeId.localeCompare(b.nodeId);
 }
 
+/** Selects the default node from parsed node/pairing lists. */
 export function selectDefaultNodeFromList(
   nodes: NodeListNode[],
   options: DefaultNodeSelectionOptions = {},
@@ -134,10 +136,12 @@ function pickDefaultNode(nodes: NodeListNode[]): NodeListNode | null {
   });
 }
 
+/** Lists connected nodes through the gateway. */
 export async function listNodes(opts: GatewayCallOptions): Promise<NodeListNode[]> {
   return loadNodes(opts);
 }
 
+/** Reused helper for resolve Node Id From List behavior in src/agents/tools. */
 export function resolveNodeIdFromList(
   nodes: NodeListNode[],
   query?: string,
@@ -149,6 +153,7 @@ export function resolveNodeIdFromList(
   });
 }
 
+/** Resolves a user-provided node reference to a node id. */
 export async function resolveNodeId(
   opts: GatewayCallOptions,
   query?: string,
@@ -157,6 +162,7 @@ export async function resolveNodeId(
   return (await resolveNode(opts, query, allowDefault)).nodeId;
 }
 
+/** Reused helper for resolve Node behavior in src/agents/tools. */
 export async function resolveNode(
   opts: GatewayCallOptions,
   query?: string,

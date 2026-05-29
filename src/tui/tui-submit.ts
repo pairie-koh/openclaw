@@ -1,5 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
+/** Reused helper for create Editor Submit Handler behavior in src/tui. */
 export function createEditorSubmitHandler(params: {
   editor: {
     setText: (value: string) => void;
@@ -52,6 +53,7 @@ export function createEditorSubmitHandler(params: {
   };
 }
 
+/** Reused helper for should Enable Windows Git Bash Paste Fallback behavior in src/tui. */
 export function shouldEnableWindowsGitBashPasteFallback(params?: {
   platform?: string;
   env?: NodeJS.ProcessEnv;
@@ -84,6 +86,7 @@ export function shouldEnableWindowsGitBashPasteFallback(params?: {
   return termProgram.includes("mintty");
 }
 
+/** Reused helper for create Submit Burst Coalescer behavior in src/tui. */
 export function createSubmitBurstCoalescer(params: {
   submit: (value: string) => void;
   enabled: boolean;

@@ -2,6 +2,7 @@ import { normalizeStringEntries } from "@openclaw/normalization-core/string-norm
 import type { ChannelId } from "../plugins/types.public.js";
 import { readChannelIngressStoreAllowFromForDmPolicy } from "./runtime.js";
 
+/** Resolve count and wildcard facts for direct-message allowlists. */
 export async function resolveDmAllowAuditState(params: {
   provider: ChannelId;
   accountId: string;

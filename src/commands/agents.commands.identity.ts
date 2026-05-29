@@ -1,3 +1,4 @@
+/** Implements agents identity read and edit commands. */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
@@ -61,6 +62,7 @@ function resolveAgentIdByWorkspace(
   );
 }
 
+/** Reused helper for agents Set Identity Command behavior in src/commands. */
 export async function agentsSetIdentityCommand(
   opts: AgentsSetIdentityOptions,
   runtime: RuntimeEnv = defaultRuntime,

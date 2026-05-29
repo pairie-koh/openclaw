@@ -17,8 +17,11 @@ import {
 } from "../../net.js";
 import type { AuthProvidedKind } from "./auth-messages.js";
 
+/** Reused constant for BROWSER ORIGIN LOOPBACK RATE LIMIT IP behavior in src/gateway/server. */
 export const BROWSER_ORIGIN_LOOPBACK_RATE_LIMIT_IP = "198.18.0.1";
+/** Reused constant for BROWSER ORIGIN RATE LIMIT KEY PREFIX behavior in src/gateway/server. */
 export const BROWSER_ORIGIN_RATE_LIMIT_KEY_PREFIX = "browser-origin:";
+/** Shared type for Pairing Locality Kind in src/gateway/server. */
 export type PairingLocalityKind =
   | "direct_local"
   | "cli_container_local"
@@ -26,6 +29,7 @@ export type PairingLocalityKind =
   | "shared_secret_loopback_local"
   | "remote";
 
+/** Shared type for Handshake Browser Security Context in src/gateway/server. */
 export type HandshakeBrowserSecurityContext = {
   hasBrowserOriginHeader: boolean;
   enforceOriginCheckForAnyClient: boolean;
@@ -53,6 +57,7 @@ function resolveBrowserOriginRateLimitKey(requestOrigin?: string): string {
   }
 }
 
+/** Reused helper for resolve Handshake Browser Security Context behavior in src/gateway/server. */
 export function resolveHandshakeBrowserSecurityContext(params: {
   requestOrigin?: string;
   clientIp: string | undefined;
@@ -76,6 +81,7 @@ export function resolveHandshakeBrowserSecurityContext(params: {
   };
 }
 
+/** Reused helper for should Allow Silent Local Pairing behavior in src/gateway/server. */
 export function shouldAllowSilentLocalPairing(params: {
   locality: PairingLocalityKind;
   hasBrowserOriginHeader: boolean;
@@ -197,6 +203,7 @@ function isControlUiBrowserContainerLocalEquivalent(params: {
   );
 }
 
+/** Reused helper for resolve Pairing Locality behavior in src/gateway/server. */
 export function resolvePairingLocality(params: {
   connectParams: ConnectParams;
   isLocalClient: boolean;
@@ -253,6 +260,7 @@ export function resolvePairingLocality(params: {
   return "remote";
 }
 
+/** Reused helper for should Skip Local Backend Self Pairing behavior in src/gateway/server. */
 export function shouldSkipLocalBackendSelfPairing(params: {
   connectParams: ConnectParams;
   locality: PairingLocalityKind;
@@ -307,6 +315,7 @@ function buildUnauthorizedHandshakeContext(params: {
   };
 }
 
+/** Reused helper for resolve Device Signature Payload Version behavior in src/gateway/server. */
 export function resolveDeviceSignaturePayloadVersion(params: {
   device: {
     id: string;
@@ -360,6 +369,7 @@ function resolveAuthProvidedKind(
           : "none";
 }
 
+/** Reused helper for resolve Unauthorized Handshake Context behavior in src/gateway/server. */
 export function resolveUnauthorizedHandshakeContext(params: {
   connectAuth: HandshakeConnectAuth | null | undefined;
   failedAuth: GatewayAuthResult;

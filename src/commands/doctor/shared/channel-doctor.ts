@@ -52,6 +52,7 @@ const channelDoctorEnumValues: Partial<Record<keyof ChannelDoctorAdapter, Readon
   groupModel: new Set(["sender", "route", "hybrid"]),
 };
 
+/** Shared type for Channel Doctor Empty Allowlist Policy Hooks in src/commands/doctor. */
 export type ChannelDoctorEmptyAllowlistPolicyHooks = {
   extraWarningsForAccount: (params: ChannelDoctorEmptyAllowlistAccountContext) => string[];
   shouldSkipDefaultEmptyGroupAllowlistWarning: (
@@ -260,6 +261,7 @@ function shouldSkipDefaultEmptyGroupAllowlistWarningForEntries(
   );
 }
 
+/** Reused helper for create Channel Doctor Empty Allowlist Policy Hooks behavior in src/commands/doctor. */
 export function createChannelDoctorEmptyAllowlistPolicyHooks(
   context: ChannelDoctorLookupContext,
 ): ChannelDoctorEmptyAllowlistPolicyHooks {
@@ -285,6 +287,7 @@ export function createChannelDoctorEmptyAllowlistPolicyHooks(
   };
 }
 
+/** Reused helper for run Channel Doctor Config Sequences behavior in src/commands/doctor. */
 export async function runChannelDoctorConfigSequences(params: {
   cfg: OpenClawConfig;
   env: NodeJS.ProcessEnv;
@@ -306,6 +309,7 @@ export async function runChannelDoctorConfigSequences(params: {
   return { changeNotes, warningNotes };
 }
 
+/** Reused helper for collect Channel Doctor Compatibility Mutations behavior in src/commands/doctor. */
 export function collectChannelDoctorCompatibilityMutations(
   cfg: OpenClawConfig,
   options: { env?: NodeJS.ProcessEnv } = {},
@@ -327,6 +331,7 @@ export function collectChannelDoctorCompatibilityMutations(
   return mutations;
 }
 
+/** Reused helper for collect Channel Doctor Stale Config Mutations behavior in src/commands/doctor. */
 export async function collectChannelDoctorStaleConfigMutations(
   cfg: OpenClawConfig,
   options: { env?: NodeJS.ProcessEnv } = {},
@@ -347,6 +352,7 @@ export async function collectChannelDoctorStaleConfigMutations(
   return mutations;
 }
 
+/** Reused helper for collect Channel Doctor Preview Warnings behavior in src/commands/doctor. */
 export async function collectChannelDoctorPreviewWarnings(params: {
   cfg: OpenClawConfig;
   doctorFixCommand: string;
@@ -365,6 +371,7 @@ export async function collectChannelDoctorPreviewWarnings(params: {
   return warnings;
 }
 
+/** Reused helper for collect Channel Doctor Mutable Allowlist Warnings behavior in src/commands/doctor. */
 export async function collectChannelDoctorMutableAllowlistWarnings(params: {
   cfg: OpenClawConfig;
   env?: NodeJS.ProcessEnv;
@@ -382,6 +389,7 @@ export async function collectChannelDoctorMutableAllowlistWarnings(params: {
   return warnings;
 }
 
+/** Reused helper for collect Channel Doctor Repair Mutations behavior in src/commands/doctor. */
 export async function collectChannelDoctorRepairMutations(params: {
   cfg: OpenClawConfig;
   doctorFixCommand: string;
@@ -409,6 +417,7 @@ export async function collectChannelDoctorRepairMutations(params: {
   return mutations;
 }
 
+/** Reused helper for collect Channel Doctor Empty Allowlist Extra Warnings behavior in src/commands/doctor. */
 export function collectChannelDoctorEmptyAllowlistExtraWarnings(
   params: ChannelDoctorEmptyAllowlistLookupParams,
 ): string[] {
@@ -420,6 +429,7 @@ export function collectChannelDoctorEmptyAllowlistExtraWarnings(
   );
 }
 
+/** Reused helper for should Skip Channel Doctor Default Empty Group Allowlist Warning behavior in src/commands/doctor. */
 export function shouldSkipChannelDoctorDefaultEmptyGroupAllowlistWarning(
   params: ChannelDoctorEmptyAllowlistLookupParams,
 ): boolean {

@@ -1,3 +1,4 @@
+// infra/outbound message helpers and runtime behavior.
 import type { ReplyPayload } from "../../auto-reply/reply-payload.js";
 import { deriveDurableFinalDeliveryRequirements } from "../../channels/message/capabilities.js";
 import { sendDurableMessageBatch } from "../../channels/message/runtime.js";
@@ -85,6 +86,7 @@ type MessageSendParams = {
   parseMode?: "HTML";
 };
 
+/** Shared type for Message Send Result in src/infra/outbound. */
 export type MessageSendResult = {
   channel: string;
   to: string;
@@ -113,6 +115,7 @@ type MessagePollParams = {
   idempotencyKey?: string;
 };
 
+/** Shared type for Message Poll Result in src/infra/outbound. */
 export type MessagePollResult = {
   channel: string;
   to: string;
@@ -290,6 +293,7 @@ async function resolveGatewayIdempotencyKey(idempotencyKey?: string): Promise<st
   return randomIdempotencyKey();
 }
 
+/** Reused helper for send Message behavior in src/infra/outbound. */
 export async function sendMessage(params: MessageSendParams): Promise<MessageSendResult> {
   const cfg = await resolveMessageConfig(params.cfg);
   const channel = await resolveRequiredChannel({ cfg, channel: params.channel });
@@ -433,6 +437,7 @@ export async function sendMessage(params: MessageSendParams): Promise<MessageSen
   };
 }
 
+/** Reused helper for send Poll behavior in src/infra/outbound. */
 export async function sendPoll(params: MessagePollParams): Promise<MessagePollResult> {
   const cfg = await resolveMessageConfig(params.cfg);
   const channel = await resolveRequiredChannel({ cfg, channel: params.channel });

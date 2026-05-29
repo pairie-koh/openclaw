@@ -67,6 +67,7 @@ export function buildApprovalResolvedReplyPayload(params: {
   };
 }
 
+/** Reused helper for build Plugin Approval Pending Reply Payload behavior in src/plugin-sdk. */
 export function buildPluginApprovalPendingReplyPayload(params: {
   request: PluginApprovalRequest;
   nowMs: number;
@@ -87,6 +88,7 @@ export function buildPluginApprovalPendingReplyPayload(params: {
   });
 }
 
+/** Reused helper for build Plugin Approval Resolved Reply Payload behavior in src/plugin-sdk. */
 export function buildPluginApprovalResolvedReplyPayload(params: {
   resolved: PluginApprovalResolved;
   text?: string;

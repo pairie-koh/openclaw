@@ -3,6 +3,7 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 const TOOL_CALL_NAME_MAX_CHARS = 64;
 const TOOL_CALL_NAME_RE = /^[A-Za-z0-9_:.-]+$/;
 
+/** Reused helper for normalize Allowed Tool Names behavior in src/agents. */
 export function normalizeAllowedToolNames(allowedToolNames?: Iterable<string>): Set<string> | null {
   if (!allowedToolNames) {
     return null;
@@ -21,6 +22,7 @@ export function normalizeAllowedToolNames(allowedToolNames?: Iterable<string>): 
   return normalized.size > 0 ? normalized : null;
 }
 
+/** Reused helper for is Allowed Tool Call Name behavior in src/agents. */
 export function isAllowedToolCallName(
   name: unknown,
   allowedToolNames: Set<string> | null,

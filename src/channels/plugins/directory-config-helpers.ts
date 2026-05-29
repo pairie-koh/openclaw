@@ -15,6 +15,7 @@ function resolveDirectoryLimit(limit?: number | null): number | undefined {
   return typeof limit === "number" && limit > 0 ? limit : undefined;
 }
 
+/** Reused helper for apply Directory Query And Limit behavior in src/channels/plugins. */
 export function applyDirectoryQueryAndLimit(
   ids: string[],
   params: { query?: string | null; limit?: number | null },
@@ -34,6 +35,7 @@ export function applyDirectoryQueryAndLimit(
   return filtered;
 }
 
+/** Reused helper for to Directory Entries behavior in src/channels/plugins. */
 export function toDirectoryEntries(kind: "user" | "group", ids: string[]): ChannelDirectoryEntry[] {
   const entries: ChannelDirectoryEntry[] = [];
   for (const id of ids) {
@@ -79,6 +81,7 @@ function dedupeDirectoryIds(ids: string[]): string[] {
   return uniqueStrings(ids);
 }
 
+/** Reused helper for collect Normalized Directory Ids behavior in src/channels/plugins. */
 export function collectNormalizedDirectoryIds(params: {
   sources: Iterable<unknown>[];
   normalizeId: (entry: string) => string | null | undefined;
@@ -100,6 +103,7 @@ export function collectNormalizedDirectoryIds(params: {
   return Array.from(ids);
 }
 
+/** Reused helper for list Directory Entries From Sources behavior in src/channels/plugins. */
 export function listDirectoryEntriesFromSources(params: {
   kind: "user" | "group";
   sources: Iterable<unknown>[];
@@ -114,6 +118,7 @@ export function listDirectoryEntriesFromSources(params: {
   return toDirectoryEntries(params.kind, applyDirectoryQueryAndLimit(ids, params));
 }
 
+/** Reused helper for list Inspected Directory Entries From Sources behavior in src/channels/plugins. */
 export function listInspectedDirectoryEntriesFromSources<InspectedAccount>(
   params: DirectoryConfigParams & {
     kind: "user" | "group";
@@ -138,6 +143,7 @@ export function listInspectedDirectoryEntriesFromSources<InspectedAccount>(
   });
 }
 
+/** Reused helper for create Inspected Directory Entries Lister behavior in src/channels/plugins. */
 export function createInspectedDirectoryEntriesLister<InspectedAccount>(params: {
   kind: "user" | "group";
   inspectAccount: (
@@ -154,6 +160,7 @@ export function createInspectedDirectoryEntriesLister<InspectedAccount>(params: 
     });
 }
 
+/** Reused helper for list Resolved Directory Entries From Sources behavior in src/channels/plugins. */
 export function listResolvedDirectoryEntriesFromSources<ResolvedAccount>(
   params: DirectoryConfigParams & {
     kind: "user" | "group";
@@ -172,6 +179,7 @@ export function listResolvedDirectoryEntriesFromSources<ResolvedAccount>(
   });
 }
 
+/** Reused helper for create Resolved Directory Entries Lister behavior in src/channels/plugins. */
 export function createResolvedDirectoryEntriesLister<ResolvedAccount>(params: {
   kind: "user" | "group";
   resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) => ResolvedAccount;
@@ -185,6 +193,7 @@ export function createResolvedDirectoryEntriesLister<ResolvedAccount>(params: {
     });
 }
 
+/** Reused helper for list Directory User Entries From Allow From behavior in src/channels/plugins. */
 export function listDirectoryUserEntriesFromAllowFrom(params: {
   allowFrom?: readonly unknown[];
   query?: string | null;
@@ -200,6 +209,7 @@ export function listDirectoryUserEntriesFromAllowFrom(params: {
   return toDirectoryEntries("user", applyDirectoryQueryAndLimit(ids, params));
 }
 
+/** Reused helper for list Directory User Entries From Allow From And Map Keys behavior in src/channels/plugins. */
 export function listDirectoryUserEntriesFromAllowFromAndMapKeys(params: {
   allowFrom?: readonly unknown[];
   map?: Record<string, unknown>;
@@ -221,6 +231,7 @@ export function listDirectoryUserEntriesFromAllowFromAndMapKeys(params: {
   return toDirectoryEntries("user", applyDirectoryQueryAndLimit(ids, params));
 }
 
+/** Reused helper for list Directory Group Entries From Map Keys behavior in src/channels/plugins. */
 export function listDirectoryGroupEntriesFromMapKeys(params: {
   groups?: Record<string, unknown>;
   query?: string | null;
@@ -236,6 +247,7 @@ export function listDirectoryGroupEntriesFromMapKeys(params: {
   return toDirectoryEntries("group", applyDirectoryQueryAndLimit(ids, params));
 }
 
+/** Reused helper for list Directory Group Entries From Map Keys And Allow From behavior in src/channels/plugins. */
 export function listDirectoryGroupEntriesFromMapKeysAndAllowFrom(params: {
   groups?: Record<string, unknown>;
   allowFrom?: readonly unknown[];
@@ -257,6 +269,7 @@ export function listDirectoryGroupEntriesFromMapKeysAndAllowFrom(params: {
   return toDirectoryEntries("group", applyDirectoryQueryAndLimit(ids, params));
 }
 
+/** Reused helper for list Resolved Directory User Entries From Allow From behavior in src/channels/plugins. */
 export function listResolvedDirectoryUserEntriesFromAllowFrom<ResolvedAccount>(
   params: DirectoryConfigParams & {
     resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) => ResolvedAccount;
@@ -273,6 +286,7 @@ export function listResolvedDirectoryUserEntriesFromAllowFrom<ResolvedAccount>(
   });
 }
 
+/** Reused helper for list Resolved Directory Group Entries From Map Keys behavior in src/channels/plugins. */
 export function listResolvedDirectoryGroupEntriesFromMapKeys<ResolvedAccount>(
   params: DirectoryConfigParams & {
     resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) => ResolvedAccount;

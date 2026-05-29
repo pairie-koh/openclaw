@@ -1,3 +1,4 @@
+// Tests gateway node registry test behavior.
 import { EventEmitter } from "node:events";
 import {
   MAX_DATE_TIMESTAMP_MS,

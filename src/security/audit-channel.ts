@@ -78,6 +78,7 @@ function formatChannelAccountNote(params: {
     : "";
 }
 
+/** Reused helper for collect Channel Security Findings behavior in src/security. */
 export async function collectChannelSecurityFindings(params: {
   cfg: OpenClawConfig;
   sourceConfig?: OpenClawConfig;

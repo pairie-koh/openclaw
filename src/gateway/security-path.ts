@@ -46,6 +46,7 @@ function pushNormalizedCandidate(candidates: string[], seen: Set<string>, value:
   candidates.push(normalized);
 }
 
+/** Reused helper for build Canonical Path Candidates behavior in src/gateway. */
 export function buildCanonicalPathCandidates(
   pathname: string,
   maxDecodePasses = MAX_PATH_DECODE_PASSES,
@@ -93,6 +94,7 @@ export function buildCanonicalPathCandidates(
   };
 }
 
+/** Reused helper for canonicalize Path Variant behavior in src/gateway. */
 export function canonicalizePathVariant(pathname: string): string {
   const { candidates } = buildCanonicalPathCandidates(pathname);
   return candidates[candidates.length - 1] ?? "/";
@@ -107,6 +109,7 @@ function prefixMatch(pathname: string, prefix: string): boolean {
   );
 }
 
+/** Reused helper for canonicalize Path For Security behavior in src/gateway. */
 export function canonicalizePathForSecurity(pathname: string): SecurityPathCanonicalization {
   const { candidates, decodePasses, decodePassLimitReached, malformedEncoding } =
     buildCanonicalPathCandidates(pathname);
@@ -133,6 +136,7 @@ function getNormalizedPrefixes(prefixes: readonly string[]): readonly string[] {
   return normalized;
 }
 
+/** Reused helper for is Path Protected By Prefixes behavior in src/gateway. */
 export function isPathProtectedByPrefixes(pathname: string, prefixes: readonly string[]): boolean {
   const canonical = canonicalizePathForSecurity(pathname);
   const normalizedPrefixes = getNormalizedPrefixes(prefixes);
@@ -153,8 +157,10 @@ export function isPathProtectedByPrefixes(pathname: string, prefixes: readonly s
   return normalizedPrefixes.some((prefix) => prefixMatch(canonical.rawNormalizedPath, prefix));
 }
 
+/** Reused constant for PROTECTED PLUGIN ROUTE PREFIXES behavior in src/gateway. */
 export const PROTECTED_PLUGIN_ROUTE_PREFIXES = ["/api/channels"] as const;
 
+/** Reused helper for is Protected Plugin Route Path behavior in src/gateway. */
 export function isProtectedPluginRoutePath(pathname: string): boolean {
   return isPathProtectedByPrefixes(pathname, PROTECTED_PLUGIN_ROUTE_PREFIXES);
 }

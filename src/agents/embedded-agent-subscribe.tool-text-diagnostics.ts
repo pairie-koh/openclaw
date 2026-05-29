@@ -54,6 +54,7 @@ function isRegisteredToolName(
   return false;
 }
 
+/** Log a diagnostic if an assistant emitted tool-shaped text instead of a tool call. */
 export function warnIfAssistantEmittedToolText(
   ctx: EmbeddedAgentSubscribeContext,
   assistantMessage: AssistantMessage,

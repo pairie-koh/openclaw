@@ -4,8 +4,10 @@ import { resolveAgentIdentity } from "../../agents/identity.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { OutboundIdentity } from "./identity-types.js";
 
+/** Re-exported API for src/infra/outbound, starting with Outbound Identity. */
 export type { OutboundIdentity } from "./identity-types.js";
 
+/** Reused helper for normalize Outbound Identity behavior in src/infra/outbound. */
 export function normalizeOutboundIdentity(
   identity?: OutboundIdentity | null,
 ): OutboundIdentity | undefined {
@@ -22,6 +24,7 @@ export function normalizeOutboundIdentity(
   return { name, avatarUrl, emoji, theme };
 }
 
+/** Reused helper for resolve Agent Outbound Identity behavior in src/infra/outbound. */
 export function resolveAgentOutboundIdentity(
   cfg: OpenClawConfig,
   agentId: string,

@@ -9,6 +9,7 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
 
 type ModelSelectionContext = Parameters<NonNullable<GetReplyOptions["onModelSelected"]>>[0];
 
+/** Shared type for Reply Prefix Context Bundle in src/channels. */
 export type ReplyPrefixContextBundle = {
   prefixContext: ResponsePrefixContext;
   responsePrefix?: string;
@@ -16,11 +17,13 @@ export type ReplyPrefixContextBundle = {
   onModelSelected: (ctx: ModelSelectionContext) => void;
 };
 
+/** Shared type for Reply Prefix Options in src/channels. */
 export type ReplyPrefixOptions = Pick<
   ReplyPrefixContextBundle,
   "responsePrefix" | "responsePrefixContextProvider" | "onModelSelected"
 >;
 
+/** Reused helper for create Reply Prefix Context behavior in src/channels. */
 export function createReplyPrefixContext(params: {
   cfg: OpenClawConfig;
   agentId: string;
@@ -51,6 +54,7 @@ export function createReplyPrefixContext(params: {
   };
 }
 
+/** Reused helper for create Reply Prefix Options behavior in src/channels. */
 export function createReplyPrefixOptions(params: {
   cfg: OpenClawConfig;
   agentId: string;

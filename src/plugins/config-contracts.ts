@@ -5,16 +5,19 @@ import { loadPluginManifestRegistry } from "./manifest-registry.js";
 import type { PluginManifestConfigContracts } from "./manifest.js";
 import type { PluginOrigin } from "./plugin-origin.types.js";
 import { loadPluginManifestRegistryForPluginRegistry } from "./plugin-registry.js";
+/** Re-exported API for src/plugins. */
 export {
   collectPluginConfigContractMatches,
   type PluginConfigContractMatch,
 } from "./config-contract-matches.js";
 
+/** Shared type for Plugin Config Contract Metadata in src/plugins. */
 export type PluginConfigContractMetadata = {
   origin: PluginOrigin;
   configContracts: PluginManifestConfigContracts;
 };
 
+/** Reused helper for resolve Plugin Config Contracts By Id behavior in src/plugins. */
 export function resolvePluginConfigContractsById(params: {
   config?: OpenClawConfig;
   workspaceDir?: string;

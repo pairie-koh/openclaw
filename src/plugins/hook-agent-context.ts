@@ -36,6 +36,7 @@ function stripConversationPrefix(
   return text;
 }
 
+/** Reused helper for resolve Agent Hook Channel Id behavior in src/plugins. */
 export function resolveAgentHookChannelId(params: {
   sessionKey?: string | null;
   messageChannel?: string | null;
@@ -68,6 +69,7 @@ export function resolveAgentHookChannelId(params: {
   return messageChannel ?? provider;
 }
 
+/** Reused helper for build Agent Hook Context Channel Fields behavior in src/plugins. */
 export function buildAgentHookContextChannelFields(params: {
   sessionKey?: string | null;
   messageChannel?: string | null;

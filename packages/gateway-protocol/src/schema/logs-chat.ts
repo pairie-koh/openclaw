@@ -2,6 +2,7 @@ import type { Static } from "typebox";
 import { Type } from "typebox";
 import { ChatSendSessionKeyString, InputProvenanceSchema, NonEmptyString } from "./primitives.js";
 
+/** Public constant for Logs Tail Params Schema behavior in packages/gateway-protocol. */
 export const LogsTailParamsSchema = Type.Object(
   {
     cursor: Type.Optional(Type.Integer({ minimum: 0 })),
@@ -11,6 +12,7 @@ export const LogsTailParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Logs Tail Result Schema behavior in packages/gateway-protocol. */
 export const LogsTailResultSchema = Type.Object(
   {
     file: NonEmptyString,
@@ -24,6 +26,7 @@ export const LogsTailResultSchema = Type.Object(
 );
 
 // WebChat/WebSocket-native chat methods
+/** Public constant for Chat History Params Schema behavior in packages/gateway-protocol. */
 export const ChatHistoryParamsSchema = Type.Object(
   {
     sessionKey: NonEmptyString,
@@ -82,6 +85,7 @@ export const ChatSendParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Chat Abort Params Schema behavior in packages/gateway-protocol. */
 export const ChatAbortParamsSchema = Type.Object(
   {
     sessionKey: NonEmptyString,
@@ -91,6 +95,7 @@ export const ChatAbortParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Chat Inject Params Schema behavior in packages/gateway-protocol. */
 export const ChatInjectParamsSchema = Type.Object(
   {
     sessionKey: NonEmptyString,
@@ -117,6 +122,7 @@ const ChatEventErrorKindSchema = Type.Union([
   Type.Literal("unknown"),
 ]);
 
+/** Public constant for Chat Delta Event Schema behavior in packages/gateway-protocol. */
 export const ChatDeltaEventSchema = Type.Object(
   {
     ...ChatEventBaseSchema,
@@ -129,6 +135,7 @@ export const ChatDeltaEventSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Chat Final Event Schema behavior in packages/gateway-protocol. */
 export const ChatFinalEventSchema = Type.Object(
   {
     ...ChatEventBaseSchema,
@@ -140,6 +147,7 @@ export const ChatFinalEventSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Chat Aborted Event Schema behavior in packages/gateway-protocol. */
 export const ChatAbortedEventSchema = Type.Object(
   {
     ...ChatEventBaseSchema,
@@ -150,6 +158,7 @@ export const ChatAbortedEventSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Chat Error Event Schema behavior in packages/gateway-protocol. */
 export const ChatErrorEventSchema = Type.Object(
   {
     ...ChatEventBaseSchema,
@@ -163,6 +172,7 @@ export const ChatErrorEventSchema = Type.Object(
   { additionalProperties: false },
 );
 
+/** Public constant for Chat Event Schema behavior in packages/gateway-protocol. */
 export const ChatEventSchema = Type.Union([
   ChatDeltaEventSchema,
   ChatFinalEventSchema,

@@ -3,11 +3,13 @@ import { areRuntimeModelRefsEquivalent } from "../agents/model-runtime-aliases.j
 import type { SessionEntry } from "../config/sessions.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
+/** Shared type for Fallback Notice State in src/status. */
 export type FallbackNoticeState = Pick<
   SessionEntry,
   "fallbackNoticeSelectedModel" | "fallbackNoticeActiveModel" | "fallbackNoticeReason"
 >;
 
+/** Reused helper for resolve Active Fallback State behavior in src/status. */
 export function resolveActiveFallbackState(params: {
   selectedModelRef: string;
   activeModelRef: string;

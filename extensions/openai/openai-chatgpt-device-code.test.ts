@@ -1,3 +1,4 @@
+// Tests extensions/openai openai codex device code test behavior.
 import { describe, expect, it, vi } from "vitest";
 import { resolveCodexAccessTokenExpiry } from "./openai-chatgpt-auth-identity.js";
 import { loginOpenAICodexDeviceCode } from "./openai-chatgpt-device-code.js";

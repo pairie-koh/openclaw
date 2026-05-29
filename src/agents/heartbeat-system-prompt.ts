@@ -51,6 +51,7 @@ function isHeartbeatCadenceEnabled(heartbeat?: HeartbeatConfig): boolean {
   }
 }
 
+/** Return whether heartbeat guidance should be included for a prompt. */
 export function shouldIncludeHeartbeatGuidanceForSystemPrompt(params: {
   config?: OpenClawConfig;
   agentId?: string;
@@ -71,6 +72,7 @@ export function shouldIncludeHeartbeatGuidanceForSystemPrompt(params: {
   return isHeartbeatCadenceEnabled(heartbeat);
 }
 
+/** Resolve heartbeat prompt text for one agent/system prompt. */
 export function resolveHeartbeatPromptForSystemPrompt(params: {
   config?: OpenClawConfig;
   agentId?: string;

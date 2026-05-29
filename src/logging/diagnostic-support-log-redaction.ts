@@ -30,6 +30,7 @@ function createLogRecord(): Record<string, unknown> {
   return Object.create(null) as Record<string, unknown>;
 }
 
+/** Reused helper for sanitize Support Log Record behavior in src/logging. */
 export function sanitizeSupportLogRecord(
   line: string,
   redaction: SupportRedactionContext,

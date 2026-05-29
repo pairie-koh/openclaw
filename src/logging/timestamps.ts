@@ -70,6 +70,7 @@ function getTimestampParts(date: Date, timeZone?: string) {
   };
 }
 
+/** Reused helper for format Timestamp behavior in src/logging. */
 export function formatTimestamp(date: Date, options?: FormatTimestampOptions): string {
   const style = options?.style ?? "medium";
   const parts = getTimestampParts(date, options?.timeZone);

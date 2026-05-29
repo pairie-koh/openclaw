@@ -12,6 +12,7 @@ function resolvePluginDebounce(channelKey: string | undefined): number | undefin
   return typeof value === "number" && Number.isFinite(value) ? Math.max(0, value) : undefined;
 }
 
+/** Reused helper for resolve Queue Settings behavior in src/auto-reply/reply. */
 export function resolveQueueSettings(params: ResolveQueueSettingsParams): QueueSettings {
   const channelKey = normalizeOptionalLowercaseString(params.channel);
   return resolveQueueSettingsCore({

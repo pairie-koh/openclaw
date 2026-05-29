@@ -1,3 +1,4 @@
+/** Starts and manages browser containers attached to agent sandboxes. */
 import crypto from "node:crypto";
 import {
   normalizeOptionalLowercaseString,
@@ -207,6 +208,7 @@ async function ensureDockerNetwork(
   await execDocker(["network", "create", "--driver", "bridge", network]);
 }
 
+/** Ensures a browser bridge/container exists for the requested sandbox session. */
 export async function ensureSandboxBrowser(params: {
   scopeKey: string;
   workspaceDir: string;

@@ -71,6 +71,7 @@ function shortenGroupId(value?: string) {
   return `${trimmed.slice(0, 6)}...${trimmed.slice(-4)}`;
 }
 
+/** Reused helper for build Group Display Name behavior in src/config/sessions. */
 export function buildGroupDisplayName(params: {
   provider?: string;
   subject?: string;
@@ -102,6 +103,7 @@ export function buildGroupDisplayName(params: {
   return token ? `${providerKey}:${token}` : providerKey;
 }
 
+/** Reused helper for resolve Group Session Key behavior in src/config/sessions. */
 export function resolveGroupSessionKey(ctx: MsgContext): GroupKeyResolution | null {
   const from = normalizeOptionalString(ctx.From) ?? "";
   const chatType = normalizeOptionalLowercaseString(ctx.ChatType);

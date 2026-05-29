@@ -86,6 +86,7 @@ function createUndescribedImageContext(
   };
 }
 
+/** Reused helper for resolve Current Turn Images behavior in src/auto-reply/reply. */
 export async function resolveCurrentTurnImages(params: {
   ctx: MsgContext;
   cfg: OpenClawConfig;

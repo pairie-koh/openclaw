@@ -26,6 +26,7 @@ function warnGatewaySecretCliFlag(flag: "--token" | "--password"): void {
   );
 }
 
+/** Reused helper for resolve Gateway Auth Options behavior in src/cli. */
 export function resolveGatewayAuthOptions(opts: {
   token?: unknown;
   tokenFile?: unknown;

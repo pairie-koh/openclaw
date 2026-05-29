@@ -13,12 +13,14 @@ import type {
   HealthRepairResult,
 } from "./health-checks.js";
 
+/** Shared type for Doctor Repair Run Options in src/flows. */
 export interface DoctorRepairRunOptions {
   readonly checks?: readonly HealthCheck[];
   readonly dryRun?: boolean;
   readonly diff?: boolean;
 }
 
+/** Shared type for Doctor Repair Run Result in src/flows. */
 export interface DoctorRepairRunResult {
   readonly config: OpenClawConfig;
   readonly findings: readonly HealthFinding[];
@@ -32,6 +34,7 @@ export interface DoctorRepairRunResult {
   readonly checksValidated: number;
 }
 
+/** Reused helper for run Doctor Health Repairs behavior in src/flows. */
 export async function runDoctorHealthRepairs(
   ctx: HealthRepairContext,
   opts: DoctorRepairRunOptions = {},

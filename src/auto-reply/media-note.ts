@@ -1,3 +1,4 @@
+// Model-visible summaries for inbound media attachments.
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { getMediaDir } from "../media/store.js";
@@ -127,6 +128,7 @@ function collectTranscribedAudioAttachmentIndices(
   return transcribedAudioIndices;
 }
 
+/** Reused helper for build Inbound Media Note behavior in src/auto-reply. */
 export function buildInboundMediaNote(ctx: MsgContext): string | undefined {
   // Attachment indices follow MediaPaths/MediaUrls ordering as supplied by the channel.
   const pathsFromArray = Array.isArray(ctx.MediaPaths) ? ctx.MediaPaths : undefined;

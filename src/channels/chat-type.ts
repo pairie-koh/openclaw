@@ -1,7 +1,9 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 
+/** Normalized chat surface kind. */
 export type ChatType = "direct" | "group" | "channel";
 
+/** Normalize user/plugin chat type labels into the closed chat type set. */
 export function normalizeChatType(raw?: string): ChatType | undefined {
   const value = normalizeOptionalLowercaseString(raw);
   if (!value) {

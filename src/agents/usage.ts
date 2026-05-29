@@ -1,5 +1,6 @@
 import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
 
+/** Shared type for Usage Like in src/agents. */
 export type UsageLike = {
   input?: number;
   output?: number;
@@ -41,6 +42,7 @@ export type UsageLike = {
   };
 };
 
+/** Shared type for Normalized Usage in src/agents. */
 export type NormalizedUsage = {
   input?: number;
   output?: number;
@@ -50,6 +52,7 @@ export type NormalizedUsage = {
   total?: number;
 };
 
+/** Shared type for Open Ai Chat Completions Usage in src/agents. */
 export type OpenAiChatCompletionsUsage = {
   prompt_tokens: number;
   completion_tokens: number;
@@ -58,6 +61,7 @@ export type OpenAiChatCompletionsUsage = {
   completion_tokens_details?: { reasoning_tokens: number };
 };
 
+/** Shared type for Assistant Usage Snapshot in src/agents. */
 export type AssistantUsageSnapshot = {
   input: number;
   output: number;
@@ -73,6 +77,7 @@ export type AssistantUsageSnapshot = {
   };
 };
 
+/** Reused helper for make Zero Usage Snapshot behavior in src/agents. */
 export function makeZeroUsageSnapshot(): AssistantUsageSnapshot {
   return {
     input: 0,
@@ -90,6 +95,7 @@ export function makeZeroUsageSnapshot(): AssistantUsageSnapshot {
   };
 }
 
+/** Reused helper for has Nonzero Usage behavior in src/agents. */
 export function hasNonzeroUsage(usage?: NormalizedUsage | null): usage is NormalizedUsage {
   if (!usage) {
     return false;
@@ -115,6 +121,7 @@ const normalizeTokenCount = (value: unknown): number | undefined => {
   return Math.min(Math.trunc(numeric), Number.MAX_SAFE_INTEGER);
 };
 
+/** Reused helper for normalize Usage behavior in src/agents. */
 export function normalizeUsage(raw?: UsageLike | null): NormalizedUsage | undefined {
   if (!raw) {
     return undefined;
@@ -238,6 +245,7 @@ export function toOpenAiChatCompletionsUsage(
   };
 }
 
+/** Reused helper for derive Prompt Tokens behavior in src/agents. */
 export function derivePromptTokens(usage?: {
   input?: number;
   cacheRead?: number;
@@ -253,6 +261,7 @@ export function derivePromptTokens(usage?: {
   return sum > 0 ? sum : undefined;
 }
 
+/** Reused helper for derive Context Prompt Tokens behavior in src/agents. */
 export function deriveContextPromptTokens(params: {
   lastCallUsage?: NormalizedUsage;
   promptTokens?: number;
@@ -266,6 +275,7 @@ export function deriveContextPromptTokens(params: {
   return derivePromptTokens(params.lastCallUsage) ?? derivePromptTokens(params.usage);
 }
 
+/** Reused helper for derive Session Total Tokens behavior in src/agents. */
 export function deriveSessionTotalTokens(params: {
   usage?: {
     input?: number;

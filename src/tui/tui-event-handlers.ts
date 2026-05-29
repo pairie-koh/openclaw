@@ -55,6 +55,7 @@ const LIFECYCLE_ERROR_RETRY_GRACE_MS = 15_000;
 const STREAMING_WATCHDOG_USER_MESSAGE =
   "This response is taking longer than expected. Still waiting for the current run.";
 
+/** Reused helper for create Event Handlers behavior in src/tui. */
 export function createEventHandlers(context: EventHandlerContext) {
   const {
     chatLog,

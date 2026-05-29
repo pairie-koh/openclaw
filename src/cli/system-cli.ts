@@ -45,6 +45,7 @@ async function runSystemGatewayCommand(
   }
 }
 
+/** Reused helper for register System Cli behavior in src/cli. */
 export function registerSystemCli(program: Command) {
   const system = program
     .command("system")

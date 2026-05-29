@@ -35,6 +35,7 @@ async function resolveSessionKeyByToken(token: string): Promise<string | null> {
   return null;
 }
 
+/** Reused helper for resolve Bound Acp Thread Session Key behavior in src/auto-reply/reply. */
 export function resolveBoundAcpThreadSessionKey(params: HandleCommandsParams): string | undefined {
   const commandTargetSessionKey = normalizeOptionalString(params.ctx.CommandTargetSessionKey) ?? "";
   const activeSessionKey =
@@ -52,6 +53,7 @@ export function resolveBoundAcpThreadSessionKey(params: HandleCommandsParams): s
   });
 }
 
+/** Reused helper for resolve Acp Target Session Key behavior in src/auto-reply/reply. */
 export async function resolveAcpTargetSessionKey(params: {
   commandParams: HandleCommandsParams;
   token?: string;

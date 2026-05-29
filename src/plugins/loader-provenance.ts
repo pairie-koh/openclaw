@@ -19,6 +19,7 @@ type InstallTrackingRule = {
   matcher: PathMatcher;
 };
 
+/** Shared type for Plugin Provenance Index in src/plugins. */
 export type PluginProvenanceIndex = {
   loadPathMatcher: PathMatcher;
   installRules: Map<string, InstallTrackingRule>;
@@ -65,6 +66,7 @@ function matchesPathMatcher(matcher: PathMatcher, sourcePath: string): boolean {
   return matcher.dirs.some((dirPath) => isPathInside(dirPath, sourcePath));
 }
 
+/** Reused helper for build Provenance Index behavior in src/plugins. */
 export function buildProvenanceIndex(params: {
   normalizedLoadPaths: string[];
   env: NodeJS.ProcessEnv;
@@ -175,6 +177,7 @@ function resolveCandidateDuplicateRank(params: {
   return 5;
 }
 
+/** Reused helper for compare Duplicate Candidate Order behavior in src/plugins. */
 export function compareDuplicateCandidateOrder(params: {
   left: PluginCandidate;
   right: PluginCandidate;
@@ -203,6 +206,7 @@ export function compareDuplicateCandidateOrder(params: {
   );
 }
 
+/** Reused helper for warn When Allowlist Is Open behavior in src/plugins. */
 export function warnWhenAllowlistIsOpen(params: {
   emitWarning: boolean;
   logger: PluginLogger;
@@ -241,6 +245,7 @@ export function warnWhenAllowlistIsOpen(params: {
   );
 }
 
+/** Reused helper for warn About Untracked Loaded Plugins behavior in src/plugins. */
 export function warnAboutUntrackedLoadedPlugins(params: {
   registry: PluginRegistry;
   provenance: PluginProvenanceIndex;

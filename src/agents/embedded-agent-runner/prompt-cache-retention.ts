@@ -3,6 +3,7 @@ import { resolveAnthropicCacheRetentionFamily } from "../../llm/providers/stream
 
 type CacheRetention = "none" | "short" | "long";
 
+/** Reused helper for is Google Prompt Cache Eligible behavior in src/agents/embedded-agent-runner. */
 export function isGooglePromptCacheEligible(params: {
   modelApi?: string;
   modelId?: string;
@@ -14,6 +15,7 @@ export function isGooglePromptCacheEligible(params: {
   return normalizedModelId.startsWith("gemini-2.5") || normalizedModelId.startsWith("gemini-3");
 }
 
+/** Reused helper for resolve Cache Retention behavior in src/agents/embedded-agent-runner. */
 export function resolveCacheRetention(
   extraParams: Record<string, unknown> | undefined,
   provider: string,

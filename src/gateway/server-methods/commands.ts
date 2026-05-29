@@ -206,6 +206,7 @@ function buildPluginCommandEntries(params: {
   return entries;
 }
 
+/** Reused helper for build Commands List Result behavior in src/gateway/server-methods. */
 export function buildCommandsListResult(params: {
   cfg: OpenClawConfig;
   agentId: string;
@@ -244,6 +245,7 @@ export function buildCommandsListResult(params: {
   return { commands: commands.slice(0, COMMAND_LIST_MAX_ITEMS) };
 }
 
+/** Reused constant for commands Handlers behavior in src/gateway/server-methods. */
 export const commandsHandlers: GatewayRequestHandlers = {
   "commands.list": ({ params, respond, context }) => {
     if (!validateCommandsListParams(params)) {

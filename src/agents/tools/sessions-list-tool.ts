@@ -1,3 +1,4 @@
+/** Agent tool for listing visible sessions. */
 import path from "node:path";
 import {
   normalizeOptionalLowercaseString,
@@ -75,6 +76,7 @@ function readSessionRunStatus(value: unknown): SessionRunStatus | undefined {
     : undefined;
 }
 
+/** Creates the sessions list AgentTool. */
 export function createSessionsListTool(opts?: {
   agentSessionKey?: string;
   sandboxed?: boolean;

@@ -37,6 +37,7 @@ import type {
   RuntimeWebToolsMetadata,
 } from "./runtime-web-tools.types.js";
 
+/** Re-exported API for src/secrets. */
 export type {
   RuntimeWebDiagnostic,
   RuntimeWebDiagnosticCode,
@@ -509,6 +510,7 @@ function inactivePathsForFetchProvider(provider: PluginWebFetchProviderEntry): s
     : [provider.credentialPath];
 }
 
+/** Reused helper for resolve Runtime Web Tools behavior in src/secrets. */
 export async function resolveRuntimeWebTools(params: {
   sourceConfig: OpenClawConfig;
   resolvedConfig: OpenClawConfig;

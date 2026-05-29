@@ -168,6 +168,7 @@ type BackgroundTaskContext = {
   task: string;
 };
 
+/** Reused class for Acp Session Manager behavior in src/acp/control-plane. */
 export class AcpSessionManager {
   private readonly actorQueue = new SessionActorQueue();
   private readonly runtimeCache = new RuntimeCache();

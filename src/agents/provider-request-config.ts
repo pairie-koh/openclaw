@@ -21,6 +21,7 @@ import {
 
 type RequestApi = Api | ModelDefinitionConfig["api"];
 
+/** Explicit auth override for one provider request route. */
 export type ProviderRequestAuthOverride =
   | {
       mode: "provider-default";
@@ -36,6 +37,7 @@ export type ProviderRequestAuthOverride =
       prefix?: string;
     };
 
+/** TLS material override for direct or proxied provider requests. */
 export type ProviderRequestTlsOverride = {
   ca?: string;
   cert?: string;
@@ -45,6 +47,7 @@ export type ProviderRequestTlsOverride = {
   insecureSkipVerify?: boolean;
 };
 
+/** Proxy override for provider requests. */
 export type ProviderRequestProxyOverride =
   | {
       mode: "env-proxy";
@@ -56,6 +59,7 @@ export type ProviderRequestProxyOverride =
       tls?: ProviderRequestTlsOverride;
     };
 
+/** Request transport overrides from config or runtime. */
 export type ProviderRequestTransportOverrides = {
   headers?: Record<string, string>;
   auth?: ProviderRequestAuthOverride;
@@ -63,6 +67,7 @@ export type ProviderRequestTransportOverrides = {
   tls?: ProviderRequestTlsOverride;
 };
 
+/** Model-scoped transport overrides including private-network policy. */
 export type ModelProviderRequestTransportOverrides = ProviderRequestTransportOverrides & {
   allowPrivateNetwork?: boolean;
 };
@@ -124,6 +129,7 @@ type ResolvedProviderRequestExtraHeadersConfig = {
   headers?: Record<string, string>;
 };
 
+/** Fully resolved provider request config used by transports. */
 export type ResolvedProviderRequestConfig = {
   api?: RequestApi;
   baseUrl?: string;
@@ -198,6 +204,7 @@ function sanitizeConfiguredRequestString(value: unknown, path: string): string |
   return trimmed ? trimmed : undefined;
 }
 
+/** Sanitize config-defined provider transport overrides after secret resolution. */
 export function sanitizeConfiguredProviderRequest(
   request: ConfiguredProviderRequest | undefined,
 ): ProviderRequestTransportOverrides | undefined {
@@ -324,6 +331,7 @@ export function sanitizeConfiguredProviderRequest(
   };
 }
 
+/** Sanitize model-level provider transport overrides. */
 export function sanitizeConfiguredModelProviderRequest(
   request: ConfiguredModelProviderRequest | undefined,
 ): ModelProviderRequestTransportOverrides | undefined {
@@ -339,6 +347,7 @@ export function sanitizeConfiguredModelProviderRequest(
   };
 }
 
+/** Merge provider request overrides with later args taking precedence. */
 export function mergeProviderRequestOverrides(
   ...overrides: Array<ProviderRequestTransportOverrides | undefined>
 ): ProviderRequestTransportOverrides | undefined {
@@ -365,6 +374,7 @@ export function mergeProviderRequestOverrides(
   return hasMerged ? merged : undefined;
 }
 
+/** Merge model request overrides including allowPrivateNetwork. */
 export function mergeModelProviderRequestOverrides(
   ...overrides: Array<ModelProviderRequestTransportOverrides | undefined>
 ): ModelProviderRequestTransportOverrides | undefined {
@@ -380,11 +390,14 @@ export function mergeModelProviderRequestOverrides(
   return merged;
 }
 
+/** Reused helper for normalize Base Url behavior in src/agents. */
 export function normalizeBaseUrl(baseUrl: string | undefined, fallback: string): string;
+/** Reused helper for normalize Base Url behavior in src/agents. */
 export function normalizeBaseUrl(
   baseUrl: string | undefined,
   fallback?: string,
 ): string | undefined;
+/** Reused helper for normalize Base Url behavior in src/agents. */
 export function normalizeBaseUrl(
   baseUrl: string | undefined,
   fallback?: string,
@@ -505,6 +518,7 @@ function resolveAuthOverride(params: {
   };
 }
 
+/** Sanitize runtime-auth request overrides, forbidding proxy/TLS mutation. */
 export function sanitizeRuntimeProviderRequestOverrides(
   request: ProviderRequestTransportOverrides | undefined,
 ): ProviderRequestTransportOverrides | undefined {
@@ -604,6 +618,7 @@ function toTlsConnectOptions(
   return Object.keys(next).length > 0 ? next : undefined;
 }
 
+/** Convert resolved proxy/TLS config into a pinned dispatcher policy. */
 export function buildProviderRequestDispatcherPolicy(
   request: Pick<ResolvedProviderRequestConfig, "proxy" | "tls">,
 ): PinnedDispatcherPolicy | undefined {
@@ -626,12 +641,14 @@ export function buildProviderRequestDispatcherPolicy(
   };
 }
 
+/** Convert resolved TLS config into client connect options. */
 export function buildProviderRequestTlsClientOptions(
   request: Pick<ResolvedProviderRequestConfig, "tls">,
 ): Record<string, unknown> | undefined {
   return toTlsConnectOptions(request.tls);
 }
 
+/** Resolve provider request config plus capabilities and private-network policy. */
 export function resolveProviderRequestPolicyConfig(
   params: ResolveProviderRequestPolicyConfigParams,
 ): ResolvedProviderRequestPolicyConfig {
@@ -700,6 +717,7 @@ export function resolveProviderRequestPolicyConfig(
   };
 }
 
+/** Resolve provider request config for model/catalog resolution callers. */
 export function resolveProviderRequestConfig(params: {
   provider: string;
   api?: RequestApi;
@@ -728,6 +746,7 @@ export function resolveProviderRequestConfig(params: {
   };
 }
 
+/** Resolve final request headers with attribution and caller precedence. */
 export function resolveProviderRequestHeaders(params: {
   provider: string;
   api?: RequestApi;
@@ -760,6 +779,7 @@ type ModelWithProviderRequestTransport = {
   [MODEL_PROVIDER_REQUEST_TRANSPORT_SYMBOL]?: ModelProviderRequestTransportOverrides;
 };
 
+/** Attach model-scoped request transport overrides to a model object. */
 export function attachModelProviderRequestTransport<TModel extends object>(
   model: TModel,
   request: ModelProviderRequestTransportOverrides | undefined,
@@ -772,6 +792,7 @@ export function attachModelProviderRequestTransport<TModel extends object>(
   return next;
 }
 
+/** Read model-scoped request transport overrides from a model object. */
 export function getModelProviderRequestTransport(
   model: object,
 ): ModelProviderRequestTransportOverrides | undefined {

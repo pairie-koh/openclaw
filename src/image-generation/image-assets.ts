@@ -9,17 +9,20 @@ import type { GeneratedImageAsset, ImageGenerationSourceImage } from "./types.js
 const DEFAULT_IMAGE_MIME_TYPE = "image/png";
 const DEFAULT_IMAGE_FILE_PREFIX = "image";
 
+/** Shared type for Image Mime Type Detection in src/image-generation. */
 export type ImageMimeTypeDetection = {
   mimeType: string;
   extension: string;
 };
 
+/** Shared type for Open Ai Compatible Image Response Entry in src/image-generation. */
 export type OpenAiCompatibleImageResponseEntry = {
   b64_json?: unknown;
   mime_type?: unknown;
   revised_prompt?: unknown;
 };
 
+/** Shared type for Open Ai Compatible Image Response Payload in src/image-generation. */
 export type OpenAiCompatibleImageResponsePayload = {
   data?: unknown;
 };
@@ -31,6 +34,7 @@ function throwMalformedImageResponse(message: string | undefined): never | undef
   return undefined;
 }
 
+/** Reused helper for image File Extension For Mime Type behavior in src/image-generation. */
 export function imageFileExtensionForMimeType(
   mimeType: string | undefined,
   fallback = "png",
@@ -49,6 +53,7 @@ export function imageFileExtensionForMimeType(
   return slashIndex >= 0 ? normalized.slice(slashIndex + 1) || fallback : fallback;
 }
 
+/** Reused helper for sniff Image Mime Type behavior in src/image-generation. */
 export function sniffImageMimeType(
   buffer: Buffer,
   fallbackMimeType = DEFAULT_IMAGE_MIME_TYPE,
@@ -78,6 +83,7 @@ export function sniffImageMimeType(
   };
 }
 
+/** Reused helper for to Image Data Url behavior in src/image-generation. */
 export function toImageDataUrl(params: {
   buffer: Buffer;
   mimeType?: string;
@@ -90,6 +96,7 @@ export function toImageDataUrl(params: {
   return `data:${mimeType};base64,${params.buffer.toString("base64")}`;
 }
 
+/** Reused helper for parse Image Data Url behavior in src/image-generation. */
 export function parseImageDataUrl(
   dataUrl: string,
 ): { mimeType: string; base64: string } | undefined {
@@ -109,6 +116,7 @@ export function parseImageDataUrl(
   return { mimeType, base64: canonicalBase64 };
 }
 
+/** Reused helper for generated Image Asset From Base64 behavior in src/image-generation. */
 export function generatedImageAssetFromBase64(params: {
   base64: string | undefined;
   index: number;
@@ -145,6 +153,7 @@ export function generatedImageAssetFromBase64(params: {
   return image;
 }
 
+/** Reused helper for generated Image Asset From Data Url behavior in src/image-generation. */
 export function generatedImageAssetFromDataUrl(params: {
   dataUrl: string;
   index: number;
@@ -162,6 +171,7 @@ export function generatedImageAssetFromDataUrl(params: {
   });
 }
 
+/** Reused helper for generated Image Asset From Open Ai Compatible Entry behavior in src/image-generation. */
 export function generatedImageAssetFromOpenAiCompatibleEntry(
   entry: OpenAiCompatibleImageResponseEntry,
   index: number,
@@ -182,6 +192,7 @@ export function generatedImageAssetFromOpenAiCompatibleEntry(
   });
 }
 
+/** Reused helper for parse Open Ai Compatible Image Response behavior in src/image-generation. */
 export function parseOpenAiCompatibleImageResponse(
   payload: unknown,
   options: {
@@ -220,6 +231,7 @@ export function parseOpenAiCompatibleImageResponse(
   return images;
 }
 
+/** Reused helper for image Source Upload File Name behavior in src/image-generation. */
 export function imageSourceUploadFileName(params: {
   image: ImageGenerationSourceImage;
   index: number;

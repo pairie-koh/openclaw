@@ -23,6 +23,7 @@ type ChannelGroupConfig = {
   toolsBySender?: GroupToolPolicyBySenderConfig;
 };
 
+/** Shared type for Channel Group Policy in src/config. */
 export type ChannelGroupPolicy = {
   allowlistEnabled: boolean;
   allowed: boolean;
@@ -308,6 +309,7 @@ function matchToolsBySenderPolicy(
   return compiled.wildcard;
 }
 
+/** Reused helper for resolve Tools By Sender behavior in src/config. */
 export function resolveToolsBySender(
   params: {
     toolsBySender?: GroupToolPolicyBySenderConfig;
@@ -382,6 +384,7 @@ function resolveChannelGroupPolicyMode(
   return accountPolicy ?? channelConfig.groupPolicy;
 }
 
+/** Reused helper for resolve Channel Group Policy behavior in src/config. */
 export function resolveChannelGroupPolicy(params: {
   cfg: OpenClawConfig;
   channel: GroupPolicyChannel;
@@ -418,6 +421,7 @@ export function resolveChannelGroupPolicy(params: {
   };
 }
 
+/** Reused helper for resolve Channel Group Require Mention behavior in src/config. */
 export function resolveChannelGroupRequireMention(params: {
   cfg: OpenClawConfig;
   channel: GroupPolicyChannel;
@@ -452,6 +456,7 @@ export function resolveChannelGroupRequireMention(params: {
   return true;
 }
 
+/** Reused helper for resolve Channel Group Tools Policy behavior in src/config. */
 export function resolveChannelGroupToolsPolicy(
   params: {
     cfg: OpenClawConfig;

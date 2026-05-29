@@ -161,6 +161,7 @@ function parseExecDirectiveArgs(raw: string): Omit<
   };
 }
 
+/** Reused helper for extract Exec Directive behavior in src/auto-reply/reply. */
 export function extractExecDirective(body?: string): ExecDirectiveParse {
   if (!body) {
     return {

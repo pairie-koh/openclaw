@@ -1,3 +1,4 @@
+// ACP command lifecycle helpers.
 import { randomUUID } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { getAcpSessionManager } from "../../../acp/control-plane/manager.js";
@@ -486,6 +487,7 @@ async function persistSpawnedSessionLabel(params: {
   });
 }
 
+/** Reused helper for handle Acp Spawn Action behavior in src/auto-reply/reply. */
 export async function handleAcpSpawnAction(
   params: HandleCommandsParams,
   restTokens: string[],
@@ -740,6 +742,7 @@ async function withResolvedAcpSessionTarget(params: {
   });
 }
 
+/** Reused helper for handle Acp Cancel Action behavior in src/auto-reply/reply. */
 export async function handleAcpCancelAction(
   params: HandleCommandsParams,
   restTokens: string[],
@@ -795,6 +798,7 @@ async function runAcpSteer(params: {
   return output.trim();
 }
 
+/** Reused helper for handle Acp Steer Action behavior in src/auto-reply/reply. */
 export async function handleAcpSteerAction(
   params: HandleCommandsParams,
   restTokens: string[],
@@ -852,6 +856,7 @@ export async function handleAcpSteerAction(
   });
 }
 
+/** Reused helper for handle Acp Close Action behavior in src/auto-reply/reply. */
 export async function handleAcpCloseAction(
   params: HandleCommandsParams,
   restTokens: string[],

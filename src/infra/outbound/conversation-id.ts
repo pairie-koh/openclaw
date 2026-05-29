@@ -13,6 +13,7 @@ function resolveExplicitConversationTargetId(target: string): string | undefined
   return undefined;
 }
 
+/** Reused helper for resolve Conversation Id From Targets behavior in src/infra/outbound. */
 export function resolveConversationIdFromTargets(params: {
   threadId?: string | number;
   targets: Array<string | undefined | null>;

@@ -4,8 +4,10 @@ import {
   uniqueStrings,
 } from "@openclaw/normalization-core/string-normalization";
 
+/** Canonical reasoning effort levels used by OpenAI-family providers. */
 export type OpenAIReasoningEffort = "none" | "minimal" | "low" | "medium" | "high" | "xhigh";
 
+/** Provider API reasoning effort value, including future string literals. */
 export type OpenAIApiReasoningEffort = OpenAIReasoningEffort | (string & {});
 
 type OpenAIReasoningModel = {
@@ -30,11 +32,13 @@ function normalizeModelId(id: string | null | undefined): string {
   return normalizeLowercaseStringOrEmpty(id ?? "").replace(/-\d{4}-\d{2}-\d{2}$/u, "");
 }
 
+/** Return whether a model id is the GPT-5.4 mini family. */
 export function isOpenAIGpt54MiniModel(model: OpenAIReasoningModel): boolean {
   const id = normalizeModelId(typeof model.id === "string" ? model.id : undefined);
   return /^gpt-5\.4-mini(?:-|$)/u.test(id);
 }
 
+/** Normalize OpenAI reasoning effort aliases before support checks. */
 export function normalizeOpenAIReasoningEffort(effort: string): string {
   return effort === "minimal" ? "minimal" : effort;
 }
@@ -60,6 +64,7 @@ function isDisabledReasoningEffort(effort: string): boolean {
   return effort === "none" || effort === "off";
 }
 
+/** Return supported reasoning efforts for an OpenAI-family model. */
 export function resolveOpenAISupportedReasoningEfforts(
   model: OpenAIReasoningModel,
 ): readonly OpenAIApiReasoningEffort[] {
@@ -96,6 +101,7 @@ export function resolveOpenAISupportedReasoningEfforts(
   return GENERIC_REASONING_EFFORTS;
 }
 
+/** Return whether a model supports a requested reasoning effort. */
 export function supportsOpenAIReasoningEffort(
   model: OpenAIReasoningModel,
   effort: string,
@@ -105,6 +111,7 @@ export function supportsOpenAIReasoningEffort(
   );
 }
 
+/** Resolve requested effort to the nearest supported provider effort. */
 export function resolveOpenAIReasoningEffortForModel(params: {
   model: OpenAIReasoningModel;
   effort: string;

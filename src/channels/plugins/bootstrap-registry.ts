@@ -59,11 +59,13 @@ function mergeBootstrapPlugin(
   } as ChannelPlugin;
 }
 
+/** Reused helper for list Bootstrap Channel Plugin Ids behavior in src/channels/plugins. */
 export function listBootstrapChannelPluginIds(): readonly string[] {
   const rootScope = resolveBundledChannelRootScope();
   return listBundledChannelPluginIdsForRoot(rootScope.cacheKey);
 }
 
+/** Reused helper for this surface behavior in src/channels/plugins. */
 export function* iterateBootstrapChannelPlugins(): IterableIterator<ChannelPlugin> {
   for (const id of listBootstrapChannelPluginIds()) {
     const plugin = getBootstrapChannelPlugin(id);
@@ -73,6 +75,7 @@ export function* iterateBootstrapChannelPlugins(): IterableIterator<ChannelPlugi
   }
 }
 
+/** Reused helper for get Bootstrap Channel Plugin behavior in src/channels/plugins. */
 export function getBootstrapChannelPlugin(id: ChannelId): ChannelPlugin | undefined {
   const resolvedId = resolveBootstrapChannelId(id);
   if (!resolvedId) {
@@ -93,6 +96,7 @@ export function getBootstrapChannelPlugin(id: ChannelId): ChannelPlugin | undefi
   return merged;
 }
 
+/** Reused helper for get Bootstrap Channel Secrets behavior in src/channels/plugins. */
 export function getBootstrapChannelSecrets(id: ChannelId): ChannelPlugin["secrets"] | undefined {
   const resolvedId = resolveBootstrapChannelId(id);
   if (!resolvedId) {

@@ -63,6 +63,7 @@ async function resolveApproveScopesForRequest(
   }
 }
 
+/** Reused helper for register Nodes Pairing Commands behavior in src/cli/nodes-cli. */
 export function registerNodesPairingCommands(nodes: Command) {
   nodesCallOpts(
     nodes

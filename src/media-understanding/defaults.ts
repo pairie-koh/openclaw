@@ -9,6 +9,7 @@ import {
 } from "./provider-registry.js";
 import { providerSupportsCapability } from "./provider-supports.js";
 import type { MediaUnderstandingCapability, MediaUnderstandingProvider } from "./types.js";
+/** Re-exported API for src/media-understanding. */
 export {
   CLI_OUTPUT_MAX_BUFFER,
   DEFAULT_MAX_BYTES,
@@ -136,6 +137,7 @@ function insertConfiguredImageProviders(params: {
   return uniqueStrings(merged);
 }
 
+/** Reused helper for resolve Default Media Model behavior in src/media-understanding. */
 export function resolveDefaultMediaModel(params: {
   providerId: string;
   capability: MediaUnderstandingCapability;
@@ -168,6 +170,7 @@ export function resolveDefaultMediaModel(params: {
   return undefined;
 }
 
+/** Reused helper for resolve Auto Media Key Providers behavior in src/media-understanding. */
 export function resolveAutoMediaKeyProviders(params: {
   capability: MediaUnderstandingCapability;
   cfg?: OpenClawConfig;
@@ -206,6 +209,7 @@ export function resolveAutoMediaKeyProviders(params: {
   });
 }
 
+/** Reused helper for provider Supports Native Pdf Document behavior in src/media-understanding. */
 export function providerSupportsNativePdfDocument(params: {
   providerId: string;
   cfg?: OpenClawConfig;
@@ -218,6 +222,7 @@ export function providerSupportsNativePdfDocument(params: {
   return provider?.nativeDocumentInputs?.includes("pdf") ?? false;
 }
 
+/** Reused helper for resolve Document Media Model behavior in src/media-understanding. */
 export function resolveDocumentMediaModel(params: {
   providerId: string;
   document: "pdf";

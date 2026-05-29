@@ -15,6 +15,7 @@ function resolveFailureSignalCode(
   return undefined;
 }
 
+/** Reused helper for resolve Embedded Run Failure Signal behavior in src/agents/embedded-agent-runner. */
 export function resolveEmbeddedRunFailureSignal(params: {
   trigger?: string | undefined;
   lastToolError?: ToolErrorSummary | undefined;

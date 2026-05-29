@@ -23,6 +23,7 @@ import { parseStrictPositiveInteger } from "../infra/parse-finite-number.js";
 import { defaultRuntime } from "../runtime.js";
 import { formatCliCommand } from "./command-format.js";
 
+/** Reused helper for register Webhooks Cli behavior in src/cli. */
 export function registerWebhooksCli(program: Command) {
   const webhooks = program
     .command("webhooks")

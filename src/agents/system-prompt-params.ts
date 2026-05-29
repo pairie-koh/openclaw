@@ -1,3 +1,4 @@
+/** Builds normalized parameters used by system prompt generation. */
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
@@ -35,6 +36,7 @@ type SystemPromptRuntimeParams = {
   userTimeFormat?: ResolvedTimeFormat;
 };
 
+/** Reused helper for build System Prompt Params behavior in src/agents. */
 export function buildSystemPromptParams(params: {
   config?: OpenClawConfig;
   agentId?: string;

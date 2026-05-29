@@ -1,3 +1,4 @@
+/** Implements OpenAI Responses/Completions transport streaming and payload builders. */
 import { createHash, randomUUID } from "node:crypto";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
@@ -231,6 +232,7 @@ type MutableAssistantOutput = {
   errorBody?: string;
 };
 
+/** Re-exported API for src/agents, starting with sanitize Transport Payload Text. */
 export { sanitizeTransportPayloadText } from "./transport-stream-shared.js";
 
 function stringifyUnknown(value: unknown, fallback = ""): string {
@@ -951,6 +953,7 @@ async function createResponsesStreamWithEncryptedContentRetry(params: {
   }
 }
 
+/** Resolve Azure OpenAI API version from env or default preview version. */
 export function resolveAzureOpenAIApiVersion(env = process.env): string {
   return env.AZURE_OPENAI_API_VERSION?.trim() || DEFAULT_AZURE_OPENAI_API_VERSION;
 }
@@ -1747,6 +1750,7 @@ function createOpenAIResponsesClient(
   });
 }
 
+/** Create a stream function for OpenAI Responses-compatible models. */
 export function createOpenAIResponsesTransportStreamFn(): StreamFn {
   return (model, context, options) => {
     const responsesOptions = options as OpenAIResponsesOptions | undefined;
@@ -2063,6 +2067,7 @@ function resolveOpenAIResponsesTextFormat(
   return responseFormat as unknown as ResponseFormatTextConfig;
 }
 
+/** Build OpenAI Responses SDK request params from model/context/options. */
 export function buildOpenAIResponsesParams(
   model: Model,
   context: Context,
@@ -2177,6 +2182,7 @@ export function buildOpenAIResponsesParams(
   ) as typeof params;
 }
 
+/** Create a stream function for Azure OpenAI Responses-compatible models. */
 export function createAzureOpenAIResponsesTransportStreamFn(): StreamFn {
   return (model, context, options) => {
     const responsesOptions = options as OpenAIResponsesOptions | undefined;
@@ -2425,6 +2431,7 @@ function buildOpenAICompletionsClientConfig(
   };
 }
 
+/** Create a stream function for OpenAI Chat Completions-compatible models. */
 export function createOpenAICompletionsTransportStreamFn(): StreamFn {
   return (model, context, options) => {
     const eventStream = createAssistantMessageEventStream();
@@ -3548,6 +3555,7 @@ function sanitizeCompletionsReasoningReplayFields(
   }
 }
 
+/** Build OpenAI Chat Completions SDK request params from model/context/options. */
 export function buildOpenAICompletionsParams(
   model: OpenAIModeModel,
   context: Context,
@@ -3730,6 +3738,7 @@ export function buildOpenAICompletionsParams(
   return params;
 }
 
+/** Convert streaming usage chunks to OpenClaw usage/cost accounting. */
 export function parseTransportChunkUsage(
   rawUsage: NonNullable<ChatCompletionChunk["usage"]>,
   model: Model,
@@ -3780,6 +3789,7 @@ function mapStopReason(reason: string | null) {
   }
 }
 
+/** Test-only access to internal transport helpers. */
 export const testing = {
   assertCodeModeResponsesToolSurface,
   buildOpenAIClientHeaders,
@@ -3805,4 +3815,5 @@ export const testing = {
   summarizeResponsesTools,
   withResponsesFirstEventTimeout,
 };
+/** Re-exported API for src/agents, starting with testing. */
 export { testing as __testing };

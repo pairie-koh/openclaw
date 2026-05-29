@@ -81,6 +81,7 @@ function isBareParentDefaultHelpArgv(argv: string[]): boolean {
     : false;
 }
 
+/** Reused helper for rewrite Update Flag Argv behavior in src/cli. */
 export function rewriteUpdateFlagArgv(argv: string[]): string[] {
   const index = argv.indexOf("--update");
   if (index === -1) {
@@ -92,6 +93,7 @@ export function rewriteUpdateFlagArgv(argv: string[]): string[] {
   return next;
 }
 
+/** Reused helper for should Ensure Cli Path behavior in src/cli. */
 export function shouldEnsureCliPath(argv: string[]): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   if (
@@ -104,6 +106,7 @@ export function shouldEnsureCliPath(argv: string[]): boolean {
   return resolveCliCommandPathPolicy(invocation.commandPath).ensureCliPath;
 }
 
+/** Reused helper for should Use Root Help Fast Path behavior in src/cli. */
 export function shouldUseRootHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -121,6 +124,7 @@ export function shouldUseRootHelpFastPath(
   );
 }
 
+/** Reused helper for should Use Browser Help Fast Path behavior in src/cli. */
 export function shouldUseBrowserHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -136,6 +140,7 @@ export function shouldUseBrowserHelpFastPath(
   );
 }
 
+/** Reused helper for should Use Secrets Help Fast Path behavior in src/cli. */
 export function shouldUseSecretsHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -151,6 +156,7 @@ export function shouldUseSecretsHelpFastPath(
   );
 }
 
+/** Reused helper for should Use Nodes Help Fast Path behavior in src/cli. */
 export function shouldUseNodesHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -166,6 +172,7 @@ export function shouldUseNodesHelpFastPath(
   );
 }
 
+/** Reused helper for should Use Setup Onboard Configure Help Fast Path behavior in src/cli. */
 export function shouldUseSetupOnboardConfigureHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -181,6 +188,7 @@ export function shouldUseSetupOnboardConfigureHelpFastPath(
   );
 }
 
+/** Reused helper for resolve Precomputed Subcommand Help Fast Path behavior in src/cli. */
 export function resolvePrecomputedSubcommandHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -191,11 +199,13 @@ export function resolvePrecomputedSubcommandHelpFastPath(
   return resolveStrictPrecomputedSubcommandHelpCommand(argv);
 }
 
+/** Reused helper for should Start Crestodian For Bare Root behavior in src/cli. */
 export function shouldStartCrestodianForBareRoot(argv: string[]): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   return invocation.commandPath.length === 0 && !invocation.hasHelpOrVersion;
 }
 
+/** Reused helper for should Start Crestodian For Modern Onboard behavior in src/cli. */
 export function shouldStartCrestodianForModernOnboard(argv: string[]): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   return (
@@ -205,6 +215,7 @@ export function shouldStartCrestodianForModernOnboard(argv: string[]): boolean {
   );
 }
 
+/** Reused helper for should Start Proxy For Cli behavior in src/cli. */
 export function shouldStartProxyForCli(argv: string[]): boolean {
   const policyArgv = rewriteUpdateFlagArgv(argv);
   const invocation = resolveCliArgvInvocation(policyArgv);
@@ -218,6 +229,7 @@ export function shouldStartProxyForCli(argv: string[]): boolean {
   return resolveCliNetworkProxyPolicy(policyArgv) === "default";
 }
 
+/** Reused helper for resolve Missing Plugin Command Message behavior in src/cli. */
 export function resolveMissingPluginCommandMessage(
   pluginId: string,
   config?: OpenClawConfig,

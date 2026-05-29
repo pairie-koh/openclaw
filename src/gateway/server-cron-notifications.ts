@@ -125,6 +125,7 @@ async function postCronWebhook(params: {
   }
 }
 
+/** Reused helper for send Gateway Cron Failure Alert behavior in src/gateway. */
 export async function sendGatewayCronFailureAlert(params: {
   deps: CliDeps;
   logger: CronLogger;
@@ -193,6 +194,7 @@ export async function sendGatewayCronFailureAlert(params: {
   });
 }
 
+/** Reused helper for dispatch Gateway Cron Finished Notifications behavior in src/gateway. */
 export function dispatchGatewayCronFinishedNotifications(params: {
   evt: CronEvent;
   job?: CronJob;

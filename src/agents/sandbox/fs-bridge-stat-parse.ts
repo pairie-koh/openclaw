@@ -1,6 +1,8 @@
+/** Parses stat output returned by sandbox filesystem bridge commands. */
 import { parseStrictNonNegativeInteger } from "../../infra/parse-finite-number.js";
 import { asDateTimestampMs } from "../../shared/number-coercion.js";
 
+/** Parses byte size from stat output with a safe zero fallback. */
 export function parseSandboxStatSize(value: string | undefined): number {
   const raw = value ?? "0";
   const parsed = parseStrictNonNegativeInteger(raw);
@@ -10,6 +12,7 @@ export function parseSandboxStatSize(value: string | undefined): number {
   return /^\d+$/.test(raw) ? Number.MAX_SAFE_INTEGER : 0;
 }
 
+/** Parses mtime milliseconds from stat output with a safe zero fallback. */
 export function parseSandboxStatMtimeMs(value: string | undefined): number {
   const raw = value ?? "0";
   if (/^\d+(?:\.\d+)?$/.test(raw)) {

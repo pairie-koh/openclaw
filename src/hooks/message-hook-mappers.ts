@@ -23,6 +23,7 @@ import type {
   MessageTranscribedHookContext,
 } from "./internal-hooks.js";
 
+/** Shared type for Canonical Inbound Message Hook Context in src/hooks. */
 export type CanonicalInboundMessageHookContext = {
   from: string;
   to?: string;
@@ -63,6 +64,7 @@ export type CanonicalInboundMessageHookContext = {
   callDepth?: number;
 };
 
+/** Shared type for Canonical Sent Message Hook Context in src/hooks. */
 export type CanonicalSentMessageHookContext = {
   to: string;
   content: string;
@@ -84,6 +86,7 @@ function readNonBlankString(value: unknown): string | undefined {
   return typeof value === "string" && value.trim().length > 0 ? value : undefined;
 }
 
+/** Reused helper for derive Inbound Message Hook Context behavior in src/hooks. */
 export function deriveInboundMessageHookContext(
   ctx: FinalizedMsgContext,
   overrides?: {
@@ -161,6 +164,7 @@ export function deriveInboundMessageHookContext(
   };
 }
 
+/** Reused helper for build Canonical Sent Message Hook Context behavior in src/hooks. */
 export function buildCanonicalSentMessageHookContext(params: {
   to: string;
   content: string;
@@ -218,6 +222,7 @@ function assignTraceFields(
   }
 }
 
+/** Reused helper for to Plugin Message Context behavior in src/hooks. */
 export function toPluginMessageContext(
   canonical: CanonicalInboundMessageHookContext | CanonicalSentMessageHookContext,
 ): PluginHookMessageContext {
@@ -286,6 +291,7 @@ function resolveInboundConversation(canonical: CanonicalInboundMessageHookContex
   return { conversationId: baseConversationId };
 }
 
+/** Reused helper for to Plugin Inbound Claim Context behavior in src/hooks. */
 export function toPluginInboundClaimContext(
   canonical: CanonicalInboundMessageHookContext,
 ): PluginHookInboundClaimContext {
@@ -305,6 +311,7 @@ export function toPluginInboundClaimContext(
   return context;
 }
 
+/** Reused helper for to Plugin Inbound Claim Event behavior in src/hooks. */
 export function toPluginInboundClaimEvent(
   canonical: CanonicalInboundMessageHookContext,
   extras?: {
@@ -357,6 +364,7 @@ export function toPluginInboundClaimEvent(
   return event;
 }
 
+/** Reused helper for to Plugin Message Received Event behavior in src/hooks. */
 export function toPluginMessageReceivedEvent(
   canonical: CanonicalInboundMessageHookContext,
 ): PluginHookMessageReceivedEvent {
@@ -396,6 +404,7 @@ export function toPluginMessageReceivedEvent(
   return event;
 }
 
+/** Reused helper for to Plugin Message Sent Event behavior in src/hooks. */
 export function toPluginMessageSentEvent(
   canonical: CanonicalSentMessageHookContext,
 ): PluginHookMessageSentEvent {
@@ -412,6 +421,7 @@ export function toPluginMessageSentEvent(
   return event;
 }
 
+/** Reused helper for to Internal Message Received Context behavior in src/hooks. */
 export function toInternalMessageReceivedContext(
   canonical: CanonicalInboundMessageHookContext,
 ): MessageReceivedHookContext {
@@ -439,6 +449,7 @@ export function toInternalMessageReceivedContext(
   };
 }
 
+/** Reused helper for to Internal Message Transcribed Context behavior in src/hooks. */
 export function toInternalMessageTranscribedContext(
   canonical: CanonicalInboundMessageHookContext,
   cfg: OpenClawConfig,
@@ -451,6 +462,7 @@ export function toInternalMessageTranscribedContext(
   };
 }
 
+/** Reused helper for to Internal Message Preprocessed Context behavior in src/hooks. */
 export function toInternalMessagePreprocessedContext(
   canonical: CanonicalInboundMessageHookContext,
   cfg: OpenClawConfig,
@@ -485,6 +497,7 @@ function toInternalInboundMessageHookContextBase(canonical: CanonicalInboundMess
   };
 }
 
+/** Reused helper for to Internal Message Sent Context behavior in src/hooks. */
 export function toInternalMessageSentContext(
   canonical: CanonicalSentMessageHookContext,
 ): MessageSentHookContext {

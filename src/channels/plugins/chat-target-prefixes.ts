@@ -5,8 +5,10 @@ import {
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { parseStrictInteger } from "../../infra/parse-finite-number.js";
 
+/** Shared type for Service Prefix in src/channels/plugins. */
 export type ServicePrefix<TService extends string> = { prefix: string; service: TService };
 
+/** Shared type for Chat Target Prefixes Params in src/channels/plugins. */
 export type ChatTargetPrefixesParams = {
   trimmed: string;
   lower: string;
@@ -15,13 +17,16 @@ export type ChatTargetPrefixesParams = {
   chatIdentifierPrefixes: string[];
 };
 
+/** Shared type for Parsed Chat Target in src/channels/plugins. */
 export type ParsedChatTarget =
   | { kind: "chat_id"; chatId: number }
   | { kind: "chat_guid"; chatGuid: string }
   | { kind: "chat_identifier"; chatIdentifier: string };
 
+/** Shared type for Parsed Chat Allow Target in src/channels/plugins. */
 export type ParsedChatAllowTarget = ParsedChatTarget | { kind: "handle"; handle: string };
 
+/** Shared type for Chat Sender Allow Params in src/channels/plugins. */
 export type ChatSenderAllowParams = {
   allowFrom: Array<string | number>;
   sender: string;
@@ -31,6 +36,7 @@ export type ChatSenderAllowParams = {
   allowConversationTargets?: boolean | null;
 };
 
+/** Reused helper for is Allowed Parsed Chat Sender behavior in src/channels/plugins. */
 export function isAllowedParsedChatSender(params: {
   allowFrom: Array<string | number>;
   sender: string;
@@ -91,6 +97,7 @@ function startsWithAnyPrefix(value: string, prefixes: readonly string[]): boolea
   return prefixes.some((prefix) => value.startsWith(prefix));
 }
 
+/** Reused helper for resolve Service Prefixed Target behavior in src/channels/plugins. */
 export function resolveServicePrefixedTarget<TService extends string, TTarget>(params: {
   trimmed: string;
   lower: string;
@@ -115,6 +122,7 @@ export function resolveServicePrefixedTarget<TService extends string, TTarget>(p
   return null;
 }
 
+/** Reused helper for resolve Service Prefixed Chat Target behavior in src/channels/plugins. */
 export function resolveServicePrefixedChatTarget<TService extends string, TTarget>(params: {
   trimmed: string;
   lower: string;
@@ -140,6 +148,7 @@ export function resolveServicePrefixedChatTarget<TService extends string, TTarge
   });
 }
 
+/** Reused helper for parse Chat Target Prefixes Or Throw behavior in src/channels/plugins. */
 export function parseChatTargetPrefixesOrThrow(
   params: ChatTargetPrefixesParams,
 ): ParsedChatTarget | null {
@@ -177,6 +186,7 @@ export function parseChatTargetPrefixesOrThrow(
   return null;
 }
 
+/** Reused helper for resolve Service Prefixed Allow Target behavior in src/channels/plugins. */
 export function resolveServicePrefixedAllowTarget<TAllowTarget>(params: {
   trimmed: string;
   lower: string;
@@ -196,6 +206,7 @@ export function resolveServicePrefixedAllowTarget<TAllowTarget>(params: {
   return null;
 }
 
+/** Reused helper for resolve Service Prefixed Or Chat Allow Target behavior in src/channels/plugins. */
 export function resolveServicePrefixedOrChatAllowTarget<
   TAllowTarget extends ParsedChatAllowTarget,
 >(params: {
@@ -230,6 +241,7 @@ export function resolveServicePrefixedOrChatAllowTarget<
   return null;
 }
 
+/** Reused helper for create Allowed Chat Sender Matcher behavior in src/channels/plugins. */
 export function createAllowedChatSenderMatcher(params: {
   normalizeSender: (sender: string) => string;
   parseAllowTarget: (entry: string) => ParsedChatAllowTarget;
@@ -249,6 +261,7 @@ export function createAllowedChatSenderMatcher(params: {
     });
 }
 
+/** Reused helper for parse Chat Allow Target Prefixes behavior in src/channels/plugins. */
 export function parseChatAllowTargetPrefixes(
   params: ChatTargetPrefixesParams,
 ): ParsedChatTarget | null {

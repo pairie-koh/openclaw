@@ -68,6 +68,7 @@ type HostExecEnvOverrideDiagnostics = {
   rejectedOverrideInvalidKeys: string[];
 };
 
+/** Reused helper for normalize Env Var Key behavior in src/infra. */
 export function normalizeEnvVarKey(
   rawKey: string,
   options?: { portable?: boolean },
@@ -82,6 +83,7 @@ export function normalizeEnvVarKey(
   return key;
 }
 
+/** Reused helper for normalize Host Override Env Var Key behavior in src/infra. */
 export function normalizeHostOverrideEnvVarKey(rawKey: string): string | null {
   const key = normalizeEnvVarKey(rawKey);
   if (!key) {
@@ -93,6 +95,7 @@ export function normalizeHostOverrideEnvVarKey(rawKey: string): string | null {
   return null;
 }
 
+/** Reused helper for is Dangerous Host Env Var Name behavior in src/infra. */
 export function isDangerousHostEnvVarName(rawKey: string): boolean {
   const key = normalizeEnvVarKey(rawKey);
   if (!key) {
@@ -105,6 +108,7 @@ export function isDangerousHostEnvVarName(rawKey: string): boolean {
   return HOST_DANGEROUS_ENV_PREFIXES.some((prefix) => upper.startsWith(prefix));
 }
 
+/** Reused helper for is Dangerous Host Inherited Env Var Name behavior in src/infra. */
 export function isDangerousHostInheritedEnvVarName(rawKey: string): boolean {
   const key = normalizeEnvVarKey(rawKey);
   if (!key) {
@@ -117,6 +121,7 @@ export function isDangerousHostInheritedEnvVarName(rawKey: string): boolean {
   return HOST_DANGEROUS_INHERITED_ENV_PREFIXES.some((prefix) => upper.startsWith(prefix));
 }
 
+/** Reused helper for is Dangerous Host Env Override Var Name behavior in src/infra. */
 export function isDangerousHostEnvOverrideVarName(rawKey: string): boolean {
   const key = normalizeEnvVarKey(rawKey);
   if (!key) {
@@ -200,6 +205,7 @@ function sanitizeHostEnvOverridesWithDiagnostics(params?: {
   };
 }
 
+/** Reused helper for sanitize Host Exec Env With Diagnostics behavior in src/infra. */
 export function sanitizeHostExecEnvWithDiagnostics(params?: {
   baseEnv?: Record<string, string | undefined>;
   overrides?: Record<string, string> | null;
@@ -232,6 +238,7 @@ export function sanitizeHostExecEnvWithDiagnostics(params?: {
   };
 }
 
+/** Reused helper for inspect Host Exec Env Overrides behavior in src/infra. */
 export function inspectHostExecEnvOverrides(params?: {
   overrides?: Record<string, string> | null;
   blockPathOverrides?: boolean;
@@ -243,6 +250,7 @@ export function inspectHostExecEnvOverrides(params?: {
   };
 }
 
+/** Reused helper for sanitize Host Exec Env behavior in src/infra. */
 export function sanitizeHostExecEnv(params?: {
   baseEnv?: Record<string, string | undefined>;
   overrides?: Record<string, string> | null;
@@ -251,6 +259,7 @@ export function sanitizeHostExecEnv(params?: {
   return sanitizeHostExecEnvWithDiagnostics(params).env;
 }
 
+/** Reused helper for sanitize System Run Env Overrides behavior in src/infra. */
 export function sanitizeSystemRunEnvOverrides(params?: {
   overrides?: Record<string, string> | null;
   shellWrapper?: boolean;

@@ -4,8 +4,10 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { z } from "zod";
 
+/** Shared type for Claude Channel Mode in src/mcp. */
 export type ClaudeChannelMode = "off" | "on" | "auto";
 
+/** Shared type for Conversation Descriptor in src/mcp. */
 export type ConversationDescriptor = {
   sessionKey: string;
   channel: string;
@@ -44,18 +46,22 @@ type SessionRow = {
   updatedAt?: number | null;
 };
 
+/** Shared type for Session List Result in src/mcp. */
 export type SessionListResult = {
   sessions?: SessionRow[];
 };
 
+/** Shared type for Session Describe Result in src/mcp. */
 export type SessionDescribeResult = {
   session?: SessionRow | null;
 };
 
+/** Shared type for Chat History Result in src/mcp. */
 export type ChatHistoryResult = {
   messages?: Array<{ id?: string; role?: string; content?: unknown; [key: string]: unknown }>;
 };
 
+/** Shared type for Session Message Payload in src/mcp. */
 export type SessionMessagePayload = {
   sessionKey?: string;
   messageId?: string;
@@ -68,9 +74,12 @@ export type SessionMessagePayload = {
   [key: string]: unknown;
 };
 
+/** Shared type for Approval Kind in src/mcp. */
 export type ApprovalKind = "exec" | "plugin";
+/** Shared type for Approval Decision in src/mcp. */
 export type ApprovalDecision = "allow-once" | "allow-always" | "deny";
 
+/** Shared type for Pending Approval in src/mcp. */
 export type PendingApproval = {
   kind: ApprovalKind;
   id: string;
@@ -79,6 +88,7 @@ export type PendingApproval = {
   expiresAtMs?: number;
 };
 
+/** Shared type for Queue Event in src/mcp. */
 export type QueueEvent =
   | {
       cursor: number;
@@ -110,17 +120,20 @@ export type QueueEvent =
       raw: Record<string, unknown>;
     };
 
+/** Shared type for Claude Permission Request in src/mcp. */
 export type ClaudePermissionRequest = {
   toolName: string;
   description: string;
   inputPreview: string;
 };
 
+/** Shared type for Wait Filter in src/mcp. */
 export type WaitFilter = {
   afterCursor: number;
   sessionKey?: string;
 };
 
+/** Reused constant for Claude Permission Request Schema behavior in src/mcp. */
 export const ClaudePermissionRequestSchema = z.object({
   method: z.literal("notifications/claude/channel/permission_request"),
   params: z.object({
@@ -131,8 +144,10 @@ export const ClaudePermissionRequestSchema = z.object({
   }),
 });
 
+/** Re-exported API for src/mcp, starting with to Text. */
 export { toText };
 
+/** Reused helper for resolve Message Id behavior in src/mcp. */
 export function resolveMessageId(entry: Record<string, unknown>): string | undefined {
   return (
     toText(entry.id) ??
@@ -142,6 +157,7 @@ export function resolveMessageId(entry: Record<string, unknown>): string | undef
   );
 }
 
+/** Reused helper for summarize Result behavior in src/mcp. */
 export function summarizeResult(
   label: string,
   count: number,
@@ -151,6 +167,7 @@ export function summarizeResult(
   };
 }
 
+/** Reused helper for summarize Structured Result behavior in src/mcp. */
 export function summarizeStructuredResult(
   label: string,
   count: number,
@@ -170,6 +187,7 @@ function resolveConversationChannel(row: SessionRow): string | undefined {
   );
 }
 
+/** Reused helper for to Conversation behavior in src/mcp. */
 export function toConversation(row: SessionRow): ConversationDescriptor | null {
   const channel = resolveConversationChannel(row);
   const to = toText(row.deliveryContext?.to) ?? toText(row.lastTo);
@@ -193,6 +211,7 @@ export function toConversation(row: SessionRow): ConversationDescriptor | null {
   };
 }
 
+/** Reused helper for match Event Filter behavior in src/mcp. */
 export function matchEventFilter(event: QueueEvent, filter: WaitFilter): boolean {
   if (event.cursor <= filter.afterCursor) {
     return false;
@@ -203,6 +222,7 @@ export function matchEventFilter(event: QueueEvent, filter: WaitFilter): boolean
   return "sessionKey" in event && event.sessionKey === filter.sessionKey;
 }
 
+/** Reused helper for extract Attachments From Message behavior in src/mcp. */
 export function extractAttachmentsFromMessage(message: unknown): unknown[] {
   if (!message || typeof message !== "object") {
     return [];
@@ -219,6 +239,7 @@ export function extractAttachmentsFromMessage(message: unknown): unknown[] {
   });
 }
 
+/** Reused helper for normalize Approval Id behavior in src/mcp. */
 export function normalizeApprovalId(value: unknown): string | undefined {
   const id = toText(value);
   return id ? id.trim() : undefined;

@@ -161,6 +161,7 @@ const WhatsAppAccountObjectSchema = z
   })
   .strict();
 
+/** Reused constant for Whats App Account Schema behavior in src/config. */
 export const WhatsAppAccountSchema = z.preprocess(
   stripDeprecatedWhatsAppNoopKeys,
   WhatsAppAccountObjectSchema,
@@ -232,6 +233,7 @@ const WhatsAppConfigObjectSchema = z
     }
   });
 
+/** Reused constant for Whats App Config Schema behavior in src/config. */
 export const WhatsAppConfigSchema = z.preprocess(
   stripDeprecatedWhatsAppNoopKeys,
   WhatsAppConfigObjectSchema,

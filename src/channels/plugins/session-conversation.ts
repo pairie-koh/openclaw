@@ -14,6 +14,7 @@ import {
 import { normalizeChannelId as normalizeChatChannelId } from "../registry.js";
 import { getLoadedChannelPlugin, normalizeChannelId as normalizeAnyChannelId } from "./registry.js";
 
+/** Shared type for Resolved Session Conversation in src/channels/plugins. */
 export type ResolvedSessionConversation = {
   id: string;
   threadId: string | undefined;
@@ -21,6 +22,7 @@ export type ResolvedSessionConversation = {
   parentConversationCandidates: string[];
 };
 
+/** Shared type for Resolved Session Conversation Ref in src/channels/plugins. */
 export type ResolvedSessionConversationRef = {
   channel: string;
   kind: "group" | "channel";
@@ -228,6 +230,7 @@ function resolveSessionConversationResolution(params: {
   };
 }
 
+/** Reused helper for resolve Session Conversation behavior in src/channels/plugins. */
 export function resolveSessionConversation(params: {
   channel: string;
   kind: "group" | "channel";
@@ -241,6 +244,7 @@ function buildBaseSessionKey(raw: RawSessionConversationRef, id: string): string
   return `${raw.prefix}:${id}`;
 }
 
+/** Reused helper for resolve Session Conversation Ref behavior in src/channels/plugins. */
 export function resolveSessionConversationRef(
   sessionKey: string | undefined | null,
   opts: SessionConversationResolutionOptions = {},
@@ -270,6 +274,7 @@ export function resolveSessionConversationRef(
   };
 }
 
+/** Reused helper for resolve Session Thread Info behavior in src/channels/plugins. */
 export function resolveSessionThreadInfo(
   sessionKey: string | undefined | null,
   opts: SessionConversationResolutionOptions = {},
@@ -287,6 +292,7 @@ export function resolveSessionThreadInfo(
   };
 }
 
+/** Reused helper for resolve Session Parent Session Key behavior in src/channels/plugins. */
 export function resolveSessionParentSessionKey(
   sessionKey: string | undefined | null,
 ): string | null {

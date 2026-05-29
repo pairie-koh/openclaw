@@ -143,6 +143,7 @@ function migrateRecord(params: {
   return true;
 }
 
+/** Reused helper for maybe Repair Group Allow From Fallback behavior in src/commands/doctor. */
 export function maybeRepairGroupAllowFromFallback(cfg: OpenClawConfig): {
   config: OpenClawConfig;
   changes: string[];

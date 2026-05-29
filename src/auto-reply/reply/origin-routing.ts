@@ -1,6 +1,7 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import type { OriginatingChannelType } from "../templating.js";
 
+/** Reused helper for resolve Origin Message Provider behavior in src/auto-reply/reply. */
 export function resolveOriginMessageProvider(params: {
   originatingChannel?: OriginatingChannelType;
   provider?: string;
@@ -11,6 +12,7 @@ export function resolveOriginMessageProvider(params: {
   );
 }
 
+/** Reused helper for resolve Origin Message To behavior in src/auto-reply/reply. */
 export function resolveOriginMessageTo(params: {
   originatingTo?: string;
   to?: string;
@@ -18,6 +20,7 @@ export function resolveOriginMessageTo(params: {
   return params.originatingTo ?? params.to;
 }
 
+/** Reused helper for resolve Origin Account Id behavior in src/auto-reply/reply. */
 export function resolveOriginAccountId(params: {
   originatingAccountId?: string;
   accountId?: string;

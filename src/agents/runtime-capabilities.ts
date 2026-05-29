@@ -30,6 +30,7 @@ function mergeRuntimeCapabilities(
   return merged.length > 0 ? merged : undefined;
 }
 
+/** Merge channel config, prompt, and thread-bound spawn capabilities. */
 export function collectRuntimeChannelCapabilities(params: {
   cfg?: OpenClawConfig;
   channel?: string | null;

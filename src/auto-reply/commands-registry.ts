@@ -20,12 +20,14 @@ import type {
 } from "./commands-registry.types.js";
 import type { ThinkingCatalogEntry } from "./thinking.shared.js";
 
+/** Re-exported API for src/auto-reply. */
 export {
   isCommandEnabled,
   listChatCommands,
   listChatCommandsForConfig,
 } from "./commands-registry-list.js";
 
+/** Re-exported API for src/auto-reply. */
 export {
   getCommandDetection,
   maybeResolveTextAlias,
@@ -33,8 +35,10 @@ export {
   resolveTextCommand,
 } from "./commands-registry-normalize.js";
 
+/** Re-exported API for src/auto-reply, starting with is Native Command Surface. */
 export { isNativeCommandSurface, shouldHandleTextCommands } from "./commands-text-routing.js";
 
+/** Re-exported API for src/auto-reply. */
 export type {
   ChatCommandDefinition,
   CommandArgChoiceContext,
@@ -124,6 +128,7 @@ function listNativeSpecsFromCommands(
     });
 }
 
+/** Reused helper for list Native Command Specs behavior in src/auto-reply. */
 export function listNativeCommandSpecs(params?: {
   skillCommands?: SkillCommandSpec[];
   provider?: string;
@@ -134,6 +139,7 @@ export function listNativeCommandSpecs(params?: {
   );
 }
 
+/** Reused helper for list Native Command Specs For Config behavior in src/auto-reply. */
 export function listNativeCommandSpecsForConfig(
   cfg: OpenClawConfig,
   params?: { skillCommands?: SkillCommandSpec[]; provider?: string },
@@ -141,6 +147,7 @@ export function listNativeCommandSpecsForConfig(
   return listNativeSpecsFromCommands(listChatCommandsForConfig(cfg, params), params?.provider);
 }
 
+/** Reused helper for find Command By Native Name behavior in src/auto-reply. */
 export function findCommandByNativeName(
   name: string,
   provider?: string,
@@ -159,6 +166,7 @@ export function findCommandByNativeName(
   );
 }
 
+/** Reused helper for build Command Text behavior in src/auto-reply. */
 export function buildCommandText(commandName: string, args?: string): string {
   const trimmedArgs = args?.trim();
   return trimmedArgs ? `/${commandName} ${trimmedArgs}` : `/${commandName}`;
@@ -214,6 +222,7 @@ function formatPositionalArgs(
   return parts.length > 0 ? parts.join(" ") : undefined;
 }
 
+/** Reused helper for parse Command Args behavior in src/auto-reply. */
 export function parseCommandArgs(
   command: ChatCommandDefinition,
   raw?: string,
@@ -231,6 +240,7 @@ export function parseCommandArgs(
   };
 }
 
+/** Reused helper for serialize Command Args behavior in src/auto-reply. */
 export function serializeCommandArgs(
   command: ChatCommandDefinition,
   args?: CommandArgs,
@@ -251,6 +261,7 @@ export function serializeCommandArgs(
   return formatPositionalArgs(command.args, args.values);
 }
 
+/** Reused helper for build Command Text From Args behavior in src/auto-reply. */
 export function buildCommandTextFromArgs(
   command: ChatCommandDefinition,
   args?: CommandArgs,
@@ -274,8 +285,10 @@ function resolveDefaultCommandContext(cfg?: OpenClawConfig): {
   };
 }
 
+/** Shared type for Resolved Command Arg Choice in src/auto-reply. */
 export type ResolvedCommandArgChoice = { value: string; label: string };
 
+/** Reused helper for resolve Command Arg Choices behavior in src/auto-reply. */
 export function resolveCommandArgChoices(params: {
   command: ChatCommandDefinition;
   arg: CommandArgDefinition;
@@ -308,6 +321,7 @@ export function resolveCommandArgChoices(params: {
   );
 }
 
+/** Reused helper for resolve Command Arg Menu behavior in src/auto-reply. */
 export function resolveCommandArgMenu(params: {
   command: ChatCommandDefinition;
   args?: CommandArgs;
@@ -367,6 +381,7 @@ export function resolveCommandArgMenu(params: {
   return { arg, choices, title };
 }
 
+/** Reused helper for format Command Arg Menu Title behavior in src/auto-reply. */
 export function formatCommandArgMenuTitle(params: {
   command: ChatCommandDefinition;
   menu: NonNullable<ReturnType<typeof resolveCommandArgMenu>>;
@@ -389,6 +404,7 @@ export function formatCommandArgMenuTitle(params: {
   return `Choose ${menu.arg.description || menu.arg.name} for /${commandLabel}.`;
 }
 
+/** Reused helper for is Command Message behavior in src/auto-reply. */
 export function isCommandMessage(raw: string): boolean {
   const trimmed = normalizeCommandBody(raw);
   return trimmed.startsWith("/");

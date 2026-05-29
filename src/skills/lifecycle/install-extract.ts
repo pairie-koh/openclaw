@@ -1,3 +1,4 @@
+/** Extracts downloaded skill archives with traversal preflight and staged merge safety. */
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
@@ -13,6 +14,7 @@ import { runCommandWithTimeout } from "../../process/exec.js";
 import { hasBinary } from "../loading/config.js";
 import { parseTarVerboseMetadata } from "./install-tar-verbose.js";
 
+/** Command-like result returned by archive extractors and surfaced to installers. */
 export type ArchiveExtractResult = { stdout: string; stderr: string; code: number | null };
 type TarPreflightResult = {
   entries: string[];
@@ -136,6 +138,7 @@ async function extractTarBz2WithStaging(params: {
   });
 }
 
+/** Extracts a supported archive type into a target directory after path-safety checks. */
 export async function extractArchive(params: {
   archivePath: string;
   archiveType: string;

@@ -1,3 +1,4 @@
+// gateway/server-methods plugin approval helpers and runtime behavior.
 import { randomUUID } from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import {
@@ -26,6 +27,7 @@ import {
 } from "./approval-shared.js";
 import type { GatewayRequestHandlers } from "./types.js";
 
+/** Reused helper for create Plugin Approval Handlers behavior in src/gateway/server-methods. */
 export function createPluginApprovalHandlers(
   manager: ExecApprovalManager<PluginApprovalRequestPayload>,
   opts?: { forwarder?: ExecApprovalForwarder },

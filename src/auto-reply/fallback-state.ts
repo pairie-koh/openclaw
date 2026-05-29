@@ -5,6 +5,7 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { FallbackNoticeState } from "../status/fallback-notice-state.js";
 import { formatProviderModelRef } from "./model-runtime.js";
 import type { RuntimeFallbackAttempt } from "./reply/agent-runner-execution.js";
+/** Re-exported API for src/auto-reply. */
 export {
   resolveActiveFallbackState,
   type FallbackNoticeState,
@@ -89,6 +90,7 @@ function buildFallbackAttemptSummaries(attempts: RuntimeFallbackAttempt[]): stri
   );
 }
 
+/** Reused helper for build Fallback Notice behavior in src/auto-reply. */
 export function buildFallbackNotice(params: {
   selectedProvider: string;
   selectedModel: string;
@@ -106,6 +108,7 @@ export function buildFallbackNotice(params: {
   return `↪️ Model Fallback: ${active} (selected ${selected}; ${reasonSummary})`;
 }
 
+/** Reused helper for build Fallback Cleared Notice behavior in src/auto-reply. */
 export function buildFallbackClearedNotice(params: {
   selectedProvider: string;
   selectedModel: string;
@@ -140,6 +143,7 @@ type ResolvedFallbackTransition = {
   stateChanged: boolean;
 };
 
+/** Reused helper for resolve Fallback Transition behavior in src/auto-reply. */
 export function resolveFallbackTransition(params: {
   selectedProvider: string;
   selectedModel: string;

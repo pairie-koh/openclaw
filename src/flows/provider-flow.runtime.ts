@@ -37,6 +37,7 @@ function resolveProviderDocsById(params?: {
   );
 }
 
+/** Reused helper for resolve Provider Model Picker Flow Entries behavior in src/flows. */
 export function resolveProviderModelPickerFlowEntries(params?: {
   config?: OpenClawConfig;
   workspaceDir?: string;
@@ -47,6 +48,7 @@ export function resolveProviderModelPickerFlowEntries(params?: {
   );
 }
 
+/** Reused helper for resolve Provider Model Picker Flow Contributions behavior in src/flows. */
 export function resolveProviderModelPickerFlowContributions(params?: {
   config?: OpenClawConfig;
   workspaceDir?: string;

@@ -1,3 +1,4 @@
+// hooks fire and forget helpers and runtime behavior.
 import { logVerbose } from "../globals.js";
 import { formatErrorMessage } from "../infra/errors.js";
 import { resolveGlobalSingleton } from "../shared/global-singleton.js";
@@ -20,6 +21,7 @@ type FireAndForgetHookState = {
   queue: FireAndForgetHookJob[];
 };
 
+/** Shared type for Fire And Forget Bounded Hook Options in src/hooks. */
 export type FireAndForgetBoundedHookOptions = {
   maxConcurrency?: number;
   maxQueue?: number;
@@ -65,6 +67,7 @@ function replaceLogControlCharacters(value: string): string {
   return result;
 }
 
+/** Reused helper for format Hook Error For Log behavior in src/hooks. */
 export function formatHookErrorForLog(err: unknown): string {
   const formatted = replaceLogControlCharacters(formatErrorMessage(err))
     .replace(/\s+/g, " ")
@@ -72,6 +75,7 @@ export function formatHookErrorForLog(err: unknown): string {
   return (formatted || "unknown error").slice(0, MAX_HOOK_LOG_MESSAGE_LENGTH);
 }
 
+/** Reused helper for fire And Forget Hook behavior in src/hooks. */
 export function fireAndForgetHook(
   task: Promise<unknown>,
   label: string,
@@ -126,6 +130,7 @@ function drainFireAndForgetHookQueue(
   }
 }
 
+/** Reused helper for fire And Forget Bounded Hook behavior in src/hooks. */
 export function fireAndForgetBoundedHook(
   task: () => Promise<unknown>,
   label: string,

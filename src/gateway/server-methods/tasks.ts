@@ -130,6 +130,7 @@ function parseCursor(cursor: string | undefined): number | null {
   return Number.isSafeInteger(parsed) ? parsed : null;
 }
 
+/** Reused constant for tasks Handlers behavior in src/gateway/server-methods. */
 export const tasksHandlers: GatewayRequestHandlers = {
   "tasks.list": ({ params, respond }) => {
     if (!validateTasksListParams(params)) {
@@ -219,7 +220,9 @@ export const tasksHandlers: GatewayRequestHandlers = {
   },
 };
 
+/** Reused constant for test Api behavior in src/gateway/server-methods. */
 export const testApi = {
   mapTaskSummary,
 };
+/** Re-exported API for src/gateway/server-methods, starting with test Api. */
 export { testApi as __test };

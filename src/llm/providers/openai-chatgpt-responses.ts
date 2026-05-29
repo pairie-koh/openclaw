@@ -1,3 +1,4 @@
+// llm/providers openai codex responses helpers and runtime behavior.
 import type * as NodeOs from "node:os";
 import type {
   Tool as OpenAITool,
@@ -78,6 +79,7 @@ const CODEX_RESPONSE_STATUSES = new Set<CodexResponseStatus>([
 // Types
 // ============================================================================
 
+/** Shared type for Open AICodex Responses Options in src/llm/providers. */
 export interface OpenAICodexResponsesOptions extends StreamOptions {
   reasoningEffort?: "none" | "minimal" | "low" | "medium" | "high" | "xhigh";
   reasoningSummary?: "auto" | "concise" | "detailed" | "off" | "on" | null;
@@ -189,6 +191,7 @@ function formatRequestTimeoutError(timeoutMs: number, cause: unknown): Error {
 // Main Stream Function
 // ============================================================================
 
+/** Reused constant for stream Open AICodex Responses behavior in src/llm/providers. */
 export const streamOpenAICodexResponses: StreamFunction<
   "openai-chatgpt-responses",
   OpenAICodexResponsesOptions
@@ -443,6 +446,7 @@ export const streamOpenAICodexResponses: StreamFunction<
   return stream;
 };
 
+/** Reused constant for stream Simple Open AICodex Responses behavior in src/llm/providers. */
 export const streamSimpleOpenAICodexResponses: StreamFunction<
   "openai-chatgpt-responses",
   SimpleStreamOptions
@@ -786,6 +790,7 @@ interface CachedWebSocketConnection {
   continuation?: CachedWebSocketContinuationState;
 }
 
+/** Shared type for Open AICodex Web Socket Debug Stats in src/llm/providers. */
 export interface OpenAICodexWebSocketDebugStats {
   requests: number;
   connectionsCreated: number;
@@ -827,6 +832,7 @@ function getOrCreateWebSocketDebugStats(sessionId: string): OpenAICodexWebSocket
   return stats;
 }
 
+/** Reused helper for get Open AICodex Web Socket Debug Stats behavior in src/llm/providers. */
 export function getOpenAICodexWebSocketDebugStats(
   sessionId: string,
 ): OpenAICodexWebSocketDebugStats | undefined {
@@ -834,6 +840,7 @@ export function getOpenAICodexWebSocketDebugStats(
   return stats ? { ...stats } : undefined;
 }
 
+/** Reused helper for reset Open AICodex Web Socket Debug Stats behavior in src/llm/providers. */
 export function resetOpenAICodexWebSocketDebugStats(sessionId?: string): void {
   if (sessionId) {
     websocketDebugStats.delete(sessionId);
@@ -844,6 +851,7 @@ export function resetOpenAICodexWebSocketDebugStats(sessionId?: string): void {
   websocketSseFallbackSessions.clear();
 }
 
+/** Reused helper for close Open AICodex Web Socket Sessions behavior in src/llm/providers. */
 export function closeOpenAICodexWebSocketSessions(sessionId?: string): void {
   const closeEntry = (entry: CachedWebSocketConnection) => {
     if (entry.idleTimer) {
@@ -1557,6 +1565,7 @@ async function parseErrorResponse(
 // Auth & Headers
 // ============================================================================
 
+/** Reused helper for extract Open AICodex Account Id behavior in src/llm/providers. */
 export function extractOpenAICodexAccountId(token: string): string {
   const accountId = resolveOpenAICodexAccountId(token);
   if (accountId) {

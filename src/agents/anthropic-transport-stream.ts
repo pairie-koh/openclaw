@@ -931,6 +931,7 @@ function resolveAnthropicTransportOptions(
   return resolved;
 }
 
+/** Create the stream function backed by the Anthropic Messages API transport. */
 export function createAnthropicMessagesTransportStreamFn(): StreamFn {
   return (rawModel, context, rawOptions) => {
     const model = rawModel as AnthropicTransportModel;

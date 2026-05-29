@@ -3,6 +3,7 @@ import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { CompactResult, ContextEngine } from "../../context-engine/types.js";
 import { withTimeout } from "../../node-host/with-timeout.js";
 
+/** Reused constant for EMBEDDED COMPACTION TIMEOUT MS behavior in src/agents/embedded-agent-runner. */
 export const EMBEDDED_COMPACTION_TIMEOUT_MS = 900_000;
 
 function createAbortError(signal: AbortSignal): Error {
@@ -53,6 +54,7 @@ function composeAbortSignals(...signals: Array<AbortSignal | undefined>): {
   };
 }
 
+/** Reused helper for resolve Compaction Timeout Ms behavior in src/agents/embedded-agent-runner. */
 export function resolveCompactionTimeoutMs(cfg?: OpenClawConfig): number {
   return (
     finiteSecondsToTimerSafeMilliseconds(cfg?.agents?.defaults?.compaction?.timeoutSeconds, {
@@ -61,6 +63,7 @@ export function resolveCompactionTimeoutMs(cfg?: OpenClawConfig): number {
   );
 }
 
+/** Reused helper for compact With Safety Timeout behavior in src/agents/embedded-agent-runner. */
 export async function compactWithSafetyTimeout<T>(
   compact: (abortSignal?: AbortSignal) => Promise<T>,
   timeoutMs: number = EMBEDDED_COMPACTION_TIMEOUT_MS,

@@ -8,6 +8,7 @@ import {
 import { formatErrorMessage } from "../infra/errors.js";
 import { defaultRuntime, writeRuntimeJson, type RuntimeEnv } from "../runtime.js";
 
+/** Shared type for Plugins Search Options in src/cli. */
 export type PluginsSearchOptions = {
   json?: boolean;
   limit?: number;
@@ -66,6 +67,7 @@ function formatPackageSearchLine(entry: ClawHubPackageSearchResult): string {
   return `${pkg.name}  ${theme.muted(flags.join(" | "))}${summary}\n  ${theme.muted(`Install: openclaw plugins install clawhub:${pkg.name}`)}`;
 }
 
+/** Reused helper for run Plugins Search Command behavior in src/cli. */
 export async function runPluginsSearchCommand(
   queryParts: string[] | string,
   opts: PluginsSearchOptions = {},

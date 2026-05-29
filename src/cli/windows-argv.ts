@@ -1,5 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
+/** Reused helper for normalize Windows Argv behavior in src/cli. */
 export function normalizeWindowsArgv(
   argv: string[],
   options: {

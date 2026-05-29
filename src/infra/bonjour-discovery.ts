@@ -8,6 +8,7 @@ import { parseStrictInteger } from "./parse-finite-number.js";
 import { isTailnetIPv4 } from "./tailnet.js";
 import { resolveWideAreaDiscoveryDomain } from "./widearea-dns.js";
 
+/** Shared type for Gateway Bonjour Beacon in src/infra. */
 export type GatewayBonjourBeacon = {
   instanceName: string;
   domain?: string;
@@ -26,6 +27,7 @@ export type GatewayBonjourBeacon = {
   txt?: Record<string, string>;
 };
 
+/** Shared type for Gateway Discovery Resolved Endpoint in src/infra. */
 export type GatewayDiscoveryResolvedEndpoint = {
   host: string;
   port: number;
@@ -35,6 +37,7 @@ export type GatewayDiscoveryResolvedEndpoint = {
   wsUrl: string;
 };
 
+/** Reused helper for resolve Gateway Discovery Endpoint behavior in src/infra. */
 export function resolveGatewayDiscoveryEndpoint(
   beacon: GatewayBonjourBeacon,
 ): GatewayDiscoveryResolvedEndpoint | null {
@@ -61,14 +64,17 @@ export function resolveGatewayDiscoveryEndpoint(
   };
 }
 
+/** Reused helper for pick Resolved Gateway Host behavior in src/infra. */
 export function pickResolvedGatewayHost(beacon: GatewayBonjourBeacon): string | null {
   return resolveGatewayDiscoveryEndpoint(beacon)?.host ?? null;
 }
 
+/** Reused helper for pick Resolved Gateway Port behavior in src/infra. */
 export function pickResolvedGatewayPort(beacon: GatewayBonjourBeacon): number | null {
   return resolveGatewayDiscoveryEndpoint(beacon)?.port ?? null;
 }
 
+/** Shared type for Gateway Bonjour Discover Opts in src/infra. */
 export type GatewayBonjourDiscoverOpts = {
   timeoutMs?: number;
   domains?: string[];
@@ -586,6 +592,7 @@ async function discoverViaAvahi(
   return parseAvahiBrowse(browse.stdout).map((beacon) => Object.assign({}, beacon, { domain }));
 }
 
+/** Reused helper for discover Gateway Beacons behavior in src/infra. */
 export async function discoverGatewayBeacons(
   opts: GatewayBonjourDiscoverOpts = {},
 ): Promise<GatewayBonjourBeacon[]> {

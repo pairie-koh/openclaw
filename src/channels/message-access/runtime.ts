@@ -70,6 +70,7 @@ function shouldReadStore(params: {
  * Merge configured direct, group, and pairing-store allowlists into the
  * effective lists consumed by sender and context-visibility checks.
  */
+/** Resolve effective direct and group allowFrom lists from config and store state. */
 export function resolveChannelIngressEffectiveAllowFromLists(params: {
   allowFrom?: Array<string | number> | null;
   groupAllowFrom?: Array<string | number> | null;
@@ -104,6 +105,7 @@ export function resolveChannelIngressEffectiveAllowFromLists(params: {
  * Read pairing-store allowlist entries when a direct-message policy permits
  * store fallback.
  */
+/** Read persisted direct-message allowFrom state when policy allows it. */
 export async function readChannelIngressStoreAllowFromForDmPolicy(params: {
   provider: PairingChannel;
   accountId: string;
@@ -257,6 +259,7 @@ function resolveResolverPolicy(params: {
  * Create a reusable ingress resolver for one channel account and identity
  * descriptor.
  */
+/** Create a reusable channel ingress resolver with bound config/runtime options. */
 export function createChannelIngressResolver(
   base: CreateChannelIngressResolverParams,
 ): ChannelIngressResolver {
@@ -316,6 +319,7 @@ export function createChannelIngressResolver(
 /**
  * Resolve one inbound event using a simple stable subject identity descriptor.
  */
+/** Resolve stable channel ingress for a sender identity descriptor. */
 export async function resolveStableChannelMessageIngress(
   params: ResolveStableChannelMessageIngressParams,
 ): Promise<ResolvedChannelMessageIngress> {
@@ -341,6 +345,7 @@ function routeDescriptors(
  * Collect optional route descriptors while dropping false, null, and undefined
  * entries.
  */
+/** Build route descriptors for channel ingress route gates. */
 export function channelIngressRoutes(
   ...routes: Array<ChannelIngressRouteDescriptor | false | null | undefined>
 ): ChannelIngressRouteDescriptor[] {
@@ -602,6 +607,7 @@ function appendAccessGroupMatchedEntry(params: {
  * Resolve sender, route, command, event, and activation gates for one inbound
  * channel event.
  */
+/** Resolve channel message ingress access for one inbound message. */
 export async function resolveChannelMessageIngress(
   params: ResolveChannelMessageIngressParams,
 ): Promise<ResolvedChannelMessageIngress> {

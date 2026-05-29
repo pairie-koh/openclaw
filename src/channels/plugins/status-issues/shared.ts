@@ -1,12 +1,15 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { isRecord } from "../../../utils.js";
 import type { ChannelAccountSnapshot, ChannelStatusIssue } from "../types.public.js";
+/** Re-exported API for src/channels/plugins, starting with is Record. */
 export { isRecord };
 
+/** Reused helper for as String behavior in src/channels/plugins. */
 export function asString(value: unknown): string | undefined {
   return typeof value === "string" ? normalizeOptionalString(value) : undefined;
 }
 
+/** Reused helper for format Match Metadata behavior in src/channels/plugins. */
 export function formatMatchMetadata(params: {
   matchKey?: unknown;
   matchSource?: unknown;
@@ -25,6 +28,7 @@ export function formatMatchMetadata(params: {
   return parts.length > 0 ? parts.join(" ") : undefined;
 }
 
+/** Reused helper for append Match Metadata behavior in src/channels/plugins. */
 export function appendMatchMetadata(
   message: string,
   params: { matchKey?: unknown; matchSource?: unknown },
@@ -33,6 +37,7 @@ export function appendMatchMetadata(
   return meta ? `${message} (${meta})` : message;
 }
 
+/** Reused helper for resolve Enabled Configured Account Id behavior in src/channels/plugins. */
 export function resolveEnabledConfiguredAccountId(account: {
   accountId?: unknown;
   enabled?: unknown;
@@ -44,6 +49,7 @@ export function resolveEnabledConfiguredAccountId(account: {
   return enabled && configured ? accountId : null;
 }
 
+/** Reused helper for collect Issues For Enabled Accounts behavior in src/channels/plugins. */
 export function collectIssuesForEnabledAccounts<
   T extends { accountId?: unknown; enabled?: unknown },
 >(params: {

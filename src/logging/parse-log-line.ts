@@ -40,6 +40,7 @@ function parseMetaName(raw?: unknown): { subsystem?: string; module?: string } {
   }
 }
 
+/** Reused helper for parse Log Line behavior in src/logging. */
 export function parseLogLine(raw: string): ParsedLogLine | null {
   try {
     const parsed = JSON.parse(raw) as Record<string, unknown>;

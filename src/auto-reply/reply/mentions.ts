@@ -14,6 +14,7 @@ import { compileConfigRegexes, type ConfigRegexRejectReason } from "../../securi
 import { escapeRegExp } from "../../utils.js";
 import type { MsgContext } from "../templating.js";
 import type { ExplicitMentionSignal } from "./mentions.types.js";
+/** Re-exported API for src/auto-reply/reply, starting with Explicit Mention Signal. */
 export type { ExplicitMentionSignal } from "./mentions.types.js";
 
 function deriveMentionPatterns(identity?: { name?: string; emoji?: string }) {
@@ -39,6 +40,7 @@ const mentionPatternWarningCache = new Set<string>();
 const MAX_MENTION_PATTERN_WARNING_KEYS = 512;
 const log = createSubsystemLogger("mentions");
 
+/** Reused constant for CURRENT MESSAGE MARKER behavior in src/auto-reply/reply. */
 export const CURRENT_MESSAGE_MARKER = "[Current message - respond to this]";
 
 function normalizeMentionPattern(pattern: string): string {
@@ -127,6 +129,7 @@ function resolveMentionPatterns(cfg: OpenClawConfig | undefined, agentId?: strin
   return derived.length > 0 ? derived : [];
 }
 
+/** Reused helper for build Mention Regexes behavior in src/auto-reply/reply. */
 export function buildMentionRegexes(cfg: OpenClawConfig | undefined, agentId?: string): RegExp[] {
   const patterns = normalizeMentionPatterns(resolveMentionPatterns(cfg, agentId));
   return compileMentionPatternsCached({
@@ -137,12 +140,14 @@ export function buildMentionRegexes(cfg: OpenClawConfig | undefined, agentId?: s
   });
 }
 
+/** Reused helper for normalize Mention Text behavior in src/auto-reply/reply. */
 export function normalizeMentionText(text: string): string {
   return normalizeLowercaseStringOrEmpty(
     (text ?? "").replace(/[\u200b-\u200f\u202a-\u202e\u2060-\u206f]/g, ""),
   );
 }
 
+/** Reused helper for matches Mention Patterns behavior in src/auto-reply/reply. */
 export function matchesMentionPatterns(text: string, mentionRegexes: RegExp[]): boolean {
   if (mentionRegexes.length === 0) {
     return false;
@@ -151,6 +156,7 @@ export function matchesMentionPatterns(text: string, mentionRegexes: RegExp[]): 
   return mentionRegexes.some((re) => re.test(cleaned));
 }
 
+/** Reused helper for matches Mention With Explicit behavior in src/auto-reply/reply. */
 export function matchesMentionWithExplicit(params: {
   text: string;
   mentionRegexes: RegExp[];
@@ -167,6 +173,7 @@ export function matchesMentionWithExplicit(params: {
   return explicit || params.mentionRegexes.some((re) => re.test(textToCheck));
 }
 
+/** Reused helper for strip Structural Prefixes behavior in src/auto-reply/reply. */
 export function stripStructuralPrefixes(text: string): string {
   if (!text) {
     return "";
@@ -185,6 +192,7 @@ export function stripStructuralPrefixes(text: string): string {
     .trim();
 }
 
+/** Reused helper for strip Mentions behavior in src/auto-reply/reply. */
 export function stripMentions(
   text: string,
   ctx: MsgContext,

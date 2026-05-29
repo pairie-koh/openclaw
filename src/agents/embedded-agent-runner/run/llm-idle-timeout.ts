@@ -112,6 +112,7 @@ function isOllamaCloudModel(model: { id?: string; provider?: string } | undefine
  * Resolves the LLM idle timeout from configuration.
  * @returns Idle timeout in milliseconds, or 0 to disable
  */
+/** Resolves idle timeout from config/env/trigger with disabled-state support. */
 export function resolveLlmIdleTimeoutMs(params?: {
   cfg?: OpenClawConfig;
   trigger?: EmbeddedRunTrigger;
@@ -201,6 +202,7 @@ export function resolveLlmIdleTimeoutMs(params?: {
  * @param onIdleTimeout - Optional callback invoked when idle timeout triggers
  * @returns A wrapped stream function with idle timeout detection
  */
+/** Wraps a stream so stalled event iteration fails with an idle timeout. */
 export function streamWithIdleTimeout(
   baseFn: StreamFn,
   timeoutMs: number,

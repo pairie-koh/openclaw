@@ -5,6 +5,7 @@ import {
 } from "../../agents/auth-profiles/store.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 
+/** Reused helper for resolve Profile Override behavior in src/auto-reply/reply. */
 export function resolveProfileOverride(params: {
   rawProfile?: string;
   provider: string;

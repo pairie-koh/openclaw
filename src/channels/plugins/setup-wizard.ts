@@ -19,6 +19,7 @@ import type {
 } from "./setup-wizard-types.js";
 import type { ChannelSetupInput } from "./types.core.js";
 
+/** Re-exported API for src/channels/plugins. */
 export type {
   ChannelSetupWizard,
   ChannelSetupWizardAllowFrom,
@@ -156,6 +157,7 @@ async function applyWizardTextInputValue(params: {
       }).cfg;
 }
 
+/** Reused helper for build Channel Setup Wizard Adapter From Setup Wizard behavior in src/channels/plugins. */
 export function buildChannelSetupWizardAdapterFromSetupWizard(params: {
   plugin: ChannelSetupWizardPlugin;
   wizard: ChannelSetupWizard;

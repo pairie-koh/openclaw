@@ -285,6 +285,7 @@ function resolveMessageText(content: unknown): { text: string; hasNonTextContent
   return { text, hasNonTextContent };
 }
 
+/** Reused helper for is Heartbeat User Message behavior in src/auto-reply. */
 export function isHeartbeatUserMessage(
   message: { role: string; content?: unknown },
   heartbeatPrompt?: string,
@@ -327,6 +328,7 @@ export function isHeartbeatUserMessage(
   );
 }
 
+/** Reused helper for is Heartbeat Ok Response behavior in src/auto-reply. */
 export function isHeartbeatOkResponse(
   message: { role: string; content?: unknown },
   ackMaxChars?: number,
@@ -446,6 +448,7 @@ function resolveHeartbeatArtifactSpanEnd(
   return index;
 }
 
+/** Reused helper for filter Heartbeat Transcript Artifacts behavior in src/auto-reply. */
 export function filterHeartbeatTranscriptArtifacts<T extends { role: string; content?: unknown }>(
   messages: T[],
   ackMaxChars?: number,

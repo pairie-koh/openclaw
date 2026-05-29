@@ -17,6 +17,7 @@ export function normalizeTextForComparison(text: string): string {
     .trim();
 }
 
+/** Reused helper for is Messaging Tool Duplicate Normalized behavior in src/agents/embedded-agent-helpers. */
 export function isMessagingToolDuplicateNormalized(
   normalized: string,
   normalizedSentTexts: string[],
@@ -41,6 +42,7 @@ export function isMessagingToolDuplicateNormalized(
   });
 }
 
+/** Reused helper for is Messaging Tool Duplicate behavior in src/agents/embedded-agent-helpers. */
 export function isMessagingToolDuplicate(text: string, sentTexts: string[]): boolean {
   if (sentTexts.length === 0) {
     return false;

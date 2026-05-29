@@ -9,6 +9,7 @@ const GENERIC_PROVIDER_APIS = new Set<string>([
   "google-generative-ai",
 ]);
 
+/** Map a configured provider row to the plugin/provider policy owner key. */
 export function resolveProviderPluginLookupKey(
   providerKey: string,
   provider?: ProviderConfig,

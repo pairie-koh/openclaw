@@ -13,6 +13,7 @@ import { completeSimple } from "../llm/stream.js";
 import type { TextContent } from "../llm/types.js";
 import { resolveTimerTimeoutMs } from "../shared/number-coercion.js";
 import type { ResolvedTtsConfig } from "./tts-types.js";
+/** Re-exported API for src/tts. */
 export {
   normalizeApplyTextNormalization,
   normalizeLanguageCode,
@@ -77,6 +78,7 @@ function isTextContentBlock(block: { type: string }): block is TextContent {
   return block.type === "text";
 }
 
+/** Reused helper for summarize Text behavior in src/tts. */
 export async function summarizeText(
   params: {
     text: string;

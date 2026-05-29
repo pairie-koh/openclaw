@@ -20,6 +20,7 @@ function resolveAcpSessionInteractionMode(
   return "interactive";
 }
 
+/** Return whether an ACP session is parent-owned background work. */
 export function isParentOwnedBackgroundAcpSession(entry?: SessionInteractionEntry | null): boolean {
   return resolveAcpSessionInteractionMode(entry) === "parent-owned-background";
 }

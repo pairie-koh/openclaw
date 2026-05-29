@@ -13,6 +13,7 @@ import type {
 
 type ManifestKey = typeof MANIFEST_KEY;
 
+/** Shared type for Official External Provider Auth Choice in src/plugins. */
 export type OfficialExternalProviderAuthChoice = {
   method?: string;
   choiceId?: string;
@@ -30,6 +31,7 @@ export type OfficialExternalProviderAuthChoice = {
   onboardingScopes?: readonly ("text-inference" | "image-generation" | "music-generation")[];
 };
 
+/** Shared type for Official External Provider Catalog Provider in src/plugins. */
 export type OfficialExternalProviderCatalogProvider = {
   id?: string;
   name?: string;
@@ -38,6 +40,7 @@ export type OfficialExternalProviderCatalogProvider = {
   authChoices?: readonly OfficialExternalProviderAuthChoice[];
 };
 
+/** Shared type for Official External Web Search Provider in src/plugins. */
 export type OfficialExternalWebSearchProvider = {
   id?: string;
   label?: string;
@@ -53,6 +56,7 @@ export type OfficialExternalWebSearchProvider = {
   autoDetectOrder?: number;
 };
 
+/** Shared type for Official External Plugin Catalog Manifest in src/plugins. */
 export type OfficialExternalPluginCatalogManifest = {
   plugin?: {
     id?: string;
@@ -69,6 +73,7 @@ export type OfficialExternalPluginCatalogManifest = {
   channelConfigs?: Record<string, PluginManifestChannelConfig>;
 };
 
+/** Shared type for Official External Plugin Catalog Entry in src/plugins. */
 export type OfficialExternalPluginCatalogEntry = {
   name?: string;
   version?: string;
@@ -101,6 +106,7 @@ function normalizeDefaultChoice(value: unknown): PluginPackageInstall["defaultCh
   return value === "clawhub" || value === "npm" || value === "local" ? value : undefined;
 }
 
+/** Reused helper for get Official External Plugin Catalog Manifest behavior in src/plugins. */
 export function getOfficialExternalPluginCatalogManifest(
   entry: OfficialExternalPluginCatalogEntry,
 ): OfficialExternalPluginCatalogManifest | undefined {
@@ -108,6 +114,7 @@ export function getOfficialExternalPluginCatalogManifest(
   return isRecord(manifest) ? manifest : undefined;
 }
 
+/** Reused helper for resolve Official External Plugin Id behavior in src/plugins. */
 export function resolveOfficialExternalPluginId(
   entry: OfficialExternalPluginCatalogEntry,
 ): string | undefined {
@@ -132,6 +139,7 @@ function resolveOfficialExternalPluginLookupIds(
   );
 }
 
+/** Reused helper for resolve Official External Plugin Label behavior in src/plugins. */
 export function resolveOfficialExternalPluginLabel(
   entry: OfficialExternalPluginCatalogEntry,
 ): string {
@@ -146,6 +154,7 @@ export function resolveOfficialExternalPluginLabel(
   );
 }
 
+/** Reused helper for resolve Official External Plugin Install behavior in src/plugins. */
 export function resolveOfficialExternalPluginInstall(
   entry: OfficialExternalPluginCatalogEntry,
 ): PluginPackageInstall | null {
@@ -171,6 +180,7 @@ export function resolveOfficialExternalPluginInstall(
   };
 }
 
+/** Reused helper for list Official External Plugin Catalog Entries behavior in src/plugins. */
 export function listOfficialExternalPluginCatalogEntries(): OfficialExternalPluginCatalogEntry[] {
   const entries = OFFICIAL_CATALOG_SOURCES.flatMap((source) => parseCatalogEntries(source));
   const resolved = new Map<string, OfficialExternalPluginCatalogEntry>();
@@ -184,18 +194,21 @@ export function listOfficialExternalPluginCatalogEntries(): OfficialExternalPlug
   return [...resolved.values()];
 }
 
+/** Reused helper for list Official External Channel Catalog Entries behavior in src/plugins. */
 export function listOfficialExternalChannelCatalogEntries(): OfficialExternalPluginCatalogEntry[] {
   return listOfficialExternalPluginCatalogEntries().filter((entry) =>
     Boolean(getOfficialExternalPluginCatalogManifest(entry)?.channel),
   );
 }
 
+/** Reused helper for list Official External Provider Catalog Entries behavior in src/plugins. */
 export function listOfficialExternalProviderCatalogEntries(): OfficialExternalPluginCatalogEntry[] {
   return listOfficialExternalPluginCatalogEntries().filter(
     (entry) => (getOfficialExternalPluginCatalogManifest(entry)?.providers?.length ?? 0) > 0,
   );
 }
 
+/** Reused helper for get Official External Plugin Catalog Entry behavior in src/plugins. */
 export function getOfficialExternalPluginCatalogEntry(
   pluginId: string,
 ): OfficialExternalPluginCatalogEntry | undefined {
@@ -208,6 +221,7 @@ export function getOfficialExternalPluginCatalogEntry(
   );
 }
 
+/** Reused helper for get Official External Plugin Catalog Entry For Package behavior in src/plugins. */
 export function getOfficialExternalPluginCatalogEntryForPackage(
   packageName: string | undefined,
 ): OfficialExternalPluginCatalogEntry | undefined {

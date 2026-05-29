@@ -312,6 +312,7 @@ type RunBtwSideQuestionParams = {
   currentChannelId?: string;
 };
 
+/** Answer a /btw side question without continuing the main task. */
 export async function runBtwSideQuestion(
   params: RunBtwSideQuestionParams,
 ): Promise<ReplyPayload | undefined> {

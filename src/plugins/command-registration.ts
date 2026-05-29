@@ -76,16 +76,19 @@ function getAgentPromptSurfaces(): Set<string> {
   return agentPromptSurfaces;
 }
 
+/** Shared type for Command Registration Result in src/plugins. */
 export type CommandRegistrationResult = {
   ok: boolean;
   error?: string;
 };
 
+/** Reused helper for is Reserved Command Name behavior in src/plugins. */
 export function isReservedCommandName(name: string): boolean {
   const trimmed = normalizeOptionalLowercaseString(name) ?? "";
   return Boolean(trimmed && getReservedCommands().has(trimmed));
 }
 
+/** Reused helper for validate Command Name behavior in src/plugins. */
 export function validateCommandName(
   name: string,
   opts?: { allowReservedCommandNames?: boolean },
@@ -278,6 +281,7 @@ function normalizeAgentPromptGuidance(
   });
 }
 
+/** Reused helper for list Plugin Invocation Keys behavior in src/plugins. */
 export function listPluginInvocationKeys(command: OpenClawPluginCommandDefinition): string[] {
   const keys = new Set<string>();
   const push = (value: string | undefined) => {
@@ -298,6 +302,7 @@ export function listPluginInvocationKeys(command: OpenClawPluginCommandDefinitio
   return [...keys];
 }
 
+/** Reused helper for plugin Command Supports Channel behavior in src/plugins. */
 export function pluginCommandSupportsChannel(
   command: OpenClawPluginCommandDefinition,
   channel?: string,
@@ -311,6 +316,7 @@ export function pluginCommandSupportsChannel(
   );
 }
 
+/** Reused helper for register Plugin Command behavior in src/plugins. */
 export function registerPluginCommand(
   pluginId: string,
   command: OpenClawPluginCommandDefinition,
@@ -382,5 +388,7 @@ export function registerPluginCommand(
   return { ok: true };
 }
 
+/** Re-exported API for src/plugins, starting with clear Plugin Commands. */
 export { clearPluginCommands, clearPluginCommandsForPlugin };
+/** Re-exported API for src/plugins, starting with Registered Plugin Command. */
 export type { RegisteredPluginCommand };

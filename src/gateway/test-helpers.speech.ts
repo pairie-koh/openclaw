@@ -57,6 +57,7 @@ const createStubSpeechProvider = (params: StubSpeechProviderOptions): SpeechProv
     })),
 });
 
+/** Reused helper for create Default Gateway Test Speech Providers behavior in src/gateway. */
 export function createDefaultGatewayTestSpeechProviders() {
   return [
     {

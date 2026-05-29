@@ -1,3 +1,4 @@
+// plugins manifest registry helpers and runtime behavior.
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
@@ -162,6 +163,7 @@ function resolveManifestPluginSourcePath(params: {
   return resolvedSourcePath;
 }
 
+/** Shared type for Plugin Manifest Contract List Key in src/plugins. */
 export type PluginManifestContractListKey =
   | "speechProviders"
   | "externalAuthProviders"
@@ -195,6 +197,7 @@ const PLUGIN_ORIGIN_RANK: Readonly<Record<PluginOrigin, number>> = {
   bundled: 3,
 };
 
+/** Shared type for Plugin Manifest Record in src/plugins. */
 export type PluginManifestRecord = {
   id: string;
   name?: string;
@@ -271,11 +274,13 @@ export type PluginManifestRecord = {
   };
 };
 
+/** Shared type for Plugin Manifest Registry in src/plugins. */
 export type PluginManifestRegistry = {
   plugins: PluginManifestRecord[];
   diagnostics: PluginDiagnostic[];
 };
 
+/** Shared type for Bundled Channel Config Collector in src/plugins. */
 export type BundledChannelConfigCollector = (params: {
   pluginDir: string;
   manifest: PluginManifest;
@@ -948,6 +953,7 @@ function isSameGlobalPackageDuplicate(left: PluginCandidate, right: PluginCandid
   );
 }
 
+/** Reused helper for load Plugin Manifest Registry behavior in src/plugins. */
 export function loadPluginManifestRegistry(
   params: {
     config?: OpenClawConfig;

@@ -50,7 +50,9 @@ import { stripMentions, stripStructuralPrefixes } from "./mentions.js";
 import { clearSessionQueues } from "./queue.js";
 import { replyRunRegistry } from "./reply-run-registry.js";
 
+/** Re-exported API for src/auto-reply/reply, starting with resolve Abort Cutoff From Context. */
 export { resolveAbortCutoffFromContext, shouldSkipMessageByAbortCutoff } from "./abort-cutoff.js";
+/** Re-exported API for src/auto-reply/reply. */
 export {
   getAbortMemory,
   getAbortMemorySizeForTest,
@@ -73,6 +75,7 @@ const abortDeps = {
   ...defaultAbortDeps,
 };
 
+/** Reused constant for testing behavior in src/auto-reply/reply. */
 export const testing = {
   setDepsForTests(deps: Partial<typeof defaultAbortDeps> | undefined): void {
     abortDeps.getAcpSessionManager =
@@ -101,6 +104,7 @@ export const testing = {
   },
 };
 
+/** Reused helper for abort Session Run Target behavior in src/auto-reply/reply. */
 export function abortSessionRunTarget(params: { key?: string; sessionId?: string }): boolean {
   const sessionIds = new Set<string>();
   const key = normalizeOptionalString(params.key);
@@ -122,6 +126,7 @@ export function abortSessionRunTarget(params: { key?: string; sessionId?: string
   return aborted;
 }
 
+/** Reused helper for format Abort Reply Text behavior in src/auto-reply/reply. */
 export function formatAbortReplyText(stoppedSubagents?: number): string {
   if (typeof stoppedSubagents !== "number" || stoppedSubagents <= 0) {
     return "⚙️ Agent was aborted.";
@@ -130,6 +135,7 @@ export function formatAbortReplyText(stoppedSubagents?: number): string {
   return `⚙️ Agent was aborted. Stopped ${stoppedSubagents} ${label}.`;
 }
 
+/** Reused helper for resolve Session Entry For Key behavior in src/auto-reply/reply. */
 export function resolveSessionEntryForKey(
   store: Record<string, SessionEntry> | undefined,
   sessionKey: string | undefined,
@@ -206,6 +212,7 @@ function normalizeRequesterSessionKey(
   return resolveInternalSessionKey({ key: cleaned, alias, mainKey });
 }
 
+/** Reused helper for stop Subagents For Requester behavior in src/auto-reply/reply. */
 export function stopSubagentsForRequester(params: {
   cfg: OpenClawConfig;
   requesterSessionKey?: string;
@@ -293,6 +300,7 @@ export function stopSubagentsForRequester(params: {
   return { stopped };
 }
 
+/** Reused helper for try Fast Abort From Message behavior in src/auto-reply/reply. */
 export async function tryFastAbortFromMessage(params: {
   ctx: FinalizedMsgContext;
   cfg: OpenClawConfig;
@@ -464,4 +472,5 @@ export async function tryFastAbortFromMessage(params: {
   const { stopped } = stopSubagentsForRequester({ cfg, requesterSessionKey });
   return { handled: true, aborted: false, stoppedSubagents: stopped };
 }
+/** Re-exported API for src/auto-reply/reply, starting with testing. */
 export { testing as __testing };

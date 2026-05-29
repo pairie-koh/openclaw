@@ -79,6 +79,7 @@ function resolveRunSessionKeyForCaller(storeKey: string) {
   return toAgentRequestSessionKey(storeKey) ?? storeKey;
 }
 
+/** Reused helper for resolve Session Key For Run behavior in src/gateway. */
 export function resolveSessionKeyForRun(runId: string, opts: { agentId?: string } = {}) {
   const cfg = getRuntimeConfig();
   const explicitAgentId =
@@ -124,6 +125,7 @@ export function resolveSessionKeyForRun(runId: string, opts: { agentId?: string 
   return undefined;
 }
 
+/** Reused helper for reset Resolved Session Key For Run Cache For Test behavior in src/gateway. */
 export function resetResolvedSessionKeyForRunCacheForTest(): void {
   resolvedSessionKeyByRunId.clear();
 }

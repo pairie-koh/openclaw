@@ -350,6 +350,7 @@ async function resolveRouteFacts(
   return resolved;
 }
 
+/** Resolve normalized channel ingress state from raw config, subject, route, and access facts. */
 export async function resolveChannelIngressState(
   input: ChannelIngressStateInput,
 ): Promise<ChannelIngressState> {

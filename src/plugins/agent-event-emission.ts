@@ -46,6 +46,7 @@ function normalizePluginEventData(params: {
   };
 }
 
+/** Reused helper for emit Plugin Agent Event behavior in src/plugins. */
 export function emitPluginAgentEvent(params: {
   pluginId: string;
   pluginName?: string;

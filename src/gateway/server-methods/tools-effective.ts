@@ -567,6 +567,7 @@ async function handleToolsEffectiveRequest(params: {
   }
 }
 
+/** Reused constant for tools Effective Handlers behavior in src/gateway/server-methods. */
 export const toolsEffectiveHandlers: GatewayRequestHandlers = {
   "tools.effective": async ({ params, respond, context }) => {
     await handleToolsEffectiveRequest({
@@ -577,6 +578,7 @@ export const toolsEffectiveHandlers: GatewayRequestHandlers = {
   },
 };
 
+/** Reused constant for testing behavior in src/gateway/server-methods. */
 export const testing = {
   resetToolsEffectiveCacheForTest() {
     toolsEffectiveCache.clear();
@@ -590,4 +592,5 @@ export const testing = {
     nowForToolsEffectiveCache = () => Date.now();
   },
 } as const;
+/** Re-exported API for src/gateway/server-methods, starting with testing. */
 export { testing as __testing };

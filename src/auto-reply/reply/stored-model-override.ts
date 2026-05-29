@@ -8,6 +8,7 @@ import {
 import { resolveSessionParentSessionKey } from "../../channels/plugins/session-conversation.js";
 import type { SessionEntry } from "../../config/sessions/types.js";
 
+/** Shared type for Stored Model Override in src/auto-reply/reply. */
 export type StoredModelOverride = {
   provider?: string;
   model: string;
@@ -29,6 +30,7 @@ function resolveParentSessionKeyCandidate(params: {
   return null;
 }
 
+/** Reused helper for resolve Stored Model Override behavior in src/auto-reply/reply. */
 export function resolveStoredModelOverride(params: {
   sessionEntry?: SessionEntry;
   sessionStore?: Record<string, SessionEntry>;
@@ -76,6 +78,7 @@ function resolveModelRefKey(params: {
   return modelKey(normalized.provider, normalized.model);
 }
 
+/** Reused helper for is Stale Heartbeat Auto Fallback Override behavior in src/auto-reply/reply. */
 export function isStaleHeartbeatAutoFallbackOverride(params: {
   isHeartbeat?: boolean;
   hasResolvedHeartbeatModelOverride?: boolean;

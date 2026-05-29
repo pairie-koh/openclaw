@@ -42,6 +42,7 @@ const STANDARD_MESSAGE_ACTION_PARAM_KEYS = new Set([
   "to",
 ]);
 
+/** Reused helper for has Potential Plugin Action Param behavior in src/infra/outbound. */
 export function hasPotentialPluginActionParam(params: Record<string, unknown>): boolean {
   return Object.entries(params).some(([key, value]) => {
     if (STANDARD_MESSAGE_ACTION_PARAM_KEYS.has(key)) {

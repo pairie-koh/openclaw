@@ -18,6 +18,7 @@ import {
 import { getSubagentDepthFromSessionStore } from "./subagent-depth.js";
 import { normalizeSubagentSessionKey } from "./subagent-session-key.js";
 
+/** Capability role derived from subagent depth and maximum spawn depth. */
 export type SubagentSessionRole = "main" | "orchestrator" | "leaf";
 const SUBAGENT_SESSION_ROLES: readonly SubagentSessionRole[] = [
   "main",
@@ -38,6 +39,7 @@ type SessionCapabilityEntry = {
   inheritedToolDeny?: unknown;
 };
 
+/** Minimal session-store projection used to resolve stored subagent capabilities. */
 export type SessionCapabilityStore = Record<
   string,
   {
@@ -120,6 +122,7 @@ function resolveSessionCapabilityEntry(params: {
   return store[params.sessionKey] ?? findEntryBySessionId(store, params.sessionKey);
 }
 
+/** Loads or returns the store used to resolve subagent capability envelopes. */
 export function resolveSubagentCapabilityStore(
   sessionKey: string | undefined | null,
   opts?: {
@@ -165,6 +168,7 @@ function resolveSubagentControlScopeForRole(role: SubagentSessionRole): Subagent
   return role === "leaf" ? "none" : "children";
 }
 
+/** Computes effective spawn/control capabilities from depth and configured max depth. */
 export function resolveSubagentCapabilities(params: { depth: number; maxSpawnDepth?: number }) {
   const depth = resolveNonNegativeIntegerOption(params.depth, 0);
   const role = resolveSubagentRoleForDepth(params);
@@ -231,6 +235,7 @@ function isStoredSubagentEnvelopeSession(
   );
 }
 
+/** Returns true for native subagent sessions or ACP sessions carrying subagent envelope metadata. */
 export function isSubagentEnvelopeSession(
   sessionKey: string | undefined | null,
   opts?: {
@@ -258,6 +263,7 @@ export function isSubagentEnvelopeSession(
   });
 }
 
+/** Resolves effective capabilities from persisted envelope fields plus depth fallback. */
 export function resolveStoredSubagentCapabilities(
   sessionKey: string | undefined | null,
   opts?: {
@@ -308,6 +314,7 @@ export function resolveStoredSubagentCapabilities(
   };
 }
 
+/** Reads inherited tool denylist from a stored subagent envelope. */
 export function resolveStoredSubagentInheritedToolDenylist(
   sessionKey: string | undefined | null,
   opts?: {
@@ -328,6 +335,7 @@ export function resolveStoredSubagentInheritedToolDenylist(
   return normalizeInheritedToolDenylist(entry?.inheritedToolDeny);
 }
 
+/** Reads inherited tool allowlist from a stored subagent envelope. */
 export function resolveStoredSubagentInheritedToolAllowlist(
   sessionKey: string | undefined | null,
   opts?: {

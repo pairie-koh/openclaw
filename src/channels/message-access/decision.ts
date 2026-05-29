@@ -253,6 +253,7 @@ function activationGate(params: {
   });
 }
 
+/** Decide whether an inbound channel message should dispatch, observe, skip, drop, or pair. */
 export function decideChannelIngress(
   state: ChannelIngressState,
   policy: ChannelIngressPolicyInput,

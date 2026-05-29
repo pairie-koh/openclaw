@@ -1,6 +1,7 @@
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import type { ReplyPayload as InternalReplyPayload } from "../../auto-reply/reply-payload.js";
 
+/** Shared type for Outbound Reply Payload in src/infra/outbound. */
 export type OutboundReplyPayload = {
   text?: string;
   mediaUrls?: string[];

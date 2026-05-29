@@ -1,3 +1,4 @@
+/** Agent tool for sending messages to other sessions. */
 import crypto from "node:crypto";
 import { finiteSecondsToTimerSafeMilliseconds } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
@@ -291,6 +292,7 @@ async function startAgentRun(params: {
   }
 }
 
+/** Creates the sessions send AgentTool. */
 export function createSessionsSendTool(opts?: {
   agentSessionKey?: string;
   agentChannel?: GatewayMessageChannel;

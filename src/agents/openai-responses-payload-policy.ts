@@ -320,6 +320,7 @@ function stripDisabledOpenAIReasoningPayload(payloadObj: Record<string, unknown>
   }
 }
 
+/** Resolve payload mutation policy for an OpenAI Responses-style request. */
 export function resolveOpenAIResponsesPayloadPolicy(
   model: OpenAIResponsesPayloadModel,
   options: OpenAIResponsesPayloadPolicyOptions = {},
@@ -364,6 +365,7 @@ export function resolveOpenAIResponsesPayloadPolicy(
   };
 }
 
+/** Mutate a Responses payload object according to resolved provider policy. */
 export function applyOpenAIResponsesPayloadPolicy(
   payloadObj: Record<string, unknown>,
   policy: OpenAIResponsesPayloadPolicy,

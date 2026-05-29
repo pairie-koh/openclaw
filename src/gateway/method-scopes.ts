@@ -18,6 +18,7 @@ import {
   type OperatorScope,
 } from "./operator-scopes.js";
 
+/** Re-exported API for src/gateway. */
 export {
   ADMIN_SCOPE,
   APPROVALS_SCOPE,
@@ -28,6 +29,7 @@ export {
   type OperatorScope,
 };
 
+/** Reused constant for CLI DEFAULT OPERATOR SCOPES behavior in src/gateway. */
 export const CLI_DEFAULT_OPERATOR_SCOPES: OperatorScope[] = [
   ADMIN_SCOPE,
   READ_SCOPE,
@@ -53,30 +55,37 @@ function resolveScopedMethod(method: string): OperatorScope | undefined {
   return pluginScope === "node" || pluginScope === "dynamic" ? undefined : pluginScope;
 }
 
+/** Reused helper for is Approval Method behavior in src/gateway. */
 export function isApprovalMethod(method: string): boolean {
   return resolveScopedMethod(method) === APPROVALS_SCOPE;
 }
 
+/** Reused helper for is Pairing Method behavior in src/gateway. */
 export function isPairingMethod(method: string): boolean {
   return resolveScopedMethod(method) === PAIRING_SCOPE;
 }
 
+/** Reused helper for is Read Method behavior in src/gateway. */
 export function isReadMethod(method: string): boolean {
   return resolveScopedMethod(method) === READ_SCOPE;
 }
 
+/** Reused helper for is Write Method behavior in src/gateway. */
 export function isWriteMethod(method: string): boolean {
   return resolveScopedMethod(method) === WRITE_SCOPE;
 }
 
+/** Reused helper for is Node Role Method behavior in src/gateway. */
 export function isNodeRoleMethod(method: string): boolean {
   return isCoreNodeGatewayMethod(method);
 }
 
+/** Reused helper for is Admin Only Method behavior in src/gateway. */
 export function isAdminOnlyMethod(method: string): boolean {
   return resolveScopedMethod(method) === ADMIN_SCOPE;
 }
 
+/** Reused helper for resolve Required Operator Scope For Method behavior in src/gateway. */
 export function resolveRequiredOperatorScopeForMethod(method: string): OperatorScope | undefined {
   return resolveScopedMethod(method);
 }
@@ -129,6 +138,7 @@ function resolveDynamicLeastPrivilegeOperatorScopesForMethod(
   return [WRITE_SCOPE];
 }
 
+/** Reused helper for resolve Least Privilege Operator Scopes For Method behavior in src/gateway. */
 export function resolveLeastPrivilegeOperatorScopesForMethod(
   method: string,
   params?: unknown,
@@ -144,6 +154,7 @@ export function resolveLeastPrivilegeOperatorScopesForMethod(
   return [];
 }
 
+/** Reused helper for authorize Operator Scopes For Method behavior in src/gateway. */
 export function authorizeOperatorScopesForMethod(
   method: string,
   scopes: readonly string[],
@@ -182,6 +193,7 @@ export function authorizeOperatorScopesForMethod(
   return { allowed: false, missingScope: requiredScope };
 }
 
+/** Reused helper for is Gateway Method Classified behavior in src/gateway. */
 export function isGatewayMethodClassified(method: string): boolean {
   if (isNodeRoleMethod(method)) {
     return true;

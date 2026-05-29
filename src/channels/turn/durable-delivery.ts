@@ -16,6 +16,7 @@ import { sendDurableMessageBatch } from "../message/send.js";
 import { createChannelDeliveryResultFromReceipt } from "./delivery-result.js";
 import type { ChannelDeliveryInfo, ChannelDeliveryResult } from "./types.js";
 
+/** Shared type for Durable Inbound Reply Delivery Options in src/channels/turn. */
 export type DurableInboundReplyDeliveryOptions = Pick<
   DeliverOutboundPayloadsParams,
   "deps" | "formatting" | "identity" | "mediaAccess" | "replyToMode" | "silent" | "threadId"
@@ -25,6 +26,7 @@ export type DurableInboundReplyDeliveryOptions = Pick<
   requiredCapabilities?: DurableFinalDeliveryRequirements;
 };
 
+/** Shared type for Durable Inbound Reply Delivery Params in src/channels/turn. */
 export type DurableInboundReplyDeliveryParams = DurableInboundReplyDeliveryOptions & {
   cfg: OpenClawConfig;
   channel: string;
@@ -35,6 +37,7 @@ export type DurableInboundReplyDeliveryParams = DurableInboundReplyDeliveryOptio
   info: ChannelDeliveryInfo;
 };
 
+/** Shared type for Durable Inbound Reply Delivery Result in src/channels/turn. */
 export type DurableInboundReplyDeliveryResult =
   | { status: "not_applicable"; reason: "non_final" }
   | {
@@ -58,6 +61,7 @@ function resolveDeliveryTarget(params: DurableInboundReplyDeliveryParams): strin
   );
 }
 
+/** Reused helper for resolve Durable Inbound Reply To Id behavior in src/channels/turn. */
 export function resolveDurableInboundReplyToId(
   params: Pick<DurableInboundReplyDeliveryParams, "ctxPayload" | "payload" | "replyToId">,
 ): string | null | undefined {
@@ -93,6 +97,7 @@ function toDeliveryIntent(intent: OutboundDeliveryIntent): ChannelDeliveryResult
   };
 }
 
+/** Reused helper for is Durable Inbound Reply Delivery Handled behavior in src/channels/turn. */
 export function isDurableInboundReplyDeliveryHandled(
   result: DurableInboundReplyDeliveryResult,
 ): result is Extract<
@@ -102,6 +107,7 @@ export function isDurableInboundReplyDeliveryHandled(
   return result.status === "handled_visible" || result.status === "handled_no_send";
 }
 
+/** Reused helper for throw If Durable Inbound Reply Delivery Failed behavior in src/channels/turn. */
 export function throwIfDurableInboundReplyDeliveryFailed(
   result: DurableInboundReplyDeliveryResult,
 ): void {
@@ -123,6 +129,7 @@ function markDurableInboundReplyDeliveryErrorVisible(error: unknown): unknown {
   return visibleError;
 }
 
+/** Reused helper for deliver Inbound Reply With Message Send Context behavior in src/channels/turn. */
 export async function deliverInboundReplyWithMessageSendContext(
   params: DurableInboundReplyDeliveryParams,
 ): Promise<DurableInboundReplyDeliveryResult> {

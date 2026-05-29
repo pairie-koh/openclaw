@@ -1,3 +1,5 @@
+// ui/src/ui string coerce helpers and runtime behavior.
+/** Re-exported API for ui/src/ui. */
 export {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,

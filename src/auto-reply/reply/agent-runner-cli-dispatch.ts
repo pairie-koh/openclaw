@@ -81,6 +81,7 @@ function createAssistantTextBridge(params: {
   });
 }
 
+/** Shared type for Cli Tool Event Payload in src/auto-reply/reply. */
 export type CliToolEventPayload = {
   name: string | undefined;
   phase: "start" | "update";
@@ -172,6 +173,7 @@ function createToolEventBridge(params: {
   });
 }
 
+/** Reused helper for run Cli Agent With Lifecycle behavior in src/auto-reply/reply. */
 export async function runCliAgentWithLifecycle(params: {
   runId: string;
   provider: string;

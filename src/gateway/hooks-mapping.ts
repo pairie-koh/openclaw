@@ -1,3 +1,4 @@
+// gateway hooks mapping helpers and runtime behavior.
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -9,6 +10,7 @@ import type { HookMappingConfig, HooksConfig } from "../config/types.hooks.js";
 import { importFileModule, resolveFunctionModuleExport } from "../hooks/module-loader.js";
 import type { HookMessageChannel } from "./hooks.types.js";
 
+/** Shared type for Hook Mapping Resolved in src/gateway. */
 export type HookMappingResolved = {
   id: string;
   matchPath?: string;
@@ -112,6 +114,7 @@ type HookTransformFn = (
   ctx: HookMappingContext,
 ) => HookTransformResult | Promise<HookTransformResult>;
 
+/** Reused helper for resolve Hook Mappings behavior in src/gateway. */
 export function resolveHookMappings(
   hooks?: HooksConfig,
   opts?: { configDir?: string },
@@ -153,6 +156,7 @@ export function resolveHookMappings(
   return mappings.map((mapping, index) => normalizeHookMapping(mapping, index, transformsDir));
 }
 
+/** Reused helper for apply Hook Mappings behavior in src/gateway. */
 export async function applyHookMappings(
   mappings: HookMappingResolved[],
   ctx: HookMappingContext,
@@ -362,6 +366,7 @@ function resolveMergedSessionKeySource(
   return baseAgent?.sessionKeySource;
 }
 
+/** Reused helper for has Hook Template Expressions behavior in src/gateway. */
 export function hasHookTemplateExpressions(template: string): boolean {
   return /\{\{\s*[^}]+\s*\}\}/.test(template);
 }

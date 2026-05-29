@@ -335,6 +335,7 @@ async function resolveModelOverride(params: {
   };
 }
 
+/** Creates the session status AgentTool. */
 export function createSessionStatusTool(opts?: {
   agentSessionKey?: string;
   /**

@@ -1,3 +1,4 @@
+// Tests plugins hooks correlation test behavior.
 import { spawnSync } from "node:child_process";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";

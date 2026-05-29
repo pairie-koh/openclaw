@@ -7,6 +7,7 @@ type NormalizeSubagentTaskNameResult =
   | { taskName?: string; error?: undefined }
   | { taskName?: undefined; error: string };
 
+/** Reused helper for normalize Subagent Task Name behavior in src/agents. */
 export function normalizeSubagentTaskName(value: unknown): NormalizeSubagentTaskNameResult {
   const taskName = normalizeOptionalString(value);
   if (!taskName) {

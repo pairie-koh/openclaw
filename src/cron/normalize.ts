@@ -453,6 +453,7 @@ function stripLegacyTopLevelFields(next: UnknownRecord) {
   delete next.provider;
 }
 
+/** Reused helper for normalize Cron Job Input behavior in src/cron. */
 export function normalizeCronJobInput(
   raw: unknown,
   options: NormalizeOptions = DEFAULT_OPTIONS,
@@ -646,6 +647,7 @@ export function normalizeCronJobInput(
   return next;
 }
 
+/** Reused helper for normalize Cron Job Create behavior in src/cron. */
 export function normalizeCronJobCreate(
   raw: unknown,
   options?: Omit<NormalizeOptions, "applyDefaults">,
@@ -656,6 +658,7 @@ export function normalizeCronJobCreate(
   }) as CronJobCreate | null;
 }
 
+/** Reused helper for normalize Cron Job Patch behavior in src/cron. */
 export function normalizeCronJobPatch(
   raw: unknown,
   options?: NormalizeOptions,

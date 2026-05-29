@@ -26,19 +26,23 @@ function loadPrecomputedChannelOptions(): string[] | null {
   return null;
 }
 
+/** Reused helper for resolve Cli Channel Options behavior in src/cli. */
 export function resolveCliChannelOptions(): string[] {
   const precomputed = loadPrecomputedChannelOptions();
   return precomputed ?? [];
 }
 
+/** Reused helper for format Cli Channel Options behavior in src/cli. */
 export function formatCliChannelOptions(extra: string[] = []): string {
   const options = [...extra, ...resolveCliChannelOptions()];
   return options.length > 0 ? options.join("|") : "channel";
 }
 
+/** Reused constant for testing behavior in src/cli. */
 export const testing = {
   resetPrecomputedChannelOptionsForTests(): void {
     precomputedChannelOptions = undefined;
   },
 };
+/** Re-exported API for src/cli, starting with testing. */
 export { testing as __testing };

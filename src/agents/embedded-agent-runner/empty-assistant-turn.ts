@@ -48,6 +48,7 @@ function hasZeroTokenUsageSnapshot(usage: unknown): boolean {
   return components.length > 0 && components.every(isZero);
 }
 
+/** Reused helper for is Zero Usage Empty Stop Assistant Turn behavior in src/agents/embedded-agent-runner. */
 export function isZeroUsageEmptyStopAssistantTurn(message: EmptyAssistantTurnLike | null): boolean {
   return Boolean(
     message &&

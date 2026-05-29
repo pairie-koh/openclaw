@@ -18,6 +18,7 @@ function resolveLoadedOutboundChannelPlugin(channel: string): ChannelPlugin | un
   return getLoadedChannelPluginForRead(normalized);
 }
 
+/** Reused helper for try Resolve Loaded Outbound Target behavior in src/infra/outbound. */
 export function tryResolveLoadedOutboundTarget(params: {
   channel: GatewayMessageChannel;
   to?: string;

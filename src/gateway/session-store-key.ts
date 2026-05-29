@@ -17,6 +17,7 @@ import {
 } from "../routing/session-key.js";
 import { normalizeSessionKeyPreservingOpaquePeerIds } from "../sessions/session-key-utils.js";
 
+/** Reused helper for canonicalize Session Key For Agent behavior in src/gateway. */
 export function canonicalizeSessionKeyForAgent(agentId: string, key: string): string {
   const lowered = normalizeLowercaseStringOrEmpty(key);
   if (lowered === "global" || lowered === "unknown") {
@@ -68,6 +69,7 @@ function resolveParsedSessionStoreKey(
   return { agentId, sessionKey: `agent:${agentId}:${rest}` };
 }
 
+/** Reused helper for resolve Session Store Key behavior in src/gateway. */
 export function resolveSessionStoreKey(params: {
   cfg: OpenClawConfig;
   sessionKey: string;
@@ -107,6 +109,7 @@ export function resolveSessionStoreKey(params: {
   return canonicalizeSessionKeyForAgent(agentId, raw);
 }
 
+/** Reused helper for resolve Session Store Agent Id behavior in src/gateway. */
 export function resolveSessionStoreAgentId(cfg: OpenClawConfig, canonicalKey: string): string {
   if (canonicalKey === "global" || canonicalKey === "unknown") {
     return resolveDefaultStoreAgentId(cfg);
@@ -118,6 +121,7 @@ export function resolveSessionStoreAgentId(cfg: OpenClawConfig, canonicalKey: st
   return resolveDefaultStoreAgentId(cfg);
 }
 
+/** Reused helper for resolve Stored Session Key For Agent Store behavior in src/gateway. */
 export function resolveStoredSessionKeyForAgentStore(params: {
   cfg: OpenClawConfig;
   agentId: string;
@@ -139,6 +143,7 @@ export function resolveStoredSessionKeyForAgentStore(params: {
   });
 }
 
+/** Reused helper for resolve Stored Session Owner Agent Id behavior in src/gateway. */
 export function resolveStoredSessionOwnerAgentId(params: {
   cfg: OpenClawConfig;
   agentId: string;
@@ -151,6 +156,7 @@ export function resolveStoredSessionOwnerAgentId(params: {
   return resolveSessionStoreAgentId(params.cfg, canonicalKey);
 }
 
+/** Reused helper for canonicalize Spawned By For Agent behavior in src/gateway. */
 export function canonicalizeSpawnedByForAgent(
   cfg: OpenClawConfig,
   agentId: string,

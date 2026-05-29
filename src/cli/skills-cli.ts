@@ -47,11 +47,13 @@ import { resolveOptionFromCommand } from "./cli-utils.js";
 import { parseStrictPositiveIntOption } from "./program/helpers.js";
 import { formatSkillInfo, formatSkillsCheck, formatSkillsList } from "./skills-cli.format.js";
 
+/** Re-exported API for src/cli. */
 export type {
   SkillInfoOptions,
   SkillsCheckOptions,
   SkillsListOptions,
 } from "./skills-cli.format.js";
+/** Re-exported API for src/cli, starting with format Skill Info. */
 export { formatSkillInfo, formatSkillsCheck, formatSkillsList } from "./skills-cli.format.js";
 
 type SkillStatusReport = Awaited<

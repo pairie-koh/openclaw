@@ -5,6 +5,7 @@ import {
   type ExternalCliAuthScope,
 } from "./external-cli-scope.js";
 
+/** Shared type for External Cli Auth Discovery in src/agents/auth-profiles. */
 export type ExternalCliAuthDiscovery =
   | {
       mode: "none";
@@ -47,6 +48,7 @@ function normalizeStringList(values: Iterable<string | undefined>): string[] {
   return normalizeTrimmedStringList([...values]);
 }
 
+/** Reused helper for external Cli Discovery None behavior in src/agents/auth-profiles. */
 export function externalCliDiscoveryNone(params?: {
   config?: OpenClawConfig;
 }): ExternalCliAuthDiscovery {
@@ -57,6 +59,7 @@ export function externalCliDiscoveryNone(params?: {
   };
 }
 
+/** Reused helper for external Cli Discovery Existing behavior in src/agents/auth-profiles. */
 export function externalCliDiscoveryExisting(params?: {
   config?: OpenClawConfig;
   allowKeychainPrompt?: boolean;
@@ -70,6 +73,7 @@ export function externalCliDiscoveryExisting(params?: {
   };
 }
 
+/** Reused helper for external Cli Discovery Scoped behavior in src/agents/auth-profiles. */
 export function externalCliDiscoveryScoped(params: {
   config?: OpenClawConfig;
   providerIds?: Iterable<string>;
@@ -87,6 +91,7 @@ export function externalCliDiscoveryScoped(params: {
   };
 }
 
+/** Reused helper for external Cli Discovery For Provider Auth behavior in src/agents/auth-profiles. */
 export function externalCliDiscoveryForProviderAuth(
   params: ProviderAuthDiscoveryParams,
 ): ExternalCliAuthDiscovery {
@@ -99,6 +104,7 @@ export function externalCliDiscoveryForProviderAuth(
   });
 }
 
+/** Reused helper for external Cli Discovery For Config Status behavior in src/agents/auth-profiles. */
 export function externalCliDiscoveryForConfigStatus(
   params: ConfigStatusDiscoveryParams,
 ): ExternalCliAuthDiscovery {
@@ -110,6 +116,7 @@ export function externalCliDiscoveryForConfigStatus(
   });
 }
 
+/** Reused helper for external Cli Discovery For Providers behavior in src/agents/auth-profiles. */
 export function externalCliDiscoveryForProviders(
   params: ProviderSetDiscoveryParams,
 ): ExternalCliAuthDiscovery {

@@ -65,6 +65,7 @@ function collectChannelsMissingDefaultAccount(
   return contexts;
 }
 
+/** Reused helper for collect Missing Default Account Binding Warnings behavior in src/commands/doctor. */
 export function collectMissingDefaultAccountBindingWarnings(cfg: OpenClawConfig): string[] {
   const bindings = listRouteBindings(cfg);
   const warnings: string[] = [];
@@ -130,6 +131,7 @@ export function collectMissingDefaultAccountBindingWarnings(cfg: OpenClawConfig)
   return warnings;
 }
 
+/** Reused helper for collect Missing Explicit Default Account Warnings behavior in src/commands/doctor. */
 export function collectMissingExplicitDefaultAccountWarnings(cfg: OpenClawConfig): string[] {
   const warnings: string[] = [];
   for (const { channelKey, channel, normalizedAccountIds } of collectChannelsMissingDefaultAccount(

@@ -2,6 +2,7 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 import { formatCliCommand } from "../cli/command-format.js";
 import type { PortListener, PortListenerKind, PortUsage } from "./ports-types.js";
 
+/** Reused helper for classify Port Listener behavior in src/infra. */
 export function classifyPortListener(listener: PortListener, port: number): PortListenerKind {
   const raw = normalizeLowercaseStringOrEmpty(
     `${listener.commandLine ?? ""} ${listener.command ?? ""}`,
@@ -70,6 +71,7 @@ function isExpectedGatewayBindAddress(host: string): boolean {
   return classifyLoopbackAddressFamily(host) !== null || isWildcardAddress(host);
 }
 
+/** Reused helper for is Single Expected Gateway Listener behavior in src/infra. */
 export function isSingleExpectedGatewayListener(listeners: PortListener[], port: number): boolean {
   if (listeners.length !== 1) {
     return false;
@@ -93,6 +95,7 @@ export function isSingleExpectedGatewayListener(listeners: PortListener[], port:
   );
 }
 
+/** Reused helper for is Dual Stack Loopback Gateway Listeners behavior in src/infra. */
 export function isDualStackLoopbackGatewayListeners(
   listeners: PortListener[],
   port: number,
@@ -127,6 +130,7 @@ export function isDualStackLoopbackGatewayListeners(
   return pids.size === 1 && families.has("ipv4") && families.has("ipv6");
 }
 
+/** Reused helper for is Expected Gateway Listeners behavior in src/infra. */
 export function isExpectedGatewayListeners(listeners: PortListener[], port: number): boolean {
   return (
     isSingleExpectedGatewayListener(listeners, port) ||
@@ -134,6 +138,7 @@ export function isExpectedGatewayListeners(listeners: PortListener[], port: numb
   );
 }
 
+/** Reused helper for build Port Hints behavior in src/infra. */
 export function buildPortHints(listeners: PortListener[], port: number): string[] {
   if (listeners.length === 0) {
     return [];
@@ -162,6 +167,7 @@ export function buildPortHints(listeners: PortListener[], port: number): string[
   return hints;
 }
 
+/** Reused helper for format Port Listener behavior in src/infra. */
 export function formatPortListener(listener: PortListener): string {
   const pid = listener.pid ? `pid ${listener.pid}` : "pid ?";
   const user = listener.user ? ` ${listener.user}` : "";
@@ -170,6 +176,7 @@ export function formatPortListener(listener: PortListener): string {
   return `${pid}${user}: ${command}${address}`;
 }
 
+/** Reused helper for format Port Diagnostics behavior in src/infra. */
 export function formatPortDiagnostics(diagnostics: PortUsage): string[] {
   if (diagnostics.status !== "busy") {
     return [`Port ${diagnostics.port} is free.`];

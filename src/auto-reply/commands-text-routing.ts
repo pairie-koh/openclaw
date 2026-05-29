@@ -10,6 +10,7 @@ let cachedNativeCommandSurfaces: Set<string> | null = null;
 let cachedNativeCommandSurfacesVersion = -1;
 let cachedNativeCommandSurfacesRegistry: object | null = null;
 
+/** Return true when a native command surface should not also parse text commands. */
 export function isNativeCommandSurface(surface?: string): boolean {
   const normalized = normalizeOptionalLowercaseString(surface);
   if (!normalized) {
@@ -33,6 +34,7 @@ export function isNativeCommandSurface(surface?: string): boolean {
   return cachedNativeCommandSurfaces.has(normalized);
 }
 
+/** Decide whether text slash commands should be handled for this inbound turn. */
 export function shouldHandleTextCommands(params: ShouldHandleTextCommandsParams): boolean {
   if (params.commandSource === "native") {
     return true;

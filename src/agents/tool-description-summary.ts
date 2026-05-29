@@ -39,6 +39,7 @@ function isToolDocBlockStart(line: string): boolean {
   );
 }
 
+/** Reused helper for summarize Tool Description Text behavior in src/agents. */
 export function summarizeToolDescriptionText(params: {
   rawDescription?: string | null;
   displaySummary?: string | null;
@@ -84,6 +85,7 @@ export function summarizeToolDescriptionText(params: {
   return firstLine ? truncateSummary(normalizeSummaryWhitespace(firstLine), params.maxLen) : "Tool";
 }
 
+/** Reused helper for describe Tool For Verbose behavior in src/agents. */
 export function describeToolForVerbose(params: {
   rawDescription?: string | null;
   fallback: string;

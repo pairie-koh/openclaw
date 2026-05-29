@@ -1,5 +1,6 @@
 import { resolveIntegerOption } from "@openclaw/normalization-core/number-coercion";
 
+/** Limits applied before direct-message ciphertext is decrypted or trusted. */
 export type DirectDmPreCryptoGuardPolicy = {
   allowedKinds: readonly number[];
   maxFutureSkewSec: number;
@@ -13,6 +14,7 @@ export type DirectDmPreCryptoGuardPolicy = {
   };
 };
 
+/** Partial overrides for direct-DM pre-crypto guardrail policy. */
 export type DirectDmPreCryptoGuardPolicyOverrides = Partial<
   Omit<DirectDmPreCryptoGuardPolicy, "rateLimit">
 > & {

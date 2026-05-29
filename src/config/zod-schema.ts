@@ -444,6 +444,7 @@ const CommitmentsSchema = z
   .strict()
   .optional();
 
+/** Reused constant for Open Claw Schema behavior in src/config. */
 export const OpenClawSchema = z
   .object({
     $schema: z.string().optional(),

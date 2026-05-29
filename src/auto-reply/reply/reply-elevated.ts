@@ -14,6 +14,7 @@ import {
   parseExplicitElevatedAllowEntry,
   stripSenderPrefix,
 } from "./elevated-allowlist-matcher.js";
+/** Re-exported API for src/auto-reply/reply, starting with format Elevated Unavailable Message. */
 export { formatElevatedUnavailableMessage } from "./elevated-unavailable.js";
 
 function resolveElevatedAllowList(
@@ -166,6 +167,7 @@ function isApprovedElevatedSender(params: {
   return false;
 }
 
+/** Reused helper for resolve Elevated Permissions behavior in src/auto-reply/reply. */
 export function resolveElevatedPermissions(params: {
   cfg: OpenClawConfig;
   agentId: string;

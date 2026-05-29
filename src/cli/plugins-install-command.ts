@@ -1,3 +1,4 @@
+/** Implements plugin install and update CLI workflows. */
 import fs from "node:fs";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
@@ -542,6 +543,7 @@ async function loadConfigFromSnapshotForInstall(
   };
 }
 
+/** Reused helper for load Config For Install behavior in src/cli. */
 export async function loadConfigForInstall(
   request: PluginInstallRequestContext,
 ): Promise<ConfigSnapshotForInstallPersist> {
@@ -559,6 +561,7 @@ export async function loadConfigForInstall(
   return loadConfigFromSnapshotForInstall(request, snapshot);
 }
 
+/** Reused helper for run Plugin Install Command behavior in src/cli. */
 export async function runPluginInstallCommand(params: {
   raw: string;
   opts: InstallSafetyOverrides & {

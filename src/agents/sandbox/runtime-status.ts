@@ -49,6 +49,7 @@ function resolveComparableSessionKeyForSandbox(params: {
   });
 }
 
+/** Computes user-facing sandbox runtime status for an agent/session. */
 export function resolveSandboxRuntimeStatus(params: {
   cfg?: OpenClawConfig;
   sessionKey?: string;
@@ -126,6 +127,7 @@ function shellEscapeSingleArg(value: string): string {
   return `'${value.replaceAll("'", `'\\''`)}'`;
 }
 
+/** Formats the denial message for tools blocked by sandbox policy. */
 export function formatSandboxToolPolicyBlockedMessage(params: {
   cfg?: OpenClawConfig;
   sessionKey?: string;

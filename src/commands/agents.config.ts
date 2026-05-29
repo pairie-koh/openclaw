@@ -1,3 +1,4 @@
+/** Reads and writes agent-specific config files and defaults. */
 import {
   normalizeOptionalString,
   resolvePrimaryStringValue,
@@ -16,6 +17,7 @@ import type { IdentityConfig } from "../config/types.base.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 
+/** Shared type for Agent Summary in src/commands. */
 export type AgentSummary = {
   id: string;
   name?: string;
@@ -34,9 +36,12 @@ export type AgentSummary = {
 
 type AgentEntry = NonNullable<NonNullable<OpenClawConfig["agents"]>["list"]>[number];
 
+/** Shared type for Agent Identity in src/commands. */
 export type AgentIdentity = AgentIdentityFile;
+/** Re-exported API for src/commands, starting with list Agent Entries. */
 export { listAgentEntries };
 
+/** Reused helper for find Agent Entry Index behavior in src/commands. */
 export function findAgentEntryIndex(list: AgentEntry[], agentId: string): number {
   const id = normalizeAgentId(agentId);
   return list.findIndex((entry) => normalizeAgentId(entry.id) === id);
@@ -53,6 +58,7 @@ function resolveAgentModel(cfg: OpenClawConfig, agentId: string) {
   return resolvePrimaryStringValue(cfg.agents?.defaults?.model);
 }
 
+/** Reused helper for load Agent Identity behavior in src/commands. */
 export function loadAgentIdentity(workspace: string): AgentIdentity | null {
   const parsed = loadAgentIdentityFromWorkspace(workspace);
   if (!parsed) {
@@ -61,6 +67,7 @@ export function loadAgentIdentity(workspace: string): AgentIdentity | null {
   return identityHasValues(parsed) ? parsed : null;
 }
 
+/** Reused helper for build Agent Summaries behavior in src/commands. */
 export function buildAgentSummaries(cfg: OpenClawConfig): AgentSummary[] {
   const defaultAgentId = normalizeAgentId(resolveDefaultAgentId(cfg));
   const configuredAgents = listAgentEntries(cfg);
@@ -106,6 +113,7 @@ export function buildAgentSummaries(cfg: OpenClawConfig): AgentSummary[] {
   });
 }
 
+/** Reused helper for apply Agent Config behavior in src/commands. */
 export function applyAgentConfig(
   cfg: OpenClawConfig,
   params: {
@@ -149,6 +157,7 @@ export function applyAgentConfig(
   };
 }
 
+/** Reused helper for prune Agent Config behavior in src/commands. */
 export function pruneAgentConfig(
   cfg: OpenClawConfig,
   agentId: string,

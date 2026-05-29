@@ -1,3 +1,4 @@
+// media read capability helpers and runtime behavior.
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";
@@ -61,6 +62,7 @@ function isAgentScopedHostMediaReadAllowed(
   return true;
 }
 
+/** Reused helper for create Agent Scoped Host Media Read File behavior in src/media. */
 export function createAgentScopedHostMediaReadFile(
   params: {
     cfg: OpenClawConfig;
@@ -98,6 +100,7 @@ function appendWorkspaceDirToLocalRoots(
   return [...roots, resolvedWorkspaceDir];
 }
 
+/** Reused helper for resolve Agent Scoped Outbound Media Access behavior in src/media. */
 export function resolveAgentScopedOutboundMediaAccess(
   params: {
     cfg: OpenClawConfig;

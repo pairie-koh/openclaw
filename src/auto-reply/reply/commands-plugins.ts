@@ -1,3 +1,4 @@
+// Chat command handlers for plugin listing, install, and management.
 import fs from "node:fs";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { buildNpmInstallRecordFields } from "../../cli/npm-resolution.js";
@@ -386,6 +387,7 @@ async function loadPluginCommandConfig(): Promise<
   };
 }
 
+/** Reused constant for handle Plugins Command behavior in src/auto-reply/reply. */
 export const handlePluginsCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;

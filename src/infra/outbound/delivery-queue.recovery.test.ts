@@ -1,3 +1,4 @@
+// Tests infra/outbound delivery queue recovery test behavior.
 import fs from "node:fs";
 import path from "node:path";
 import { MAX_DATE_TIMESTAMP_MS } from "@openclaw/normalization-core/number-coercion";

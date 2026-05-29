@@ -36,6 +36,7 @@ function hasCommandSourceMetadata(input: CommandTurnContextInput): boolean {
   );
 }
 
+/** Return true when the inbound context should bypass normal agent reply flow for commands. */
 export function isExplicitCommandTurnContext(
   input: CommandTurnContextInput,
   cfg: OpenClawConfig,

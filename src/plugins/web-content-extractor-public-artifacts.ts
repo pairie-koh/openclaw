@@ -63,6 +63,7 @@ function collectExtractorFactories(mod: Record<string, unknown>): WebContentExtr
   return extractors;
 }
 
+/** Reused helper for load Bundled Web Content Extractor Entries From Dir behavior in src/plugins. */
 export function loadBundledWebContentExtractorEntriesFromDir(params: {
   dirName: string;
   pluginId: string;

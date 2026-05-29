@@ -14,6 +14,7 @@ import { resolveAgentIdFromSessionKey } from "../../routing/session-key.js";
 import { buildOutboundBaseSessionKey } from "./base-session-key.js";
 import type { ResolvedMessagingTarget } from "./target-resolver.js";
 
+/** Shared type for Outbound Session Route in src/infra/outbound. */
 export type OutboundSessionRoute = {
   sessionKey: string;
   baseSessionKey: string;
@@ -24,6 +25,7 @@ export type OutboundSessionRoute = {
   threadId?: string | number;
 };
 
+/** Shared type for Resolve Outbound Session Route Params in src/infra/outbound. */
 export type ResolveOutboundSessionRouteParams = {
   cfg: OpenClawConfig;
   channel: ChannelId;
@@ -177,6 +179,7 @@ function resolveFallbackSession(
   };
 }
 
+/** Reused helper for resolve Outbound Session Route behavior in src/infra/outbound. */
 export async function resolveOutboundSessionRoute(
   params: ResolveOutboundSessionRouteParams,
 ): Promise<OutboundSessionRoute | null> {
@@ -193,6 +196,7 @@ export async function resolveOutboundSessionRoute(
   return resolveFallbackSession(nextParams);
 }
 
+/** Reused helper for ensure Outbound Session Entry behavior in src/infra/outbound. */
 export async function ensureOutboundSessionEntry(params: {
   cfg: OpenClawConfig;
   channel: ChannelId;

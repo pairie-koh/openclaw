@@ -44,6 +44,7 @@ function resolveAccountCapabilities(params: {
   return normalizeCapabilities(cfg.capabilities);
 }
 
+/** Reused helper for resolve Channel Capabilities behavior in src/config. */
 export function resolveChannelCapabilities(params: {
   cfg?: Partial<OpenClawConfig>;
   channel?: string | null;

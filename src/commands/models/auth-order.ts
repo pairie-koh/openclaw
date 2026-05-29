@@ -48,6 +48,7 @@ async function resolveAuthOrderContext(
   return { cfg, agentId, agentDir, provider };
 }
 
+/** Reused helper for models Auth Order Get Command behavior in src/commands/models. */
 export async function modelsAuthOrderGetCommand(
   opts: { provider: string; agent?: string; json?: boolean },
   runtime: RuntimeEnv,
@@ -75,6 +76,7 @@ export async function modelsAuthOrderGetCommand(
   runtime.log(order.length > 0 ? `Order override: ${order.join(", ")}` : "Order override: (none)");
 }
 
+/** Reused helper for models Auth Order Clear Command behavior in src/commands/models. */
 export async function modelsAuthOrderClearCommand(
   opts: { provider: string; agent?: string },
   runtime: RuntimeEnv,
@@ -96,6 +98,7 @@ export async function modelsAuthOrderClearCommand(
   runtime.log("Cleared per-agent order override.");
 }
 
+/** Reused helper for models Auth Order Set Command behavior in src/commands/models. */
 export async function modelsAuthOrderSetCommand(
   opts: { provider: string; agent?: string; order: string[] },
   runtime: RuntimeEnv,

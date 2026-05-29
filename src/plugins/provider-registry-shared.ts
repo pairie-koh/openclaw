@@ -1,9 +1,11 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 
+/** Reused helper for normalize Capability Provider Id behavior in src/plugins. */
 export function normalizeCapabilityProviderId(providerId: string | undefined): string | undefined {
   return normalizeOptionalLowercaseString(providerId);
 }
 
+/** Reused helper for build Capability Provider Maps behavior in src/plugins. */
 export function buildCapabilityProviderMaps<T extends { id: string; aliases?: readonly string[] }>(
   providers: readonly T[],
   normalizeId: (

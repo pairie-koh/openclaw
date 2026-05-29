@@ -1,3 +1,4 @@
+/** Discovers, filters, formats, snapshots, and syncs workspace skills. */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -200,6 +201,7 @@ function resolveSkillsLimits(config?: OpenClawConfig, agentId?: string): Resolve
   };
 }
 
+/** Resolves the max number of skill roots scanned for a workspace. */
 export function resolveSkillRootScanLimit(config?: OpenClawConfig): number {
   return config?.skills?.limits?.maxCandidatesPerRoot ?? DEFAULT_MAX_CANDIDATES_PER_ROOT;
 }
@@ -483,6 +485,7 @@ function resolveContainedSkillPath(params: {
   return null;
 }
 
+/** Resolves the nested `.agents/skills` root for a candidate directory. */
 export function resolveNestedSkillsRoot(
   dir: string,
   opts?: {
@@ -1243,6 +1246,7 @@ function escapeXml(str: string): string {
  * Used as a fallback when the full format exceeds the char budget,
  * preserving awareness of all skills before resorting to dropping.
  */
+/** Formats skills into compact prompt text. */
 export function formatSkillsCompact(skills: Skill[]): string {
   if (skills.length === 0) {
     return "";
@@ -1319,6 +1323,7 @@ function applySkillsPromptLimits(params: {
   return { skillsForPrompt, truncated, compact };
 }
 
+/** Builds a serializable snapshot of visible workspace skills. */
 export function buildWorkspaceSkillSnapshot(
   workspaceDir: string,
   opts?: WorkspaceSkillBuildOptions & { snapshotVersion?: number },
@@ -1338,6 +1343,7 @@ export function buildWorkspaceSkillSnapshot(
   };
 }
 
+/** Builds prompt text from a workspace skill snapshot. */
 export function buildWorkspaceSkillsPrompt(
   workspaceDir: string,
   opts?: WorkspaceSkillBuildOptions,
@@ -1345,6 +1351,7 @@ export function buildWorkspaceSkillsPrompt(
   return resolveWorkspaceSkillPromptState(workspaceDir, opts).prompt;
 }
 
+/** Reused constant for testing behavior in src/agents/skills. */
 export const testing = {
   compactHomePath,
 };
@@ -1421,6 +1428,7 @@ function resolveWorkspaceSkillPromptState(
   return { eligible, prompt, resolvedSkills };
 }
 
+/** Resolves skill prompt text and snapshot data for one run. */
 export function resolveSkillsPromptForRun(params: {
   skillsSnapshot?: SkillSnapshot;
   entries?: SkillEntry[];
@@ -1443,6 +1451,7 @@ export function resolveSkillsPromptForRun(params: {
   return "";
 }
 
+/** Loads skill entries visible from a workspace. */
 export function loadWorkspaceSkillEntries(
   workspaceDir: string,
   opts?: {
@@ -1463,6 +1472,7 @@ export function loadWorkspaceSkillEntries(
   return filterSkillEntries(entries, opts?.config, effectiveSkillFilter, opts?.eligibility);
 }
 
+/** Loads visible workspace skill entries after config/runtime filtering. */
 export function loadVisibleWorkspaceSkillEntries(
   workspaceDir: string,
   opts?: {
@@ -1520,6 +1530,7 @@ function resolveSyncedSkillDestinationPath(params: {
   }).resolved;
 }
 
+/** Syncs configured skill sources into the workspace skill cache. */
 export async function syncSkillsToWorkspace(params: {
   sourceWorkspaceDir: string;
   targetWorkspaceDir: string;
@@ -1590,6 +1601,7 @@ export async function syncSkillsToWorkspace(params: {
   });
 }
 
+/** Filters workspace skill entries with default options. */
 export function filterWorkspaceSkillEntries(
   entries: SkillEntry[],
   config?: OpenClawConfig,
@@ -1597,6 +1609,7 @@ export function filterWorkspaceSkillEntries(
   return filterSkillEntries(entries, config);
 }
 
+/** Filters workspace skill entries with explicit runtime options. */
 export function filterWorkspaceSkillEntriesWithOptions(
   entries: SkillEntry[],
   opts?: {
@@ -1607,4 +1620,5 @@ export function filterWorkspaceSkillEntriesWithOptions(
 ): SkillEntry[] {
   return filterSkillEntries(entries, opts?.config, opts?.skillFilter, opts?.eligibility);
 }
+/** Re-exported API for src/agents/skills, starting with testing. */
 export { testing as __testing };

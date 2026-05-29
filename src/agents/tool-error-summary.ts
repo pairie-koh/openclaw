@@ -1,6 +1,7 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import type { FileTarget } from "./tool-mutation.js";
 
+/** Shared type for Tool Error Summary in src/agents. */
 export type ToolErrorSummary = {
   toolName: string;
   meta?: string;
@@ -15,6 +16,7 @@ export type ToolErrorSummary = {
 
 const EXEC_LIKE_TOOL_NAMES = new Set(["exec", "bash"]);
 
+/** Reused helper for is Exec Like Tool Name behavior in src/agents. */
 export function isExecLikeToolName(toolName: string): boolean {
   return EXEC_LIKE_TOOL_NAMES.has(normalizeOptionalLowercaseString(toolName) ?? "");
 }

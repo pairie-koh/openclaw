@@ -1,5 +1,6 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
+/** Reused helper for normalize Package Tag Input behavior in src/infra. */
 export function normalizePackageTagInput(
   value: string | undefined | null,
   packageNames: readonly string[],

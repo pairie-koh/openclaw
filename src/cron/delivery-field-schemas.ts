@@ -10,21 +10,25 @@ const DeliveryModeFieldSchema = z
   .preprocess(trimLowercaseStringPreprocess, z.enum(["deliver", "announce", "none", "webhook"]))
   .transform((value) => (value === "deliver" ? "announce" : value));
 
+/** Reused constant for Lowercase Non Empty String Field Schema behavior in src/cron. */
 export const LowercaseNonEmptyStringFieldSchema = z.preprocess(
   trimLowercaseStringPreprocess,
   z.string().min(1),
 );
 
+/** Reused constant for Trimmed Non Empty String Field Schema behavior in src/cron. */
 export const TrimmedNonEmptyStringFieldSchema = z.preprocess(
   trimStringPreprocess,
   z.string().min(1),
 );
 
+/** Reused constant for Delivery Thread Id Field Schema behavior in src/cron. */
 export const DeliveryThreadIdFieldSchema = z.union([
   TrimmedNonEmptyStringFieldSchema,
   z.number().finite(),
 ]);
 
+/** Reused constant for Timeout Seconds Field Schema behavior in src/cron. */
 export const TimeoutSecondsFieldSchema = z.number().finite().nonnegative();
 
 type ParsedDeliveryInput = {
@@ -35,6 +39,7 @@ type ParsedDeliveryInput = {
   accountId?: string;
 };
 
+/** Reused helper for parse Delivery Input behavior in src/cron. */
 export function parseDeliveryInput(input: Record<string, unknown>): ParsedDeliveryInput {
   return {
     mode: parseOptionalField(DeliveryModeFieldSchema, input.mode),
@@ -45,6 +50,7 @@ export function parseDeliveryInput(input: Record<string, unknown>): ParsedDelive
   };
 }
 
+/** Reused helper for parse Optional Field behavior in src/cron. */
 export function parseOptionalField<T>(schema: ZodType<T>, value: unknown): T | undefined {
   const parsed = schema.safeParse(value);
   return parsed.success ? parsed.data : undefined;

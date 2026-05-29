@@ -2,12 +2,15 @@ import { normalizeOptionalLowercaseString } from "../../packages/normalization-c
 import { normalizeStringEntries } from "../../packages/normalization-core/src/string-normalization.js";
 import { isAllowedParsedChatSender as isAllowedParsedChatSenderShared } from "../channels/plugins/chat-target-prefixes.js";
 
+/** Re-exported API for src/plugin-sdk. */
 export type {
   AllowlistMatch,
   AllowlistMatchSource,
   CompiledAllowlist,
 } from "../channels/allowlist-match.js";
+/** Re-exported API for src/plugin-sdk, starting with Allowlist User Resolution Like. */
 export type { AllowlistUserResolutionLike } from "../channels/allowlists/resolve-utils.js";
+/** Re-exported API for src/plugin-sdk. */
 export {
   compileAllowlist,
   formatAllowlistMatchMeta,
@@ -16,12 +19,14 @@ export {
   resolveAllowlistMatchSimple,
   resolveCompiledAllowlistMatch,
 } from "../channels/allowlist-match.js";
+/** Re-exported API for src/plugin-sdk. */
 export {
   firstDefined,
   isSenderIdAllowed,
   mergeDmAllowFromSources,
   resolveGroupAllowFromSources,
 } from "../channels/allow-from.js";
+/** Re-exported API for src/plugin-sdk. */
 export {
   addAllowlistUserEntriesFromConfigEntry,
   buildAllowlistResolutionSummary,
@@ -92,6 +97,7 @@ export function isAllowedParsedChatSender(params: {
   return isAllowedParsedChatSenderShared(params);
 }
 
+/** Minimal allowlist-name resolution row shared by setup UIs and docs renderers. */
 export type BasicAllowlistResolutionEntry = {
   input: string;
   resolved: boolean;

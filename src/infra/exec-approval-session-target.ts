@@ -10,6 +10,7 @@ import type { ExecApprovalRequest } from "./exec-approvals.js";
 import { resolveSessionDeliveryTarget } from "./outbound/targets.js";
 import type { PluginApprovalRequest } from "./plugin-approvals.js";
 
+/** Shared type for Exec Approval Session Target in src/infra. */
 export type ExecApprovalSessionTarget = {
   channel?: string;
   to: string;
@@ -17,6 +18,7 @@ export type ExecApprovalSessionTarget = {
   threadId?: string | number;
 };
 
+/** Shared type for Approval Request Session Conversation in src/infra. */
 export type ApprovalRequestSessionConversation = {
   channel: string;
   kind: "group" | "channel";
@@ -78,6 +80,7 @@ function normalizeOptionalChannel(value?: string | null): string | undefined {
   return normalizeMessageChannel(value);
 }
 
+/** Reused helper for resolve Approval Request Session Conversation behavior in src/infra. */
 export function resolveApprovalRequestSessionConversation(params: {
   request: ApprovalRequestLike;
   channel?: string | null;
@@ -109,6 +112,7 @@ export function resolveApprovalRequestSessionConversation(params: {
   };
 }
 
+/** Reused helper for resolve Exec Approval Session Target behavior in src/infra. */
 export function resolveExecApprovalSessionTarget(params: {
   cfg: OpenClawConfig;
   request: ExecApprovalRequest;
@@ -149,6 +153,7 @@ export function resolveExecApprovalSessionTarget(params: {
   };
 }
 
+/** Reused helper for resolve Approval Request Session Target behavior in src/infra. */
 export function resolveApprovalRequestSessionTarget(params: {
   cfg: OpenClawConfig;
   request: ApprovalRequestLike;
@@ -175,6 +180,7 @@ function resolveApprovalRequestStoredSessionTarget(params: {
   });
 }
 
+/** Reused helper for resolve Approval Request Origin Target behavior in src/infra. */
 export function resolveApprovalRequestOriginTarget<TTarget>(
   params: ApprovalRequestOriginTargetResolver<TTarget>,
 ): TTarget | null {

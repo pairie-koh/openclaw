@@ -1,5 +1,6 @@
 export { asOptionalRecord as talkEventPayloadRecord } from "../../packages/normalization-core/src/record-coerce.js";
 
+/** Reused helper for first Finite Talk Event Number behavior in src/talk. */
 export function firstFiniteTalkEventNumber(
   record: Record<string, unknown> | undefined,
   keys: readonly string[],

@@ -25,11 +25,13 @@ import { ADMIN_SCOPE } from "../operator-scopes.js";
 import type { TalkHandoffTurnResult } from "../talk-handoff.js";
 import { asRecord } from "./record-shared.js";
 
+/** Reused helper for can Use Talk Direct Tools behavior in src/gateway/server-methods. */
 export function canUseTalkDirectTools(client: { connect?: { scopes?: string[] } } | null): boolean {
   const scopes = Array.isArray(client?.connect?.scopes) ? client.connect.scopes : [];
   return scopes.includes(ADMIN_SCOPE);
 }
 
+/** Reused helper for broadcast Talk Room Events behavior in src/gateway/server-methods. */
 export function broadcastTalkRoomEvents(
   context: {
     broadcastToConnIds: (
@@ -57,6 +59,7 @@ export function broadcastTalkRoomEvents(
 
 type TalkHandoffFailureReason = Extract<TalkHandoffTurnResult, { ok: false }>["reason"];
 
+/** Reused helper for talk Handoff Error Code behavior in src/gateway/server-methods. */
 export function talkHandoffErrorCode(reason: TalkHandoffFailureReason) {
   return reason === "invalid_token" || reason === "no_active_turn" || reason === "stale_turn"
     ? ErrorCodes.INVALID_REQUEST
@@ -97,6 +100,7 @@ function getVoiceCallRealtimeConfig(config: OpenClawConfig): {
   };
 }
 
+/** Reused helper for get Voice Call Streaming Config behavior in src/gateway/server-methods. */
 export function getVoiceCallStreamingConfig(config: OpenClawConfig): {
   provider?: string;
   providers?: Record<string, RealtimeTranscriptionProviderConfig>;
@@ -165,6 +169,7 @@ function resolveConfiguredVoiceModelDefaultRef<TConfig extends Record<string, un
   return undefined;
 }
 
+/** Reused helper for build Talk Realtime Config behavior in src/gateway/server-methods. */
 export function buildTalkRealtimeConfig(config: OpenClawConfig, requestedProvider?: string) {
   const voiceCallRealtime = getVoiceCallRealtimeConfig(config);
   const talkRealtime = getRecord(config.talk?.realtime);
@@ -207,6 +212,7 @@ export function buildTalkRealtimeConfig(config: OpenClawConfig, requestedProvide
   };
 }
 
+/** Reused helper for build Talk Transcription Config behavior in src/gateway/server-methods. */
 export function buildTalkTranscriptionConfig(config: OpenClawConfig, requestedProvider?: string) {
   const streamingConfig = getVoiceCallStreamingConfig(config);
   const provider = normalizeOptionalString(requestedProvider) ?? streamingConfig.provider;
@@ -224,6 +230,7 @@ export function buildTalkTranscriptionConfig(config: OpenClawConfig, requestedPr
   };
 }
 
+/** Reused helper for configured Or False behavior in src/gateway/server-methods. */
 export function configuredOrFalse(callback: () => boolean): boolean {
   try {
     return callback();
@@ -232,6 +239,7 @@ export function configuredOrFalse(callback: () => boolean): boolean {
   }
 }
 
+/** Reused helper for resolve Configured Realtime Transcription Provider behavior in src/gateway/server-methods. */
 export function resolveConfiguredRealtimeTranscriptionProvider(params: {
   config: OpenClawConfig;
   configuredProviderId?: string;
@@ -283,6 +291,7 @@ const DEFAULT_REALTIME_INSTRUCTIONS = [
   "For greetings and casual chatter while OpenClaw is working, answer naturally and do not redirect the active work.",
 ].join(" ");
 
+/** Reused helper for build Realtime Instructions behavior in src/gateway/server-methods. */
 export function buildRealtimeInstructions(configuredInstructions?: string): string {
   const extra = normalizeOptionalString(configuredInstructions);
   if (!extra) {
@@ -309,6 +318,7 @@ type RealtimeVoiceLaunchOptionInput = {
   reasoningEffort?: unknown;
 };
 
+/** Reused helper for build Realtime Voice Launch Options behavior in src/gateway/server-methods. */
 export function buildRealtimeVoiceLaunchOptions(params: {
   requested: RealtimeVoiceLaunchOptionInput;
   defaults: RealtimeVoiceLaunchOptions;
@@ -320,6 +330,7 @@ export function buildRealtimeVoiceLaunchOptions(params: {
   };
 }
 
+/** Reused helper for with Realtime Browser Overrides behavior in src/gateway/server-methods. */
 export function withRealtimeBrowserOverrides(
   providerConfig: RealtimeVoiceProviderConfig,
   params: RealtimeVoiceLaunchOptionInput,
@@ -377,6 +388,7 @@ function pickRealtimeVoiceLaunchOptions(
   return options;
 }
 
+/** Reused helper for is Unsupported Browser Web Rtc Session behavior in src/gateway/server-methods. */
 export function isUnsupportedBrowserWebRtcSession(session: RealtimeVoiceBrowserSession): boolean {
   const provider = normalizeLowercaseStringOrEmpty(session.provider);
   const transport = (session as { transport?: string }).transport ?? "webrtc";

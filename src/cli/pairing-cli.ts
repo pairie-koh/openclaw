@@ -84,6 +84,7 @@ async function maybeBootstrapCommandOwnerFromPairing(params: {
   return { ownerEntry, bootstrapped: true };
 }
 
+/** Reused helper for register Pairing Cli behavior in src/cli. */
 export function registerPairingCli(program: Command) {
   const channels = listPairingChannels();
   const pairing = program

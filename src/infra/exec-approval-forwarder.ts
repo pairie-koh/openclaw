@@ -122,6 +122,7 @@ type ApprovalRouteRequestFields = {
   turnSourceThreadId?: string | number | null;
 };
 
+/** Shared type for Exec Approval Forwarder in src/infra. */
 export type ExecApprovalForwarder = {
   handleRequested: (request: ExecApprovalRequest) => Promise<boolean>;
   handleResolved: (resolved: ExecApprovalResolved) => Promise<void>;
@@ -232,6 +233,7 @@ function formatApprovalCommand(command: string): { inline: boolean; text: string
   return { inline: false, text: `${fence}\n${command}\n${fence}` };
 }
 
+/** Reused helper for build Exec Approval Request Message behavior in src/infra. */
 export function buildExecApprovalRequestMessage(request: ExecApprovalRequest, nowMs: number) {
   const allowedDecisions = resolveExecApprovalRequestAllowedDecisions(request.request);
   const decisionText = allowedDecisions.join("|");
@@ -773,6 +775,7 @@ const pluginApprovalStrategy = createApprovalStrategy<
     }),
 });
 
+/** Reused helper for create Exec Approval Forwarder behavior in src/infra. */
 export function createExecApprovalForwarder(
   deps: ExecApprovalForwarderDeps = {},
 ): ExecApprovalForwarder {

@@ -151,6 +151,7 @@ async function hasBoundConversationForSession(params: {
   });
 }
 
+/** Shared type for Acp Dispatch Attempt Result in src/auto-reply/reply. */
 export type AcpDispatchAttemptResult = {
   queuedFinal: boolean;
   counts: Record<ReplyDispatchKind, number>;
@@ -354,6 +355,7 @@ async function finalizeAcpTurnOutput(params: {
   return queuedFinal;
 }
 
+/** Reused helper for try Dispatch Acp Reply behavior in src/auto-reply/reply. */
 export async function tryDispatchAcpReply(params: {
   ctx: FinalizedMsgContext;
   cfg: OpenClawConfig;

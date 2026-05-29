@@ -112,6 +112,7 @@ function resolveExpiredExplicitRunDeadlineMs(params: {
   return deadlineMs !== undefined && params.nextEndedAt > deadlineMs ? deadlineMs : undefined;
 }
 
+/** Reused helper for create Subagent Registry Lifecycle Controller behavior in src/agents. */
 export function createSubagentRegistryLifecycleController(params: {
   runs: Map<string, SubagentRunRecord>;
   resumedRuns: Set<string>;

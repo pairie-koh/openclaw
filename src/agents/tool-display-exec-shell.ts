@@ -5,6 +5,7 @@ type PreambleResult = {
   chdirPath?: string;
 };
 
+/** Reused helper for strip Outer Quotes behavior in src/agents. */
 export function stripOuterQuotes(value: string | undefined): string | undefined {
   if (!value) {
     return value;
@@ -20,6 +21,7 @@ export function stripOuterQuotes(value: string | undefined): string | undefined 
   return trimmed;
 }
 
+/** Reused helper for split Shell Words behavior in src/agents. */
 export function splitShellWords(input: string | undefined, maxWords = 48): string[] {
   if (!input) {
     return [];
@@ -78,6 +80,7 @@ export function splitShellWords(input: string | undefined, maxWords = 48): strin
   return words;
 }
 
+/** Reused helper for binary Name behavior in src/agents. */
 export function binaryName(token: string | undefined): string | undefined {
   if (!token) {
     return undefined;
@@ -87,6 +90,7 @@ export function binaryName(token: string | undefined): string | undefined {
   return normalizeLowercaseStringOrEmpty(segment);
 }
 
+/** Reused helper for option Value behavior in src/agents. */
 export function optionValue(words: string[], names: string[]): string | undefined {
   const lookup = new Set(names);
 
@@ -114,6 +118,7 @@ export function optionValue(words: string[], names: string[]): string | undefine
   return undefined;
 }
 
+/** Reused helper for positional Args behavior in src/agents. */
 export function positionalArgs(
   words: string[],
   from = 1,
@@ -161,6 +166,7 @@ export function positionalArgs(
   return args;
 }
 
+/** Reused helper for first Positional behavior in src/agents. */
 export function firstPositional(
   words: string[],
   from = 1,
@@ -169,6 +175,7 @@ export function firstPositional(
   return positionalArgs(words, from, optionsWithValue)[0];
 }
 
+/** Reused helper for trim Leading Env behavior in src/agents. */
 export function trimLeadingEnv(words: string[]): string[] {
   if (words.length === 0) {
     return words;
@@ -201,6 +208,7 @@ export function trimLeadingEnv(words: string[]): string[] {
   return words.slice(index);
 }
 
+/** Reused helper for unwrap Shell Wrapper behavior in src/agents. */
 export function unwrapShellWrapper(command: string): string {
   const words = splitShellWords(command, 10);
   if (words.length < 3) {
@@ -263,6 +271,7 @@ function scanTopLevelChars(
   }
 }
 
+/** Reused helper for split Top Level Stages behavior in src/agents. */
 export function splitTopLevelStages(command: string): string[] {
   const parts: string[] = [];
   let start = 0;
@@ -285,6 +294,7 @@ export function splitTopLevelStages(command: string): string[] {
   return parts.map((part) => part.trim()).filter((part) => part.length > 0);
 }
 
+/** Reused helper for split Top Level Pipes behavior in src/agents. */
 export function splitTopLevelPipes(command: string): string[] {
   const parts: string[] = [];
   let start = 0;
@@ -319,6 +329,7 @@ function isPopdCommand(head: string): boolean {
   return binaryName(splitShellWords(head, 2)[0]) === "popd";
 }
 
+/** Reused helper for strip Shell Preamble behavior in src/agents. */
 export function stripShellPreamble(command: string): PreambleResult {
   let rest = command.trim();
   let chdirPath: string | undefined;

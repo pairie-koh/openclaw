@@ -123,6 +123,7 @@ function extractJsonObjectCandidates(raw: string): string[] {
   return out;
 }
 
+/** Reused helper for parse Commitment Extraction Output behavior in src/commitments. */
 export function parseCommitmentExtractionOutput(raw: string): CommitmentExtractionBatchResult {
   const candidates: CommitmentCandidate[] = [];
   const trimmed = raw.trim();
@@ -159,6 +160,7 @@ export function parseCommitmentExtractionOutput(raw: string): CommitmentExtracti
   return { candidates };
 }
 
+/** Reused helper for hydrate Commitment Extraction Item behavior in src/commitments. */
 export async function hydrateCommitmentExtractionItem(params: {
   cfg?: OpenClawConfig;
   item: Omit<CommitmentExtractionItem, "existingPending">;
@@ -208,6 +210,7 @@ function formatExtractionNow(valueMs: unknown): string {
   );
 }
 
+/** Reused helper for build Commitment Extraction Prompt behavior in src/commitments. */
 export function buildCommitmentExtractionPrompt(params: {
   cfg?: OpenClawConfig;
   items: CommitmentExtractionItem[];
@@ -267,6 +270,7 @@ function resolveMinimumDueMs(params: {
   return params.nowMs + intervalMs;
 }
 
+/** Reused helper for validate Commitment Candidates behavior in src/commitments. */
 export function validateCommitmentCandidates(params: {
   cfg?: OpenClawConfig;
   items: CommitmentExtractionItem[];
@@ -329,6 +333,7 @@ export function validateCommitmentCandidates(params: {
   return validated;
 }
 
+/** Reused helper for persist Commitment Extraction Result behavior in src/commitments. */
 export async function persistCommitmentExtractionResult(params: {
   cfg?: OpenClawConfig;
   items: CommitmentExtractionItem[];

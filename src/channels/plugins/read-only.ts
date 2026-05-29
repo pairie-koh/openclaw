@@ -1,3 +1,4 @@
+/** Loads read-only channel plugin surfaces without activating live runtimes. */
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -95,6 +96,7 @@ function listBuiltPluginLoaderModuleCandidateUrls(importerUrl: string): URL[] {
   );
 }
 
+/** Reused helper for list Plugin Loader Module Candidate Urls behavior in src/channels/plugins. */
 export function listPluginLoaderModuleCandidateUrls(importerUrl = import.meta.url): URL[] {
   const builtCandidates = listBuiltPluginLoaderModuleCandidateUrls(importerUrl);
   if (builtCandidates.length > 0) {
@@ -143,6 +145,7 @@ type ReadOnlyChannelPluginResolution = {
   loadFailures: ReadOnlyChannelPluginLoadFailure[];
 };
 type ManifestChannelConfigRecord = NonNullable<PluginManifestRecord["channelConfigs"]>[string];
+/** Shared type for Read Only Channel Plugin Load Failure in src/channels/plugins. */
 export type ReadOnlyChannelPluginLoadFailure = {
   channelId: string;
   pluginId: string;
@@ -483,6 +486,7 @@ function canUseManifestChannelPlugin(record: PluginManifestRecord, channelId: st
   return record.channelCatalogMeta?.id === channelId || !record.setupSource;
 }
 
+/** Re-exported API for src/channels/plugins, starting with resolve Read Only Channel Command Defaults. */
 export { resolveReadOnlyChannelCommandDefaults };
 
 function loadSetupChannelPluginFromManifestRecord(params: {
@@ -847,6 +851,7 @@ function resolveExternalReadOnlyChannelPluginIds(params: {
     .toSorted((left, right) => left.localeCompare(right));
 }
 
+/** Reused helper for list Read Only Channel Plugins For Config behavior in src/channels/plugins. */
 export function listReadOnlyChannelPluginsForConfig(
   cfg: OpenClawConfig,
   options?: ReadOnlyChannelPluginOptions,
@@ -854,6 +859,7 @@ export function listReadOnlyChannelPluginsForConfig(
   return resolveReadOnlyChannelPluginsForConfig(cfg, options).plugins;
 }
 
+/** Reused helper for resolve Read Only Channel Plugins For Config behavior in src/channels/plugins. */
 export function resolveReadOnlyChannelPluginsForConfig(
   cfg: OpenClawConfig,
   options: ReadOnlyChannelPluginOptions = {},

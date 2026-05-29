@@ -1,3 +1,4 @@
+/** Normalizes legacy talk config sections during doctor migration. */
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeTalkSection } from "../../../config/talk.js";
@@ -40,6 +41,7 @@ function buildLegacyRealtimeTalkCompat(
   return normalizeTalkSection({ realtime: compat } as OpenClawConfig["talk"])?.realtime;
 }
 
+/** Reused helper for normalize Legacy Talk Config behavior in src/commands/doctor. */
 export function normalizeLegacyTalkConfig(cfg: OpenClawConfig, changes: string[]): OpenClawConfig {
   const rawTalk = cfg.talk;
   if (!isRecord(rawTalk)) {

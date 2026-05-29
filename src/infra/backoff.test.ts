@@ -1,3 +1,4 @@
+// Tests infra backoff test behavior.
 import { describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 import { computeBackoff, sleepWithAbort, type BackoffPolicy } from "./backoff.js";

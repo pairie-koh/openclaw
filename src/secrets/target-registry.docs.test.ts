@@ -1,3 +1,4 @@
+// Tests secrets target registry docs test behavior.
 import fs from "node:fs";
 import path from "node:path";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
