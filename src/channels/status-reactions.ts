@@ -11,7 +11,7 @@ import { resolveToolDisplay } from "../agents/tool-display.js";
 // Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Shared type for Status Reaction Adapter in src/channels. */
+/** Minimal channel adapter needed to set, clear, or remove status reactions. */
 export type StatusReactionAdapter = {
   /** Set/replace the current reaction emoji. */
   setReaction: (emoji: string) => Promise<void>;
@@ -21,7 +21,7 @@ export type StatusReactionAdapter = {
   removeReaction?: (emoji: string) => Promise<void>;
 };
 
-/** Shared type for Status Reaction Emojis in src/channels. */
+/** Emoji palette used for queued, thinking, tool, completion, and stall states. */
 export type StatusReactionEmojis = {
   queued?: string; // Default: uses initialEmoji param
   thinking?: string; // Default: "🧠"
@@ -38,7 +38,7 @@ export type StatusReactionEmojis = {
   compacting?: string; // Default: "🗜️"
 };
 
-/** Shared type for Status Reaction Timing in src/channels. */
+/** Debounce and stall thresholds used by the status reaction controller. */
 export type StatusReactionTiming = {
   debounceMs?: number; // Default: 700
   stallSoftMs?: number; // Default: 10000
@@ -47,7 +47,7 @@ export type StatusReactionTiming = {
   errorHoldMs?: number; // Default: 2500 (not used in controller, but exported for callers)
 };
 
-/** Shared type for Status Reaction Controller in src/channels. */
+/** Channel-agnostic controller for lifecycle/status reaction transitions. */
 export type StatusReactionController = {
   setQueued: () => Promise<void> | void;
   setThinking: () => Promise<void> | void;
@@ -65,7 +65,7 @@ export type StatusReactionController = {
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Reused constant for DEFAULT EMOJIS behavior in src/channels. */
+/** Default reaction palette for channels that do not supply overrides. */
 export const DEFAULT_EMOJIS: Required<StatusReactionEmojis> = {
   queued: "👀",
   thinking: "🧠",
@@ -82,7 +82,7 @@ export const DEFAULT_EMOJIS: Required<StatusReactionEmojis> = {
   compacting: "🗜️",
 };
 
-/** Reused constant for DEFAULT TIMING behavior in src/channels. */
+/** Default debounce and stall timing for reaction updates. */
 export const DEFAULT_TIMING: Required<StatusReactionTiming> = {
   debounceMs: 700,
   stallSoftMs: 10_000,
@@ -91,7 +91,7 @@ export const DEFAULT_TIMING: Required<StatusReactionTiming> = {
   errorHoldMs: 2500,
 };
 
-/** Reused constant for CODING TOOL TOKENS behavior in src/channels. */
+/** Tool-name substrings that classify a tool as coding-oriented. */
 export const CODING_TOOL_TOKENS: string[] = [
   "exec",
   "process",
@@ -102,7 +102,7 @@ export const CODING_TOOL_TOKENS: string[] = [
   "bash",
 ];
 
-/** Reused constant for WEB TOOL TOKENS behavior in src/channels. */
+/** Tool-name substrings that classify a tool as web/browser-oriented. */
 export const WEB_TOOL_TOKENS: string[] = [
   "web_search",
   "web-search",
@@ -111,7 +111,7 @@ export const WEB_TOOL_TOKENS: string[] = [
   "browser",
 ];
 
-/** Reused constant for DEPLOY TOOL TOKENS behavior in src/channels. */
+/** Tool-name substrings that classify a tool as deployment/release-oriented. */
 export const DEPLOY_TOOL_TOKENS: string[] = [
   "fastlane",
   "deploy",
@@ -123,7 +123,7 @@ export const DEPLOY_TOOL_TOKENS: string[] = [
   "distribute",
 ];
 
-/** Reused constant for BUILD TOOL TOKENS behavior in src/channels. */
+/** Tool-name substrings that classify a tool as build/test-oriented. */
 export const BUILD_TOOL_TOKENS: string[] = [
   "build",
   "compile",
@@ -139,7 +139,7 @@ export const BUILD_TOOL_TOKENS: string[] = [
   "lint",
 ];
 
-/** Reused constant for CONCIERGE TOOL TOKENS behavior in src/channels. */
+/** Tool-name substrings that classify a tool as UI automation/concierge-oriented. */
 export const CONCIERGE_TOOL_TOKENS: string[] = [
   "navigate",
   "click",
