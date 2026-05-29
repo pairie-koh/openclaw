@@ -16,7 +16,7 @@ import { loggingState } from "./state.js";
 
 type LogObj = { date?: Date } & Record<string, unknown>;
 
-/** Shared type for Subsystem Logger in src/logging. */
+/** Scoped logger API used by channels, providers, and command runtimes. */
 export type SubsystemLogger = {
   subsystem: string;
   isEnabled: (level: LogLevel, target?: "any" | "console" | "file") => boolean;
@@ -186,7 +186,7 @@ function formatSubsystemForConsole(subsystem: string): string {
   return parts.join("/");
 }
 
-/** Reused helper for strip Redundant Subsystem Prefix For Console behavior in src/logging. */
+/** Removes duplicated subsystem labels from console messages before rendering. */
 export function stripRedundantSubsystemPrefixForConsole(
   message: string,
   displaySubsystem: string,
@@ -363,7 +363,7 @@ function logToFile(
   }
 }
 
-/** Reused helper for create Subsystem Logger behavior in src/logging. */
+/** Creates a scoped logger that can emit to console, file logs, or both. */
 export function createSubsystemLogger(subsystem: string): SubsystemLogger {
   const resolvedSubsystem = normalizeSubsystemLabel(subsystem);
 
@@ -477,7 +477,7 @@ export function createSubsystemLogger(subsystem: string): SubsystemLogger {
   return logger;
 }
 
-/** Reused helper for runtime For Logger behavior in src/logging. */
+/** Adapts a subsystem logger to the RuntimeEnv output interface. */
 export function runtimeForLogger(
   logger: SubsystemLogger,
   exit: RuntimeEnv["exit"] = defaultRuntime.exit,
@@ -509,7 +509,7 @@ export function runtimeForLogger(
   };
 }
 
-/** Reused helper for create Subsystem Runtime behavior in src/logging. */
+/** Creates a RuntimeEnv output adapter backed by a named subsystem logger. */
 export function createSubsystemRuntime(
   subsystem: string,
   exit: RuntimeEnv["exit"] = defaultRuntime.exit,
