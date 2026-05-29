@@ -51,6 +51,7 @@ function groupCommandsByCategory(
   return grouped;
 }
 
+/** Reused helper for build Help Message behavior in src/auto-reply. */
 export function buildHelpMessage(cfg?: OpenClawConfig): string {
   const lines = ["ℹ️ Help", ""];
 
@@ -90,12 +91,14 @@ export function buildHelpMessage(cfg?: OpenClawConfig): string {
 
 const COMMANDS_PER_PAGE = 8;
 
+/** Shared type for Commands Message Options in src/auto-reply. */
 export type CommandsMessageOptions = {
   page?: number;
   surface?: string;
   forcePaginatedList?: boolean;
 };
 
+/** Shared type for Commands Message Result in src/auto-reply. */
 export type CommandsMessageResult = {
   text: string;
   totalPages: number;
@@ -181,6 +184,7 @@ function formatCommandList(items: CommandsListItem[]): string {
   return lines.join("\n");
 }
 
+/** Reused helper for build Commands Message behavior in src/auto-reply. */
 export function buildCommandsMessage(
   cfg?: OpenClawConfig,
   skillCommands?: SkillCommandSpec[],
@@ -190,6 +194,7 @@ export function buildCommandsMessage(
   return result.text;
 }
 
+/** Reused helper for build Commands Message Paginated behavior in src/auto-reply. */
 export function buildCommandsMessagePaginated(
   cfg?: OpenClawConfig,
   skillCommands?: SkillCommandSpec[],

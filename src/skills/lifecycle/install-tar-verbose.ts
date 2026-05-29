@@ -67,6 +67,7 @@ function parseTarSizeToken(raw: string, line: string): number {
   return size;
 }
 
+/** Reused helper for parse Tar Verbose Metadata behavior in src/skills/lifecycle. */
 export function parseTarVerboseMetadata(stdout: string): Array<{ type: string; size: number }> {
   const lines = normalizeStringEntries(stdout.split("\n"));
   return lines.map((line) => {

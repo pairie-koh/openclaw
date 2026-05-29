@@ -29,6 +29,7 @@ function summarizeInstallOutput(text: string): string | undefined {
   return normalized.length > maxLen ? `${normalized.slice(0, maxLen - 1)}…` : normalized;
 }
 
+/** Reused helper for format Install Failure Message behavior in src/skills/lifecycle. */
 export function formatInstallFailureMessage(result: InstallCommandResult): string {
   const code = typeof result.code === "number" ? `exit ${result.code}` : "unknown exit";
   const summary = summarizeInstallOutput(result.stderr) ?? summarizeInstallOutput(result.stdout);

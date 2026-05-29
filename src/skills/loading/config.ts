@@ -21,8 +21,10 @@ const DEFAULT_CONFIG_VALUES: Record<string, boolean> = {
   "browser.evaluateEnabled": true,
 };
 
+/** Re-exported API for src/skills/loading, starting with has Binary. */
 export { hasBinary, resolveConfigPath, resolveRuntimePlatform };
 
+/** Reused helper for resolve Skills Install Preferences behavior in src/skills/loading. */
 export function resolveSkillsInstallPreferences(config?: OpenClawConfig): SkillsInstallPreferences {
   const raw = config?.skills?.install;
   const preferBrew = raw?.preferBrew ?? true;
@@ -34,10 +36,12 @@ export function resolveSkillsInstallPreferences(config?: OpenClawConfig): Skills
   return { preferBrew, nodeManager };
 }
 
+/** Reused helper for is Config Path Truthy behavior in src/skills/loading. */
 export function isConfigPathTruthy(config: OpenClawConfig | undefined, pathStr: string): boolean {
   return isConfigPathTruthyWithDefaults(config, pathStr, DEFAULT_CONFIG_VALUES);
 }
 
+/** Reused helper for resolve Skill Config behavior in src/skills/loading. */
 export function resolveSkillConfig(
   config: OpenClawConfig | undefined,
   skillKey: string,
@@ -85,6 +89,7 @@ export function isBundledSkillAllowed(entry: SkillEntry, allowlist?: ReadonlySet
   return allowlist.has(key) || allowlist.has(entry.skill.name);
 }
 
+/** Reused helper for should Include Skill behavior in src/skills/loading. */
 export function shouldIncludeSkill(params: {
   entry: SkillEntry;
   config?: OpenClawConfig;
