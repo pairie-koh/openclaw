@@ -814,7 +814,7 @@ function pathTargetsScopedChannelAccount(params: {
   return accountId === params.accountId;
 }
 
-/** Reused helper for get Scoped Channels Command Secret Targets behavior in src/cli. */
+/** Returns channel secret targets narrowed to an optional channel/account scope. */
 export function getScopedChannelsCommandSecretTargets(params: {
   config: OpenClawConfig;
   channel?: string | null;
@@ -845,17 +845,17 @@ export function getScopedChannelsCommandSecretTargets(params: {
   return { targetIds, allowedPaths };
 }
 
-/** Reused helper for get Qr Remote Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids needed by QR remote pairing commands. */
 export function getQrRemoteCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(STATIC_QR_REMOTE_TARGET_IDS);
 }
 
-/** Reused helper for get Channels Command Secret Target Ids behavior in src/cli. */
+/** All static channel secret target ids known to channel commands. */
 export function getChannelsCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(getCommandSecretTargets().channels);
 }
 
-/** Reused helper for get Configured Channels Command Secret Target Ids behavior in src/cli. */
+/** Channel secret target ids that are relevant to the currently configured channels. */
 export function getConfiguredChannelsCommandSecretTargetIds(
   config: OpenClawConfig,
   env?: NodeJS.ProcessEnv,
@@ -863,22 +863,22 @@ export function getConfiguredChannelsCommandSecretTargetIds(
   return toTargetIdSet(getConfiguredChannelSecretTargetIds(config, env));
 }
 
-/** Reused helper for get Models Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids needed by model commands and model auth probes. */
 export function getModelsCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(STATIC_MODEL_TARGET_IDS);
 }
 
-/** Reused helper for get Memory Embedding Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids needed by memory embedding commands. */
 export function getMemoryEmbeddingCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(STATIC_MEMORY_EMBEDDING_TARGET_IDS);
 }
 
-/** Reused helper for get Tts Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids needed by text-to-speech commands. */
 export function getTtsCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(STATIC_TTS_TARGET_IDS);
 }
 
-/** Reused helper for get Agent Runtime Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids needed by agent runtime commands, optionally including channels. */
 export function getAgentRuntimeCommandSecretTargetIds(params?: {
   includeChannelTargets?: boolean;
 }): Set<string> {
@@ -888,7 +888,7 @@ export function getAgentRuntimeCommandSecretTargetIds(params?: {
   return toTargetIdSet(getCommandSecretTargets().agentRuntime);
 }
 
-/** Reused helper for get Capability Web Fetch Command Secret Target Ids behavior in src/cli. */
+/** Static secret target ids for web fetch capability commands. */
 export function getCapabilityWebFetchCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(getCapabilityWebFetchTargetIds());
 }
@@ -940,7 +940,7 @@ function getCapabilityWebCommandSecretTargets(
   };
 }
 
-/** Reused helper for get Capability Web Fetch Command Secret Targets behavior in src/cli. */
+/** Web fetch secret scope, narrowed to provider config when a provider is selected. */
 export function getCapabilityWebFetchCommandSecretTargets(
   config: OpenClawConfig,
   options?: {
@@ -958,12 +958,12 @@ export function getCapabilityWebFetchCommandSecretTargets(
   });
 }
 
-/** Reused helper for get Capability Web Search Command Secret Target Ids behavior in src/cli. */
+/** Static secret target ids for web search capability commands. */
 export function getCapabilityWebSearchCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(getCapabilityWebSearchTargetIds());
 }
 
-/** Reused helper for get Capability Web Search Command Secret Targets behavior in src/cli. */
+/** Web search secret scope, narrowed to provider config when a provider is selected. */
 export function getCapabilityWebSearchCommandSecretTargets(
   config: OpenClawConfig,
   options?: {
@@ -981,7 +981,7 @@ export function getCapabilityWebSearchCommandSecretTargets(
   });
 }
 
-/** Reused helper for get Status Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids that status commands may inspect without resolving unrelated providers. */
 export function getStatusCommandSecretTargetIds(
   config?: OpenClawConfig,
   env?: NodeJS.ProcessEnv,
@@ -996,7 +996,7 @@ export function getStatusCommandSecretTargetIds(
   return toTargetIdSet([...STATIC_STATUS_TARGET_IDS, ...channelTargetIds]);
 }
 
-/** Reused helper for get Security Audit Command Secret Target Ids behavior in src/cli. */
+/** Secret target ids included in security audit checks. */
 export function getSecurityAuditCommandSecretTargetIds(): Set<string> {
   return toTargetIdSet(getCommandSecretTargets().securityAudit);
 }
