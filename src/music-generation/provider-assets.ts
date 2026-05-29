@@ -6,7 +6,7 @@ import { extensionForMime } from "../media/mime.js";
 import { readResponseWithLimit } from "../media/read-response-with-limit.js";
 import type { GeneratedMusicAsset } from "./types.js";
 
-/** Shared type for Generated Music File Candidate in src/music-generation. */
+/** Download candidate discovered in a provider response. */
 export type GeneratedMusicFileCandidate = {
   url: string;
   mimeType?: string;
@@ -50,7 +50,7 @@ function pushGeneratedMusicFileCandidate(
   });
 }
 
-/** Reused helper for extract Generated Music File Candidates behavior in src/music-generation. */
+/** Extracts audio URL candidates from common provider response fields. */
 export function extractGeneratedMusicFileCandidates(
   payload: unknown,
   keys: readonly string[] = ["audio", "audio_file"],
@@ -65,7 +65,7 @@ export function extractGeneratedMusicFileCandidates(
   return candidates;
 }
 
-/** Reused helper for generated Music Asset From Base64 behavior in src/music-generation. */
+/** Builds a generated music asset from an inline base64 provider payload. */
 export function generatedMusicAssetFromBase64(params: {
   base64: string;
   mimeType: string;
@@ -80,7 +80,7 @@ export function generatedMusicAssetFromBase64(params: {
   };
 }
 
-/** Reused helper for download Generated Music Asset behavior in src/music-generation. */
+/** Downloads one generated audio URL with timeout, MIME normalization, and max-byte enforcement. */
 export async function downloadGeneratedMusicAsset(params: {
   candidate: GeneratedMusicFileCandidate;
   timeoutMs: number;
