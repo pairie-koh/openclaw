@@ -11,10 +11,7 @@ const BUILTIN_REASONING_OUTPUT_MODES = {
   "google-generative-ai": "tagged",
 } as const;
 
-/**
- * Utility functions for provider-specific logic and capabilities.
- */
-
+/** Resolves whether reasoning should use native API fields or tagged text output for a provider/model. */
 export function resolveReasoningOutputMode(params: {
   provider: string | undefined | null;
   config?: OpenClawConfig;
