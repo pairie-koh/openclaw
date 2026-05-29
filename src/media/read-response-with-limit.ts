@@ -123,7 +123,7 @@ async function readResponsePrefix(
   };
 }
 
-/** Reused helper for read Response With Limit behavior in src/media. */
+/** Reads a response body into memory and throws when the bounded prefix proves overflow. */
 export async function readResponseWithLimit(
   res: Response,
   maxBytes: number,
@@ -147,7 +147,7 @@ export async function readResponseWithLimit(
   return prefix.buffer;
 }
 
-/** Reused helper for read Response Text Snippet behavior in src/media. */
+/** Reads a small response prefix for diagnostic text without consuming unbounded bodies. */
 export async function readResponseTextSnippet(
   res: Response,
   opts?: {

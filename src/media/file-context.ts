@@ -25,7 +25,7 @@ function sanitizeFileName(value: string | null | undefined, fallbackName: string
   return sanitizeUntrustedFileName(normalized, fallbackName);
 }
 
-/** Reused helper for render File Context Block behavior in src/media. */
+/** Renders a safe `<file>` block around untrusted filename, MIME, and content fields. */
 export function renderFileContextBlock(params: {
   filename?: string | null;
   fallbackName?: string;

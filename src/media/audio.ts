@@ -1,7 +1,7 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { getFileExtension, normalizeMimeType } from "./mime.js";
 
-/** Reused constant for VOICE MESSAGE AUDIO EXTENSIONS behavior in src/media. */
+/** File extensions accepted by voice-message delivery surfaces. */
 export const VOICE_MESSAGE_AUDIO_EXTENSIONS = new Set([".oga", ".ogg", ".opus", ".mp3", ".m4a"]);
 
 /**
@@ -17,7 +17,7 @@ export const VOICE_MESSAGE_MIME_TYPES = new Set([
   "audio/m4a",
 ]);
 
-/** Reused helper for is Voice Message Compatible Audio behavior in src/media. */
+/** Checks MIME type and file extension against voice-message compatible formats. */
 export function isVoiceMessageCompatibleAudio(opts: {
   contentType?: string | null;
   fileName?: string | null;
@@ -37,7 +37,7 @@ export function isVoiceMessageCompatibleAudio(opts: {
   return VOICE_MESSAGE_AUDIO_EXTENSIONS.has(ext);
 }
 
-/** Reused helper for is Voice Compatible Audio behavior in src/media. */
+/** Compatibility alias for callers that only need generic voice audio classification. */
 export function isVoiceCompatibleAudio(opts: {
   contentType?: string | null;
   fileName?: string | null;
