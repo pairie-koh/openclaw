@@ -23,7 +23,7 @@ const SENSITIVE_MODEL_PROVIDER_HEADER_NAME_FRAGMENTS = [
   "credential",
 ];
 
-/** Reused helper for is Likely Sensitive Model Provider Header Name behavior in src/secrets. */
+/** Returns true for exact or fragment-matched credential header names. */
 export function isLikelySensitiveModelProviderHeaderName(value: string): boolean {
   const normalized = normalizeLowercaseStringOrEmpty(value);
   if (!normalized) {

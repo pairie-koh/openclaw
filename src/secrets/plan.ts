@@ -6,10 +6,10 @@ import { isValidExecSecretRefId, isValidSecretProviderAlias } from "./ref-contra
 import { parseDotPath, toDotPath } from "./shared.js";
 import { resolvePlanTargetAgainstRegistry, type ResolvedPlanTarget } from "./target-registry.js";
 
-/** Shared type for Secrets Plan Target Type in src/secrets. */
+/** Registry target identifier used by secrets apply plans. */
 export type SecretsPlanTargetType = string;
 
-/** Shared type for Secrets Plan Target in src/secrets. */
+/** One config location that should receive a secret reference during plan apply. */
 export type SecretsPlanTarget = {
   type: SecretsPlanTargetType;
   /**
@@ -43,7 +43,7 @@ export type SecretsPlanTarget = {
   authProfileProvider?: string;
 };
 
-/** Shared type for Secrets Apply Plan in src/secrets. */
+/** Versioned document consumed by `openclaw secrets configure --apply-plan`. */
 export type SecretsApplyPlan = {
   version: 1;
   protocolVersion: 1;
@@ -69,7 +69,7 @@ function hasForbiddenPathSegment(segments: string[]): boolean {
   return segments.some((segment) => FORBIDDEN_PATH_SEGMENTS.has(segment));
 }
 
-/** Reused helper for resolve Validated Plan Target behavior in src/secrets. */
+/** Resolves and validates a plan target against the canonical secret target registry. */
 export function resolveValidatedPlanTarget(candidate: {
   type?: SecretsPlanTargetType;
   path?: string;
@@ -101,7 +101,7 @@ export function resolveValidatedPlanTarget(candidate: {
   });
 }
 
-/** Reused helper for is Secrets Apply Plan behavior in src/secrets. */
+/** Type guard for secret apply plans, including provider upserts and target refs. */
 export function isSecretsApplyPlan(value: unknown): value is SecretsApplyPlan {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return false;
@@ -181,7 +181,7 @@ export function isSecretsApplyPlan(value: unknown): value is SecretsApplyPlan {
   return true;
 }
 
-/** Reused helper for normalize Secrets Plan Options behavior in src/secrets. */
+/** Applies default scrub settings for optional plan cleanup behavior. */
 export function normalizeSecretsPlanOptions(
   options: SecretsApplyPlan["options"] | undefined,
 ): Required<NonNullable<SecretsApplyPlan["options"]>> {
