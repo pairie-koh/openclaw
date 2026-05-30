@@ -1,6 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for normalize Plugin Http Path behavior in src/plugins. */
 export function normalizePluginHttpPath(
   path?: string | null,
   fallback?: string | null,
