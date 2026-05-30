@@ -1,4 +1,3 @@
-// scripts/e2e mcp websocket open helpers and runtime behavior.
 type WebSocketOpenHandle = {
   close?: () => void;
   off?: (event: "open" | "error" | "close", listener: (...args: unknown[]) => void) => void;
