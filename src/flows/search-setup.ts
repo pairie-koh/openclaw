@@ -25,7 +25,7 @@ import type { WizardPrompter } from "../wizard/prompts.js";
 import type { FlowContribution, FlowOption } from "./types.js";
 import { sortFlowContributionsByLabel } from "./types.js";
 
-/** Shared type for Search Provider in src/flows. */
+/** Configured web_search provider id from the OpenClaw config schema. */
 export type SearchProvider = NonNullable<
   NonNullable<NonNullable<NonNullable<OpenClawConfig["tools"]>["web"]>["search"]>["provider"]
 >;
@@ -60,7 +60,7 @@ function resolveSearchProviderCredentialLabel(
   return normalizeOptionalString(entry.credentialLabel) || `${entry.label} API key`;
 }
 
-/** Reused helper for list Search Provider Options behavior in src/flows. */
+/** Lists web_search providers available to setup after runtime and install-catalog discovery. */
 export function listSearchProviderOptions(
   config?: OpenClawConfig,
 ): readonly PluginWebSearchProviderEntry[] {
@@ -73,7 +73,7 @@ function showsSearchProviderInSetup(
   return entry.onboardingScopes?.includes("text-inference") ?? false;
 }
 
-/** Reused helper for resolve Search Provider Options behavior in src/flows. */
+/** Resolves provider options surfaced by the search setup flow. */
 export function resolveSearchProviderOptions(
   config?: OpenClawConfig,
 ): readonly PluginWebSearchProviderEntry[] {
@@ -149,7 +149,7 @@ function resolveSearchProviderEntry(
   return resolveSearchProviderOptions(config).find((entry) => entry.id === provider);
 }
 
-/** Reused helper for has Key In Env behavior in src/flows. */
+/** Checks whether any provider-supported env var currently contains a credential. */
 export function hasKeyInEnv(entry: Pick<PluginWebSearchProviderEntry, "envVars">): boolean {
   return entry.envVars.some((k) => Boolean(normalizeOptionalString(process.env[k])));
 }
@@ -191,7 +191,7 @@ function rawKeyValue(config: OpenClawConfig, provider: SearchProvider): unknown 
   return entry?.getConfiguredCredentialValue?.(config);
 }
 
-/** Reused helper for resolve Existing Key behavior in src/flows. */
+/** Resolves an existing configured search credential to plaintext when possible. */
 export function resolveExistingKey(
   config: OpenClawConfig,
   provider: SearchProvider,
@@ -199,7 +199,7 @@ export function resolveExistingKey(
   return normalizeSecretInputString(rawKeyValue(config, provider));
 }
 
-/** Reused helper for has Existing Key behavior in src/flows. */
+/** Checks whether config already contains a search credential or SecretRef. */
 export function hasExistingKey(config: OpenClawConfig, provider: SearchProvider): boolean {
   return hasConfiguredSecretInput(rawKeyValue(config, provider));
 }
@@ -233,7 +233,7 @@ function resolveSearchSecretInput(
   return key;
 }
 
-/** Reused helper for apply Search Key behavior in src/flows. */
+/** Applies a provider credential and enables the selected web_search provider in config. */
 export function applySearchKey(
   config: OpenClawConfig,
   provider: SearchProvider,
@@ -272,7 +272,7 @@ function applySearchProviderSelectionConfig(
   return config;
 }
 
-/** Reused helper for apply Search Provider Selection behavior in src/flows. */
+/** Applies provider selection without changing an existing credential. */
 export function applySearchProviderSelection(
   config: OpenClawConfig,
   provider: SearchProvider,
@@ -357,7 +357,7 @@ function preserveDisabledState(original: OpenClawConfig, result: OpenClawConfig)
   };
 }
 
-/** Shared type for Setup Search Options in src/flows. */
+/** Options controlling quickstart defaults and credential storage mode for search setup. */
 export type SetupSearchOptions = {
   quickstartDefaults?: boolean;
   secretInputMode?: SecretInputMode;
@@ -409,7 +409,7 @@ async function finalizeSearchProviderSetup(params: {
   return preserveDisabledState(params.originalConfig, next);
 }
 
-/** Reused helper for run Search Setup Flow behavior in src/flows. */
+/** Runs the interactive web_search setup flow and returns the updated config. */
 export async function runSearchSetupFlow(
   config: OpenClawConfig,
   runtime: RuntimeEnv,
