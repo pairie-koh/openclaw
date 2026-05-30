@@ -116,7 +116,6 @@ export function createMediaGenerateProviderListActionResult<
   };
 }
 
-/** Builds status and duplicate-guard action helpers for a media task kind. */
 export function createMediaGenerateTaskStatusActions<Task>(params: {
   inactiveText: string;
   findActiveTask: (sessionKey?: string) => Task | undefined;

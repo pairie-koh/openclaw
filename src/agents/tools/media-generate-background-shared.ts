@@ -658,7 +658,6 @@ async function tryDeliverMediaGenerationDirect(params: {
   }
 }
 
-/** Creates task lifecycle helpers for one media generation kind. */
 export function createMediaGenerationTaskLifecycle(params: {
   toolName: string;
   taskKind: string;

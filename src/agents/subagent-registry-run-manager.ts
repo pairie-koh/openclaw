@@ -157,7 +157,6 @@ export type RegisterSubagentRunParams = {
   retainAttachmentsOnKeep?: boolean;
 };
 
-/** Creates the mutable registry manager for subagent run lifecycle state. */
 export function createSubagentRunManager(params: {
   runs: Map<string, SubagentRunRecord>;
   resumedRuns: Set<string>;

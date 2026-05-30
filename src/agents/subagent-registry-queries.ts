@@ -259,7 +259,6 @@ function findLatestRunForChildSession(
   return latest;
 }
 
-/** Returns whether the latest run for a child session is still live. */
 export function isSubagentSessionRunActiveFromRuns(
   runs: Map<string, SubagentRunRecord>,
   childSessionKey: string,
@@ -268,7 +267,6 @@ export function isSubagentSessionRunActiveFromRuns(
   return Boolean(latest && isLiveUnendedSubagentRun(latest));
 }
 
-/** Returns the latest active or ended run for a child session. */
 export function getSubagentRunByChildSessionKeyFromRuns(
   runs: Map<string, SubagentRunRecord>,
   childSessionKey: string,

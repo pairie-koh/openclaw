@@ -17,7 +17,6 @@ export {
   resolveSubagentSessionStatus,
 } from "./subagent-session-metrics.js";
 
-/** Build a read index from persisted and in-memory subagent run state. */
 export function buildSubagentRunReadIndex(now = Date.now()): SubagentRunReadIndex {
   return buildSubagentRunReadIndexFromRuns({
     runs: getSubagentRunsSnapshotForRead(subagentRuns),

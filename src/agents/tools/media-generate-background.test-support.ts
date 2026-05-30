@@ -104,7 +104,6 @@ function requireRecordArray(value: unknown, label: string): Record<string, unkno
   return value.map((entry, index) => requireRecord(entry, `${label}[${index}]`));
 }
 
-/** Creates a media generation completion fixture. */
 export function createMediaCompletionFixture({
   directSend,
   mediaUrls,
