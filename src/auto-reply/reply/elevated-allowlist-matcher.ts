@@ -5,7 +5,7 @@ import {
 import { normalizeAtHashSlug } from "@openclaw/normalization-core/string-normalization";
 import { CHAT_CHANNEL_ORDER } from "../../channels/registry.js";
 
-/** Shared type for Explicit Elevated Allow Field in src/auto-reply/reply. */
+/** Explicit field prefixes accepted by elevated-command allowlist entries. */
 export type ExplicitElevatedAllowField = "id" | "from" | "e164" | "name" | "username" | "tag";
 const INTERNAL_ALLOWLIST_CHANNEL = "webchat";
 
@@ -27,10 +27,10 @@ const SENDER_PREFIXES = [
 ];
 const SENDER_PREFIX_RE = new RegExp(`^(${SENDER_PREFIXES.join("|")}):`, "i");
 
-/** Shared type for Allow From Formatter in src/auto-reply/reply. */
+/** Channel-specific formatter used to derive comparable allowlist tokens. */
 export type AllowFromFormatter = (values: string[]) => string[];
 
-/** Reused helper for strip Sender Prefix behavior in src/auto-reply/reply. */
+/** Remove channel/sender prefixes from allowlist probes before matching. */
 export function stripSenderPrefix(value?: string): string {
   if (!value) {
     return "";
@@ -39,7 +39,7 @@ export function stripSenderPrefix(value?: string): string {
   return trimmed.replace(SENDER_PREFIX_RE, "");
 }
 
-/** Reused helper for parse Explicit Elevated Allow Entry behavior in src/auto-reply/reply. */
+/** Parse `field:value` elevated allowlist entries into typed parts. */
 export function parseExplicitElevatedAllowEntry(
   entry: string,
 ): { field: ExplicitElevatedAllowField; value: string } | null {
@@ -76,7 +76,7 @@ function addTokenVariants(tokens: Set<string>, value: string): void {
   }
 }
 
-/** Reused helper for add Formatted Tokens behavior in src/auto-reply/reply. */
+/** Add channel-formatted allowlist token variants to a token set. */
 export function addFormattedTokens(params: {
   formatAllowFrom: AllowFromFormatter;
   values: string[];
@@ -88,7 +88,7 @@ export function addFormattedTokens(params: {
   }
 }
 
-/** Reused helper for matches Formatted Tokens behavior in src/auto-reply/reply. */
+/** Test a value against precomputed channel-formatted allowlist tokens. */
 export function matchesFormattedTokens(params: {
   formatAllowFrom: AllowFromFormatter;
   value: string;
@@ -112,7 +112,7 @@ export function matchesFormattedTokens(params: {
   return false;
 }
 
-/** Reused helper for build Mutable Tokens behavior in src/auto-reply/reply. */
+/** Build mutable normalized token variants for an allowlist identity value. */
 export function buildMutableTokens(value?: string): Set<string> {
   const tokens = new Set<string>();
   const trimmed = normalizeOptionalString(value);
@@ -127,7 +127,7 @@ export function buildMutableTokens(value?: string): Set<string> {
   return tokens;
 }
 
-/** Reused helper for matches Mutable Tokens behavior in src/auto-reply/reply. */
+/** Test a value against mutable normalized token variants. */
 export function matchesMutableTokens(value: string, tokens: Set<string>): boolean {
   if (!value || tokens.size === 0) {
     return false;
