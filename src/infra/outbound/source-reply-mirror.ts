@@ -117,7 +117,7 @@ function isCurrentSourceConversation(
   );
 }
 
-/** Reused helper for mirror Delivered Source Reply To Transcript behavior in src/infra/outbound. */
+/** Appends delivered send-action content to the source transcript when it replies in place. */
 export async function mirrorDeliveredSourceReplyToTranscript(
   params: SourceReplyTranscriptMirrorParams,
 ): Promise<boolean> {

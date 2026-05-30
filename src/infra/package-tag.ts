@@ -1,6 +1,6 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for normalize Package Tag Input behavior in src/infra. */
+/** Returns the explicit tag portion from `pkg@tag`, or the raw tag when unqualified. */
 export function normalizePackageTagInput(
   value: string | undefined | null,
   packageNames: readonly string[],

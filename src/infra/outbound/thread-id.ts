@@ -1,6 +1,6 @@
 import { normalizeOptionalStringifiedId } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for normalize Outbound Thread Id behavior in src/infra/outbound. */
+/** Converts a non-empty thread id value into its string form. */
 export function normalizeOutboundThreadId(value?: string | number | null): string | undefined {
   return normalizeOptionalStringifiedId(value);
 }

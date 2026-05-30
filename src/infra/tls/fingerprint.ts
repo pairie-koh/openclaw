@@ -1,6 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for normalize Fingerprint behavior in src/infra/tls. */
+/** Strips SHA-256 prefixes/separators and lowercases the hex fingerprint. */
 export function normalizeFingerprint(input: string): string {
   const trimmed = input.trim();
   const withoutPrefix = trimmed.replace(/^sha-?256\s*:?\s*/i, "");

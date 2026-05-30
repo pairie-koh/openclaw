@@ -506,7 +506,7 @@ function resolveTlonOutboundSessionRouteForTest(params: ChannelOutboundSessionRo
   });
 }
 
-/** Reused helper for set Minimal Outbound Session Plugin Registry For Tests behavior in src/infra/outbound. */
+/** Registers the minimal route-aware channel plugins needed by outbound session tests. */
 export function setMinimalOutboundSessionPluginRegistryForTests(): void {
   const plugins: ChannelPlugin[] = [
     createSessionRouteTestPlugin({
