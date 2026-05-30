@@ -96,7 +96,7 @@ function trimSummary(value: string | undefined): string | undefined {
   return `${normalized.slice(0, MAX_SUMMARY_CHARS - 1)}…`;
 }
 
-/** Reused helper for summarize Cron Run Diagnostics behavior in src/cron. */
+/** Return a bounded human summary from normalized cron diagnostics. */
 export function summarizeCronRunDiagnostics(
   diagnostics: CronRunDiagnostics | undefined,
 ): string | undefined {
@@ -106,7 +106,7 @@ export function summarizeCronRunDiagnostics(
   return trimSummary(diagnostics.summary ?? diagnostics.entries[0]?.message);
 }
 
-/** Reused helper for normalize Cron Run Diagnostics behavior in src/cron. */
+/** Normalize untrusted diagnostic payloads into redacted bounded cron run diagnostics. */
 export function normalizeCronRunDiagnostics(
   value: unknown,
   opts?: { nowMs?: () => number },
@@ -157,7 +157,7 @@ export function normalizeCronRunDiagnostics(
   return { ...(summary ? { summary } : {}), entries };
 }
 
-/** Reused helper for merge Cron Run Diagnostics behavior in src/cron. */
+/** Merge diagnostics while keeping the most severe recent summary. */
 export function mergeCronRunDiagnostics(
   ...values: Array<CronRunDiagnostics | undefined>
 ): CronRunDiagnostics | undefined {
@@ -193,7 +193,7 @@ export function mergeCronRunDiagnostics(
   });
 }
 
-/** Reused helper for create Cron Run Diagnostics From Error behavior in src/cron. */
+/** Build a cron diagnostic entry from an arbitrary thrown or string error. */
 export function createCronRunDiagnosticsFromError(
   source: CronRunDiagnosticSource,
   error: unknown,
@@ -223,7 +223,7 @@ export function createCronRunDiagnosticsFromError(
   );
 }
 
-/** Reused helper for create Cron Run Diagnostics From Exec Details behavior in src/cron. */
+/** Extract cron diagnostics from failed exec tool details. */
 export function createCronRunDiagnosticsFromExecDetails(
   details: unknown,
   opts?: {
@@ -265,7 +265,7 @@ export function createCronRunDiagnosticsFromExecDetails(
   );
 }
 
-/** Reused helper for create Cron Run Diagnostics From Tool Payload behavior in src/cron. */
+/** Extract diagnostics from a tool reply payload, including exec subdetails. */
 export function createCronRunDiagnosticsFromToolPayload(
   payload: unknown,
   opts?: { nowMs?: () => number; finalStatus?: "ok" | "error" | "skipped" },
@@ -295,7 +295,7 @@ export function createCronRunDiagnosticsFromToolPayload(
   return mergeCronRunDiagnostics(detailsDiagnostics, textDiagnostics);
 }
 
-/** Reused helper for create Cron Run Diagnostics From Agent Result behavior in src/cron. */
+/** Collect cron diagnostics from agent result payloads and metadata failures. */
 export function createCronRunDiagnosticsFromAgentResult(
   result: unknown,
   opts?: { nowMs?: () => number; finalStatus?: "ok" | "error" | "skipped" },
