@@ -18,7 +18,6 @@ import type { ChannelConfigAdapter } from "../channels/plugins/types.adapters.js
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "../routing/session-key.js";
 
-/** Re-exported API for src/plugin-sdk. */
 export {
   ensureOpenDmPolicyAllowFromWildcard,
   normalizeChannelDmPolicy,
@@ -665,5 +664,4 @@ export function createScopedDmSecurityResolver<
   };
 }
 
-/** Re-exported API for src/plugin-sdk, starting with build Account Scoped Dm Security Policy. */
 export { buildAccountScopedDmSecurityPolicy };
