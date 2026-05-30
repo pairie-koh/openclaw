@@ -635,7 +635,6 @@ function collectSandboxSshAssignments(params: {
   }
 }
 
-/** Reused helper for collect Core Config Assignments behavior in src/secrets. */
 export function collectCoreConfigAssignments(params: {
   config: OpenClawConfig;
   defaults: SecretDefaults | undefined;

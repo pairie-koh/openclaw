@@ -30,7 +30,6 @@ function appendUniqueEnvVarCandidates(
   }
 }
 
-/** Reused helper for resolve Channel Env Vars behavior in src/secrets. */
 export function resolveChannelEnvVars(
   params?: ChannelEnvVarLookupParams,
 ): Record<string, readonly string[]> {
@@ -53,14 +52,12 @@ export function resolveChannelEnvVars(
   return candidates;
 }
 
-/** Reused helper for get Channel Env Vars behavior in src/secrets. */
 export function getChannelEnvVars(channelId: string, params?: ChannelEnvVarLookupParams): string[] {
   const channelEnvVars = resolveChannelEnvVars(params);
   const envVars = Object.hasOwn(channelEnvVars, channelId) ? channelEnvVars[channelId] : undefined;
   return Array.isArray(envVars) ? [...envVars] : [];
 }
 
-/** Reused helper for list Known Channel Env Var Names behavior in src/secrets. */
 export function listKnownChannelEnvVarNames(params?: ChannelEnvVarLookupParams): string[] {
   return uniqueStrings(Object.values(resolveChannelEnvVars(params)).flatMap((keys) => keys));
 }

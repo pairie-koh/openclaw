@@ -12,12 +12,10 @@ function decodeJsonPointerToken(token: string): string {
   return token.replace(/~1/g, "/").replace(/~0/g, "~");
 }
 
-/** Reused helper for encode Json Pointer Token behavior in src/secrets. */
 export function encodeJsonPointerToken(token: string): string {
   return token.replace(/~/g, "~0").replace(/\//g, "~1");
 }
 
-/** Reused helper for read Json Pointer behavior in src/secrets. */
 export function readJsonPointer(
   root: unknown,
   pointer: string,
