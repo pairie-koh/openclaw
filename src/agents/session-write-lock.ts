@@ -903,7 +903,6 @@ export async function drainSessionWriteLockStateForTest(): Promise<void> {
   unregisterCleanupHandlers();
 }
 
-/** Reset held locks, timers, handlers, and process start resolver for tests. */
 export function resetSessionWriteLockStateForTest(): void {
   releaseAllLocksSync();
   stopWatchdogTimer();

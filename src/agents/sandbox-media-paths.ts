@@ -11,7 +11,6 @@ export type SandboxedBridgeMediaPathConfig = {
   workspaceOnly?: boolean;
 };
 
-/** Build a readFile helper backed by a sandbox filesystem bridge. */
 export function createSandboxBridgeReadFile(params: {
   sandbox: Pick<SandboxedBridgeMediaPathConfig, "root" | "bridge">;
 }): (filePath: string) => Promise<Buffer> {

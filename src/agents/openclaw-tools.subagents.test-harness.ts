@@ -25,12 +25,10 @@ async function callGatewayForTest<T = Record<string, unknown>>(
   return (await callGatewayMock(opts)) as T;
 }
 
-/** Override runtime config for subagent tool tests. */
 export function setSubagentsConfigOverride(next: LoadedConfig) {
   configOverride = next;
 }
 
-/** Reset subagent tool tests to the default runtime config. */
 export function resetSubagentsConfigOverride() {
   configOverride = defaultConfig;
 }

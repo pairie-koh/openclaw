@@ -13,7 +13,6 @@ type PendingToolCallState = {
   shouldFlushBeforeNewToolCalls: (toolCallCount: number) => boolean;
 };
 
-/** Create in-memory pending tool-call state for transcript guards. */
 export function createPendingToolCallState(): PendingToolCallState {
   const pending = new Map<string, string | undefined>();
 

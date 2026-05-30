@@ -338,7 +338,6 @@ export function getLatestCompactionEntry(entries: SessionEntry[]): CompactionEnt
  * If leafId is provided, walks from that entry to root.
  * Handles compaction and branch summaries along the path.
  */
-/** Builds message context from session tree state. */
 export function buildSessionContext(
   entries: SessionEntry[],
   leafId?: string | null,

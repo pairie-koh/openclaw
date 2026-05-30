@@ -411,7 +411,6 @@ export class AgentSessionRuntime {
  * The same factory is stored on the returned AgentSessionRuntime and reused for
  * later /new, /resume, /fork, and import flows.
  */
-/** Creates an AgentSession plus diagnostics and runtime service metadata. */
 export async function createAgentSessionRuntime(
   createRuntime: CreateAgentSessionRuntimeFactory,
   options: {
