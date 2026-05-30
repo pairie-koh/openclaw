@@ -1,9 +1,9 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { parseComparableSemver } from "./semver-compare.js";
 
-/** Shared type for Update Channel in src/infra. */
+/** Supported update channels for package and git installs. */
 export type UpdateChannel = "stable" | "beta" | "dev";
-/** Shared type for Update Channel Source in src/infra. */
+/** Evidence used to choose the effective update channel. */
 export type UpdateChannelSource =
   | "config"
   | "git-tag"
@@ -11,14 +11,14 @@ export type UpdateChannelSource =
   | "installed-version"
   | "default";
 
-/** Reused constant for DEFAULT PACKAGE CHANNEL behavior in src/infra. */
+/** Default update channel for npm/package installs. */
 export const DEFAULT_PACKAGE_CHANNEL: UpdateChannel = "stable";
-/** Reused constant for DEFAULT GIT CHANNEL behavior in src/infra. */
+/** Default update channel for source checkouts. */
 export const DEFAULT_GIT_CHANNEL: UpdateChannel = "dev";
-/** Reused constant for DEV BRANCH behavior in src/infra. */
+/** Canonical development branch used by git update logic. */
 export const DEV_BRANCH = "main";
 
-/** Reused helper for normalize Update Channel behavior in src/infra. */
+/** Normalize user/config text to a supported update channel. */
 export function normalizeUpdateChannel(value?: string | null): UpdateChannel | null {
   const normalized = normalizeOptionalLowercaseString(value);
   if (!normalized) {
@@ -30,7 +30,7 @@ export function normalizeUpdateChannel(value?: string | null): UpdateChannel | n
   return null;
 }
 
-/** Reused helper for channel To Npm Tag behavior in src/infra. */
+/** Map an update channel to the npm dist-tag queried for packages. */
 export function channelToNpmTag(channel: UpdateChannel): string {
   if (channel === "beta") {
     return "beta";
@@ -41,12 +41,12 @@ export function channelToNpmTag(channel: UpdateChannel): string {
   return "latest";
 }
 
-/** Reused helper for is Beta Tag behavior in src/infra. */
+/** Detect beta labels in versions or git tags. */
 export function isBetaTag(tag: string): boolean {
   return /(?:^|[.-])beta(?:[.-]|$)/i.test(tag);
 }
 
-/** Reused helper for is Prerelease Tag behavior in src/infra. */
+/** Detect prerelease-ish tags including semver and common channel labels. */
 export function isPrereleaseTag(tag: string): boolean {
   const parsed = parseComparableSemver(tag, { normalizeLegacyDotBeta: true });
   if (parsed) {
@@ -57,12 +57,12 @@ export function isPrereleaseTag(tag: string): boolean {
   );
 }
 
-/** Reused helper for is Stable Tag behavior in src/infra. */
+/** Check whether a tag lacks prerelease markers. */
 export function isStableTag(tag: string): boolean {
   return !isPrereleaseTag(tag);
 }
 
-/** Reused helper for resolve Registry Update Channel behavior in src/infra. */
+/** Choose the registry channel, preserving beta when the installed version is beta. */
 export function resolveRegistryUpdateChannel(params: {
   configChannel?: UpdateChannel | null;
   currentVersion?: string | null;
@@ -78,7 +78,7 @@ export function resolveRegistryUpdateChannel(params: {
   return params.configChannel ?? DEFAULT_PACKAGE_CHANNEL;
 }
 
-/** Reused helper for resolve Effective Update Channel behavior in src/infra. */
+/** Resolve the effective update channel and the evidence that selected it. */
 export function resolveEffectiveUpdateChannel(params: {
   configChannel?: UpdateChannel | null;
   currentVersion?: string | null;
@@ -120,7 +120,7 @@ export function resolveEffectiveUpdateChannel(params: {
   return { channel: DEFAULT_PACKAGE_CHANNEL, source: "default" };
 }
 
-/** Reused helper for format Update Channel Label behavior in src/infra. */
+/** Format channel/source evidence for CLI output. */
 export function formatUpdateChannelLabel(params: {
   channel: UpdateChannel;
   source: UpdateChannelSource;
@@ -144,7 +144,7 @@ export function formatUpdateChannelLabel(params: {
   return `${params.channel} (default)`;
 }
 
-/** Reused helper for resolve Update Channel Display behavior in src/infra. */
+/** Resolve channel/source plus a human label in one call. */
 export function resolveUpdateChannelDisplay(params: {
   configChannel?: UpdateChannel | null;
   currentVersion?: string | null;
