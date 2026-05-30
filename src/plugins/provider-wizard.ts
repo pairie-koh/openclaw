@@ -17,7 +17,7 @@ import type {
 
 const PROVIDER_PLUGIN_CHOICE_PREFIX = "provider-plugin:";
 
-/** Shared type for Provider Wizard Option in src/plugins. */
+/** Provider auth/setup option shown in the setup wizard. */
 export type ProviderWizardOption = {
   value: string;
   label: string;
@@ -31,7 +31,7 @@ export type ProviderWizardOption = {
   onboardingFeatured?: boolean;
 };
 
-/** Shared type for Provider Model Picker Entry in src/plugins. */
+/** Provider-owned entry that can be offered from the model picker. */
 export type ProviderModelPickerEntry = {
   value: string;
   label: string;
@@ -46,7 +46,7 @@ type ProviderWizardProvidersResolver = (params: {
 
 let providerWizardProvidersResolverForTest: ProviderWizardProvidersResolver | undefined;
 
-/** Reused helper for set Provider Wizard Providers Resolver For Test behavior in src/plugins. */
+/** Override provider resolution for tests and return a restore callback. */
 export function setProviderWizardProvidersResolverForTest(
   resolver: ProviderWizardProvidersResolver | undefined,
 ): () => void {
@@ -127,7 +127,7 @@ function buildSetupOptionForMethod(params: {
   };
 }
 
-/** Reused helper for build Provider Plugin Method Choice behavior in src/plugins. */
+/** Encode a provider auth method as a setup wizard choice id. */
 export function buildProviderPluginMethodChoice(providerId: string, methodId: string): string {
   return `${PROVIDER_PLUGIN_CHOICE_PREFIX}${normalizeOptionalString(providerId) ?? ""}:${normalizeOptionalString(methodId) ?? ""}`;
 }
@@ -148,7 +148,7 @@ function resolveProviderWizardProviders(params: {
   });
 }
 
-/** Reused helper for resolve Provider Wizard Options behavior in src/plugins. */
+/** Resolve setup wizard options contributed by provider plugins. */
 export function resolveProviderWizardOptions(params: {
   config?: OpenClawConfig;
   workspaceDir?: string;
@@ -220,7 +220,7 @@ function resolveModelPickerChoiceValue(
   return buildProviderPluginMethodChoice(provider.id, provider.auth[0]?.id ?? "default");
 }
 
-/** Reused helper for resolve Provider Model Picker Entries behavior in src/plugins. */
+/** Resolve provider plugin entries shown by the model picker. */
 export function resolveProviderModelPickerEntries(params: {
   config?: OpenClawConfig;
   workspaceDir?: string;
@@ -244,7 +244,7 @@ export function resolveProviderModelPickerEntries(params: {
   return entries;
 }
 
-/** Reused helper for resolve Provider Plugin Choice behavior in src/plugins. */
+/** Resolve a wizard choice back to the provider, auth method, and optional setup metadata. */
 export function resolveProviderPluginChoice(params: {
   providers: ProviderPlugin[];
   choice: string;
@@ -303,7 +303,7 @@ export function resolveProviderPluginChoice(params: {
   return null;
 }
 
-/** Reused helper for run Provider Model Selected Hook behavior in src/plugins. */
+/** Run a provider plugin hook after the user selects a model owned by that provider. */
 export async function runProviderModelSelectedHook(params: {
   config: OpenClawConfig;
   model: string;
