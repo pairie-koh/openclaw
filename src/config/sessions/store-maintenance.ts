@@ -25,7 +25,7 @@ const STRICT_ENTRY_MAINTENANCE_MAX_ENTRIES = 49;
 const MIN_BATCHED_ENTRY_MAINTENANCE_SLACK = 25;
 const BATCHED_ENTRY_MAINTENANCE_SLACK_RATIO = 0.1;
 
-/** Shared type for Session Maintenance Warning in src/config/sessions. */
+/** Warning payload when the active session would be removed by maintenance. */
 export type SessionMaintenanceWarning = {
   activeSessionKey: string;
   activeUpdatedAt?: number;
@@ -36,7 +36,7 @@ export type SessionMaintenanceWarning = {
   wouldCap: boolean;
 };
 
-/** Shared type for Resolved Session Maintenance Config in src/config/sessions. */
+/** Parsed maintenance limits with defaults and byte/duration strings resolved. */
 export type ResolvedSessionMaintenanceConfig = {
   mode: SessionMaintenanceMode;
   pruneAfterMs: number;
@@ -145,7 +145,7 @@ export function resolveMaintenanceConfigFromInput(
   };
 }
 
-/** Reused helper for resolve Session Entry Maintenance High Water behavior in src/config/sessions. */
+/** Computes the entry-count threshold that triggers batched maintenance. */
 export function resolveSessionEntryMaintenanceHighWater(maxEntries: number): number {
   if (!Number.isSafeInteger(maxEntries) || maxEntries <= 0) {
     return 1;
@@ -160,7 +160,7 @@ export function resolveSessionEntryMaintenanceHighWater(maxEntries: number): num
   return maxEntries + slack;
 }
 
-/** Reused helper for should Run Session Entry Maintenance behavior in src/config/sessions. */
+/** Decides whether entry-count maintenance should run for the current store size. */
 export function shouldRunSessionEntryMaintenance(params: {
   entryCount: number;
   maxEntries: number;
@@ -205,11 +205,11 @@ export function pruneStaleEntries(
   return pruned;
 }
 
-/** Reused constant for DEFAULT QUOTA SUSPENSION TTL MS behavior in src/config/sessions. */
+/** Default time before a quota-suspended session is allowed to resume. */
 export const DEFAULT_QUOTA_SUSPENSION_TTL_MS = 30 * 60 * 1000; // 30 minutes
 const QUOTA_SUSPENSION_CLEANUP_FACTOR = 2; // entries beyond N*ttl are deleted outright
 
-/** Shared type for Quota Suspension Maintenance Result in src/config/sessions. */
+/** Result of advancing or clearing quota-suspension records in the session store. */
 export interface QuotaSuspensionMaintenanceResult {
   /** Suspensions whose state was advanced from "suspended" to "resuming" so the next attempt injects a handoff. */
   resumed: Array<{ sessionKey: string; laneId?: string }>;
@@ -295,7 +295,7 @@ function isExternalGroupOrChannelSessionKey(sessionKey: string): boolean {
   return /^[^:]+:(?:group|channel):.+$/.test(rest);
 }
 
-/** Reused helper for is Protected Session Maintenance Entry behavior in src/config/sessions. */
+/** Identifies group, channel, thread, and topic sessions that maintenance must preserve. */
 export function isProtectedSessionMaintenanceEntry(
   sessionKey: string,
   entry: SessionEntry | undefined,
@@ -316,7 +316,7 @@ export function isProtectedSessionMaintenanceEntry(
   return chatType === "group" || chatType === "channel" || chatType === "thread";
 }
 
-/** Reused helper for should Preserve Maintenance Entry behavior in src/config/sessions. */
+/** Applies caller-provided preservation plus built-in protected-session rules. */
 export function shouldPreserveMaintenanceEntry(params: {
   key: string;
   entry: SessionEntry | undefined;
@@ -328,7 +328,7 @@ export function shouldPreserveMaintenanceEntry(params: {
   );
 }
 
-/** Reused helper for get Active Session Maintenance Warning behavior in src/config/sessions. */
+/** Reports whether pruning or capping would remove the currently active session. */
 export function getActiveSessionMaintenanceWarning(params: {
   store: Record<string, SessionEntry>;
   activeSessionKey: string;
