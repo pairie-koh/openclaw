@@ -2,13 +2,13 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { parseAgentSessionKey } from "../routing/session-key.js";
 import { compileSafeRegex, testRegexWithBoundedInput } from "../security/safe-regex.js";
 
-/** Shared type for Approval Request Filter Input in src/infra. */
+/** Minimal request metadata required for approval filter checks. */
 export type ApprovalRequestFilterInput = {
   agentId?: string | null;
   sessionKey?: string | null;
 };
 
-/** Reused helper for matches Approval Request Session Filter behavior in src/infra. */
+/** Matches a session key against literal substrings or bounded safe regex patterns. */
 export function matchesApprovalRequestSessionFilter(
   sessionKey: string,
   patterns: string[],
@@ -22,7 +22,7 @@ export function matchesApprovalRequestSessionFilter(
   });
 }
 
-/** Reused helper for matches Approval Request Filters behavior in src/infra. */
+/** Returns whether request metadata passes optional agent and session filters. */
 export function matchesApprovalRequestFilters(params: {
   request: ApprovalRequestFilterInput;
   agentFilter?: string[];
