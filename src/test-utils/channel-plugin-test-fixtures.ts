@@ -1,6 +1,5 @@
 import type { ChannelPlugin } from "../channels/plugins/types.plugin.js";
 
-/** Build a direct-message-only channel plugin fixture. */
 export function makeDirectPlugin(params: {
   id: string;
   label: string;

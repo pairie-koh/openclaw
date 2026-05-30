@@ -19,7 +19,6 @@ export function toRequestUrl(input: UsageFetchInput): string {
   return typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
 }
 
-/** Create a preconnect-compatible fetch mock backed by a URL handler. */
 export function createProviderUsageFetch(
   handler: UsageFetchHandler,
 ): typeof fetch & UsageFetchMock {

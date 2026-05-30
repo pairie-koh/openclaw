@@ -340,7 +340,6 @@ export async function createOpenClawTestState(
   return state;
 }
 
-/** Run a callback with isolated OpenClaw test state and always clean it up. */
 export async function withOpenClawTestState<T>(
   options: OpenClawTestStateOptions,
   fn: (state: OpenClawTestState) => Promise<T>,

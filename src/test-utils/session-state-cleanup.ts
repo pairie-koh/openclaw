@@ -8,7 +8,6 @@ let sessionStoreWriterQueueDrainerForTests: typeof drainSessionStoreWriterQueues
   null;
 let sessionWriteLockDrainerForTests: typeof drainSessionWriteLockStateForTest | null = null;
 
-/** Override session cleanup drainers for module-isolated tests. */
 export function setSessionStateCleanupRuntimeForTests(params: {
   drainFileLockStateForTest?: typeof drainFileLockStateForTest | null;
   drainSessionStoreWriterQueuesForTest?: typeof drainSessionStoreWriterQueuesForTest | null;
@@ -25,7 +24,6 @@ export function setSessionStateCleanupRuntimeForTests(params: {
   }
 }
 
-/** Restore default session cleanup drainers. */
 export function resetSessionStateCleanupRuntimeForTests(): void {
   fileLockDrainerForTests = null;
   sessionStoreWriterQueueDrainerForTests = null;

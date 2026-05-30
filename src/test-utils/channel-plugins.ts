@@ -87,7 +87,6 @@ export const createChannelTestPluginBase = (params: {
   },
 });
 
-/** Build the Microsoft Teams channel metadata used by channel alias tests. */
 export const createMSTeamsTestPluginBase = (): Pick<
   ChannelPlugin,
   "id" | "meta" | "capabilities" | "config"
