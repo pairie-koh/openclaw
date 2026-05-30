@@ -39,12 +39,12 @@ export type SecurityAuditFinding = {
   remediation?: string;
 };
 
-/** Shared type for Hooks Hardening Audit Options in src/security. */
+/** Optional auth override used when auditing hook ingress hardening. */
 export type HooksHardeningAuditOptions = {
   gatewayAuthOverride?: Pick<GatewayAuthConfig, "mode" | "token" | "password">;
 };
 
-/** Shared type for Gateway Http No Auth Audit Options in src/security. */
+/** Optional auth override used when auditing unauthenticated Gateway HTTP APIs. */
 export type GatewayHttpNoAuthAuditOptions = {
   gatewayAuthOverride?: Pick<GatewayAuthConfig, "mode" | "token" | "password">;
 };
@@ -533,7 +533,7 @@ function collectRiskyToolExposureContexts(cfg: OpenClawConfig): {
 // Exported collectors
 // --------------------------------------------------------------------------
 
-/** Reused helper for collect Synced Folder Findings behavior in src/security. */
+/** Warns when config or state paths appear to live in synced cloud folders. */
 export function collectSyncedFolderFindings(params: {
   stateDir: string;
   configPath: string;
@@ -551,7 +551,7 @@ export function collectSyncedFolderFindings(params: {
   return findings;
 }
 
-/** Reused helper for collect Secrets In Config Findings behavior in src/security. */
+/** Finds gateway and hook shared secrets stored directly in config. */
 export function collectSecretsInConfigFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const password = normalizeOptionalString(cfg.gateway?.auth?.password) ?? "";
@@ -581,7 +581,7 @@ export function collectSecretsInConfigFindings(cfg: OpenClawConfig): SecurityAud
   return findings;
 }
 
-/** Reused helper for collect Hooks Hardening Findings behavior in src/security. */
+/** Audits hook token strength, token reuse, session routing, and agent allowlists. */
 export function collectHooksHardeningFindings(
   cfg: OpenClawConfig,
   env: NodeJS.ProcessEnv = process.env,
@@ -702,7 +702,7 @@ export function collectHooksHardeningFindings(
   return findings;
 }
 
-/** Reused helper for collect Gateway Http Session Key Override Findings behavior in src/security. */
+/** Reports HTTP endpoints that allow request-level session key overrides. */
 export function collectGatewayHttpSessionKeyOverrideFindings(
   cfg: OpenClawConfig,
 ): SecurityAuditFinding[] {
@@ -730,7 +730,7 @@ export function collectGatewayHttpSessionKeyOverrideFindings(
   return findings;
 }
 
-/** Reused helper for collect Gateway Http No Auth Findings behavior in src/security. */
+/** Reports enabled Gateway HTTP APIs that are reachable without resolved auth. */
 export function collectGatewayHttpNoAuthFindings(
   cfg: OpenClawConfig,
   env: NodeJS.ProcessEnv,
@@ -773,7 +773,7 @@ export function collectGatewayHttpNoAuthFindings(
   return findings;
 }
 
-/** Reused helper for collect Sandbox Docker Noop Findings behavior in src/security. */
+/** Finds docker sandbox options that cannot take effect while sandbox mode is off. */
 export function collectSandboxDockerNoopFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const configuredPaths: string[] = [];
@@ -824,7 +824,7 @@ export function collectSandboxDockerNoopFindings(cfg: OpenClawConfig): SecurityA
   return findings;
 }
 
-/** Reused helper for collect Sandbox Dangerous Config Findings behavior in src/security. */
+/** Audits sandbox docker config for dangerous binds, network modes, and profiles. */
 export function collectSandboxDangerousConfigFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const agents = Array.isArray(cfg.agents?.list) ? cfg.agents.list : [];
@@ -937,7 +937,7 @@ export function collectSandboxDangerousConfigFindings(cfg: OpenClawConfig): Secu
   return findings;
 }
 
-/** Reused helper for collect Node Deny Command Pattern Findings behavior in src/security. */
+/** Finds ineffective node command deny entries that are patterns or unknown names. */
 export function collectNodeDenyCommandPatternFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const denyListRaw = cfg.gateway?.nodes?.denyCommands;
@@ -995,7 +995,7 @@ export function collectNodeDenyCommandPatternFindings(cfg: OpenClawConfig): Secu
   return findings;
 }
 
-/** Reused helper for collect Node Dangerous Allow Command Findings behavior in src/security. */
+/** Reports dangerous node command ids explicitly allowed without a matching deny. */
 export function collectNodeDangerousAllowCommandFindings(
   cfg: OpenClawConfig,
 ): SecurityAuditFinding[] {
@@ -1034,7 +1034,7 @@ export function collectNodeDangerousAllowCommandFindings(
   return findings;
 }
 
-/** Reused helper for collect Minimal Profile Override Findings behavior in src/security. */
+/** Reports agents that override a global minimal tools profile. */
 export function collectMinimalProfileOverrideFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   if (cfg.tools?.profile !== "minimal") {
@@ -1071,7 +1071,7 @@ export function collectMinimalProfileOverrideFindings(cfg: OpenClawConfig): Secu
   return findings;
 }
 
-/** Reused helper for collect Model Hygiene Findings behavior in src/security. */
+/** Reports configured models that look legacy or below recommended safety tiers. */
 export function collectModelHygieneFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const models = collectAuditModelRefs(cfg);
@@ -1157,7 +1157,7 @@ export function collectModelHygieneFindings(cfg: OpenClawConfig): SecurityAuditF
   return findings;
 }
 
-/** Reused helper for collect Exposure Matrix Findings behavior in src/security. */
+/** Reports open group policies combined with elevated, runtime, or filesystem tools. */
 export function collectExposureMatrixFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const openGroups = listGroupPolicyOpen(cfg);
@@ -1197,7 +1197,7 @@ export function collectExposureMatrixFindings(cfg: OpenClawConfig): SecurityAudi
   return findings;
 }
 
-/** Reused helper for collect Likely Multi User Setup Findings behavior in src/security. */
+/** Warns when heuristic signals suggest a shared or multi-user gateway setup. */
 export function collectLikelyMultiUserSetupFindings(cfg: OpenClawConfig): SecurityAuditFinding[] {
   const findings: SecurityAuditFinding[] = [];
   const signals = listPotentialMultiUserSignals(cfg);
