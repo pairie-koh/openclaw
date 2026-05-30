@@ -5,7 +5,6 @@ import { parseUsageCountedSessionIdFromFileName } from "../config/sessions/artif
 import type { SessionEntry } from "../config/sessions/types.js";
 import { normalizeAgentId } from "../routing/session-key.js";
 
-/** Re-exported API for src/plugin-sdk, starting with load Combined Session Store For Gateway. */
 export { loadCombinedSessionStoreForGateway } from "../config/sessions/combined-store-gateway.js";
 
 const QMD_ARCHIVE_STEM_RE = /^(.+)-jsonl-(reset|deleted)-(.+)$/;
@@ -40,7 +39,6 @@ function normalizeQmdSessionStem(stem: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/** Shared type for Session Transcript Hit Identity in src/plugin-sdk. */
 export type SessionTranscriptHitIdentity = {
   stem: string;
   liveStem?: string;
@@ -72,7 +70,6 @@ export function extractTranscriptStemFromSessionsMemoryHit(hitPath: string): str
   return extractTranscriptIdentityFromSessionsMemoryHit(hitPath)?.stem ?? null;
 }
 
-/** Reused helper for extract Transcript Identity From Sessions Memory Hit behavior in src/plugin-sdk. */
 export function extractTranscriptIdentityFromSessionsMemoryHit(
   hitPath: string,
 ): SessionTranscriptHitIdentity | null {
