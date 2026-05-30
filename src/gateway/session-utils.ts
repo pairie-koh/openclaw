@@ -1,4 +1,3 @@
-// Gateway session row builders, store-key resolution, model metadata, and listing helpers.
 import fs from "node:fs";
 import path from "node:path";
 import {
@@ -104,7 +103,6 @@ import type {
   SessionsListResult,
 } from "./session-utils.types.js";
 
-/** Filesystem transcript readers and archive helpers used by session RPC methods. */
 export {
   archiveFileOnDisk,
   archiveSessionTranscripts,
@@ -127,11 +125,8 @@ export {
   visitSessionMessagesAsync,
   resolveSessionTranscriptCandidates,
 } from "./session-utils.fs.js";
-/** Async transcript read-mode options re-exported with session utilities. */
 export type { ReadSessionMessagesAsyncOptions } from "./session-utils.fs.js";
-/** Session store-key canonicalization helpers shared by Gateway mutations. */
 export { canonicalizeSpawnedByForAgent, resolveSessionStoreKey } from "./session-store-key.js";
-/** Gateway session RPC row/result contracts. */
 export type {
   GatewayAgentRow,
   GatewaySessionRow,

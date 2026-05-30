@@ -27,11 +27,8 @@ import {
   type SubagentTargetResolution,
 } from "../subagents-utils.js";
 
-/** Removes tool messages before rendering subagent logs. */
 export { stripToolMessages };
-/** Command-surface channel and account helpers used by subagent command actions. */
 export { resolveCommandSurfaceChannel, resolveChannelAccountId };
-/** Chat message shape consumed by subagent log formatting. */
 export type { ChatMessage } from "../commands-subagents-text.js";
 
 /** Primary slash command prefix for subagent management. */

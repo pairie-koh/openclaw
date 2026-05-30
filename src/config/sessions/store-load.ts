@@ -1,4 +1,3 @@
-// Loads, normalizes, migrates, maintains, and snapshots persisted session stores.
 import fs from "node:fs";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { createSubsystemLogger } from "../../logging/subsystem.js";

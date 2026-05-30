@@ -10,7 +10,6 @@ import type {
   MigrationSummary,
 } from "../plugins/types.js";
 
-/** Public migration provider contracts re-exported from the plugin runtime. */
 export type {
   MigrationDetection,
   MigrationItem,

@@ -1,4 +1,3 @@
-// Filesystem-backed transcript readers for Gateway session history, titles, usage, and previews.
 import fs from "node:fs";
 import { StringDecoder } from "node:string_decoder";
 import {
@@ -823,7 +822,6 @@ function indexedTranscriptEntryToMessages(entry: IndexedTranscriptEntry): unknow
   return message ? [message] : [];
 }
 
-/** Transcript archive and candidate resolution helpers from the filesystem backend. */
 export {
   archiveFileOnDisk,
   archiveSessionTranscripts,

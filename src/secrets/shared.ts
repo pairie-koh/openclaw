@@ -1,4 +1,3 @@
-// Shared filesystem, dot-path, and scalar parsing helpers for secret stores.
 import fs from "node:fs";
 import path from "node:path";
 import { privateFileStoreSync } from "../infra/private-file-store.js";

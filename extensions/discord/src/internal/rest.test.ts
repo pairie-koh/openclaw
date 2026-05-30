@@ -1,4 +1,3 @@
-// Tests extensions/discord/src/internal rest test behavior.
 import { createServer, type Server } from "node:http";
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
 import { fetch as undiciFetch } from "undici";

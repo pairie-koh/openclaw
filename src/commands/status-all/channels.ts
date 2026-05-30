@@ -1,4 +1,3 @@
-// Builds status-all channel overview/detail sections from plugins, config, and gateway state.
 import fs from "node:fs";
 import { asRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

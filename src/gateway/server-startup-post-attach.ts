@@ -1,4 +1,3 @@
-// Starts post-attach gateway sidecars after the HTTP/WebSocket server is listening.
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -1443,5 +1442,4 @@ export const testing = {
   shouldSkipStartupModelPrewarm,
   stopPostReadySidecarsAfterCloseStarted,
 };
-/** Test-only alias that keeps production exports explicit. */
 export { testing as __testing };

@@ -703,5 +703,4 @@ export async function recoverPendingDeliveries(opts: {
   return summary;
 }
 
-/** Maximum retry count before a pending delivery is moved to failed/. */
 export { MAX_RETRIES };

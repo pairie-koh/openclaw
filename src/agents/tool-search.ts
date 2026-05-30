@@ -1724,5 +1724,4 @@ export const testing = {
   applyToolSearchCatalog,
   addClientToolsToToolSearchCatalog,
 };
-/** Test-only Tool Search internals. */
 export { testing as __testing };

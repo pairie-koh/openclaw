@@ -993,7 +993,6 @@ export const MemorySearchSchema = z
   })
   .strict()
   .optional();
-/** Agent model schema exports reused by runtime config schemas. */
 export { AgentModelSchema, AgentToolModelSchema };
 
 const AgentRuntimeAcpSchema = z

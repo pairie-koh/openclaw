@@ -1,4 +1,3 @@
-// Tests media read response with limit test behavior.
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 import { readResponseTextSnippet, readResponseWithLimit } from "./read-response-with-limit.js";

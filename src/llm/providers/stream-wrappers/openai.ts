@@ -1,4 +1,3 @@
-// OpenAI-family stream wrappers for payload policy, attribution, tools, and reasoning.
 import {
   normalizeOptionalLowercaseString,
   readStringValue,
@@ -38,7 +37,6 @@ type OpenAIServiceTier = "auto" | "default" | "flex" | "priority";
 type OpenClawSimpleStreamOptions = SimpleStreamOptions & {
   openclawCodeModeToolSurface?: boolean;
 };
-/** Re-export OpenAI text verbosity resolution for provider registration wiring. */
 export { resolveOpenAITextVerbosity };
 
 function resolveOpenAITextVerbosityForModel(

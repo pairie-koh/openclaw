@@ -4,7 +4,6 @@ import { resolveAgentIdentity } from "../../agents/identity.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { OutboundIdentity } from "./identity-types.js";
 
-/** Outbound sender display identity shape. */
 export type { OutboundIdentity } from "./identity-types.js";
 
 /** Removes empty sender identity fields and returns undefined when none remain. */

@@ -1,4 +1,3 @@
-// Gateway diagnostics for status-all: health probes, log tails, and compact summaries.
 import fs from "node:fs/promises";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { classifyOAuthRefreshFailureReason } from "../../agents/auth-profiles/oauth-refresh-failure.js";

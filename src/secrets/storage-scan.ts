@@ -1,4 +1,3 @@
-// Locates and reads secret-bearing auth/model config files for migration and audits.
 import fs from "node:fs";
 import path from "node:path";
 import { isRecord as isJsonObject } from "@openclaw/normalization-core/record-coerce";

@@ -9,7 +9,6 @@ import {
 } from "./provider-registry.js";
 import { providerSupportsCapability } from "./provider-supports.js";
 import type { MediaUnderstandingCapability, MediaUnderstandingProvider } from "./types.js";
-/** Public media limit defaults shared by runners, provider adapters, and CLI config. */
 export {
   CLI_OUTPUT_MAX_BUFFER,
   DEFAULT_MAX_BYTES,

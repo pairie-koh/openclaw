@@ -182,5 +182,4 @@ function hashSignature(value: string): string {
   }
   return (hash >>> 0).toString(36);
 }
-/** Test-only target-normalization cache controls. */
 export { testing as __testing };

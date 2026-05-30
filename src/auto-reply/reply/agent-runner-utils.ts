@@ -26,13 +26,11 @@ import {
   resolveProviderScopedAuthProfile,
   resolveRunAuthProfile,
 } from "./agent-runner-auth-profile.js";
-/** Auth-profile resolution helpers used by reply runner setup. */
 export { resolveProviderScopedAuthProfile, resolveRunAuthProfile };
 import {
   buildEmbeddedRunBaseParams as buildEmbeddedRunBaseParamsCore,
   resolveEnforceFinalTagWithResolver,
 } from "./agent-runner-run-params.js";
-/** Model fallback option resolver re-exported for reply runner callers. */
 export { resolveModelFallbackOptions } from "./agent-runner-run-params.js";
 import { resolveOriginMessageProvider, resolveOriginMessageTo } from "./origin-routing.js";
 import type { FollowupRun } from "./queue.js";

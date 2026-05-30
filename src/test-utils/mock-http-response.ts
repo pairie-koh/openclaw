@@ -1,4 +1,3 @@
-// Minimal ServerResponse test double for HTTP handler unit tests.
 import type { ServerResponse } from "node:http";
 import { lowercasePreservingWhitespace } from "@openclaw/normalization-core/string-coerce";
 

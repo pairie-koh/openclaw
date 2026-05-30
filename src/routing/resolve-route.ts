@@ -69,7 +69,6 @@ export type ResolvedAgentRoute = {
     | "default";
 };
 
-/** Default account id used when channel inputs omit account context. */
 export { DEFAULT_ACCOUNT_ID } from "./session-key.js";
 
 /** Chooses whether inbound last-route state is stored on main or session key. */

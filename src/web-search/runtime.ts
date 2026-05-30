@@ -38,7 +38,6 @@ import type {
   RuntimeWebSearchConfig as WebSearchConfig,
 } from "./runtime-types.js";
 
-/** Public request/response and provider-entry types for runtime web_search callers. */
 export type {
   ListWebSearchProvidersParams,
   ResolveWebSearchDefinitionParams,
@@ -518,5 +517,4 @@ export const testing = {
   resolveExplicitWebSearchProviderPluginIds,
   hasExplicitWebSearchSelection,
 };
-/** Internal test seam for provider selection and fallback behavior. */
 export { testing as __testing };

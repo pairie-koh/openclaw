@@ -1,4 +1,3 @@
-// Reads logging config lazily without interfering with config schema commands.
 import fs from "node:fs";
 import { isRecord as isObjectRecord } from "@openclaw/normalization-core/record-coerce";
 import JSON5 from "json5";

@@ -18,7 +18,6 @@ import {
 } from "../shell-wrapper-resolution.js";
 import { detectInterpreterInlineEvalArgv, type InterpreterInlineEvalHit } from "./inline-eval.js";
 
-/** Command-carrier utilities shared with approval risk analysis callers. */
 export { COMMAND_CARRIER_EXECUTABLES, resolveCarrierCommandArgv, SOURCE_EXECUTABLES };
 
 /** Command-carrier risk hit such as xargs, find -exec, or env split-string. */

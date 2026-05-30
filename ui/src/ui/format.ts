@@ -3,9 +3,7 @@ import { formatDurationHuman } from "../../../src/infra/format-time/format-durat
 import { formatRelativeTimestamp } from "../../../src/infra/format-time/format-relative.ts";
 import { t } from "../i18n/index.ts";
 
-/** Shared timestamp/duration formatters used by UI views. */
 export { formatRelativeTimestamp, formatDurationHuman };
-/** Assistant-visible text cleanup helper. */
 export { stripThinkingTags } from "./strip-thinking-tags.ts";
 
 /** Convert unknown values into readable UI text without throwing on bad JSON. */

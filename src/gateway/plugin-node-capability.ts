@@ -1,4 +1,3 @@
-// Gateway helpers for scoped plugin node capability URLs and tokens.
 import { randomBytes } from "node:crypto";
 import {
   asDateTimestampMs,

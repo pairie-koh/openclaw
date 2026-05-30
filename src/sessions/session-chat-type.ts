@@ -6,7 +6,6 @@ import {
 } from "./session-chat-type-shared.js";
 import { parseAgentSessionKey } from "./session-key-utils.js";
 
-/** Re-exports shared session-key chat type inference helpers. */
 export {
   deriveSessionChatTypeFromKey,
   type SessionKeyChatType,

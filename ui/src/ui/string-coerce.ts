@@ -1,5 +1,3 @@
-// UI barrel for shared string coercion and normalization helpers.
-/** Lowercase/optional string coercion helpers shared with core code. */
 export {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,

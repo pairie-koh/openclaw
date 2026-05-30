@@ -220,5 +220,4 @@ export function normalizeTalkTransport(value: string | undefined): string | unde
   return normalized;
 }
 
-/** Public Talk event and transport types used by provider integrations. */
 export type { TalkBrain, TalkEvent, TalkEventContext, TalkEventInput, TalkMode, TalkTransport };

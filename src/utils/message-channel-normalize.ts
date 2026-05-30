@@ -62,5 +62,4 @@ export function resolveMessageChannel(
   return normalizeMessageChannel(primary) ?? normalizeMessageChannel(fallback);
 }
 
-/** Re-export internal channel type for callers that only need normalization types. */
 export type { InternalMessageChannel };

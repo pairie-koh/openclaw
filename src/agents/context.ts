@@ -15,7 +15,6 @@ import { lookupCachedContextTokens, MODEL_CONTEXT_TOKEN_CACHE } from "./context-
 import { CONTEXT_WINDOW_RUNTIME_STATE } from "./context-runtime-state.js";
 import { normalizeProviderId } from "./model-selection.js";
 
-/** Test helper that clears context-window runtime cache state. */
 export { resetContextWindowCacheForTest } from "./context-runtime-state.js";
 
 type ModelEntry = {

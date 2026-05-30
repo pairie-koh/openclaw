@@ -1,4 +1,3 @@
-// Memory dreaming defaults, config normalization, and workspace resolution.
 import path from "node:path";
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";
 import {

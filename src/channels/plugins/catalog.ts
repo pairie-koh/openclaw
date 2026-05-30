@@ -1,4 +1,3 @@
-// Channel plugin catalog discovery and formatting helpers.
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import {

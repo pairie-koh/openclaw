@@ -1,4 +1,3 @@
-// Tests test/scripts openai chat tools client test behavior.
 import { spawn, spawnSync } from "node:child_process";
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createServer, type Server } from "node:http";

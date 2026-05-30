@@ -1,4 +1,3 @@
-// Tests infra retry test behavior.
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { resolveTimerTimeoutMs } from "../shared/number-coercion.js";
 import { MAX_SAFE_TIMEOUT_DELAY_MS } from "../utils/timer-delay.js";

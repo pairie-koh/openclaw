@@ -633,5 +633,4 @@ export const testing = {
     replyRunState.waitersByKey.clear();
   },
 };
-/** Test-only alias preserved for existing registry tests. */
 export { testing as __testing };

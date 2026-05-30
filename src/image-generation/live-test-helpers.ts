@@ -8,7 +8,6 @@ import {
   resolveLiveAuthStore,
 } from "../media-generation/live-test-helpers.js";
 
-/** Shared live-test provider/model parsing and key redaction helpers. */
 export { parseProviderModelMap, redactLiveApiKey };
 
 /** Default provider/model refs used when live image tests do not override models. */

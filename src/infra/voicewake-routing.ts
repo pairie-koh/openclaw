@@ -1,5 +1,4 @@
 // Voice wake routing configuration.
-// Trigger words map wake events to current conversation, agent id, or canonical session key.
 import path from "node:path";
 import { isRecord as isPlainObject } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

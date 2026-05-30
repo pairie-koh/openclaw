@@ -24,7 +24,6 @@ import {
   isAuthCooldownBypassedForProvider,
   resolveProfileUnusableUntil,
 } from "./usage-state.js";
-/** Auth-profile cooldown state helpers re-exported for callers. */
 export {
   clearExpiredCooldowns,
   getSoonestCooldownExpiry,
@@ -988,5 +987,4 @@ export async function clearAuthProfileCooldown(params: {
   updateUsageStatsEntry(store, profileId, (existing) => resetUsageStats(existing));
   authProfileUsageDeps.saveAuthProfileStore(store, agentDir);
 }
-/** Test-only alias for auth-profile usage dependency overrides. */
 export { testing as __testing };

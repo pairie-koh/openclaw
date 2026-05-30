@@ -1,5 +1,4 @@
 // Config schema assembly and lookup helpers for UI/Gateway callers. Base schema
-// is merged with plugin/channel metadata while lookup responses stay bounded.
 import crypto from "node:crypto";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { CHANNEL_IDS } from "../channels/ids.js";
@@ -16,7 +15,6 @@ import {
 } from "./schema.shared.js";
 import { applyDerivedTags } from "./schema.tags.js";
 
-/** UI hint types paired with config schema nodes. */
 export type { ConfigUiHint, ConfigUiHints } from "./schema.hints.js";
 
 /** JSON-schema-like config schema object returned by the config schema API. */

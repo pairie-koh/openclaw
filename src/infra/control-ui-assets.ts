@@ -1,5 +1,4 @@
 // Control UI asset discovery and on-demand build helpers.
-// Supports source checkouts, packaged dist layouts, symlinked global installs, and app resources.
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";

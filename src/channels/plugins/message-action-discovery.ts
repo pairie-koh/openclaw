@@ -419,5 +419,4 @@ export const testing = {
     loggedMessageActionErrors.clear();
   },
 };
-/** Internal test-only access to message action discovery reset hooks. */
 export { testing as __testing };

@@ -40,7 +40,6 @@ import {
 } from "./run-state.js";
 import { resolveEmbeddedSessionFileKey } from "./session-file-key.js";
 
-/** Re-export active-run state helpers shared by runtime orchestration and tests. */
 export {
   getActiveEmbeddedRunCount,
   listActiveEmbeddedRunSessionIds,
@@ -870,5 +869,4 @@ export const testing = {
     EMBEDDED_RUN_MODEL_SWITCH_REQUESTS.clear();
   },
 };
-/** Stable test-only alias used by suites that avoid importing the mutable object name. */
 export { testing as __testing };

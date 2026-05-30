@@ -1,5 +1,4 @@
 // Support redaction policy for diagnostic exports: removes secrets, payloads,
-// private identifiers, and local path prefixes before artifacts leave the host.
 import path from "node:path";
 import { isSensitiveUrlQueryParamName } from "@openclaw/net-policy/redact-sensitive-url";
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";

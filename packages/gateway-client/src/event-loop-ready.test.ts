@@ -1,4 +1,3 @@
-// Tests packages/gateway-client/src event loop ready test behavior.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { waitForEventLoopReady } from "./event-loop-ready.js";
 import { MAX_SAFE_TIMEOUT_DELAY_MS } from "./timeouts.js";

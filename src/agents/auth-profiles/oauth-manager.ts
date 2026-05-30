@@ -135,7 +135,6 @@ export class OAuthManagerRefreshError extends Error {
   }
 }
 
-/** OAuth adoption and identity-safety helpers for profile synchronization. */
 export {
   areOAuthCredentialsEquivalent,
   hasUsableOAuthCredential,
@@ -147,7 +146,6 @@ export {
   shouldPersistRuntimeExternalOAuthProfile,
   shouldReplaceStoredOAuthCredential,
 };
-/** Runtime external OAuth profile contract used for managed CLI overlays. */
 export type { RuntimeExternalOAuthProfile };
 
 function hasOAuthCredentialChanged(

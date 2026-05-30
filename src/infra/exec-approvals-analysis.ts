@@ -10,7 +10,6 @@ import {
 } from "./exec-wrapper-resolution.js";
 import { POSIX_INLINE_COMMAND_FLAGS, resolveInlineCommandMatch } from "./shell-inline-command.js";
 
-/** Command-resolution helpers re-exported for exec approval policy callers. */
 export {
   matchAllowlist,
   parseExecArgvToken,

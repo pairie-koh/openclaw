@@ -1,5 +1,4 @@
 // Loads plugin manifests and runtime modules, builds registries, applies
-// activation policy, and manages process-local plugin loader caches.
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
@@ -177,7 +176,6 @@ import type {
 
 /** Runtime plugin registry produced by a plugin load. */
 export type PluginLoadResult = PluginRegistry;
-/** Error raised when the same plugin cache key recursively loads. */
 export { PluginLoadReentryError } from "./loader-cache-state.js";
 
 /** Control-plane and runtime options for loading plugin metadata and modules. */
@@ -3198,5 +3196,4 @@ function resolveCliMetadataEntrySource(rootDir: string): string | null {
   }
   return null;
 }
-/** Legacy test alias for loader internals. */
 export { testing as __testing };

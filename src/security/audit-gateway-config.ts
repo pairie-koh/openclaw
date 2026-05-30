@@ -1,4 +1,3 @@
-// Gateway configuration security audit checks.
 import { isIP } from "node:net";
 import {
   normalizeLowercaseStringOrEmpty,

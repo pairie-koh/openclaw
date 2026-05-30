@@ -1,4 +1,3 @@
-// Persisted session types and merge helpers for config-backed runtime state.
 import crypto from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { ChatType } from "../../channels/chat-type.js";

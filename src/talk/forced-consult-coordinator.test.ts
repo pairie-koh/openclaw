@@ -1,4 +1,3 @@
-// Tests talk forced consult coordinator test behavior.
 import { describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 import { createRealtimeVoiceForcedConsultCoordinator } from "./forced-consult-coordinator.js";

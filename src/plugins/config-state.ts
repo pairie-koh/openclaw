@@ -23,7 +23,6 @@ import {
 import type { PluginOrigin } from "./plugin-origin.types.js";
 import { defaultSlotIdForKey } from "./slots.js";
 
-/** Activation source labels returned by shared plugin activation policy. */
 export type { PluginActivationSource };
 /** Resolved plugin activation state with enabled flag and reason metadata. */
 export type PluginActivationState = PluginActivationStateLike;

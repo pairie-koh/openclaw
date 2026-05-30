@@ -18,7 +18,6 @@ import {
   type OperatorScope,
 } from "./operator-scopes.js";
 
-/** Operator scope constants and type used by gateway auth policy. */
 export {
   ADMIN_SCOPE,
   APPROVALS_SCOPE,

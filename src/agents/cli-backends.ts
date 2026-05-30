@@ -1,4 +1,3 @@
-// Resolves CLI backend registrations and model/runtime bindings.
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";
@@ -461,5 +460,4 @@ export const testing = {
     };
   },
 } as const;
-/** Backward-compatible test hook export for underscored internal imports. */
 export { testing as __testing };

@@ -1,5 +1,4 @@
 // Reads Windows listener PIDs and process argv using PowerShell with legacy
-// command fallbacks for gateway port conflict diagnostics.
 import { spawnSync } from "node:child_process";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";

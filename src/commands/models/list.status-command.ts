@@ -1,4 +1,3 @@
-// Adds auth/profile/probe status sections to model-list output.
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { colorize, theme } from "../../../packages/terminal-core/src/theme.js";

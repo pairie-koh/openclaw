@@ -23,7 +23,6 @@ import type {
   SessionBindingUnbindInput,
 } from "./session-binding.types.js";
 
-/** Session binding contract types exposed to channel and outbound callers. */
 export type {
   BindingStatus,
   BindingTargetKind,
@@ -416,5 +415,4 @@ export const testing = {
     return [...ADAPTERS_BY_CHANNEL_ACCOUNT.keys()];
   },
 };
-/** Test-only session binding service controls. */
 export { testing as __testing };

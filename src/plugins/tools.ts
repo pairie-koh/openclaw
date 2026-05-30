@@ -35,7 +35,6 @@ import {
 } from "./tool-descriptor-cache.js";
 import type { OpenClawPluginToolContext } from "./types.js";
 
-/** Tool descriptor cache reset APIs exposed for tests and runtime reloads. */
 export {
   resetPluginToolDescriptorCache,
   resetPluginToolDescriptorCache as resetPluginToolFactoryCache,

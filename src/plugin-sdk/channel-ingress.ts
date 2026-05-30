@@ -25,9 +25,7 @@ import type {
   DmGroupAccessReasonCode,
 } from "../security/dm-policy-shared.js";
 
-/** Core channel ingress decision function. */
 export { decideChannelIngress };
-/** Public channel ingress graph, policy, event, and diagnostic types. */
 export type {
   AccessGraph,
   AccessGraphGate,

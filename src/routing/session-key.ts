@@ -8,7 +8,6 @@ import {
 } from "../sessions/session-key-utils.js";
 import { normalizeAccountId } from "./account-id.js";
 
-/** Exposes parser helpers from the canonical session-key utility module. */
 export {
   getSubagentDepth,
   isCronSessionKey,
@@ -18,7 +17,6 @@ export {
   parseThreadSessionSuffix,
   type ParsedAgentSessionKey,
 } from "../sessions/session-key-utils.js";
-/** Exposes account-id helpers beside routing key builders for callers. */
 export {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,

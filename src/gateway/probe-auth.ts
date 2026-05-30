@@ -6,9 +6,7 @@ import {
   isGatewaySecretRefUnavailableError,
   resolveGatewayProbeCredentialsFromConfig,
 } from "./credentials.js";
-/** Gateway probe target resolver shared with CLI probe commands. */
 export { resolveGatewayProbeTarget } from "./probe-target.js";
-/** Resolved local/remote gateway probe target contract. */
 export type { GatewayProbeTargetResolution } from "./probe-target.js";
 
 function buildGatewayProbeCredentialPolicy(params: {

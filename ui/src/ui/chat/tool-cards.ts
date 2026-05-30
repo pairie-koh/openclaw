@@ -1,4 +1,3 @@
-// Chat tool-card extraction, preview, sidebar, and rendering helpers.
 import { html, nothing } from "lit";
 import { extractCanvasFromText } from "../../../../src/chat/canvas-render.js";
 import { t } from "../../i18n/index.ts";

@@ -1,4 +1,3 @@
-// Tests infra jsonl socket test behavior.
 import net from "node:net";
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";

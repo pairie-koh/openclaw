@@ -4,7 +4,6 @@ import type { NodeListNode } from "../../shared/node-list-types.js";
 import { resolveNodeFromNodeList, resolveNodeIdFromNodeList } from "../../shared/node-resolve.js";
 import { callGatewayTool, type GatewayCallOptions } from "./gateway.js";
 
-/** Gateway node metadata returned by node-list commands. */
 export type { NodeListNode };
 
 type DefaultNodeFallback = "none" | "first";

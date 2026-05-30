@@ -1,4 +1,3 @@
-// Tests infra provider usage shared test behavior.
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 import { clampPercent, resolveUsageProviderId, withTimeout } from "./provider-usage.shared.js";

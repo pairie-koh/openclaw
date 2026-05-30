@@ -1,4 +1,3 @@
-// Tests extensions/codex/src/app-server config test behavior.
 import fs from "node:fs/promises";
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
 import { describe, expect, it, vi } from "vitest";

@@ -1,4 +1,3 @@
-// Private-file store for inferred commitments and delivery bookkeeping.
 import { randomBytes } from "node:crypto";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";

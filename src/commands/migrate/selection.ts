@@ -1,4 +1,3 @@
-// Selection helpers for interactive/non-interactive migration skill and plugin filters.
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

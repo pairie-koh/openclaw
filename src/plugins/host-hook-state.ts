@@ -1,4 +1,3 @@
-// Plugin-owned session state, queued next-turn injections, and projections.
 import { randomUUID } from "node:crypto";
 import {
   normalizeLowercaseStringOrEmpty,

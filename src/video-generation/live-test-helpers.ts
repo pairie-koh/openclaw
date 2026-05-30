@@ -8,7 +8,6 @@ import {
   resolveLiveAuthStore,
 } from "../media-generation/live-test-helpers.js";
 
-/** Re-export shared live-test parsers so video tests use the same env syntax as media generation. */
 export { parseProviderModelMap, redactLiveApiKey };
 
 /** Default provider/model refs used when live video tests are enabled without explicit overrides. */

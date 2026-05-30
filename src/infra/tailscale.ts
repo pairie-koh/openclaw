@@ -1,4 +1,3 @@
-// Manages Tailscale binary discovery, Funnel/Serve setup, and peer identity lookup.
 import { existsSync } from "node:fs";
 import {
   asDateTimestampMs,

@@ -1074,7 +1074,6 @@ export function ensureAuthProfileStoreForLocalUpdate(agentDir?: string): AuthPro
   });
 }
 
-/** Detects whether any auth-profile source exists for a runtime. */
 export { hasAnyAuthProfileStoreSource } from "./source-check.js";
 
 /** Returns the in-memory runtime auth-profile snapshot for an agent dir. */

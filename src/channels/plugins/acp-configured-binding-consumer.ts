@@ -1,4 +1,3 @@
-// Configured binding consumer for ACP channel targets.
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,

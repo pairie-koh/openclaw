@@ -1,4 +1,3 @@
-// Usage formatting and cost-estimation helpers for token totals, model pricing, and cache-backed pricing lookups.
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveDefaultAgentDir } from "../agents/agent-scope-config.js";

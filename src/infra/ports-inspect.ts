@@ -1,4 +1,3 @@
-// Inspects port listeners and established connections across platforms.
 import os from "node:os";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { runCommandWithTimeout } from "../process/exec.js";

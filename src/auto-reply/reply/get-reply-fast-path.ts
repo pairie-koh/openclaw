@@ -1,4 +1,3 @@
-// Fast-path get-reply orchestration for simple command/message turns.
 import crypto from "node:crypto";
 import {
   normalizeOptionalLowercaseString,

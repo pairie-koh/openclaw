@@ -45,7 +45,6 @@ function asResolvedMessagingTarget(
   return target;
 }
 
-/** ID-like target resolver shared by outbound target resolution callers. */
 export { maybeResolveIdLikeTarget } from "./target-id-resolution.js";
 
 /** Resolve a channel target using the full outbound messaging target pipeline. */

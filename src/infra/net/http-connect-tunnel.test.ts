@@ -1,4 +1,3 @@
-// Tests infra/net http connect tunnel test behavior.
 import { EventEmitter } from "node:events";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

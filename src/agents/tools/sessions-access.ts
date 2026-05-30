@@ -4,7 +4,6 @@ import { resolveSandboxSessionToolsVisibility } from "../../plugin-sdk/session-v
 import { isSubagentSessionKey } from "../../routing/session-key.js";
 import { resolveInternalSessionKey, resolveMainSessionAlias } from "./sessions-resolution.js";
 
-/** Session visibility policy helpers shared with sandboxed session tools. */
 export {
   createAgentToAgentPolicy,
   createSessionVisibilityChecker,

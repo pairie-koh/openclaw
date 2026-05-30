@@ -1,4 +1,3 @@
-// Gateway HTTP authentication, bearer-token, origin, and operator-scope helpers.
 import type { IncomingMessage, ServerResponse } from "node:http";
 import {
   normalizeLowercaseStringOrEmpty,

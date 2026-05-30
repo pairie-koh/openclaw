@@ -1,4 +1,3 @@
-// Detects and formats warnings for path-based plugin installs during updates.
 import fs from "node:fs/promises";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

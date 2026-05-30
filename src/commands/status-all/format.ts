@@ -11,7 +11,6 @@ import { formatGitInstallLabel, type UpdateCheckResult } from "../../infra/updat
 import { VERSION } from "../../version.js";
 import { formatUpdateOneLiner, resolveUpdateAvailability } from "../status.update.js";
 
-/** Relative time formatter shared by status-all sections. */
 export { formatTimeAgo } from "../../infra/format-time/format-relative.ts";
 
 /** One row in the status-all overview table. */

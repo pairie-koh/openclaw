@@ -1,4 +1,3 @@
-// Stages, validates, and publishes package directories into install targets.
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isRecord as isObjectRecord } from "@openclaw/normalization-core/record-coerce";

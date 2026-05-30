@@ -10,7 +10,6 @@ import type {
 } from "./runtime-shared.js";
 import { pushInactiveSurfaceWarning, pushWarning } from "./runtime-shared.js";
 import type { RuntimeWebDiagnostic, RuntimeWebDiagnosticCode } from "./runtime-web-tools.types.js";
-/** Runtime object guard re-exported for web-tool resolver callers. */
 export { isRecord } from "./shared.js";
 import { isRecord } from "./shared.js";
 

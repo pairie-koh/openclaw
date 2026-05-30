@@ -1,4 +1,3 @@
-// Post-compaction context loading for resumed sessions.
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";

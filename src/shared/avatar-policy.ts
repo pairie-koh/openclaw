@@ -1,5 +1,4 @@
 // Shared avatar input policy for local paths, HTTP URLs, and data URLs used by
-// config, UI, and plugin surfaces.
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { isPathInside } from "../infra/path-guards.js";

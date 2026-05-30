@@ -388,7 +388,5 @@ export function registerPluginCommand(
   return { ok: true };
 }
 
-/** Command registry reset helpers for tests and plugin lifecycle cleanup. */
 export { clearPluginCommands, clearPluginCommandsForPlugin };
-/** Registered plugin command record exposed to command dispatch callers. */
 export type { RegisteredPluginCommand };
