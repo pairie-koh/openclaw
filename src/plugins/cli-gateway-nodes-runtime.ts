@@ -1,4 +1,3 @@
-// plugins cli gateway nodes runtime helpers and runtime behavior.
 import { randomUUID } from "node:crypto";
 import { addTimerTimeoutGraceMs } from "@openclaw/normalization-core/number-coercion";
 import {

@@ -46,7 +46,6 @@ function renderEnvironmentFileLines(environmentFiles: string[] | undefined): str
   });
 }
 
-/** Reused helper for build Systemd Unit behavior in src/daemon. */
 export function buildSystemdUnit({
   description,
   programArguments,
@@ -94,12 +93,10 @@ export function buildSystemdUnit({
     .join("\n");
 }
 
-/** Reused helper for parse Systemd Exec Start behavior in src/daemon. */
 export function parseSystemdExecStart(value: string): string[] {
   return splitArgsPreservingQuotes(value, { escapeMode: "backslash" });
 }
 
-/** Reused helper for parse Systemd Env Assignment behavior in src/daemon. */
 export function parseSystemdEnvAssignment(raw: string): { key: string; value: string } | null {
   const trimmed = raw.trim();
   if (!trimmed) {
@@ -140,7 +137,6 @@ export function parseSystemdEnvAssignment(raw: string): { key: string; value: st
   return { key, value };
 }
 
-/** Reused helper for parse Systemd Env Assignments behavior in src/daemon. */
 export function parseSystemdEnvAssignments(raw: string): Array<{ key: string; value: string }> {
   return splitArgsPreservingQuotes(raw, {
     escapeMode: "backslash",
@@ -152,7 +148,6 @@ export function parseSystemdEnvAssignments(raw: string): Array<{ key: string; va
   });
 }
 
-/** Reused helper for render Systemd Env Assignment behavior in src/daemon. */
 export function renderSystemdEnvAssignment(key: string, value: string): string {
   return systemdEscapeArg(`${key}=${value}`);
 }

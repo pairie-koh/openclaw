@@ -1,4 +1,3 @@
-// plugins manifest registry installed helpers and runtime behavior.
 import fs from "node:fs";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
@@ -40,7 +39,6 @@ type InstalledPackageMetadata = {
   packageOptionalDependencies?: PluginDependencySpecMap;
 };
 
-/** Reused helper for clear Installed Manifest Registry Process Caches behavior in src/plugins. */
 export function clearInstalledManifestRegistryProcessCaches(): void {
   installedPackageJsonPathCache.clear();
   installedPackageMetadataCache.clear();
@@ -246,7 +244,6 @@ function buildInstalledManifestRegistryIndexKey(index: InstalledPluginIndex) {
   };
 }
 
-/** Reused helper for resolve Installed Manifest Registry Index Fingerprint behavior in src/plugins. */
 export function resolveInstalledManifestRegistryIndexFingerprint(
   index: InstalledPluginIndex,
 ): string {
@@ -596,7 +593,6 @@ function toPluginCandidate(
   };
 }
 
-/** Reused helper for load Plugin Manifest Registry For Installed Index behavior in src/plugins. */
 export function loadPluginManifestRegistryForInstalledIndex(params: {
   index: InstalledPluginIndex;
   config?: OpenClawConfig;
