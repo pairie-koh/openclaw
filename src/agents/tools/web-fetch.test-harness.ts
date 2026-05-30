@@ -1,7 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import type { LookupFn } from "../../infra/net/ssrf.js";
 
-/** Creates a minimal Headers-like object for fetch mocks. */
 export function makeFetchHeaders(map: Record<string, string>): {
   get: (key: string) => string | null;
 } {
@@ -10,7 +9,6 @@ export function makeFetchHeaders(map: Record<string, string>): {
   };
 }
 
-/** Creates default web_fetch tool config for tests. */
 export function createBaseWebFetchToolConfig(opts?: {
   maxResponseBytes?: number;
   lookupFn?: LookupFn;
