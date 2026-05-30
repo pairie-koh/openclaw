@@ -10,7 +10,7 @@ import type { ChannelId } from "../channels/plugins/types.public.js";
 import type { GroupPolicy } from "../config/types.base.js";
 import { evaluateMatchedGroupAccessForPolicy } from "../plugin-sdk/group-access.js";
 
-/** Reused helper for resolve Pinned Main Dm Owner From Allowlist behavior in src/security. */
+/** Resolve the single pinned main-DM owner when an allowlist has exactly one concrete sender. */
 export function resolvePinnedMainDmOwnerFromAllowlist(params: {
   dmScope?: string | null;
   allowFrom?: Array<string | number> | null;
@@ -47,9 +47,9 @@ export function resolveEffectiveAllowFromLists(params: {
   return resolveChannelIngressEffectiveAllowFromLists(params);
 }
 
-/** Shared type for Dm Group Access Decision in src/security. */
+/** Access decision categories for DM/group ingress policy evaluation. */
 export type DmGroupAccessDecision = "allow" | "block" | "pairing";
-/** Reused constant for DM GROUP ACCESS REASON behavior in src/security. */
+/** Stable reason codes emitted by legacy DM/group policy helpers. */
 export const DM_GROUP_ACCESS_REASON = {
   GROUP_POLICY_ALLOWED: "group_policy_allowed",
   GROUP_POLICY_DISABLED: "group_policy_disabled",
@@ -61,7 +61,7 @@ export const DM_GROUP_ACCESS_REASON = {
   DM_POLICY_PAIRING_REQUIRED: "dm_policy_pairing_required",
   DM_POLICY_NOT_ALLOWLISTED: "dm_policy_not_allowlisted",
 } as const;
-/** Shared type for Dm Group Access Reason Code in src/security. */
+/** Union of stable DM/group access reason codes. */
 export type DmGroupAccessReasonCode =
   (typeof DM_GROUP_ACCESS_REASON)[keyof typeof DM_GROUP_ACCESS_REASON];
 type DmGroupAccessResult = {
