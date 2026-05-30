@@ -3,7 +3,7 @@ import { detectOpenAICompletionsCompat } from "../agents/openai-completions-comp
 import type { ModelCompatConfig } from "../config/types.models.js";
 import type { Model } from "../llm/types.js";
 
-/** Reused helper for extract Model Compat behavior in src/plugins. */
+/** Extracts a compat object from either a model or raw compat config. */
 export function extractModelCompat(
   modelOrCompat: { compat?: unknown } | ModelCompatConfig | undefined,
 ): ModelCompatConfig | undefined {
@@ -36,7 +36,7 @@ export function applyModelCompatPatch<T extends { compat?: ModelCompatConfig }>(
   };
 }
 
-/** Reused helper for has Tool Schema Profile behavior in src/plugins. */
+/** Checks whether a model advertises a specific tool schema profile. */
 export function hasToolSchemaProfile(
   modelOrCompat: { compat?: unknown } | ModelCompatConfig | undefined,
   profile: string,
@@ -44,21 +44,21 @@ export function hasToolSchemaProfile(
   return extractModelCompat(modelOrCompat)?.toolSchemaProfile === profile;
 }
 
-/** Reused helper for has Native Web Search Tool behavior in src/plugins. */
+/** Checks whether a model should use provider-native web search tooling. */
 export function hasNativeWebSearchTool(
   modelOrCompat: { compat?: unknown } | ModelCompatConfig | undefined,
 ): boolean {
   return extractModelCompat(modelOrCompat)?.nativeWebSearchTool === true;
 }
 
-/** Reused helper for resolve Tool Call Arguments Encoding behavior in src/plugins. */
+/** Resolves the tool-call argument encoding override for a model. */
 export function resolveToolCallArgumentsEncoding(
   modelOrCompat: { compat?: unknown } | ModelCompatConfig | undefined,
 ): ModelCompatConfig["toolCallArgumentsEncoding"] | undefined {
   return extractModelCompat(modelOrCompat)?.toolCallArgumentsEncoding;
 }
 
-/** Reused helper for resolve Unsupported Tool Schema Keywords behavior in src/plugins. */
+/** Returns unsupported JSON schema keywords advertised by model compat config. */
 export function resolveUnsupportedToolSchemaKeywords(
   modelOrCompat: { compat?: unknown } | ModelCompatConfig | undefined,
 ): ReadonlySet<string> {
@@ -70,7 +70,7 @@ export function resolveUnsupportedToolSchemaKeywords(
   );
 }
 
-/** Reused helper for should Omit Empty Array Items behavior in src/plugins. */
+/** Checks provider compat for omitting empty array item schemas. */
 export function shouldOmitEmptyArrayItems(
   modelOrCompat: { compat?: unknown } | ModelCompatConfig | undefined,
 ): boolean {
@@ -92,7 +92,7 @@ function normalizeAnthropicBaseUrl(baseUrl: string): string {
   return baseUrl.replace(/\/v1\/?$/, "");
 }
 
-/** Reused helper for normalize Model Compat behavior in src/plugins. */
+/** Applies provider-specific compatibility defaults to a model definition. */
 export function normalizeModelCompat(model: Model): Model {
   const baseUrl = model.baseUrl ?? "";
 
