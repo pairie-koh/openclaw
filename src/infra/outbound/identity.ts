@@ -4,10 +4,10 @@ import { resolveAgentIdentity } from "../../agents/identity.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { OutboundIdentity } from "./identity-types.js";
 
-/** Re-exported API for src/infra/outbound, starting with Outbound Identity. */
+/** Outbound sender display identity shape. */
 export type { OutboundIdentity } from "./identity-types.js";
 
-/** Reused helper for normalize Outbound Identity behavior in src/infra/outbound. */
+/** Removes empty sender identity fields and returns undefined when none remain. */
 export function normalizeOutboundIdentity(
   identity?: OutboundIdentity | null,
 ): OutboundIdentity | undefined {
@@ -24,7 +24,7 @@ export function normalizeOutboundIdentity(
   return { name, avatarUrl, emoji, theme };
 }
 
-/** Reused helper for resolve Agent Outbound Identity behavior in src/infra/outbound. */
+/** Resolves an agent's outbound display identity and remote avatar URL. */
 export function resolveAgentOutboundIdentity(
   cfg: OpenClawConfig,
   agentId: string,
