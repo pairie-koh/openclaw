@@ -3,7 +3,6 @@ import { withTempHome as withTempHomeBase } from "openclaw/plugin-sdk/test-env";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { MsgContext, TemplateContext } from "./templating.js";
 
-/** Run a sandbox media staging test with an isolated temp HOME. */
 export async function withSandboxMediaTempHome<T>(
   prefix: string,
   fn: (home: string) => Promise<T>,

@@ -106,7 +106,6 @@ export function topOfHourOffsetMs(jobId: string) {
   return digest.readUInt32BE(0) % TOP_OF_HOUR_STAGGER_MS;
 }
 
-/** Create an enabled isolated one-shot job that is already due in fixture time. */
 export function createDueIsolatedJob(params: {
   id: string;
   nowMs: number;
@@ -165,7 +164,6 @@ export function createAbortAwareIsolatedRunner(summary = "late") {
   };
 }
 
-/** Create a flexible isolated cron job fixture for regression cases. */
 export function createIsolatedRegressionJob(params: {
   id: string;
   name: string;

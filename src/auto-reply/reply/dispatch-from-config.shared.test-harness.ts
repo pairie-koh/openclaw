@@ -363,7 +363,6 @@ export const noAbortResult = { handled: false, aborted: false } as const;
 /** Minimal config fixture for dispatch-from-config harness callers. */
 export const emptyConfig = {} as OpenClawConfig;
 
-/** Create a mock reply dispatcher that records reply payloads for assertions. */
 export function createDispatcher(): ReplyDispatcher {
   const acceptReply = () => true;
   const emptyCounts = () => ({ tool: 0, block: 0, final: 0 });
@@ -378,7 +377,6 @@ export function createDispatcher(): ReplyDispatcher {
   };
 }
 
-/** Reset plugin registry, TTS, and thread parsing mocks between harness tests. */
 export function resetPluginTtsAndThreadMocks() {
   pluginConversationBindingMocks.shownFallbackNoticeBindingIds.clear();
   ttsMocks.maybeApplyTtsToPayload.mockReset().mockImplementation(async (paramsUnknown: unknown) => {
@@ -414,7 +412,6 @@ export function setDiscordTestRegistry() {
   );
 }
 
-/** Build the plugin hook context fixture used by dispatch-from-config tests. */
 export function createHookCtx() {
   return buildTestCtx({
     Body: "hello",
