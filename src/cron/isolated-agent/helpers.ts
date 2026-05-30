@@ -11,7 +11,7 @@ type DeliveryPayload = Pick<
   "text" | "mediaUrl" | "mediaUrls" | "presentation" | "interactive" | "channelData" | "isError"
 >;
 
-/** Shared type for Cron Payload Outcome in src/cron/isolated-agent. */
+/** Resolved cron output, delivery payloads, and fatal-error state for one run. */
 export type CronPayloadOutcome = {
   summary?: string;
   outputText?: string;
@@ -78,7 +78,7 @@ function formatCronRunLevelError(error: unknown): string | undefined {
   return "cron isolated run failed";
 }
 
-/** Reused helper for pick Summary From Output behavior in src/cron/isolated-agent. */
+/** Pick a bounded summary from raw cron output text. */
 export function pickSummaryFromOutput(text: string | undefined) {
   const clean = (text ?? "").trim();
   if (!clean) {
@@ -88,7 +88,7 @@ export function pickSummaryFromOutput(text: string | undefined) {
   return clean.length > limit ? `${truncateUtf16Safe(clean, limit)}…` : clean;
 }
 
-/** Reused helper for pick Summary From Payloads behavior in src/cron/isolated-agent. */
+/** Pick the newest non-error payload text suitable for cron summaries. */
 export function pickSummaryFromPayloads(
   payloads: Array<{ text?: string | undefined; isError?: boolean }>,
 ) {
@@ -113,7 +113,7 @@ export function pickSummaryFromPayloads(
   return undefined;
 }
 
-/** Reused helper for pick Last Non Empty Text From Payloads behavior in src/cron/isolated-agent. */
+/** Pick the newest non-empty payload text, preferring non-error payloads. */
 export function pickLastNonEmptyTextFromPayloads(
   payloads: Array<{ text?: string | undefined; isError?: boolean }>,
 ) {
@@ -158,7 +158,7 @@ function payloadHasStructuredDeliveryContent(payload: DeliveryPayload | null | u
   );
 }
 
-/** Reused helper for pick Last Deliverable Payload behavior in src/cron/isolated-agent. */
+/** Pick the newest payload that contains user-visible delivery content. */
 export function pickLastDeliverablePayload(payloads: DeliveryPayload[]) {
   for (let i = payloads.length - 1; i >= 0; i--) {
     if (payloads[i]?.isError) {
@@ -176,7 +176,7 @@ export function pickLastDeliverablePayload(payloads: DeliveryPayload[]) {
   return undefined;
 }
 
-/** Reused helper for pick Deliverable Payloads behavior in src/cron/isolated-agent. */
+/** Pick all successful deliverable payloads, or the final deliverable error fallback. */
 export function pickDeliverablePayloads(payloads: DeliveryPayload[]): DeliveryPayload[] {
   const successfulDeliverablePayloads = payloads.filter(
     (payload) => payload != null && payload.isError !== true && isDeliverablePayload(payload),
@@ -196,7 +196,7 @@ export function isHeartbeatOnlyResponse(payloads: DeliveryPayload[], ackMaxChars
   return shouldSkipHeartbeatOnlyDelivery(payloads, ackMaxChars);
 }
 
-/** Reused helper for resolve Heartbeat Ack Max Chars behavior in src/cron/isolated-agent. */
+/** Resolve the heartbeat acknowledgement text limit for cron delivery filtering. */
 export function resolveHeartbeatAckMaxChars(agentCfg?: { heartbeat?: { ackMaxChars?: number } }) {
   const raw = agentCfg?.heartbeat?.ackMaxChars ?? DEFAULT_HEARTBEAT_ACK_MAX_CHARS;
   return Math.max(0, raw);
@@ -225,7 +225,7 @@ function isSuccessfulCronPayload(payload: DeliveryPayload | undefined): boolean 
   );
 }
 
-/** Reused helper for resolve Cron Payload Outcome behavior in src/cron/isolated-agent. */
+/** Resolve final cron delivery payloads and embedded error reporting from run outputs. */
 export function resolveCronPayloadOutcome(params: {
   payloads: DeliveryPayload[];
   runLevelError?: unknown;
