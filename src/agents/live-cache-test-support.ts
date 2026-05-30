@@ -74,7 +74,6 @@ export async function withLiveCacheHeartbeat<T>(
   }
 }
 
-/** Run completeSimple with live-test timeout and heartbeat behavior. */
 export async function completeSimpleWithLiveTimeout<TApi extends Api>(
   model: Model<TApi>,
   context: Parameters<typeof completeSimple<TApi>>[1],
@@ -138,7 +137,6 @@ export function extractAssistantText(message: AssistantMessage): string {
     .join(" ");
 }
 
-/** Build an assistant history turn for live cache warmup/probe tests. */
 export function buildAssistantHistoryTurn(
   text: string,
   model?: Pick<Model, "api" | "provider" | "id">,

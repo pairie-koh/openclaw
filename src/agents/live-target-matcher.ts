@@ -63,7 +63,6 @@ function parseModelTarget(raw: string): ModelTarget | null {
   };
 }
 
-/** Create a matcher for optional provider/model live-test target filters. */
 export function createLiveTargetMatcher(params: {
   providerFilter: Set<string> | null;
   modelFilter: Set<string> | null;

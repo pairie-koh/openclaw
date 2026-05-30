@@ -4,7 +4,6 @@ import type { Api, Model } from "../llm/types.js";
 
 const LIVE_OK_PROMPT = "Reply with the word ok.";
 
-/** Return whether live tests are enabled by environment. */
 export function isLiveTestEnabled(
   extraEnvVars: readonly string[] = [],
   env: NodeJS.ProcessEnv = process.env,
@@ -14,12 +13,10 @@ export function isLiveTestEnabled(
   );
 }
 
-/** Return whether live tests should prefer profile credentials. */
 export function isLiveProfileKeyModeEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
   return isTruthyEnvValue(env.OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS);
 }
 
-/** Return whether a provider requires profile credentials in live tests. */
 export function requiresLiveProfileCredential(
   provider: string,
   requireProfileKeys: boolean,
@@ -37,7 +34,6 @@ export function resolveLiveCredentialPrecedence(
     : "env-first";
 }
 
-/** Build a single user prompt message for live tests. */
 export function createSingleUserPromptMessage(content = LIVE_OK_PROMPT) {
   return [
     {
@@ -72,7 +68,6 @@ export function logLiveProgress(message: string): void {
   process.stderr.write(`[live] ${message}\n`);
 }
 
-/** Run completeSimple with a live-test timeout wrapper. */
 export async function completeSimpleWithTimeout<TApi extends Api>(
   model: Model<TApi>,
   context: Parameters<typeof completeSimple<TApi>>[1],

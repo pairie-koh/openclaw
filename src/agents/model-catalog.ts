@@ -91,7 +91,6 @@ function loadProviderApiKeyResolver() {
   return providerApiKeyResolverLoader.load();
 }
 
-/** Reset cached model catalog promise. */
 export function resetModelCatalogCache() {
   modelCatalogPromise = null;
   manifestModelCatalogCache = new WeakMap();
@@ -99,14 +98,12 @@ export function resetModelCatalogCache() {
   hasLoggedReadOnlyStaticCatalogError = false;
 }
 
-/** Reset model catalog cache and test import hooks. */
 export function resetModelCatalogCacheForTest() {
   resetModelCatalogCache();
   importAgentDiscovery = defaultImportAgentDiscovery;
 }
 
 // Test-only escape hatch: allow mocking discovery failures without touching module state.
-/** Override agent discovery import for tests. */
 export function setModelCatalogImportForTest(loader?: () => Promise<AgentDiscoveryModule>) {
   importAgentDiscovery = loader ?? defaultImportAgentDiscovery;
 }
