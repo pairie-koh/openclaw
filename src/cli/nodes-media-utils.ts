@@ -6,10 +6,10 @@ import { readStringValue } from "../../packages/normalization-core/src/string-co
 export { asRecord } from "../../packages/normalization-core/src/record-coerce.js";
 export { asBoolean } from "../utils/boolean.js";
 
-/** Reused constant for as String behavior in src/cli. */
+/** String coercion helper shared by node media payload parsers. */
 export const asString = readStringValue;
 
-/** Reused helper for resolve Temp Path Parts behavior in src/cli. */
+/** Resolve a safe temp directory, random id, and validated extension for media output. */
 export function resolveTempPathParts(opts: { ext: string; tmpDir?: string; id?: string }): {
   ext: string;
   tmpDir: string;
