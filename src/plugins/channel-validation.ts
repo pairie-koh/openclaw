@@ -50,7 +50,6 @@ function collectMissingChannelMetaFields(meta?: Partial<ChannelMeta> | null): st
   return missing;
 }
 
-/** Reused helper for normalize Registered Channel Plugin behavior in src/plugins. */
 export function normalizeRegisteredChannelPlugin(params: {
   pluginId: string;
   source: string;
