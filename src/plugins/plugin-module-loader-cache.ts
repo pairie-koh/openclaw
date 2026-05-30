@@ -1,4 +1,4 @@
-// plugins plugin module loader cache helpers and runtime behavior.
+// Cached plugin module loading with native require fast paths and jiti fallback.
 import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
@@ -14,16 +14,16 @@ import {
   type PluginSdkResolutionPreference,
 } from "./sdk-alias.js";
 
-/** Shared type for Plugin Module Loader in src/plugins. */
+/** Jiti-compatible loader used to load plugin modules. */
 export type PluginModuleLoader = ReturnType<typeof createJiti>;
-/** Shared type for Plugin Module Loader Factory in src/plugins. */
+/** Factory that creates plugin module loaders. */
 export type PluginModuleLoaderFactory = typeof createJiti;
-/** Shared type for Plugin Module Loader Cache in src/plugins. */
+/** Minimal LRU cache surface used for plugin module loaders. */
 export type PluginModuleLoaderCache = Pick<
   PluginLruCache<PluginModuleLoader>,
   "clear" | "get" | "set" | "size"
 >;
-/** Shared type for Resolve Plugin Module Loader Cache Entry Params in src/plugins. */
+/** Inputs used to resolve a cache entry for a plugin module loader. */
 export type ResolvePluginModuleLoaderCacheEntryParams = {
   modulePath: string;
   importerUrl: string;
@@ -37,7 +37,7 @@ export type ResolvePluginModuleLoaderCacheEntryParams = {
   cacheScopeKey?: string;
   sharedCacheScopeKey?: string;
 };
-/** Shared type for Plugin Module Loader Cache Entry in src/plugins. */
+/** Resolved cache identity and loader configuration for a plugin module. */
 export type PluginModuleLoaderCacheEntry = {
   loaderFilename: string;
   aliasMap: Record<string, string>;
@@ -45,7 +45,7 @@ export type PluginModuleLoaderCacheEntry = {
   cacheKey: string;
   scopedCacheKey: string;
 };
-/** Shared type for Plugin Module Loader Stats Snapshot in src/plugins. */
+/** Snapshot of plugin loader native/source-transform usage counters. */
 export type PluginModuleLoaderStatsSnapshot = {
   calls: number;
   nativeHits: number;
@@ -87,7 +87,7 @@ function recordSourceTransformTarget(target: string): void {
   }
 }
 
-/** Reused helper for get Plugin Module Loader Stats behavior in src/plugins. */
+/** Return current plugin module loader usage counters. */
 export function getPluginModuleLoaderStats(): PluginModuleLoaderStatsSnapshot {
   return {
     calls: pluginModuleLoaderStats.calls,
@@ -102,7 +102,7 @@ export function getPluginModuleLoaderStats(): PluginModuleLoaderStatsSnapshot {
   };
 }
 
-/** Reused helper for reset Plugin Module Loader Stats For Test behavior in src/plugins. */
+/** Reset plugin module loader stats for tests. */
 export function resetPluginModuleLoaderStatsForTest(): void {
   pluginModuleLoaderStats.calls = 0;
   pluginModuleLoaderStats.nativeHits = 0;
@@ -124,7 +124,7 @@ function loadCreateJitiLoaderFactory(): PluginModuleLoaderFactory {
   return createJitiLoaderFactory;
 }
 
-/** Reused helper for create Plugin Module Loader Cache behavior in src/plugins. */
+/** Create an LRU cache for plugin module loaders. */
 export function createPluginModuleLoaderCache(
   maxEntries = DEFAULT_PLUGIN_MODULE_LOADER_CACHE_ENTRIES,
 ): PluginModuleLoaderCache {
@@ -151,7 +151,7 @@ function resolveDefaultPluginModuleLoaderConfig(
   });
 }
 
-/** Reused helper for resolve Plugin Module Loader Cache Entry behavior in src/plugins. */
+/** Resolve loader filename, alias map, native mode, and scoped cache key. */
 export function resolvePluginModuleLoaderCacheEntry(
   params: ResolvePluginModuleLoaderCacheEntryParams,
 ): PluginModuleLoaderCacheEntry {
@@ -299,7 +299,7 @@ function createPluginModuleLoader(params: {
   }) as PluginModuleLoader;
 }
 
-/** Reused helper for get Cached Plugin Module Loader behavior in src/plugins. */
+/** Return a cached plugin module loader, creating it when missing. */
 export function getCachedPluginModuleLoader(
   params: ResolvePluginModuleLoaderCacheEntryParams & {
     cache: PluginModuleLoaderCache;
@@ -322,7 +322,7 @@ export function getCachedPluginModuleLoader(
   return loader;
 }
 
-/** Reused helper for get Cached Plugin Source Module Loader behavior in src/plugins. */
+/** Return a cached plugin loader forced through source transforms. */
 export function getCachedPluginSourceModuleLoader(
   params: Omit<Parameters<typeof getCachedPluginModuleLoader>[0], "tryNative">,
 ): PluginModuleLoader {
