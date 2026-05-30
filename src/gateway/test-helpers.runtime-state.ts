@@ -142,7 +142,6 @@ const gatewayTestHoisted = vi.hoisted(() => {
   return created;
 });
 
-/** Returns the process-global hoisted gateway test state bucket. */
 export function getGatewayTestHoistedState(): GatewayTestHoistedState {
   return gatewayTestHoisted;
 }

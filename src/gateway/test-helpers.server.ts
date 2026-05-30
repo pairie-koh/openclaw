@@ -702,7 +702,6 @@ export async function withGatewayServer<T>(
   }
 }
 
-/** Creates a reusable suite-level gateway server harness with socket opener. */
 export async function createGatewaySuiteHarness(opts?: {
   port?: number;
   serverOptions?: GatewayServerOptions;

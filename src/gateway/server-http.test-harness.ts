@@ -286,7 +286,6 @@ export const CANONICAL_AUTH_VARIANTS: RouteVariant[] = [
   },
 ];
 
-/** Builds the channel path canonicalization fuzz corpus for HTTP tests. */
 export function buildChannelPathFuzzCorpus(): RouteVariant[] {
   const variants = [
     "/api/channels/nostr/default/profile",

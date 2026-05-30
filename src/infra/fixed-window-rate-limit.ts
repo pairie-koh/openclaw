@@ -17,7 +17,6 @@ export function resolveFixedWindowRateLimitInteger(
   return Math.max(params.min, Math.floor(candidate));
 }
 
-/** Create an in-memory fixed-window limiter with optional clock injection for tests. */
 export function createFixedWindowRateLimiter(params: {
   maxRequests: number;
   windowMs: number;

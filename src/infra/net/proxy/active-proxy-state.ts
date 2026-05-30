@@ -130,7 +130,6 @@ export function getActiveManagedProxyTlsOptions(): ManagedProxyTlsOptions | unde
   return activeProxyTlsOptions;
 }
 
-/** Reset active managed proxy singleton state for tests. */
 export function resetActiveManagedProxyStateForTests(): void {
   activeProxyUrl = undefined;
   activeProxyLoopbackMode = undefined;
