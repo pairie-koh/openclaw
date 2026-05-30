@@ -1,4 +1,4 @@
-// extensions/qa-lab/src cron run wait helpers and runtime behavior.
+// QA Lab cron-run wait helper polls gateway cron history for completion.
 import { setTimeout as sleep } from "node:timers/promises";
 import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
