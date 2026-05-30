@@ -27,28 +27,28 @@ import {
   type SubagentTargetResolution,
 } from "../subagents-utils.js";
 
-/** Re-exported API for src/auto-reply/reply, starting with strip Tool Messages. */
+/** Removes tool messages before rendering subagent logs. */
 export { stripToolMessages };
-/** Re-exported API for src/auto-reply/reply, starting with resolve Command Surface Channel. */
+/** Command-surface channel and account helpers used by subagent command actions. */
 export { resolveCommandSurfaceChannel, resolveChannelAccountId };
-/** Re-exported API for src/auto-reply/reply, starting with Chat Message. */
+/** Chat message shape consumed by subagent log formatting. */
 export type { ChatMessage } from "../commands-subagents-text.js";
 
-/** Reused constant for COMMAND behavior in src/auto-reply/reply. */
+/** Primary slash command prefix for subagent management. */
 export const COMMAND = "/subagents";
 const COMMAND_FOCUS = "/focus";
 const COMMAND_UNFOCUS = "/unfocus";
 const COMMAND_AGENTS = "/agents";
 const ACTIONS = new Set(["list", "log", "info", "help"]);
 
-/** Reused constant for RECENT WINDOW MINUTES behavior in src/auto-reply/reply. */
+/** Recent-run window used when resolving short subagent labels and indexes. */
 export const RECENT_WINDOW_MINUTES = 30;
 
 type SubagentsAction = "list" | "log" | "info" | "focus" | "unfocus" | "agents" | "help";
 
 type SubagentsCommandParams = Parameters<CommandHandler>[0];
 
-/** Shared type for Subagents Command Context in src/auto-reply/reply. */
+/** Parsed state shared by subagent command action handlers. */
 export type SubagentsCommandContext = {
   params: SubagentsCommandParams;
   handledPrefix: string;
@@ -57,7 +57,7 @@ export type SubagentsCommandContext = {
   restTokens: string[];
 };
 
-/** Reused helper for stop With Text behavior in src/auto-reply/reply. */
+/** Stops command processing with a text reply. */
 export function stopWithText(text: string): CommandHandlerResult {
   return { shouldContinue: false, reply: { text } };
 }
@@ -97,7 +97,7 @@ function resolveSubagentTarget(
   });
 }
 
-/** Reused helper for resolve Subagent Entry For Token behavior in src/auto-reply/reply. */
+/** Resolves a subagent run token or returns the command reply for resolution failure. */
 export function resolveSubagentEntryForToken(
   runs: SubagentRunRecord[],
   token: string | undefined,
@@ -109,7 +109,7 @@ export function resolveSubagentEntryForToken(
   return { entry: resolved.entry };
 }
 
-/** Reused helper for resolve Requester Session Key behavior in src/auto-reply/reply. */
+/** Resolves the session key that issued a subagent command. */
 export function resolveRequesterSessionKey(
   params: SubagentsCommandParams,
   opts?: { preferCommandTarget?: boolean },
@@ -128,7 +128,7 @@ export function resolveRequesterSessionKey(
   return resolveInternalSessionKey({ key: raw, alias, mainKey });
 }
 
-/** Reused helper for resolve Command Subagent Controller behavior in src/auto-reply/reply. */
+/** Resolves the controller scope for a subagent command requester. */
 export function resolveCommandSubagentController(
   params: SubagentsCommandParams,
   requesterKey: string,
@@ -152,7 +152,7 @@ export function resolveCommandSubagentController(
   };
 }
 
-/** Reused helper for resolve Handled Prefix behavior in src/auto-reply/reply. */
+/** Matches supported subagent command prefixes from normalized message text. */
 export function resolveHandledPrefix(normalized: string): string | null {
   return normalized.startsWith(COMMAND)
     ? COMMAND
@@ -165,7 +165,7 @@ export function resolveHandledPrefix(normalized: string): string | null {
           : null;
 }
 
-/** Reused helper for resolve Subagents Action behavior in src/auto-reply/reply. */
+/** Resolves the concrete subagent command action and consumes action tokens. */
 export function resolveSubagentsAction(params: {
   handledPrefix: string;
   restTokens: string[];
@@ -198,7 +198,7 @@ type FocusTargetResolution = {
   label?: string;
 };
 
-/** Reused helper for resolve Focus Target Session behavior in src/auto-reply/reply. */
+/** Resolves a focus target from known subagent runs or gateway session lookup. */
 export async function resolveFocusTargetSession(params: {
   runs: SubagentRunRecord[];
   token: string;
@@ -254,7 +254,7 @@ export async function resolveFocusTargetSession(params: {
   return null;
 }
 
-/** Reused helper for build Subagents Help behavior in src/auto-reply/reply. */
+/** Builds the help text for subagent and focus commands. */
 export function buildSubagentsHelp() {
   return [
     "Subagents",
@@ -272,7 +272,7 @@ export function buildSubagentsHelp() {
   ].join("\n");
 }
 
-/** Reused helper for format Log Lines behavior in src/auto-reply/reply. */
+/** Formats sanitized chat messages for subagent log output. */
 export function formatLogLines(messages: ChatMessage[]) {
   const lines: string[] = [];
   for (const msg of messages) {
