@@ -76,7 +76,6 @@ export function collectUniqueCommandDescriptors<TDescriptor extends CommandDescr
   return descriptors;
 }
 
-/** Builds the command descriptor catalog helper object from static descriptors. */
 export function defineCommandDescriptorCatalog<TDescriptor extends NamedCommandDescriptor>(
   descriptors: readonly TDescriptor[],
 ): CommandDescriptorCatalog<TDescriptor> {

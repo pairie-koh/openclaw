@@ -155,7 +155,6 @@ function resolveDefaultGitDir(): string {
   return path.join(home, "openclaw");
 }
 
-/** Returns a node executable suitable for spawning CLI helper commands. */
 export function resolveNodeRunner(): string {
   const base = normalizeLowercaseStringOrEmpty(path.basename(process.execPath));
   if (base === "node" || base === "node.exe") {

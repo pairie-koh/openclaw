@@ -41,7 +41,6 @@ export function failIfNixDaemonInstallMode(
   return true;
 }
 
-/** Creates terminal text styling helpers for daemon status output. */
 export function createCliStatusTextStyles() {
   const rich = isRich();
   return {

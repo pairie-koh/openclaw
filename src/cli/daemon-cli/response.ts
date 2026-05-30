@@ -104,7 +104,6 @@ function createNullWriter(): Writable {
   });
 }
 
-/** Create shared output/failure helpers for text and JSON daemon commands. */
 export function createDaemonActionContext(params: { action: DaemonAction; json: boolean }): {
   stdout: Writable;
   warnings: string[];

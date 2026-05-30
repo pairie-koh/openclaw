@@ -25,7 +25,6 @@ export async function drainSessionStoreWriterQueuesForTest(): Promise<void> {
   await drainStoreWriterQueuesForTest(WRITER_QUEUES, "session store queue cleared for test");
 }
 
-/** Return active session store writer queue count for tests. */
 export function getSessionStoreWriterQueueSizeForTest(): number {
   return WRITER_QUEUES.size;
 }

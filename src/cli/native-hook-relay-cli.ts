@@ -143,12 +143,10 @@ function formatRelayCliError(prefix: string, error: unknown): string {
   return `${prefix}: ${message}\n`;
 }
 
-/** Creates a readable stream containing a fixed text payload. */
 export function createReadableTextStream(text: string): NodeJS.ReadableStream {
   return Readable.from([text]);
 }
 
-/** Creates a writable stream that exposes all written text for tests. */
 export function createWritableTextBuffer(): NodeJS.WritableStream & { text: () => string } {
   const chunks: Buffer[] = [];
   const stream = new Writable({
