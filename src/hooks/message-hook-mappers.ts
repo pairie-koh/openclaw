@@ -23,7 +23,7 @@ import type {
   MessageTranscribedHookContext,
 } from "./internal-hooks.js";
 
-/** Shared type for Canonical Inbound Message Hook Context in src/hooks. */
+/** Normalized inbound message fields shared by plugin hooks and internal hooks. */
 export type CanonicalInboundMessageHookContext = {
   from: string;
   to?: string;
@@ -64,7 +64,7 @@ export type CanonicalInboundMessageHookContext = {
   callDepth?: number;
 };
 
-/** Shared type for Canonical Sent Message Hook Context in src/hooks. */
+/** Normalized outbound delivery result shared by plugin and internal sent hooks. */
 export type CanonicalSentMessageHookContext = {
   to: string;
   content: string;
@@ -86,7 +86,7 @@ function readNonBlankString(value: unknown): string | undefined {
   return typeof value === "string" && value.trim().length > 0 ? value : undefined;
 }
 
-/** Reused helper for derive Inbound Message Hook Context behavior in src/hooks. */
+/** Builds canonical inbound hook facts from the finalized auto-reply context. */
 export function deriveInboundMessageHookContext(
   ctx: FinalizedMsgContext,
   overrides?: {
@@ -164,7 +164,7 @@ export function deriveInboundMessageHookContext(
   };
 }
 
-/** Reused helper for build Canonical Sent Message Hook Context behavior in src/hooks. */
+/** Creates the canonical sent-message payload used by all message hook targets. */
 export function buildCanonicalSentMessageHookContext(params: {
   to: string;
   content: string;
@@ -222,7 +222,7 @@ function assignTraceFields(
   }
 }
 
-/** Reused helper for to Plugin Message Context behavior in src/hooks. */
+/** Converts canonical message identity fields into the plugin hook context shape. */
 export function toPluginMessageContext(
   canonical: CanonicalInboundMessageHookContext | CanonicalSentMessageHookContext,
 ): PluginHookMessageContext {
@@ -291,7 +291,7 @@ function resolveInboundConversation(canonical: CanonicalInboundMessageHookContex
   return { conversationId: baseConversationId };
 }
 
-/** Reused helper for to Plugin Inbound Claim Context behavior in src/hooks. */
+/** Builds plugin claim context with channel-specific conversation resolution. */
 export function toPluginInboundClaimContext(
   canonical: CanonicalInboundMessageHookContext,
 ): PluginHookInboundClaimContext {
@@ -311,7 +311,7 @@ export function toPluginInboundClaimContext(
   return context;
 }
 
-/** Reused helper for to Plugin Inbound Claim Event behavior in src/hooks. */
+/** Converts canonical inbound facts into the plugin inbound-claim event payload. */
 export function toPluginInboundClaimEvent(
   canonical: CanonicalInboundMessageHookContext,
   extras?: {
@@ -364,7 +364,7 @@ export function toPluginInboundClaimEvent(
   return event;
 }
 
-/** Reused helper for to Plugin Message Received Event behavior in src/hooks. */
+/** Converts canonical inbound facts into the plugin message-received event. */
 export function toPluginMessageReceivedEvent(
   canonical: CanonicalInboundMessageHookContext,
 ): PluginHookMessageReceivedEvent {
@@ -404,7 +404,7 @@ export function toPluginMessageReceivedEvent(
   return event;
 }
 
-/** Reused helper for to Plugin Message Sent Event behavior in src/hooks. */
+/** Converts canonical sent facts into the plugin message-sent event payload. */
 export function toPluginMessageSentEvent(
   canonical: CanonicalSentMessageHookContext,
 ): PluginHookMessageSentEvent {
@@ -421,7 +421,7 @@ export function toPluginMessageSentEvent(
   return event;
 }
 
-/** Reused helper for to Internal Message Received Context behavior in src/hooks. */
+/** Converts canonical inbound facts into the internal message-received hook. */
 export function toInternalMessageReceivedContext(
   canonical: CanonicalInboundMessageHookContext,
 ): MessageReceivedHookContext {
@@ -449,7 +449,7 @@ export function toInternalMessageReceivedContext(
   };
 }
 
-/** Reused helper for to Internal Message Transcribed Context behavior in src/hooks. */
+/** Converts canonical inbound facts into the internal transcription hook context. */
 export function toInternalMessageTranscribedContext(
   canonical: CanonicalInboundMessageHookContext,
   cfg: OpenClawConfig,
@@ -462,7 +462,7 @@ export function toInternalMessageTranscribedContext(
   };
 }
 
-/** Reused helper for to Internal Message Preprocessed Context behavior in src/hooks. */
+/** Converts canonical inbound facts into the internal preprocessing hook context. */
 export function toInternalMessagePreprocessedContext(
   canonical: CanonicalInboundMessageHookContext,
   cfg: OpenClawConfig,
@@ -497,7 +497,7 @@ function toInternalInboundMessageHookContextBase(canonical: CanonicalInboundMess
   };
 }
 
-/** Reused helper for to Internal Message Sent Context behavior in src/hooks. */
+/** Converts canonical sent facts into the internal message-sent hook context. */
 export function toInternalMessageSentContext(
   canonical: CanonicalSentMessageHookContext,
 ): MessageSentHookContext {
