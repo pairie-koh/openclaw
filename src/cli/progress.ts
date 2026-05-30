@@ -24,7 +24,7 @@ type ProgressOptions = {
   fallback?: "spinner" | "line" | "log" | "none";
 };
 
-/** Shared type for Progress Reporter in src/cli. */
+/** Minimal progress control surface shared by spinner, OSC, line, and log renderers. */
 export type ProgressReporter = {
   setLabel: (label: string) => void;
   setPercent: (percent: number) => void;
@@ -32,14 +32,14 @@ export type ProgressReporter = {
   done: () => void;
 };
 
-/** Shared type for Progress Totals Update in src/cli. */
+/** Completed/total update used when callers already track their own work units. */
 export type ProgressTotalsUpdate = {
   completed: number;
   total: number;
   label?: string;
 };
 
-/** Reused helper for should Use Interactive Progress Spinner behavior in src/cli. */
+/** Enables Clack spinners only for TTY streams that are not already in raw input mode. */
 export function shouldUseInteractiveProgressSpinner(params: {
   fallback?: ProgressOptions["fallback"];
   streamIsTty?: boolean;
@@ -56,7 +56,7 @@ const noopReporter: ProgressReporter = {
   done: () => {},
 };
 
-/** Reused helper for create Cli Progress behavior in src/cli. */
+/** Creates the best available CLI progress renderer while preventing nested progress output. */
 export function createCliProgress(options: ProgressOptions): ProgressReporter {
   if (options.enabled === false) {
     return noopReporter;
@@ -227,7 +227,7 @@ export function createCliProgress(options: ProgressOptions): ProgressReporter {
   return { setLabel, setPercent, tick, done };
 }
 
-/** Reused helper for with Progress behavior in src/cli. */
+/** Runs async work with a progress reporter and always clears terminal state afterward. */
 export async function withProgress<T>(
   options: ProgressOptions,
   work: (progress: ProgressReporter) => Promise<T>,
@@ -240,7 +240,7 @@ export async function withProgress<T>(
   }
 }
 
-/** Reused helper for with Progress Totals behavior in src/cli. */
+/** Adapts completed/total updates into percentage progress for async work. */
 export async function withProgressTotals<T>(
   options: ProgressOptions,
   work: (update: (update: ProgressTotalsUpdate) => void, progress: ProgressReporter) => Promise<T>,
