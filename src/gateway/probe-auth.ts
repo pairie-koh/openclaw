@@ -6,9 +6,9 @@ import {
   isGatewaySecretRefUnavailableError,
   resolveGatewayProbeCredentialsFromConfig,
 } from "./credentials.js";
-/** Re-exported API for src/gateway, starting with resolve Gateway Probe Target. */
+/** Gateway probe target resolver shared with CLI probe commands. */
 export { resolveGatewayProbeTarget } from "./probe-target.js";
-/** Re-exported API for src/gateway, starting with Gateway Probe Target Resolution. */
+/** Resolved local/remote gateway probe target contract. */
 export type { GatewayProbeTargetResolution } from "./probe-target.js";
 
 function buildGatewayProbeCredentialPolicy(params: {
@@ -78,7 +78,7 @@ function resolveGatewayProbeWarning(error: unknown): string | undefined {
   return buildUnresolvedProbeAuthWarning(error.path);
 }
 
-/** Reused helper for resolve Gateway Probe Auth behavior in src/gateway. */
+/** Resolve probe auth directly from config/env for local or remote mode. */
 export function resolveGatewayProbeAuth(params: {
   cfg: OpenClawConfig;
   mode: "local" | "remote";
@@ -88,7 +88,7 @@ export function resolveGatewayProbeAuth(params: {
   return resolveGatewayProbeCredentialsFromConfig(policy);
 }
 
-/** Reused helper for resolve Gateway Probe Auth With Secret Inputs behavior in src/gateway. */
+/** Resolve probe auth, including supported secret-input references. */
 export async function resolveGatewayProbeAuthWithSecretInputs(params: {
   cfg: OpenClawConfig;
   mode: "local" | "remote";
@@ -105,7 +105,7 @@ export async function resolveGatewayProbeAuthWithSecretInputs(params: {
   });
 }
 
-/** Reused helper for resolve Gateway Probe Auth Safe With Secret Inputs behavior in src/gateway. */
+/** Resolve probe auth with secret inputs, converting unavailable refs into warnings. */
 export async function resolveGatewayProbeAuthSafeWithSecretInputs(params: {
   cfg: OpenClawConfig;
   mode: "local" | "remote";
@@ -133,7 +133,7 @@ export async function resolveGatewayProbeAuthSafeWithSecretInputs(params: {
   }
 }
 
-/** Reused helper for resolve Gateway Probe Auth Safe behavior in src/gateway. */
+/** Resolve probe auth without secret-input support, returning empty auth on unavailable refs. */
 export function resolveGatewayProbeAuthSafe(params: {
   cfg: OpenClawConfig;
   mode: "local" | "remote";
