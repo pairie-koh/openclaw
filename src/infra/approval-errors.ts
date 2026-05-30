@@ -15,7 +15,7 @@ function readApprovalNotFoundDetailsReason(value: unknown): string | null {
   return typeof reason === "string" ? (normalizeOptionalString(reason) ?? null) : null;
 }
 
-/** Reused helper for is Approval Not Found Error behavior in src/infra. */
+/** Detects expired or missing approval ids from gateway error shapes and messages. */
 export function isApprovalNotFoundError(err: unknown): boolean {
   if (!(err instanceof Error)) {
     return false;
