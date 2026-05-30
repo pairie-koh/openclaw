@@ -2,7 +2,7 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 import { formatCliCommand } from "../cli/command-format.js";
 import type { PortListener, PortListenerKind, PortUsage } from "./ports-types.js";
 
-/** Reused helper for classify Port Listener behavior in src/infra. */
+/** Classify a process listening on a port as OpenClaw gateway, SSH tunnel, or unknown. */
 export function classifyPortListener(listener: PortListener, port: number): PortListenerKind {
   const raw = normalizeLowercaseStringOrEmpty(
     `${listener.commandLine ?? ""} ${listener.command ?? ""}`,
@@ -71,7 +71,7 @@ function isExpectedGatewayBindAddress(host: string): boolean {
   return classifyLoopbackAddressFamily(host) !== null || isWildcardAddress(host);
 }
 
-/** Reused helper for is Single Expected Gateway Listener behavior in src/infra. */
+/** Accept one gateway listener when it binds the requested loopback or wildcard address. */
 export function isSingleExpectedGatewayListener(listeners: PortListener[], port: number): boolean {
   if (listeners.length !== 1) {
     return false;
@@ -95,7 +95,7 @@ export function isSingleExpectedGatewayListener(listeners: PortListener[], port:
   );
 }
 
-/** Reused helper for is Dual Stack Loopback Gateway Listeners behavior in src/infra. */
+/** Accept dual IPv4/IPv6 loopback listeners owned by the same gateway process. */
 export function isDualStackLoopbackGatewayListeners(
   listeners: PortListener[],
   port: number,
@@ -130,7 +130,7 @@ export function isDualStackLoopbackGatewayListeners(
   return pids.size === 1 && families.has("ipv4") && families.has("ipv6");
 }
 
-/** Reused helper for is Expected Gateway Listeners behavior in src/infra. */
+/** Check whether busy-port listeners match expected gateway binding patterns. */
 export function isExpectedGatewayListeners(listeners: PortListener[], port: number): boolean {
   return (
     isSingleExpectedGatewayListener(listeners, port) ||
@@ -138,7 +138,7 @@ export function isExpectedGatewayListeners(listeners: PortListener[], port: numb
   );
 }
 
-/** Reused helper for build Port Hints behavior in src/infra. */
+/** Build operator hints explaining how to resolve a busy gateway port. */
 export function buildPortHints(listeners: PortListener[], port: number): string[] {
   if (listeners.length === 0) {
     return [];
@@ -167,7 +167,7 @@ export function buildPortHints(listeners: PortListener[], port: number): string[
   return hints;
 }
 
-/** Reused helper for format Port Listener behavior in src/infra. */
+/** Format one listener record for CLI diagnostics. */
 export function formatPortListener(listener: PortListener): string {
   const pid = listener.pid ? `pid ${listener.pid}` : "pid ?";
   const user = listener.user ? ` ${listener.user}` : "";
@@ -176,7 +176,7 @@ export function formatPortListener(listener: PortListener): string {
   return `${pid}${user}: ${command}${address}`;
 }
 
-/** Reused helper for format Port Diagnostics behavior in src/infra. */
+/** Format the full port availability report with listeners and hints. */
 export function formatPortDiagnostics(diagnostics: PortUsage): string[] {
   if (diagnostics.status !== "busy") {
     return [`Port ${diagnostics.port} is free.`];
