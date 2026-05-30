@@ -388,7 +388,7 @@ function resolveMinimaxUsageUrl(baseUrl?: string): string {
   return `${DEFAULT_MINIMAX_USAGE_ORIGIN}${MINIMAX_USAGE_PATH}`;
 }
 
-/** Reused helper for fetch Minimax Usage behavior in src/infra. */
+/** Fetch and normalize Minimax quota windows from the configured usage endpoint. */
 export async function fetchMinimaxUsage(
   apiKey: string,
   timeoutMs: number,
