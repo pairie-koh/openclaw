@@ -4,7 +4,7 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import { normalizeAccountId } from "../../routing/session-key.js";
 
-/** Shared type for Conversation Ref Shape in src/infra/outbound. */
+/** Minimal conversation identity stored by binding adapters. */
 export type ConversationRefShape = {
   channel: string;
   accountId: string;
@@ -17,7 +17,7 @@ type ConversationTargetRefShape = {
   parentConversationId?: string | null;
 };
 
-/** Reused helper for normalize Conversation Target Ref behavior in src/infra/outbound. */
+/** Normalize conversation ids and drop redundant parent ids from target refs. */
 export function normalizeConversationTargetRef<T extends ConversationTargetRefShape>(ref: T): T {
   const conversationId = normalizeOptionalString(ref.conversationId) ?? "";
   const parentConversationId = normalizeOptionalString(ref.parentConversationId);
@@ -31,7 +31,7 @@ export function normalizeConversationTargetRef<T extends ConversationTargetRefSh
   } as T;
 }
 
-/** Reused helper for normalize Conversation Ref behavior in src/infra/outbound. */
+/** Normalize a full conversation ref for stable binding comparisons. */
 export function normalizeConversationRef<T extends ConversationRefShape>(ref: T): T {
   const normalizedTarget = normalizeConversationTargetRef(ref);
   return {
@@ -41,7 +41,7 @@ export function normalizeConversationRef<T extends ConversationRefShape>(ref: T)
   };
 }
 
-/** Reused helper for build Channel Account Key behavior in src/infra/outbound. */
+/** Build the canonical channel/account key used by binding registries. */
 export function buildChannelAccountKey(params: { channel: string; accountId: string }): string {
   return `${normalizeLowercaseStringOrEmpty(params.channel)}:${normalizeAccountId(params.accountId)}`;
 }
