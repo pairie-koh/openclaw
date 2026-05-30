@@ -26,7 +26,7 @@ function normalizeOptionalChannel(value?: string | null): string | undefined {
   return normalizeMessageChannel(value);
 }
 
-/** Reused helper for resolve Persisted Approval Request Session Entry behavior in src/infra. */
+/** Loads the persisted session entry referenced by an approval request. */
 export function resolvePersistedApprovalRequestSessionEntry(params: {
   cfg: OpenClawConfig;
   request: ApprovalRequestLike;
@@ -62,7 +62,7 @@ function resolvePersistedApprovalRequestSessionBinding(params: {
   return channel || accountId ? { channel, accountId } : null;
 }
 
-/** Reused helper for resolve Approval Request Account Id behavior in src/infra. */
+/** Resolves the account id bound to an approval request for an optional channel. */
 export function resolveApprovalRequestAccountId(params: {
   cfg: OpenClawConfig;
   request: ApprovalRequestLike;
@@ -90,7 +90,7 @@ export function resolveApprovalRequestAccountId(params: {
   return sessionBinding?.accountId ?? null;
 }
 
-/** Reused helper for resolve Approval Request Channel Account Id behavior in src/infra. */
+/** Resolves account id only when the request is bound to the expected channel. */
 export function resolveApprovalRequestChannelAccountId(params: {
   cfg: OpenClawConfig;
   request: ApprovalRequestLike;
@@ -109,7 +109,7 @@ export function resolveApprovalRequestChannelAccountId(params: {
   return sessionBinding?.channel === expectedChannel ? (sessionBinding.accountId ?? null) : null;
 }
 
-/** Reused helper for does Approval Request Match Channel Account behavior in src/infra. */
+/** Checks whether an approval request belongs to a channel/account runtime. */
 export function doesApprovalRequestMatchChannelAccount(params: {
   cfg: OpenClawConfig;
   request: ApprovalRequestLike;
