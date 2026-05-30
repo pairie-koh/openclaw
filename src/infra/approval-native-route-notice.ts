@@ -2,7 +2,7 @@ import { sortUniqueStrings } from "@openclaw/normalization-core/string-normaliza
 import { formatHumanList } from "../shared/human-list.js";
 import type { ChannelApprovalNativePlannedTarget } from "./approval-native-delivery.js";
 
-/** Reused helper for describe Approval Delivery Destination behavior in src/infra. */
+/** Describe a delivered approval destination without exposing per-target internals. */
 export function describeApprovalDeliveryDestination(params: {
   channelLabel: string;
   deliveredTargets: readonly ChannelApprovalNativePlannedTarget[];
@@ -13,7 +13,7 @@ export function describeApprovalDeliveryDestination(params: {
     : params.channelLabel;
 }
 
-/** Reused helper for resolve Approval Routed Elsewhere Notice Text behavior in src/infra. */
+/** Build the notice shown when approval was sent to another chat or DM surface. */
 export function resolveApprovalRoutedElsewhereNoticeText(
   destinations: readonly string[],
 ): string | null {
@@ -28,7 +28,7 @@ export function resolveApprovalRoutedElsewhereNoticeText(
   )}, not this chat.`;
 }
 
-/** Reused helper for resolve Approval Delivery Failed Notice Text behavior in src/infra. */
+/** Build fallback slash-command instructions when native approval delivery fails. */
 export function resolveApprovalDeliveryFailedNoticeText(params: {
   approvalId: string;
   approvalKind: "exec" | "plugin";
