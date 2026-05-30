@@ -404,7 +404,6 @@ function buildMiddlewareFailureResult(): OpenClawAgentToolResult {
   };
 }
 
-/** Creates a middleware runner bound to a harness/runtime context. */
 export function createAgentToolResultMiddlewareRunner(
   ctx: AgentToolResultMiddlewareContext,
   handlers?: AgentToolResultMiddleware[],

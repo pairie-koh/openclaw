@@ -1,6 +1,5 @@
 import type { EmbeddedAgentCompactResult } from "../embedded-agent-runner/types.js";
 
-/** Returns whether a native harness binding reason is retryable after compaction. */
 export function isRecoverableNativeHarnessBindingReason(reason: unknown): boolean {
   if (typeof reason !== "string") {
     return false;

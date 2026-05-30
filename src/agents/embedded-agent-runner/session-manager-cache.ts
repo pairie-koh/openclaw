@@ -33,7 +33,6 @@ export type SessionManagerCache = {
   trackSessionManagerAccess: (sessionFile: string) => void;
 };
 
-/** Creates an isolated cache instance for session file warmup and tests. */
 export function createSessionManagerCache(options?: {
   clock?: () => number;
   fsModule?: Pick<typeof fs, "open">;

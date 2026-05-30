@@ -34,7 +34,6 @@ export function registerAgentHarness(
   });
 }
 
-/** Returns the harness implementation for an id when registered. */
 export function getAgentHarness(id: string): AgentHarness | undefined {
   return getRegisteredAgentHarness(id)?.harness;
 }
