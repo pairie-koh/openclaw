@@ -101,7 +101,6 @@ export function getPluginModuleLoaderStats(): PluginModuleLoaderStatsSnapshot {
   };
 }
 
-/** Reset plugin module loader stats for tests. */
 export function resetPluginModuleLoaderStatsForTest(): void {
   pluginModuleLoaderStats.calls = 0;
   pluginModuleLoaderStats.nativeHits = 0;

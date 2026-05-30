@@ -175,7 +175,6 @@ export function createPluginSetupWizardStatus(plugin: SetupWizardTestPlugin) {
   return createPluginSetupWizardAdapter(plugin).getStatus;
 }
 
-/** Run a setup wizard configure callback with default config/runtime/test options. */
 export async function runSetupWizardConfigure<
   TCfg,
   TOptions extends Record<string, unknown>,
@@ -284,7 +283,6 @@ export async function runSetupWizardFinalize<
   });
 }
 
-/** Run an optional allow-from prompt hook with a test prompter and account id. */
 export async function promptSetupWizardAllowFrom<TCfg, TResult>(params: {
   promptAllowFrom?: (args: {
     cfg: TCfg;
@@ -330,7 +328,6 @@ export async function resolveSetupWizardAllowFromEntries<TCfg, TResult>(params: 
   });
 }
 
-/** Run an optional group allowlist resolver with a note-only test prompter. */
 export async function resolveSetupWizardGroupAllowlist<TCfg, TResult>(params: {
   resolveAllowlist?: (args: {
     cfg: TCfg;

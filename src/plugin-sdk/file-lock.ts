@@ -75,7 +75,6 @@ function normalizeLockError(err: unknown): never {
   throw err;
 }
 
-/** Reset the process-local lock manager for tests that need an empty lock registry. */
 export function resetFileLockStateForTest(): void {
   resetFileLockManagerForTest(FILE_LOCK_MANAGER_KEY, FILE_LOCK_MANAGER_KEY);
 }

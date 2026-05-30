@@ -132,7 +132,6 @@ export const loadBundledPluginPublicSurfaceSync: BundledPluginPublicSurfaceLoade
   });
 };
 
-/** Load a bundled plugin source artifact through the Vitest source-module loader. */
 export function loadBundledPluginPublicSurfaceSourceSync(params: {
   pluginId: string;
   artifactBasename: string;

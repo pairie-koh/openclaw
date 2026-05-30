@@ -46,7 +46,6 @@ type ProviderWizardProvidersResolver = (params: {
 
 let providerWizardProvidersResolverForTest: ProviderWizardProvidersResolver | undefined;
 
-/** Override provider resolution for tests and return a restore callback. */
 export function setProviderWizardProvidersResolverForTest(
   resolver: ProviderWizardProvidersResolver | undefined,
 ): () => void {
