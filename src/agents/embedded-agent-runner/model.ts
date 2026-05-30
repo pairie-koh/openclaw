@@ -419,7 +419,7 @@ function findInlineModelMatch(params: {
   );
 }
 
-/** Re-exported API for src/agents/embedded-agent-runner, starting with build Model Alias Lines. */
+/** Re-export model alias rendering and inline provider expansion helpers. */
 export { buildModelAliasLines, buildInlineProviderModels };
 
 function resolveConfiguredProviderConfig(
