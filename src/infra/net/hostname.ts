@@ -1,6 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for normalize Hostname behavior in src/infra/net. */
+/** Lowercases a hostname, strips trailing dots, and unwraps bracketed IPv6 literals. */
 export function normalizeHostname(hostname: string): string {
   const normalized = normalizeLowercaseStringOrEmpty(hostname).replace(/\.+$/, "");
   if (normalized.startsWith("[") && normalized.endsWith("]")) {
