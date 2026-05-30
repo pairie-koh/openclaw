@@ -1,4 +1,4 @@
-// plugins host hook state helpers and runtime behavior.
+// Plugin-owned session state, queued next-turn injections, and projections.
 import { randomUUID } from "node:crypto";
 import {
   normalizeLowercaseStringOrEmpty,
@@ -230,7 +230,7 @@ function toPluginNextTurnInjectionRecord(params: {
   };
 }
 
-/** Reused helper for enqueue Plugin Next Turn Injection behavior in src/plugins. */
+/** Enqueues bounded plugin text for the next prompt build of a session. */
 export async function enqueuePluginNextTurnInjection(params: {
   cfg: OpenClawConfig;
   pluginId: string;
@@ -327,7 +327,7 @@ export async function enqueuePluginNextTurnInjection(params: {
   return { enqueued, id: resultId, sessionKey: canonicalKey };
 }
 
-/** Reused helper for drain Plugin Next Turn Injections behavior in src/plugins. */
+/** Consumes active plugin next-turn injections for a session in creation order. */
 export async function drainPluginNextTurnInjections(params: {
   cfg: OpenClawConfig;
   sessionKey?: string;
@@ -388,7 +388,7 @@ export async function drainPluginNextTurnInjections(params: {
   });
 }
 
-/** Reused helper for drain Plugin Next Turn Injection Context behavior in src/plugins. */
+/** Drains queued injections and converts them into agent turn prepare context. */
 export async function drainPluginNextTurnInjectionContext(params: {
   cfg: OpenClawConfig;
   sessionKey?: string;
@@ -402,7 +402,7 @@ export async function drainPluginNextTurnInjectionContext(params: {
 }
 
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Session-extension JSON reads are caller-typed by namespace.
-/** Reused helper for get Plugin Session Extension Sync behavior in src/plugins. */
+/** Reads one plugin session extension namespace without mutating the store. */
 export function getPluginSessionExtensionSync<T extends PluginJsonValue = PluginJsonValue>(params: {
   cfg: OpenClawConfig;
   pluginId: string;
@@ -422,7 +422,7 @@ export function getPluginSessionExtensionSync<T extends PluginJsonValue = Plugin
   return value as T | undefined;
 }
 
-/** Reused helper for get Plugin Session Extension State Sync behavior in src/plugins. */
+/** Reads all extension namespaces owned by a plugin for one session. */
 export function getPluginSessionExtensionStateSync(params: {
   cfg: OpenClawConfig;
   pluginId: string;
@@ -440,7 +440,7 @@ export function getPluginSessionExtensionStateSync(params: {
   return value ? (copyJsonValue(value) as Record<string, PluginJsonValue>) : undefined;
 }
 
-/** Reused helper for patch Plugin Session Extension behavior in src/plugins. */
+/** Patches one plugin session extension namespace and promoted slot mirror. */
 export async function patchPluginSessionExtension(params: {
   cfg: OpenClawConfig;
   sessionKey: string;
@@ -586,7 +586,7 @@ function projectSessionExtensionValueForSlot(params: {
   return copyJsonValue(projected);
 }
 
-/** Reused helper for project Plugin Session Extensions behavior in src/plugins. */
+/** Projects plugin session extension state into prompt-visible projections. */
 export async function projectPluginSessionExtensions(params: {
   sessionKey: string;
   entry: SessionEntry;
@@ -677,7 +677,7 @@ function projectSessionExtensionValue(params: {
   }
 }
 
-/** Reused helper for project Plugin Session Extensions Sync behavior in src/plugins. */
+/** Synchronous projection helper for already-loaded session entries. */
 export function projectPluginSessionExtensionsSync(params: {
   sessionKey: string;
   entry: SessionEntry;
