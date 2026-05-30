@@ -22,9 +22,9 @@ import { buildStatusReply } from "./commands-status.js";
 import type { CommandHandler, HandleCommandsParams } from "./commands-types.js";
 import { extractExplicitGroupId } from "./group-id.js";
 import { resolveReplyToMode } from "./reply-threading.js";
-/** Re-exported API for src/auto-reply/reply, starting with handle Context Command. */
+/** Context command handler re-exported from the info command barrel. */
 export { handleContextCommand } from "./commands-context-command.js";
-/** Re-exported API for src/auto-reply/reply, starting with handle Whoami Command. */
+/** Whoami command handler re-exported from the info command barrel. */
 export { handleWhoamiCommand } from "./commands-whoami.js";
 
 async function resolveSkillCommands(
@@ -49,7 +49,7 @@ async function resolveSkillCommands(
   });
 }
 
-/** Reused constant for handle Help Command behavior in src/auto-reply/reply. */
+/** Handle authorized `/help` requests with general chat command help. */
 export const handleHelpCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
@@ -69,7 +69,7 @@ export const handleHelpCommand: CommandHandler = async (params, allowTextCommand
   };
 };
 
-/** Reused constant for handle Commands List Command behavior in src/auto-reply/reply. */
+/** Handle authorized `/commands` requests, including channel-specific pagination data. */
 export const handleCommandsListCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
@@ -130,7 +130,7 @@ function buildSkillCommandUsage(skillCommands: NonNullable<HandleCommandsParams[
   return lines.join("\n");
 }
 
-/** Reused constant for handle Skill Command Usage behavior in src/auto-reply/reply. */
+/** Handle bare or unknown `/skill` requests with deterministic usage text. */
 export const handleSkillCommandUsage: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
@@ -163,7 +163,7 @@ export const handleSkillCommandUsage: CommandHandler = async (params, allowTextC
   };
 };
 
-/** Reused constant for handle Tools Command behavior in src/auto-reply/reply. */
+/** Handle `/tools` inventory requests for the current session/channel context. */
 export const handleToolsCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
@@ -250,7 +250,7 @@ export const handleToolsCommand: CommandHandler = async (params, allowTextComman
   }
 };
 
-/** Reused constant for handle Status Command behavior in src/auto-reply/reply. */
+/** Handle `/status` and status directive requests for the active session. */
 export const handleStatusCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
@@ -292,7 +292,7 @@ export const handleStatusCommand: CommandHandler = async (params, allowTextComma
   return { shouldContinue: false, reply };
 };
 
-/** Reused constant for handle Export Session Command behavior in src/auto-reply/reply. */
+/** Handle authorized session export command aliases. */
 export const handleExportSessionCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
@@ -315,7 +315,7 @@ export const handleExportSessionCommand: CommandHandler = async (params, allowTe
   return { shouldContinue: false, reply: await buildExportSessionReply(params) };
 };
 
-/** Reused constant for handle Export Trajectory Command behavior in src/auto-reply/reply. */
+/** Handle authorized trajectory export command aliases. */
 export const handleExportTrajectoryCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;
