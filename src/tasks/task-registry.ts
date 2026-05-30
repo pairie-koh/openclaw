@@ -2285,7 +2285,6 @@ export function deleteTaskRecordById(taskId: string): boolean {
   return true;
 }
 
-/** Reset task registry memory, runtimes, listeners, and optional persisted state for tests. */
 export function resetTaskRegistryForTests(opts?: { persist?: boolean }) {
   clearTaskRegistryMemory();
   restoreAttempted = false;

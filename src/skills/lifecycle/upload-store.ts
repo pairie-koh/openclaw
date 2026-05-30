@@ -376,7 +376,6 @@ async function readCommittedRecord(
   return record;
 }
 
-/** Creates a chunked skill archive upload store rooted in state or a test dir. */
 export function createSkillUploadStore(options?: {
   rootDir?: string;
   now?: () => number;

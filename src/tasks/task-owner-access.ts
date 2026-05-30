@@ -99,7 +99,6 @@ export function buildTaskStatusSnapshotForRelatedSessionKeyForOwner(params: {
   );
 }
 
-/** Returns the latest owner-visible task for a related session key. */
 export function findLatestTaskForRelatedSessionKeyForOwner(params: {
   relatedSessionKey: string;
   callerOwnerKey: string;

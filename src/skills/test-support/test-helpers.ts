@@ -24,7 +24,6 @@ ${body ?? `# ${name}\n`}
   );
 }
 
-/** Builds the canonical fixture skill markdown used across prompt/status tests. */
 export function createCanonicalFixtureSkill(params: {
   name: string;
   description: string;

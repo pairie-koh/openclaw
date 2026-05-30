@@ -2,7 +2,6 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 
-/** Creates and cleans isolated temporary directories for async security test cases. */
 export class AsyncTempCaseFactory {
   private caseId = 0;
   private fixtureRoot = "";
