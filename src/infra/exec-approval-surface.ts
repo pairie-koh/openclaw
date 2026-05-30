@@ -11,7 +11,7 @@ import {
   normalizeMessageChannel,
 } from "../utils/message-channel.js";
 
-/** Shared type for Exec Approval Initiating Surface State in src/infra. */
+/** Availability state for showing approval controls on the initiating surface. */
 export type ExecApprovalInitiatingSurfaceState =
   | { kind: "enabled"; channel: string | undefined; channelLabel: string; accountId?: string }
   | { kind: "disabled"; channel: string; channelLabel: string; accountId?: string }
@@ -40,7 +40,7 @@ function hasNativeExecApprovalCapability(channel?: string): boolean {
   return Boolean(capability.getExecInitiatingSurfaceState || capability.getActionAvailabilityState);
 }
 
-/** Reused helper for resolve Exec Approval Initiating Surface State behavior in src/infra. */
+/** Resolve initiating-surface availability for exec approvals. */
 export function resolveExecApprovalInitiatingSurfaceState(params: {
   channel?: string | null;
   accountId?: string | null;
@@ -49,7 +49,7 @@ export function resolveExecApprovalInitiatingSurfaceState(params: {
   return resolveApprovalInitiatingSurfaceState({ ...params, approvalKind: "exec" });
 }
 
-/** Reused helper for resolve Approval Initiating Surface State behavior in src/infra. */
+/** Resolve initiating-surface availability for exec or plugin approvals. */
 export function resolveApprovalInitiatingSurfaceState(params: {
   channel?: string | null;
   accountId?: string | null;
@@ -88,7 +88,7 @@ export function resolveApprovalInitiatingSurfaceState(params: {
   return { kind: "unsupported", channel, channelLabel, accountId };
 }
 
-/** Reused helper for supports Native Exec Approval Client behavior in src/infra. */
+/** Return whether a channel can host a native exec approval client. */
 export function supportsNativeExecApprovalClient(channel?: string | null): boolean {
   const normalized = normalizeMessageChannel(channel);
   if (!normalized || normalized === INTERNAL_MESSAGE_CHANNEL || normalized === "tui") {
@@ -97,7 +97,7 @@ export function supportsNativeExecApprovalClient(channel?: string | null): boole
   return hasNativeExecApprovalCapability(normalized);
 }
 
-/** Reused helper for list Native Exec Approval Client Labels behavior in src/infra. */
+/** List labels for other channels with native exec approval support. */
 export function listNativeExecApprovalClientLabels(params?: {
   excludeChannel?: string | null;
 }): string[] {
@@ -110,7 +110,7 @@ export function listNativeExecApprovalClientLabels(params?: {
     .toSorted((a, b) => a.localeCompare(b));
 }
 
-/** Reused helper for describe Native Exec Approval Client Setup behavior in src/infra. */
+/** Return channel-specific setup guidance for native exec approvals. */
 export function describeNativeExecApprovalClientSetup(params: {
   channel?: string | null;
   channelLabel?: string | null;

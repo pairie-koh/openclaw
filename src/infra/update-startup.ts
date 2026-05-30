@@ -1,4 +1,5 @@
-// infra update startup helpers and runtime behavior.
+// Gateway startup update checks and optional auto-update scheduling.
+// State is persisted so notifications, rollout jitter, and retry attempts survive restarts.
 import { createHash, randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -49,7 +50,7 @@ type AutoUpdateRunResult = {
   reason?: string;
 };
 
-/** Shared type for Update Available in src/infra. */
+/** Cached update availability surfaced to gateway/status clients. */
 export type UpdateAvailable = {
   currentVersion: string;
   latestVersion: string;
@@ -58,12 +59,12 @@ export type UpdateAvailable = {
 
 let updateAvailableCache: UpdateAvailable | null = null;
 
-/** Reused helper for get Update Available behavior in src/infra. */
+/** Return the current process cache of the latest available package update. */
 export function getUpdateAvailable(): UpdateAvailable | null {
   return updateAvailableCache;
 }
 
-/** Reused helper for reset Update Available State For Test behavior in src/infra. */
+/** Clear update availability cache for isolated tests. */
 export function resetUpdateAvailableStateForTest(): void {
   updateAvailableCache = null;
 }
@@ -320,7 +321,7 @@ function clearAutoState(nextState: UpdateCheckState): void {
   delete nextState.autoFirstSeenAt;
 }
 
-/** Reused helper for run Gateway Update Check behavior in src/infra. */
+/** Run one startup update check, updating persisted state and optional auto-update attempts. */
 export async function runGatewayUpdateCheck(params: {
   cfg: OpenClawConfig;
   log: { info: (msg: string, meta?: Record<string, unknown>) => void };
@@ -521,7 +522,7 @@ export async function runGatewayUpdateCheck(params: {
   await writeState(statePath, nextState);
 }
 
-/** Reused helper for schedule Gateway Update Check behavior in src/infra. */
+/** Start the recurring gateway update-check loop and return a stop callback. */
 export function scheduleGatewayUpdateCheck(params: {
   cfg: OpenClawConfig;
   log: { info: (msg: string, meta?: Record<string, unknown>) => void };
