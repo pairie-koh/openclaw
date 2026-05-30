@@ -81,7 +81,7 @@ function isBareParentDefaultHelpArgv(argv: string[]): boolean {
     : false;
 }
 
-/** Reused helper for rewrite Update Flag Argv behavior in src/cli. */
+/** Rewrites legacy `--update` root flag into the update subcommand. */
 export function rewriteUpdateFlagArgv(argv: string[]): string[] {
   const index = argv.indexOf("--update");
   if (index === -1) {
@@ -93,7 +93,7 @@ export function rewriteUpdateFlagArgv(argv: string[]): string[] {
   return next;
 }
 
-/** Reused helper for should Ensure Cli Path behavior in src/cli. */
+/** Decides whether startup should ensure the CLI binary path is registered. */
 export function shouldEnsureCliPath(argv: string[]): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   if (
@@ -106,7 +106,7 @@ export function shouldEnsureCliPath(argv: string[]): boolean {
   return resolveCliCommandPathPolicy(invocation.commandPath).ensureCliPath;
 }
 
-/** Reused helper for should Use Root Help Fast Path behavior in src/cli. */
+/** Detects root help invocations that can skip full CLI startup. */
 export function shouldUseRootHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -124,7 +124,7 @@ export function shouldUseRootHelpFastPath(
   );
 }
 
-/** Reused helper for should Use Browser Help Fast Path behavior in src/cli. */
+/** Detects browser help invocations that can use precomputed output. */
 export function shouldUseBrowserHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -140,7 +140,7 @@ export function shouldUseBrowserHelpFastPath(
   );
 }
 
-/** Reused helper for should Use Secrets Help Fast Path behavior in src/cli. */
+/** Detects secrets help invocations that can use precomputed output. */
 export function shouldUseSecretsHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -156,7 +156,7 @@ export function shouldUseSecretsHelpFastPath(
   );
 }
 
-/** Reused helper for should Use Nodes Help Fast Path behavior in src/cli. */
+/** Detects nodes help invocations that can use precomputed output. */
 export function shouldUseNodesHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -172,7 +172,7 @@ export function shouldUseNodesHelpFastPath(
   );
 }
 
-/** Reused helper for should Use Setup Onboard Configure Help Fast Path behavior in src/cli. */
+/** Detects setup/onboard/configure help invocations that can use precomputed output. */
 export function shouldUseSetupOnboardConfigureHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -188,7 +188,7 @@ export function shouldUseSetupOnboardConfigureHelpFastPath(
   );
 }
 
-/** Reused helper for resolve Precomputed Subcommand Help Fast Path behavior in src/cli. */
+/** Resolves a strict subcommand help fast-path target. */
 export function resolvePrecomputedSubcommandHelpFastPath(
   argv: string[],
   env: NodeJS.ProcessEnv = process.env,
@@ -199,13 +199,13 @@ export function resolvePrecomputedSubcommandHelpFastPath(
   return resolveStrictPrecomputedSubcommandHelpCommand(argv);
 }
 
-/** Reused helper for should Start Crestodian For Bare Root behavior in src/cli. */
+/** Starts Crestodian for bare `openclaw` invocations without help/version. */
 export function shouldStartCrestodianForBareRoot(argv: string[]): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   return invocation.commandPath.length === 0 && !invocation.hasHelpOrVersion;
 }
 
-/** Reused helper for should Start Crestodian For Modern Onboard behavior in src/cli. */
+/** Starts Crestodian for modern onboard flows that are not help/version. */
 export function shouldStartCrestodianForModernOnboard(argv: string[]): boolean {
   const invocation = resolveCliArgvInvocation(argv);
   return (
@@ -215,7 +215,7 @@ export function shouldStartCrestodianForModernOnboard(argv: string[]): boolean {
   );
 }
 
-/** Reused helper for should Start Proxy For Cli behavior in src/cli. */
+/** Decides whether the CLI path should start the network proxy. */
 export function shouldStartProxyForCli(argv: string[]): boolean {
   const policyArgv = rewriteUpdateFlagArgv(argv);
   const invocation = resolveCliArgvInvocation(policyArgv);
@@ -229,7 +229,7 @@ export function shouldStartProxyForCli(argv: string[]): boolean {
   return resolveCliNetworkProxyPolicy(policyArgv) === "default";
 }
 
-/** Reused helper for resolve Missing Plugin Command Message behavior in src/cli. */
+/** Explains plugin-owned command/tool names that are unavailable as CLI roots. */
 export function resolveMissingPluginCommandMessage(
   pluginId: string,
   config?: OpenClawConfig,
