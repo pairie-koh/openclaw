@@ -124,7 +124,6 @@ type ManagedRunMock = {
   cancel: Mock<() => void>;
 };
 
-/** Build a supervisor managed-run fixture with a controlled exit result. */
 export function createManagedRun(
   exit: MockRunExit,
   pid = 1234,
@@ -139,7 +138,6 @@ export function createManagedRun(
   };
 }
 
-/** Queue a successful one-shot CLI process result. */
 export function mockSuccessfulCliRun() {
   supervisorSpawnMock.mockResolvedValueOnce(
     createManagedRun({

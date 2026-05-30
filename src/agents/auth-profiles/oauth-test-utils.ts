@@ -87,7 +87,6 @@ type ReturnValueMock = ResettableMock & {
   mockReturnValue(value: unknown): unknown;
 };
 
-/** Resets OAuth provider runtime mocks to their neutral defaults. */
 export function resetOAuthProviderRuntimeMocks(mocks: {
   refreshProviderOAuthCredentialWithPluginMock: ResolvedValueMock;
   formatProviderAuthProfileApiKeyWithPluginMock: ReturnValueMock;
@@ -98,7 +97,6 @@ export function resetOAuthProviderRuntimeMocks(mocks: {
   mocks.formatProviderAuthProfileApiKeyWithPluginMock.mockReturnValue(undefined);
 }
 
-/** Creates a deterministic pseudo-random generator for fixture fuzzing. */
 export function makeSeededRandom(seed: number): () => number {
   let state = seed >>> 0;
   return () => {
@@ -110,7 +108,6 @@ export function makeSeededRandom(seed: number): () => number {
   };
 }
 
-/** Generates a deterministic random ASCII string from a seeded RNG. */
 export function randomAsciiString(rng: () => number, maxLen: number): string {
   const len = Math.floor(rng() * maxLen);
   const chars: string[] = [];
@@ -124,7 +121,6 @@ export function maybe<T>(rng: () => number, value: T): T | undefined {
   return rng() < 0.5 ? value : undefined;
 }
 
-/** Applies deterministic random casing to a fixture string. */
 export function randomlyCased(value: string, rng: () => number): string {
   return value
     .split("")

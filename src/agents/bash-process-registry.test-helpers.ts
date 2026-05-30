@@ -1,7 +1,6 @@
 import type { ChildProcessWithoutNullStreams } from "node:child_process";
 import type { ProcessSession } from "./bash-process-registry.js";
 
-/** Build a process-session fixture with registry defaults for unit tests. */
 export function createProcessSessionFixture(params: {
   id: string;
   command?: string;

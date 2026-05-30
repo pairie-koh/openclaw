@@ -10,7 +10,6 @@ type ResettableReturnMock = ResettableMock & {
   mockReturnValue(value: unknown): unknown;
 };
 
-/** Shared mock shape required by media-generation runtime reset helpers. */
 export type GenerationRuntimeMocks = {
   createSubsystemLogger: ClearableMock;
   describeFailoverError: ResettableMock;
@@ -27,7 +26,6 @@ export type GenerationRuntimeMocks = {
   warn: ResettableMock;
 };
 
-/** Reset common provider/auth/model mocks to their default empty behavior. */
 export function resetGenerationRuntimeMocks(mocks: GenerationRuntimeMocks): void {
   mocks.createSubsystemLogger.mockClear();
   mocks.describeFailoverError.mockReset();
