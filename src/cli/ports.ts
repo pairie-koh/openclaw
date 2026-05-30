@@ -6,10 +6,10 @@ import { tryListenOnPort } from "../infra/ports-probe.js";
 import { resolvePositiveTimerTimeoutMs, resolveTimerTimeoutMs } from "../shared/number-coercion.js";
 import { sleep } from "../utils.js";
 
-/** Shared type for Port Process in src/cli. */
+/** Process currently listening on a TCP port, as reported by lsof/netstat/fuser. */
 export type PortProcess = { pid: number; command?: string };
 
-/** Shared type for Force Free Port Result in src/cli. */
+/** Summary of processes signaled while freeing a port and any SIGKILL escalation. */
 export type ForceFreePortResult = {
   killed: PortProcess[];
   waitedMs: number;
@@ -142,7 +142,7 @@ async function isPortBusy(port: number): Promise<boolean> {
   }
 }
 
-/** Reused helper for parse Lsof Output behavior in src/cli. */
+/** Parse lsof -FpFc output into listener records without shelling out again. */
 export function parseLsofOutput(output: string): PortProcess[] {
   const lines = output.split(/\r?\n/).filter(Boolean);
   const results: PortProcess[] = [];
@@ -163,7 +163,7 @@ export function parseLsofOutput(output: string): PortProcess[] {
   return results;
 }
 
-/** Reused helper for list Port Listeners behavior in src/cli. */
+/** List TCP listeners for a port using the platform-specific inspection command. */
 export function listPortListeners(port: number): PortProcess[] {
   if (process.platform === "win32") {
     try {
@@ -225,7 +225,7 @@ export function listPortListeners(port: number): PortProcess[] {
   }
 }
 
-/** Reused helper for force Free Port behavior in src/cli. */
+/** Send SIGTERM to all processes currently listening on a TCP port. */
 export function forceFreePort(port: number): PortProcess[] {
   const listeners = listPortListeners(port);
   for (const proc of listeners) {
@@ -254,7 +254,7 @@ function killPids(listeners: PortProcess[], signal: NodeJS.Signals) {
   }
 }
 
-/** Reused helper for force Free Port And Wait behavior in src/cli. */
+/** Free a port, wait for release, and escalate to SIGKILL if listeners remain. */
 export async function forceFreePortAndWait(
   port: number,
   opts: {
