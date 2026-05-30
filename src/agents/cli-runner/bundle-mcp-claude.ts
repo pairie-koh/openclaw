@@ -1,6 +1,6 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for find Claude Mcp Config Path behavior in src/agents/cli-runner. */
+/** Finds an existing Claude CLI --mcp-config value in argv. */
 export function findClaudeMcpConfigPath(args?: string[]): string | undefined {
   if (!args?.length) {
     return undefined;
@@ -17,7 +17,7 @@ export function findClaudeMcpConfigPath(args?: string[]): string | undefined {
   return undefined;
 }
 
-/** Reused helper for inject Claude Mcp Config Args behavior in src/agents/cli-runner. */
+/** Replaces Claude CLI MCP config args with OpenClaw's strict config path. */
 export function injectClaudeMcpConfigArgs(
   args: string[] | undefined,
   mcpConfigPath: string,
