@@ -30,7 +30,6 @@ export * from "../utils/chunk-items.js";
 export * from "../utils/fetch-timeout.js";
 export * from "../utils/reaction-level.js";
 export * from "../utils/with-timeout.js";
-/** Re-exported API for src/plugin-sdk. */
 export {
   hasNonEmptyString,
   localeLowercasePreservingWhitespace,
