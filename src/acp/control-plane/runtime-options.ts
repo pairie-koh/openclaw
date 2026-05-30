@@ -1,4 +1,3 @@
-/** Validation and merge helpers for ACP runtime options carried in session metadata. */
 import { isAbsolute } from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import type { AcpSessionRuntimeOptions, SessionAcpMeta } from "../../config/sessions/types.js";

@@ -1,4 +1,3 @@
-/** Runs lifecycle hooks around LLM input/output and agent finalization. */
 import { createHash } from "node:crypto";
 import { normalizeOptionalString as normalizeTrimmedString } from "@openclaw/normalization-core/string-coerce";
 import { createSubsystemLogger } from "../../logging/subsystem.js";

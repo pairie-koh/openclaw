@@ -1,4 +1,3 @@
-/** Parses stat output returned by sandbox filesystem bridge commands. */
 import { parseStrictNonNegativeInteger } from "../../infra/parse-finite-number.js";
 import { asDateTimestampMs } from "../../shared/number-coercion.js";
 

@@ -1,4 +1,3 @@
-/** Registers CLI commands for inspecting and managing exec approvals. */
 import fs from "node:fs/promises";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";

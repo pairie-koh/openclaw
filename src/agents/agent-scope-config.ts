@@ -1,4 +1,3 @@
-/** Agent config lookup and path resolution helpers. */
 import path from "node:path";
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import { resolveStateDir } from "../config/paths.js";

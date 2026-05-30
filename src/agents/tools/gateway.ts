@@ -1,4 +1,3 @@
-/** Shared gateway client helpers for agent tools. */
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,

@@ -1,4 +1,3 @@
-/** Implements the Chutes OAuth browser callback command flow. */
 import { randomBytes } from "node:crypto";
 import { createServer } from "node:http";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

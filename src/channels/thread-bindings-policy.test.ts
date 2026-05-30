@@ -1,4 +1,3 @@
-/** Tests thread binding lifecycle policy across channel capabilities and config. */
 import { beforeEach, describe, expect, it } from "vitest";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { MAX_DATE_TIMESTAMP_MS } from "../shared/number-coercion.js";

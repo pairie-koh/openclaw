@@ -1,4 +1,3 @@
-/** Regression coverage for auth profile usage/cooldown state updates. */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import { MAX_DATE_TIMESTAMP_MS } from "../../shared/number-coercion.js";

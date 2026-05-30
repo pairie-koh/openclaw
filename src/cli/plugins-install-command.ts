@@ -1,4 +1,3 @@
-/** Implements plugin install and update CLI workflows. */
 import fs from "node:fs";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";

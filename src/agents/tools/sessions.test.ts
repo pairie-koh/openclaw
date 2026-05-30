@@ -1,4 +1,3 @@
-/** Integration-style coverage for session tools and channel registry fixtures. */
 import os from "node:os";
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";

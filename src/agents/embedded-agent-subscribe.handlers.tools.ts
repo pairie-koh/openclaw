@@ -1,4 +1,3 @@
-/** Handles embedded-agent tool execution lifecycle, media, and progress events. */
 import {
   asOptionalObjectRecord,
   asOptionalRecord as readRecordField,

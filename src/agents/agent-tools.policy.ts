@@ -1,4 +1,3 @@
-/** Resolves and applies agent, channel, group, sender, and sandbox tool policies. */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import {
   normalizeLowercaseStringOrEmpty,

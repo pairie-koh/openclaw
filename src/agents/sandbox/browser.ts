@@ -1,4 +1,3 @@
-/** Starts and manages browser containers attached to agent sandboxes. */
 import crypto from "node:crypto";
 import {
   normalizeOptionalLowercaseString,

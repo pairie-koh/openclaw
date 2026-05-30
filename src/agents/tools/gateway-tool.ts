@@ -1,4 +1,3 @@
-/** Admin tool for gateway status, config, and restart operations. */
 import { isDeepStrictEqual } from "node:util";
 import { isRecord as isPlainObject } from "@openclaw/normalization-core/record-coerce";
 import {

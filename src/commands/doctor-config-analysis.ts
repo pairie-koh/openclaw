@@ -1,4 +1,3 @@
-/** Analyzes config validation issues into doctor-friendly findings. */
 import path from "node:path";
 import { resolvePrimaryStringValue } from "@openclaw/normalization-core/string-coerce";
 import type { ZodIssue } from "zod";

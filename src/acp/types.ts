@@ -1,4 +1,3 @@
-/** Shared ACP server/session option types and agent metadata. */
 import type { SessionId } from "@agentclientprotocol/sdk";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import { VERSION } from "../version.js";

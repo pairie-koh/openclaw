@@ -1,4 +1,3 @@
-/** Watches parent QA processes and terminates orphaned gateway runs. */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";

@@ -1,4 +1,3 @@
-/** Builds session-manager extensions used by embedded-agent runs. */
 import { randomUUID } from "node:crypto";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";

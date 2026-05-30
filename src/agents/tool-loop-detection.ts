@@ -1,4 +1,3 @@
-/** Detects repeated tool call loops from recent tool invocation fingerprints. */
 import { createHash } from "node:crypto";
 import {
   normalizeNullableString as nonEmptyStringField,

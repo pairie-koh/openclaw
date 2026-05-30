@@ -1,4 +1,3 @@
-/** Runs live prompt-cache regression probes across providers and cache lanes. */
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";

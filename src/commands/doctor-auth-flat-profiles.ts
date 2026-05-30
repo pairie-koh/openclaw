@@ -1,4 +1,3 @@
-/** Doctor checks and repairs for flat auth profile store layout. */
 import fs from "node:fs";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";

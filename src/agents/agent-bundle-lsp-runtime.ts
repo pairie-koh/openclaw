@@ -1,4 +1,3 @@
-/** Embedded agent LSP runtime that exposes language-server features as tools. */
 import { spawn, type ChildProcess } from "node:child_process";
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 import type { OpenClawConfig } from "../config/types.openclaw.js";

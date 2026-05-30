@@ -1,4 +1,3 @@
-/** Registers config inspection and mutation commands for the CLI. */
 import fs from "node:fs";
 import { isRecord as isPlainRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

@@ -1,4 +1,3 @@
-/** Implements message send/action commands across channel plugins and gateway. */
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,

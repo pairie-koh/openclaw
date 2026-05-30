@@ -1,4 +1,3 @@
-/** Public SDK helpers for session transcript search-hit formatting. */
 import path from "node:path";
 import { normalizeOptionalString } from "../../packages/normalization-core/src/string-coerce.js";
 import { uniqueStrings } from "../../packages/normalization-core/src/string-normalization.js";

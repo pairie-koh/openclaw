@@ -1,4 +1,3 @@
-/** Tracks auth profile failures, cooldowns, and provider usage blocks. */
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import {
   asDateTimestampMs,

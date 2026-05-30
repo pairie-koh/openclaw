@@ -1,4 +1,3 @@
-/** Shared fixtures and mocks for subagent spawn tests. */
 import os from "node:os";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { expect, vi } from "vitest";

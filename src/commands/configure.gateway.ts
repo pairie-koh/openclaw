@@ -1,4 +1,3 @@
-/** Configure wizard section for gateway host, port, and bind settings. */
 import { validateIPv4AddressInput } from "@openclaw/net-policy/ipv4";
 import {
   normalizeOptionalString,

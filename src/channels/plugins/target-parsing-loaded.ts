@@ -1,4 +1,3 @@
-/** Loads target parsing helpers from active channel plugin registrations. */
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,

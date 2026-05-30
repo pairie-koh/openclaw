@@ -1,4 +1,3 @@
-/** Agent tool for sending messages to other sessions. */
 import crypto from "node:crypto";
 import { finiteSecondsToTimerSafeMilliseconds } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

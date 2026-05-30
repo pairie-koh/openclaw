@@ -1,4 +1,3 @@
-/** Gateway RPC helpers used by nodes CLI commands. */
 import { randomUUID } from "node:crypto";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";

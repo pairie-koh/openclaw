@@ -1,4 +1,3 @@
-/** CLI/auth-profile fingerprint epoch for cache invalidation. */
 import crypto from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { loadAuthProfileStoreForRuntime } from "./auth-profiles/store.js";

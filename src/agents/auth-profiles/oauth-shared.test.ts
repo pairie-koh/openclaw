@@ -1,4 +1,3 @@
-/** Regression coverage for shared OAuth credential comparison and overlay helpers. */
 import { describe, expect, it, vi } from "vitest";
 import { MAX_DATE_TIMESTAMP_MS } from "../../shared/number-coercion.js";
 import {

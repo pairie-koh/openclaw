@@ -1,4 +1,3 @@
-/** Handles profile selection, env vars, and profile-aware CLI help text. */
 import os from "node:os";
 import path from "node:path";
 import {

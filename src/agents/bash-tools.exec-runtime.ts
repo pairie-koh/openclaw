@@ -1,4 +1,3 @@
-/** Low-level exec process runtime, environment handling, and result formatting. */
 import path from "node:path";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 import { emitDiagnosticEvent } from "../infra/diagnostic-events.js";

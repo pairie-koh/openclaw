@@ -1,4 +1,3 @@
-/** Implements OpenAI Responses/Completions transport streaming and payload builders. */
 import { createHash, randomUUID } from "node:crypto";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";

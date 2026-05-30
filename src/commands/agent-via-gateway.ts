@@ -1,4 +1,3 @@
-/** Runs agent commands through gateway sessions and outbound delivery. */
 import { randomUUID } from "node:crypto";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

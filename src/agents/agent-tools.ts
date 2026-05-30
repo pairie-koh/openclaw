@@ -1,4 +1,3 @@
-/** Builds the default OpenClaw coding tool set and applies runtime tool policies. */
 import path from "node:path";
 import {
   normalizeLowercaseStringOrEmpty,

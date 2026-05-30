@@ -1,4 +1,3 @@
-/** Builds normalized parameters used by system prompt generation. */
 import fs from "node:fs";
 import path from "node:path";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";

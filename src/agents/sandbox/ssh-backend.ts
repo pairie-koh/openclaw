@@ -1,4 +1,3 @@
-/** SSH-backed sandbox backend implementation. */
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import type {

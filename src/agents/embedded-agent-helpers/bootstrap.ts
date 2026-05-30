@@ -1,4 +1,3 @@
-/** Builds and sanitizes bootstrap context files for embedded-agent runs. */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

@@ -1,4 +1,3 @@
-/** Verifies OpenClaw backup archives and reports contents. */
 import path from "node:path";
 import { readStringValue } from "@openclaw/normalization-core/string-coerce";
 import * as tar from "tar";

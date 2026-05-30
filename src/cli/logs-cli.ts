@@ -1,4 +1,3 @@
-/** Registers logs CLI commands with lazy runtime log streaming. */
 import { setTimeout as delay } from "node:timers/promises";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import type { Command } from "commander";

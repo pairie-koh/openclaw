@@ -1,4 +1,3 @@
-/** Shared exec approval/result helpers used by gateway and node hosts. */
 import crypto from "node:crypto";
 import { resolveExpiresAtMsFromDurationMs } from "@openclaw/normalization-core/number-coercion";
 import { formatErrorMessage } from "../infra/errors.js";

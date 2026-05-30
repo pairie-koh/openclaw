@@ -1,4 +1,3 @@
-/** Bootstrap context budget analysis, warnings, and truncation reporting. */
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { EmbeddedContextFile } from "./embedded-agent-helpers.js";

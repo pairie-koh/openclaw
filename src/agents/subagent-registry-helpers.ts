@@ -1,4 +1,3 @@
-/** Shared retry, orphan reconciliation, persistence, and attachment cleanup helpers. */
 import fsSync, { promises as fs } from "node:fs";
 import path from "node:path";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";

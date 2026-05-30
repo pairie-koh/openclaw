@@ -1,4 +1,3 @@
-/** Hook installation helpers for archives, npm specs, packages, and local paths. */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";

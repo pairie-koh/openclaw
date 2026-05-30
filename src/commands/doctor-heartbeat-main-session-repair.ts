@@ -1,4 +1,3 @@
-/** Repairs heartbeat messages stored in main session archives. */
 import fs from "node:fs";
 import path from "node:path";
 import { asNullableObjectRecord } from "@openclaw/normalization-core/record-coerce";

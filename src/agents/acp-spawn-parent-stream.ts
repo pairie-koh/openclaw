@@ -1,4 +1,3 @@
-/** Parent-session relay for streamed ACP child-session progress. */
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";

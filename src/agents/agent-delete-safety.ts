@@ -1,4 +1,3 @@
-/** Workspace-overlap safety checks used before deleting agent state. */
 import fs from "node:fs";
 import path from "node:path";
 import { lowercasePreservingWhitespace } from "@openclaw/normalization-core/string-coerce";

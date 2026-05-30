@@ -1,4 +1,3 @@
-/** Rotates session transcripts after compaction into successor transcript files. */
 import { randomUUID } from "node:crypto";
 import path from "node:path";
 import { resolveTimestampMsToIsoString } from "@openclaw/normalization-core/number-coercion";

@@ -1,4 +1,3 @@
-/** Prepares Google prompt cache metadata and stream wrappers. */
 import crypto from "node:crypto";
 import {
   asDateTimestampMs,

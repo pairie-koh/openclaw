@@ -1,4 +1,3 @@
-/** Normalizes legacy talk config sections during doctor migration. */
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeTalkSection } from "../../../config/talk.js";

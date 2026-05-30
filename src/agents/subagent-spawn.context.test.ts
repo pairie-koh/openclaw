@@ -1,4 +1,3 @@
-/** Regression coverage for context inheritance and fork behavior during spawn. */
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "@openclaw/normalization-core/number-coercion";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";

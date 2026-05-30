@@ -1,4 +1,3 @@
-/** Runtime implementation for gateway-backed devices CLI commands. */
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,

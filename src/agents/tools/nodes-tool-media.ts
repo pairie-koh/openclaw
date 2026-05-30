@@ -1,4 +1,3 @@
-/** Media-related action handlers for the nodes management tool. */
 import crypto from "node:crypto";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import {

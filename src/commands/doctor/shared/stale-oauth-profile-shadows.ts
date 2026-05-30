@@ -1,4 +1,3 @@
-/** Repairs stale OAuth profile shadow files. */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { isRecord } from "@openclaw/normalization-core/record-coerce";

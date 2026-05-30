@@ -1,4 +1,3 @@
-/** Repairs plugin runtime symlinks expected by bundled plugin execution. */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";

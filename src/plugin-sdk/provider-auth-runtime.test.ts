@@ -1,4 +1,3 @@
-/** Tests provider auth runtime SDK contracts and helper exports. */
 import { createServer } from "node:net";
 import { describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";

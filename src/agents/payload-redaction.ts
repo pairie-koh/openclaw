@@ -1,4 +1,3 @@
-/** Redacts diagnostic payloads before logging or persistence. */
 import crypto from "node:crypto";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { estimateBase64DecodedBytes } from "../media/base64.js";

@@ -1,4 +1,3 @@
-/** Doctor checks for device pairing auth tokens and state files. */
 import path from "node:path";
 import { normalizeUniqueSingleOrTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
 import { note } from "../../packages/terminal-core/src/note.js";

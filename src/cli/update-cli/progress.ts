@@ -1,4 +1,3 @@
-/** Renders update command progress and failure guidance. */
 import { spinner } from "@clack/prompts";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 import { theme } from "../../../packages/terminal-core/src/theme.js";

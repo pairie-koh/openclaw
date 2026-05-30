@@ -1,4 +1,3 @@
-/** Executes one embedded-agent attempt, including setup, streaming, and cleanup. */
 import fs from "node:fs/promises";
 import os from "node:os";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";

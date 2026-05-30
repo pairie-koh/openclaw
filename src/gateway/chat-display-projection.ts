@@ -1,4 +1,3 @@
-/** Sanitizes and projects chat history into UI-safe display messages. */
 import { createHash } from "node:crypto";
 import { asFiniteNumber } from "@openclaw/normalization-core/number-coercion";
 import { asOptionalRecord as readRecord } from "@openclaw/normalization-core/record-coerce";
