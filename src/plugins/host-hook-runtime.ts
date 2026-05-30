@@ -36,7 +36,7 @@ type PluginHostRuntimeState = {
 
 const PLUGIN_HOST_RUNTIME_STATE_KEY = Symbol.for("openclaw.pluginHostRuntimeState");
 const CLOSED_RUN_IDS_MAX = 512;
-/** Reused constant for PLUGIN TERMINAL EVENT CLEANUP WAIT MS behavior in src/plugins. */
+/** Maximum wait for terminal agent-event handlers before clearing run context. */
 export const PLUGIN_TERMINAL_EVENT_CLEANUP_WAIT_MS = 5_000;
 const log = createSubsystemLogger("plugins/host-hooks");
 
@@ -169,7 +169,7 @@ function getPluginRunContextNamespaces(params: {
   return namespaces;
 }
 
-/** Reused helper for set Plugin Run Context behavior in src/plugins. */
+/** Writes a namespaced JSON run-context value for one plugin and run. */
 export function setPluginRunContext(params: {
   pluginId: string;
   patch: PluginRunContextPatch;
@@ -210,7 +210,7 @@ export function setPluginRunContext(params: {
 }
 
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Run-context JSON reads are caller-typed by namespace.
-/** Reused helper for get Plugin Run Context behavior in src/plugins. */
+/** Reads a cloned namespaced JSON run-context value for one plugin and run. */
 export function getPluginRunContext<T extends PluginJsonValue = PluginJsonValue>(params: {
   pluginId: string;
   get: PluginRunContextGetParams;
@@ -227,7 +227,7 @@ export function getPluginRunContext<T extends PluginJsonValue = PluginJsonValue>
   return value === undefined ? undefined : (copyJsonValue(value) as T);
 }
 
-/** Reused helper for clear Plugin Run Context behavior in src/plugins. */
+/** Clears plugin run-context values by run, plugin, and optional namespace. */
 export function clearPluginRunContext(params: {
   pluginId?: string;
   runId?: string;
@@ -292,7 +292,7 @@ function logAgentEventSubscriptionFailure(params: {
   );
 }
 
-/** Reused helper for dispatch Plugin Agent Event Subscriptions behavior in src/plugins. */
+/** Dispatches agent events to plugin subscriptions and schedules terminal cleanup. */
 export function dispatchPluginAgentEventSubscriptions(params: {
   registry: PluginRegistry | null | undefined;
   event: AgentEventPayload;
@@ -358,7 +358,7 @@ export function dispatchPluginAgentEventSubscriptions(params: {
   }
 }
 
-/** Reused helper for register Plugin Session Scheduler Job behavior in src/plugins. */
+/** Registers a plugin-owned scheduled session job and returns its handle. */
 export function registerPluginSessionSchedulerJob(params: {
   pluginId: string;
   pluginName?: string;
@@ -385,7 +385,7 @@ export function registerPluginSessionSchedulerJob(params: {
   return { id, pluginId: params.pluginId, sessionKey, kind };
 }
 
-/** Reused helper for delete Plugin Session Scheduler Job behavior in src/plugins. */
+/** Deletes a scheduled session job when id, session, and generation still match. */
 export function deletePluginSessionSchedulerJob(params: {
   pluginId: string;
   jobId: string;
@@ -427,7 +427,7 @@ function hasPluginSessionSchedulerJob(params: {
   return params.generation === undefined || record.generation === params.generation;
 }
 
-/** Reused helper for get Plugin Session Scheduler Job Generation behavior in src/plugins. */
+/** Returns the current generation for a scheduled plugin job. */
 export function getPluginSessionSchedulerJobGeneration(params: {
   pluginId: string;
   jobId: string;
@@ -444,12 +444,12 @@ export function getPluginSessionSchedulerJobGeneration(params: {
   return record.generation;
 }
 
-/** Reused helper for make Plugin Session Scheduler Job Key behavior in src/plugins. */
+/** Builds a stable key for excluding or preserving a plugin scheduler job. */
 export function makePluginSessionSchedulerJobKey(pluginId: string, jobId: string): string {
   return JSON.stringify([pluginId, jobId]);
 }
 
-/** Reused helper for cleanup Plugin Session Scheduler Jobs behavior in src/plugins. */
+/** Runs scheduler cleanup hooks and removes matching plugin job records. */
 export async function cleanupPluginSessionSchedulerJobs(params: {
   pluginId?: string;
   reason: PluginHostCleanupReason;
@@ -609,7 +609,7 @@ export async function cleanupPluginSessionSchedulerJobs(params: {
   return failures;
 }
 
-/** Reused helper for clear Plugin Host Runtime State behavior in src/plugins. */
+/** Clears plugin host runtime state for tests, one plugin, one run, or all state. */
 export function clearPluginHostRuntimeState(params?: { pluginId?: string; runId?: string }): void {
   clearPluginRunContext(params ?? {});
   if (params?.pluginId) {
@@ -623,7 +623,7 @@ export function clearPluginHostRuntimeState(params?: { pluginId?: string; runId?
   }
 }
 
-/** Reused helper for list Plugin Session Scheduler Jobs behavior in src/plugins. */
+/** Lists currently registered plugin scheduler jobs in deterministic order. */
 export function listPluginSessionSchedulerJobs(
   pluginId?: string,
 ): PluginSessionSchedulerJobHandle[] {
