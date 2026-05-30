@@ -1,4 +1,3 @@
-// extensions/tlon/src/urbit sse client helpers and runtime behavior.
 import { randomUUID } from "node:crypto";
 import { Readable } from "node:stream";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
