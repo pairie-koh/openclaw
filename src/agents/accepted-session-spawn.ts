@@ -1,7 +1,7 @@
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Shared type for Accepted Session Spawn in src/agents. */
+/** Accepted child-session spawn metadata returned by ACP tools. */
 export type AcceptedSessionSpawn = {
   runId: string;
   childSessionKey: string;
