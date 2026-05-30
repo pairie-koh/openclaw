@@ -1,4 +1,4 @@
-// extensions/qa-lab/src qa transport helpers and runtime behavior.
+// QA Lab transport helpers define normalized message transport adapters and waits.
 import { setTimeout as sleep } from "node:timers/promises";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
@@ -14,6 +14,7 @@ import type {
   QaBusWaitForInput,
 } from "./runtime-api.js";
 
+/** Minimal gateway client surface used by QA transports. */
 export type QaTransportGatewayClient = {
   call: (
     method: string,
@@ -24,8 +25,10 @@ export type QaTransportGatewayClient = {
   ) => Promise<unknown>;
 };
 
+/** Generic transport actions supported by QA scenarios. */
 export type QaTransportActionName = "delete" | "edit" | "react" | "thread-create";
 
+/** Parameters used by transports when rendering report notes. */
 export type QaTransportReportParams = {
   providerMode: QaProviderMode;
   primaryModel: string;
@@ -35,8 +38,10 @@ export type QaTransportReportParams = {
   isolatedWorkers?: boolean;
 };
 
+/** Gateway config surface that transports can contribute. */
 export type QaTransportGatewayConfig = Pick<OpenClawConfig, "channels" | "messages">;
 
+/** Normalized state operations required by QA transports. */
 export type QaTransportState = {
   reset: () => void | Promise<void>;
   getSnapshot: () => QaBusStateSnapshot;
@@ -82,6 +87,7 @@ type QaTransportCommonCapabilities = {
   assertNoFailureReplies: (options?: QaTransportFailureAssertionOptions) => void;
 };
 
+/** Polls until a transport condition returns a non-nullish value. */
 export async function waitForQaTransportCondition<T>(
   check: () => T | Promise<T | null | undefined> | null | undefined,
   timeoutMs = 15_000,
@@ -103,6 +109,7 @@ export async function waitForQaTransportCondition<T>(
   throw new Error(`timed out after ${timeoutMs}ms`);
 }
 
+/** Finds the first observed outbound message that matches QA failure reply patterns. */
 export function findFailureOutboundMessage(
   state: QaTransportState,
   options?: QaTransportFailureAssertionOptions,
@@ -131,6 +138,7 @@ function assertNoFailureReplies(
   }
 }
 
+/** Creates a wait helper that fails early when visible failure replies appear. */
 export function createFailureAwareTransportWaitForCondition(state: QaTransportState) {
   return async function waitForTransportCondition<T>(
     check: () => T | Promise<T | null | undefined> | null | undefined,
@@ -157,6 +165,7 @@ export function createFailureAwareTransportWaitForCondition(state: QaTransportSt
   };
 }
 
+/** Adapter contract implemented by QA message transports. */
 export type QaTransportAdapter = {
   id: string;
   label: string;
@@ -184,6 +193,7 @@ export type QaTransportAdapter = {
   createReportNotes: (params: QaTransportReportParams) => string[];
 };
 
+/** Base transport adapter backed by normalized QA bus state. */
 export abstract class QaStateBackedTransportAdapter implements QaTransportAdapter {
   readonly id: string;
   readonly label: string;
