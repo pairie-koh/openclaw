@@ -3,7 +3,7 @@ import { normalizeOptionalString } from "@openclaw/normalization-core/string-coe
 import { discoverOpenClawPlugins, type PluginDiscoveryResult } from "./discovery.js";
 import { loadPluginManifest } from "./manifest.js";
 
-/** Shared type for Bundled Plugin Source in src/plugins. */
+/** Manifest/package metadata needed to map a bundled plugin id to its local source. */
 export type BundledPluginSource = {
   pluginId: string;
   localPath: string;
@@ -13,12 +13,12 @@ export type BundledPluginSource = {
   requiresConfig?: boolean;
 };
 
-/** Shared type for Bundled Plugin Lookup in src/plugins. */
+/** Lookup key supported by bundled-source discovery: package spec or plugin id. */
 export type BundledPluginLookup =
   | { kind: "npmSpec"; value: string }
   | { kind: "pluginId"; value: string };
 
-/** Reused helper for find Bundled Plugin Source In Map behavior in src/plugins. */
+/** Resolve one lookup against an already-discovered bundled-source map. */
 export function findBundledPluginSourceInMap(params: {
   bundled: ReadonlyMap<string, BundledPluginSource>;
   lookup: BundledPluginLookup;
@@ -38,7 +38,7 @@ export function findBundledPluginSourceInMap(params: {
   return undefined;
 }
 
-/** Reused helper for resolve Bundled Plugin Sources behavior in src/plugins. */
+/** Discover bundled plugins and return source metadata keyed by manifest plugin id. */
 export function resolveBundledPluginSources(params: {
   workspaceDir?: string;
   /** Use an explicit env when bundled roots should resolve independently from process.env. */
@@ -96,7 +96,7 @@ function pluginConfigSchemaHasRequiredFields(schema: unknown): boolean {
   return Array.isArray(required) && required.some((entry) => typeof entry === "string");
 }
 
-/** Reused helper for find Bundled Plugin Source behavior in src/plugins. */
+/** Discover bundled sources and resolve one package-spec or plugin-id lookup. */
 export function findBundledPluginSource(params: {
   lookup: BundledPluginLookup;
   workspaceDir?: string;
@@ -113,7 +113,7 @@ export function findBundledPluginSource(params: {
   });
 }
 
-/** Reused helper for resolve Bundled Plugin Install Command Hint behavior in src/plugins. */
+/** Build the local install command users can run when a bundled plugin needs repair. */
 export function resolveBundledPluginInstallCommandHint(params: {
   pluginId: string;
   workspaceDir?: string;

@@ -1,6 +1,6 @@
 // Narrow primitive coercion helpers for plugins that do not need the full text-runtime barrel.
 
-/** Re-exported API for src/plugin-sdk. */
+/** String coercion helpers kept in this narrow barrel for plugin runtime code. */
 export {
   hasNonEmptyString,
   localeLowercasePreservingWhitespace,
@@ -27,7 +27,7 @@ export {
   parseStrictPositiveInteger,
 } from "../../packages/normalization-core/src/number-coercion.js";
 export { asBoolean, parseBooleanValue } from "../utils/boolean.js";
-/** Re-exported API for src/plugin-sdk. */
+/** Record guards and field readers for plugin boundary normalization. */
 export {
   asRecord,
   asNullableRecord,
@@ -35,7 +35,7 @@ export {
   readStringField,
 } from "../../packages/normalization-core/src/record-coerce.js";
 export { isRecord } from "../utils.js";
-/** Re-exported API for src/plugin-sdk. */
+/** Stable string-list normalization helpers for plugin manifests and config. */
 export {
   normalizeAtHashSlug,
   normalizeHyphenSlug,
