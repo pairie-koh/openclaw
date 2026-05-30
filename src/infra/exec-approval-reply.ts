@@ -22,15 +22,15 @@ import {
   type ExecHost,
 } from "./exec-approvals.js";
 
-/** Shared type for Exec Approval Reply Decision in src/infra. */
+/** Decision values exposed by exec approval reply actions. */
 export type ExecApprovalReplyDecision = ExecApprovalDecision;
-/** Shared type for Exec Approval Unavailable Reason in src/infra. */
+/** Reason a chat-native approval reply cannot be delivered on the initiating platform. */
 export type ExecApprovalUnavailableReason =
   | "initiating-platform-disabled"
   | "initiating-platform-unsupported"
   | "no-approval-route";
 
-/** Shared type for Exec Approval Reply Metadata in src/infra. */
+/** Channel metadata stored on approval reply payloads for later correlation. */
 export type ExecApprovalReplyMetadata = {
   approvalId: string;
   approvalSlug: string;
@@ -40,7 +40,7 @@ export type ExecApprovalReplyMetadata = {
   sessionKey?: string;
 };
 
-/** Shared type for Exec Approval Action Descriptor in src/infra. */
+/** One approval action button/command descriptor. */
 export type ExecApprovalActionDescriptor = {
   decision: ExecApprovalReplyDecision;
   label: string;
@@ -48,7 +48,7 @@ export type ExecApprovalActionDescriptor = {
   command: string;
 };
 
-/** Shared type for Exec Approval Pending Reply Params in src/infra. */
+/** Inputs for building a pending exec approval reply payload. */
 export type ExecApprovalPendingReplyParams = {
   warningText?: string;
   approvalId: string;
@@ -66,7 +66,7 @@ export type ExecApprovalPendingReplyParams = {
   nowMs?: number;
 };
 
-/** Shared type for Exec Approval Unavailable Reply Params in src/infra. */
+/** Inputs for building an approval-unavailable explanatory reply. */
 export type ExecApprovalUnavailableReplyParams = {
   warningText?: string;
   channel?: string;
@@ -109,7 +109,7 @@ function buildApprovalCommandFence(
   return buildFence(descriptors.map((descriptor) => descriptor.command).join("\n"), "txt");
 }
 
-/** Reused helper for build Exec Approval Command Text behavior in src/infra. */
+/** Build the slash-command text that records one approval decision. */
 export function buildExecApprovalCommandText(params: {
   approvalCommandId: string;
   decision: ExecApprovalReplyDecision;
@@ -117,7 +117,7 @@ export function buildExecApprovalCommandText(params: {
   return `/approve ${params.approvalCommandId} ${params.decision}`;
 }
 
-/** Reused helper for build Exec Approval Action Descriptors behavior in src/infra. */
+/** Build ordered approval action descriptors from command id and allowed decisions. */
 export function buildExecApprovalActionDescriptors(params: {
   approvalCommandId: string;
   ask?: string | null;
@@ -263,12 +263,12 @@ export function buildExecApprovalInteractiveReply(params: {
   });
 }
 
-/** Reused helper for get Exec Approval Approver Dm Notice Text behavior in src/infra. */
+/** Return the standard notice when approval DMs were sent to approvers. */
 export function getExecApprovalApproverDmNoticeText(): string {
   return "Approval required. I sent approval DMs to the approvers for this account.";
 }
 
-/** Reused helper for parse Exec Approval Command Text behavior in src/infra. */
+/** Parse an approval slash command into approval id and normalized decision. */
 export function parseExecApprovalCommandText(
   raw: string,
 ): { approvalId: string; decision: ExecApprovalReplyDecision } | null {
@@ -287,7 +287,7 @@ export function parseExecApprovalCommandText(
   };
 }
 
-/** Reused helper for format Exec Approval Expires In behavior in src/infra. */
+/** Format remaining approval lifetime as compact h/m/s text. */
 export function formatExecApprovalExpiresIn(expiresAtMs: number, nowMs: number): string {
   const totalSeconds = Math.max(0, Math.round((expiresAtMs - nowMs) / 1000));
   if (totalSeconds < 60) {
@@ -319,7 +319,7 @@ function buildFence(text: string, language?: string): string {
   return `${fence}${languagePrefix}\n${text}\n${fence}`;
 }
 
-/** Reused helper for get Exec Approval Reply Metadata behavior in src/infra. */
+/** Extract approval correlation metadata from a reply payload. */
 export function getExecApprovalReplyMetadata(
   payload: ReplyPayload,
 ): ExecApprovalReplyMetadata | null {
@@ -356,7 +356,7 @@ export function getExecApprovalReplyMetadata(
   };
 }
 
-/** Reused helper for build Exec Approval Pending Reply Payload behavior in src/infra. */
+/** Build the pending approval reply payload with commands, buttons, and metadata. */
 export function buildExecApprovalPendingReplyPayload(
   params: ExecApprovalPendingReplyParams,
 ): ReplyPayload {
@@ -425,7 +425,7 @@ export function buildExecApprovalPendingReplyPayload(
   };
 }
 
-/** Reused helper for build Exec Approval Unavailable Reply Payload behavior in src/infra. */
+/** Build the reply explaining why native chat approval is unavailable. */
 export function buildExecApprovalUnavailableReplyPayload(
   params: ExecApprovalUnavailableReplyParams,
 ): ReplyPayload {
