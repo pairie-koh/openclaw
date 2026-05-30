@@ -8,7 +8,7 @@ import {
   type ManagedProxyTlsOptions,
 } from "./proxy-tls.js";
 
-/** Shared type for Managed Env Http Proxy Agent Options in src/infra/net. */
+/** Constructor options accepted by Undici's environment proxy agent. */
 export type ManagedEnvHttpProxyAgentOptions = ConstructorParameters<typeof EnvHttpProxyAgent>[0];
 
 function readProxyTlsRecord(options: object | undefined): Record<string, unknown> | undefined {
@@ -71,7 +71,7 @@ function resolveManagedProxyUrl(env: ManagedProxyTlsEnv = process.env): string |
   return normalizeProxyUrl(resolveEnvHttpProxyUrl("https", env));
 }
 
-/** Reused helper for resolve Active Managed Proxy Tls Options behavior in src/infra/net. */
+/** Resolves TLS trust options only when the target proxy is the active managed proxy. */
 export function resolveActiveManagedProxyTlsOptions(
   params?: ResolveActiveManagedProxyTlsOptionsParams,
 ): ManagedProxyTlsOptions | undefined {
@@ -98,17 +98,17 @@ export function resolveActiveManagedProxyTlsOptions(
   }
 }
 
-/** Reused helper for add Active Managed Proxy Tls Options behavior in src/infra/net. */
+/** Adds active managed-proxy TLS settings to an empty options object. */
 export function addActiveManagedProxyTlsOptions(
   options: undefined,
   params?: AddActiveManagedProxyTlsOptionsParams,
 ): { proxyTls: ManagedProxyTlsOptions } | undefined;
-/** Reused helper for add Active Managed Proxy Tls Options behavior in src/infra/net. */
+/** Adds active managed-proxy TLS settings while preserving caller options. */
 export function addActiveManagedProxyTlsOptions<TOptions extends object>(
   options: TOptions,
   params?: AddActiveManagedProxyTlsOptionsParams,
 ): TOptions | (TOptions & { proxyTls: Record<string, unknown> });
-/** Reused helper for add Active Managed Proxy Tls Options behavior in src/infra/net. */
+/** Adds active managed-proxy TLS settings to optional Undici proxy options. */
 export function addActiveManagedProxyTlsOptions<TOptions extends object>(
   options: TOptions | undefined,
   params?: AddActiveManagedProxyTlsOptionsParams,
@@ -119,7 +119,7 @@ export function addActiveManagedProxyTlsOptions<TOptions extends object>(
       proxyTls: ManagedProxyTlsOptions;
     }
   | undefined;
-/** Reused helper for add Active Managed Proxy Tls Options behavior in src/infra/net. */
+/** Merges active managed-proxy TLS settings under proxyTls without overwriting caller fields. */
 export function addActiveManagedProxyTlsOptions<TOptions extends object>(
   options: TOptions | undefined,
   params?: AddActiveManagedProxyTlsOptionsParams,
@@ -145,7 +145,7 @@ export function addActiveManagedProxyTlsOptions<TOptions extends object>(
   };
 }
 
-/** Reused helper for resolve Managed Env Http Proxy Agent Options behavior in src/infra/net. */
+/** Resolves environment proxy agent options and injects active managed-proxy TLS trust. */
 export function resolveManagedEnvHttpProxyAgentOptions(
   env: NodeJS.ProcessEnv = process.env,
 ): ManagedEnvHttpProxyAgentOptions | undefined {
