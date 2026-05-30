@@ -130,12 +130,10 @@ export function mockExtractMessageContent(message: MessageContentInput): Message
   ) as MessageContentOutput;
 }
 
-/** Return whether a mocked WhatsApp JID represents a group chat. */
 export function mockIsJidGroup(jid: string | undefined | null): boolean {
   return typeof jid === "string" && jid.endsWith("@g.us");
 }
 
-/** Create a complete mocked Baileys module and access to the latest fake socket. */
 export function createMockBaileys(): {
   mod: MockBaileysModule;
   lastSocket: () => MockBaileysSocket;

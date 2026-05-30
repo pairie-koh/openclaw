@@ -38,17 +38,14 @@ const embeddedAgentMocks = getSharedMocks("openclaw.trigger-handling.embedded-ag
   isEmbeddedAgentRunStreaming: vi.fn().mockReturnValue(false),
 }));
 
-/** Return the shared embedded-agent abort mock used by trigger tests. */
 export function getAbortEmbeddedAgentRunMock(): AnyMock {
   return embeddedAgentMocks.abortEmbeddedAgentRun;
 }
 
-/** Return the shared embedded-agent compaction mock used by trigger tests. */
 export function getCompactEmbeddedAgentSessionMock(): AnyMock {
   return embeddedAgentMocks.compactEmbeddedAgentSession;
 }
 
-/** Return the shared embedded-agent run mock used by trigger tests. */
 export function getRunEmbeddedAgentMock(): AnyMock {
   return embeddedAgentMocks.runEmbeddedAgent;
 }
@@ -95,7 +92,6 @@ const providerUsageMocks = vi.hoisted(() => ({
   resolveUsageProviderId: vi.fn((provider: string) => provider.split("/")[0]),
 }));
 
-/** Return provider usage mocks that back `/usage` trigger assertions. */
 export function getProviderUsageMocks(): AnyMocks {
   return providerUsageMocks;
 }
@@ -263,7 +259,6 @@ afterAll(async () => {
   suiteTempHomeId = 0;
 });
 
-/** Run a trigger test inside an isolated temporary OpenClaw home. */
 export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
   const home = join(suiteTempHomeRoot, `case-${++suiteTempHomeId}`);
   const snapshot = snapshotTempHomeEnv();
@@ -292,7 +287,6 @@ export async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise
   }
 }
 
-/** Build a fast reply config fixture rooted in the provided temp home. */
 export function makeCfg(home: string): OpenClawConfig {
   return withFastReplyConfig({
     agents: {
@@ -336,7 +330,6 @@ export function installTriggerHandlingReplyHarness(
   installTriggerHandlingE2eTestHooks();
 }
 
-/** Return the configured session store path or fail the test fixture setup. */
 export function requireSessionStorePath(cfg: { session?: { store?: string } }): string {
   const storePath = cfg.session?.store;
   if (!storePath) {

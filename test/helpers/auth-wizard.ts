@@ -77,7 +77,6 @@ export function createAuthTestLifecycle(envKeys: string[]): AuthTestLifecycle {
   };
 }
 
-/** Return the test agent directory or fail loudly when setup forgot it. */
 export function requireOpenClawAgentDir(): string {
   const agentDir = process.env.OPENCLAW_AGENT_DIR;
   if (!agentDir) {
