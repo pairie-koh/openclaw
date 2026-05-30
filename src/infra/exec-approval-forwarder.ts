@@ -122,7 +122,7 @@ type ApprovalRouteRequestFields = {
   turnSourceThreadId?: string | number | null;
 };
 
-/** Shared type for Exec Approval Forwarder in src/infra. */
+/** Approval forwarding lifecycle used by gateway approval queues. */
 export type ExecApprovalForwarder = {
   handleRequested: (request: ExecApprovalRequest) => Promise<boolean>;
   handleResolved: (resolved: ExecApprovalResolved) => Promise<void>;
@@ -233,7 +233,7 @@ function formatApprovalCommand(command: string): { inline: boolean; text: string
   return { inline: false, text: `${fence}\n${command}\n${fence}` };
 }
 
-/** Reused helper for build Exec Approval Request Message behavior in src/infra. */
+/** Render the plain-text exec approval request used by fallback message delivery. */
 export function buildExecApprovalRequestMessage(request: ExecApprovalRequest, nowMs: number) {
   const allowedDecisions = resolveExecApprovalRequestAllowedDecisions(request.request);
   const decisionText = allowedDecisions.join("|");
@@ -775,7 +775,7 @@ const pluginApprovalStrategy = createApprovalStrategy<
     }),
 });
 
-/** Reused helper for create Exec Approval Forwarder behavior in src/infra. */
+/** Create approval request/resolution handlers for exec and plugin approval forwarding. */
 export function createExecApprovalForwarder(
   deps: ExecApprovalForwarderDeps = {},
 ): ExecApprovalForwarder {

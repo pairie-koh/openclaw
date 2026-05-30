@@ -1,11 +1,11 @@
 import { normalizeArrayBackedTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
 
-/** Reused helper for normalize Node Approval Surface List behavior in src/infra. */
+/** Normalize an approval-surface list to the canonical trimmed string array. */
 export function normalizeNodeApprovalSurfaceList(value: readonly string[] | undefined): string[] {
   return normalizeArrayBackedTrimmedStringList(value) ?? [];
 }
 
-/** Reused helper for same Node Approval Surface Set behavior in src/infra. */
+/** Compare approval-surface lists as unordered canonical sets. */
 export function sameNodeApprovalSurfaceSet(
   left: readonly string[] | undefined,
   right: readonly string[] | undefined,
@@ -23,7 +23,7 @@ export function sameNodeApprovalSurfaceSet(
   return true;
 }
 
-/** Reused helper for same Node Permission Surface behavior in src/infra. */
+/** Compare permission-surface maps with deterministic key ordering. */
 export function sameNodePermissionSurface(
   left: Record<string, boolean> | undefined,
   right: Record<string, boolean> | undefined,
