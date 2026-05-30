@@ -19,7 +19,7 @@ function truncateText(value: string, maxChars: number): string {
   return `${trimmed}...`;
 }
 
-/** Reused helper for build Untrusted Channel Metadata behavior in src/security. */
+/** Build bounded untrusted channel metadata for prompt injection-safe context. */
 export function buildUntrustedChannelMetadata(params: {
   source: string;
   label: string;
