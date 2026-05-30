@@ -59,7 +59,6 @@ const QA_GATEWAY_CHILD_BLOCKED_SECRET_ENV_VARS = Object.freeze([
   "OPENCLAW_QA_CONVEX_SECRET_MAINTAINER",
 ]);
 
-/** Mutable filesystem/env context passed to restart-after-mutation hooks. */
 export type QaGatewayChildStateMutationContext = {
   configPath: string;
   runtimeEnv: NodeJS.ProcessEnv;
@@ -67,7 +66,6 @@ export type QaGatewayChildStateMutationContext = {
   tempRoot: string;
 };
 
-/** Command override used when QA should start a packaged or alternate gateway binary. */
 export type QaGatewayChildCommand = {
   executablePath: string;
   argsPrefix?: string[];
@@ -183,12 +181,10 @@ function appendQaGatewayTempRoot(details: string, tempRoot: string) {
     : `${details}\nQA gateway temp root preserved at ${tempRoot}`;
 }
 
-/** Resolves the provider mode used by a QA gateway child. */
 export function resolveQaGatewayChildProviderMode(providerMode?: QaProviderMode): QaProviderMode {
   return providerMode ?? DEFAULT_QA_PROVIDER_MODE;
 }
 
-/** Builds the sanitized environment passed to the isolated QA gateway child. */
 export function buildQaRuntimeEnv(params: {
   configPath: string;
   gatewayToken: string;
@@ -326,7 +322,6 @@ async function waitForQaGatewayRestartBoundary(params: {
   throw new Error(`qa gateway child did not reach restart boundary within ${timeoutMs}ms`);
 }
 
-/** Test-only seams for gateway child startup, cleanup, and provider staging logic. */
 export const testing = {
   assertQaArtifactDirWithinRepo,
   buildQaRuntimeEnv,
@@ -503,7 +498,6 @@ function isRetryableRpcStartupError(error: unknown) {
   );
 }
 
-/** Resolves the built Control UI root when QA gateway control UI should be enabled. */
 export function resolveQaControlUiRoot(params: { repoRoot: string; controlUiEnabled?: boolean }) {
   if (params.controlUiEnabled === false) {
     return undefined;
@@ -513,7 +507,6 @@ export function resolveQaControlUiRoot(params: { repoRoot: string; controlUiEnab
   return existsSync(indexPath) ? controlUiRoot : undefined;
 }
 
-/** Starts an isolated QA gateway child process and returns lifecycle/RPC controls. */
 export async function startQaGatewayChild(params: {
   repoRoot: string;
   command?: QaGatewayChildCommand;
