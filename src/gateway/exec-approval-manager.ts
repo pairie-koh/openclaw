@@ -1,4 +1,3 @@
-// gateway exec approval manager helpers and runtime behavior.
 import { randomUUID } from "node:crypto";
 import { resolveExpiresAtMsFromDurationMs } from "@openclaw/normalization-core/number-coercion";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
@@ -29,7 +28,6 @@ function resolveApprovalTimeoutMs(timeoutMs: number): number {
 
 type ExecApprovalRequestPayload = InfraExecApprovalRequestPayload;
 
-/** Shared type for Exec Approval Record in src/gateway. */
 export type ExecApprovalRecord<TPayload = ExecApprovalRequestPayload> = {
   id: string;
   request: TPayload;
@@ -54,13 +52,11 @@ type PendingEntry<TPayload = ExecApprovalRequestPayload> = {
   promise: Promise<ExecApprovalDecision | null>;
 };
 
-/** Shared type for Exec Approval Id Lookup Result in src/gateway. */
 export type ExecApprovalIdLookupResult =
   | { kind: "exact" | "prefix"; id: string }
   | { kind: "ambiguous"; ids: string[] }
   | { kind: "none" };
 
-/** Reused class for Exec Approval Manager behavior in src/gateway. */
 export class ExecApprovalManager<TPayload = ExecApprovalRequestPayload> {
   private pending = new Map<string, PendingEntry<TPayload>>();
 

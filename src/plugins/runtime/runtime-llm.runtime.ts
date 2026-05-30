@@ -20,7 +20,6 @@ import type {
   RuntimeLogger,
 } from "./types-core.js";
 
-/** Shared type for Runtime Llm Authority in src/plugins/runtime. */
 export type RuntimeLlmAuthority = {
   caller?: LlmCompleteCaller;
   /** Trusted host-derived plugin id used only for config policy lookup. */
@@ -36,7 +35,6 @@ export type RuntimeLlmAuthority = {
   denyReason?: string;
 };
 
-/** Shared type for Create Runtime Llm Options in src/plugins/runtime. */
 export type CreateRuntimeLlmOptions = {
   getConfig?: () => OpenClawConfig | undefined;
   authority?: RuntimeLlmAuthority;

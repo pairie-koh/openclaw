@@ -286,7 +286,6 @@ async function sendResolvedPushes(params: {
   );
 }
 
-/** Reused helper for create Exec Approval Ios Push Delivery behavior in src/gateway. */
 export function createExecApprovalIosPushDelivery(params: { log: GatewayLikeLogger }) {
   const approvalDeliveriesById = new Map<string, ApprovalDeliveryState>();
   const pendingDeliveryStateById = new Map<string, Promise<ApprovalDeliveryState | null>>();

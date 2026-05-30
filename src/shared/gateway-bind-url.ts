@@ -1,6 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Shared type for Gateway Bind Url Result in src/shared. */
 export type GatewayBindUrlResult =
   | {
       url: string;
@@ -11,7 +10,6 @@ export type GatewayBindUrlResult =
     }
   | null;
 
-/** Reused helper for resolve Gateway Bind Url behavior in src/shared. */
 export function resolveGatewayBindUrl(params: {
   bind?: string;
   customBindHost?: string;

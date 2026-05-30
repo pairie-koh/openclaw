@@ -9,7 +9,6 @@ import {
 } from "../../hooks/message-hook-mappers.js";
 import type { FinalizedMsgContext } from "../templating.js";
 
-/** Reused helper for emit Pre Agent Message Hooks behavior in src/auto-reply/reply. */
 export function emitPreAgentMessageHooks(params: {
   ctx: FinalizedMsgContext;
   cfg: OpenClawConfig;

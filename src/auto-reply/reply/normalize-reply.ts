@@ -18,10 +18,8 @@ import {
   type ResponsePrefixContext,
 } from "./response-prefix-template.js";
 
-/** Shared type for Normalize Reply Skip Reason in src/auto-reply/reply. */
 export type NormalizeReplySkipReason = "empty" | "silent" | "heartbeat";
 
-/** Shared type for Normalize Reply Options in src/auto-reply/reply. */
 export type NormalizeReplyOptions = {
   responsePrefix?: string;
   applyChannelTransforms?: boolean;
@@ -34,7 +32,6 @@ export type NormalizeReplyOptions = {
   onSkip?: (reason: NormalizeReplySkipReason) => void;
 };
 
-/** Reused helper for normalize Reply Payload behavior in src/auto-reply/reply. */
 export function normalizeReplyPayload(
   payload: ReplyPayload,
   opts: NormalizeReplyOptions = {},

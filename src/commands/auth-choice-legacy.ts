@@ -25,7 +25,6 @@ function resolveReplacementLabel(choiceLabel: string): string {
   return choiceLabel.trim() || "the replacement auth choice";
 }
 
-/** Reused helper for resolve Legacy Auth Choice Aliases For Cli behavior in src/commands. */
 export function resolveLegacyAuthChoiceAliasesForCli(params?: {
   config?: OpenClawConfig;
   workspaceDir?: string;
@@ -38,7 +37,6 @@ export function resolveLegacyAuthChoiceAliasesForCli(params?: {
   return Array.from(new Set(manifestCliAliases));
 }
 
-/** Reused helper for normalize Legacy Onboard Auth Choice behavior in src/commands. */
 export function normalizeLegacyOnboardAuthChoice(
   authChoice: AuthChoice | undefined,
   params?: {
@@ -59,7 +57,6 @@ export function normalizeLegacyOnboardAuthChoice(
   return authChoice;
 }
 
-/** Reused helper for is Deprecated Auth Choice behavior in src/commands. */
 export function isDeprecatedAuthChoice(
   authChoice: AuthChoice | undefined,
   params?: {
@@ -73,7 +70,6 @@ export function isDeprecatedAuthChoice(
   );
 }
 
-/** Reused helper for resolve Deprecated Auth Choice Replacement behavior in src/commands. */
 export function resolveDeprecatedAuthChoiceReplacement(
   authChoice: AuthChoice,
   params?: {
@@ -101,7 +97,6 @@ export function resolveDeprecatedAuthChoiceReplacement(
   };
 }
 
-/** Reused helper for format Deprecated Non Interactive Auth Choice Error behavior in src/commands. */
 export function formatDeprecatedNonInteractiveAuthChoiceError(
   authChoice: AuthChoice,
   params?: {

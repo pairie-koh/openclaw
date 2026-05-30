@@ -5,7 +5,6 @@ import { resolveCommandTurnContext } from "../command-turn-context.js";
 import type { FinalizedMsgContext, MsgContext } from "../templating.js";
 import { normalizeInboundTextNewlines, sanitizeInboundSystemTags } from "./inbound-text.js";
 
-/** Shared type for Finalize Inbound Context Options in src/auto-reply/reply. */
 export type FinalizeInboundContextOptions = {
   forceBodyForAgent?: boolean;
   forceBodyForCommands?: boolean;
@@ -73,7 +72,6 @@ function applySupplementalContext(ctx: MsgContext): void {
   delete ctx.SupplementalContext;
 }
 
-/** Reused helper for finalize Inbound Context behavior in src/auto-reply/reply. */
 export function finalizeInboundContext<T extends Record<string, unknown>>(
   ctx: T,
   opts: FinalizeInboundContextOptions = {},

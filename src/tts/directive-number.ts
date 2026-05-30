@@ -22,7 +22,6 @@ function isInDirectiveNumberRange(value: number, range: DirectiveNumberRange): b
   return true;
 }
 
-/** Reused helper for parse Speech Directive Number Override behavior in src/tts. */
 export function parseSpeechDirectiveNumberOverride(params: {
   ctx: SpeechDirectiveTokenParseContext;
   overrideKey: string;

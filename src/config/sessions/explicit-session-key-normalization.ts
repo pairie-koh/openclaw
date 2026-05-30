@@ -36,7 +36,6 @@ function resolveExplicitSessionKeyNormalizerCandidates(
   return [...candidates];
 }
 
-/** Reused helper for normalize Explicit Session Key behavior in src/config/sessions. */
 export function normalizeExplicitSessionKey(sessionKey: string, ctx: MsgContext): string {
   const normalized = normalizeSessionKeyPreservingOpaquePeerIds(sessionKey);
   for (const channelId of resolveExplicitSessionKeyNormalizerCandidates(normalized, ctx)) {

@@ -1,6 +1,5 @@
 import { readStringValue } from "../../packages/normalization-core/src/string-coerce.js";
 
-/** Re-exported API for src/plugin-sdk, starting with Channel Tool Send. */
 export type { ChannelToolSend } from "../channels/plugins/types.public.js";
 
 /** Extract the canonical send target fields from tool arguments when the action matches. */

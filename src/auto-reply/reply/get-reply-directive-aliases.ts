@@ -5,7 +5,6 @@ import {
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { SkillCommandSpec } from "../../skills/types.js";
 
-/** Reused helper for reserve Skill Command Names behavior in src/auto-reply/reply. */
 export function reserveSkillCommandNames(params: {
   reservedCommands: Set<string>;
   skillCommands: SkillCommandSpec[];
@@ -15,7 +14,6 @@ export function reserveSkillCommandNames(params: {
   }
 }
 
-/** Reused helper for resolve Configured Directive Aliases behavior in src/auto-reply/reply. */
 export function resolveConfiguredDirectiveAliases(params: {
   cfg: OpenClawConfig;
   commandTextHasSlash: boolean;

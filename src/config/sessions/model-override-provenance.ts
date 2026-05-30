@@ -1,7 +1,6 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { SessionEntry } from "./types.js";
 
-/** Reused helper for has Session Auto Model Fallback Provenance behavior in src/config/sessions. */
 export function hasSessionAutoModelFallbackProvenance(
   entry:
     | Pick<

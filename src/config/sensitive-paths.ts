@@ -46,7 +46,6 @@ function isLocalServiceEnvValuePath(path: string): boolean {
   return lowerPath.includes("localservice.env.");
 }
 
-/** Reused helper for is Sensitive Config Path behavior in src/config. */
 export function isSensitiveConfigPath(path: string): boolean {
   return (
     isLocalServiceEnvValuePath(path) ||

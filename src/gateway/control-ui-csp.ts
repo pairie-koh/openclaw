@@ -1,4 +1,3 @@
-// gateway control ui csp helpers and runtime behavior.
 import { createHash } from "node:crypto";
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
@@ -33,7 +32,6 @@ function hasScriptSrcAttribute(openTag: string): boolean {
   );
 }
 
-/** Reused helper for build Control Ui Csp Header behavior in src/gateway. */
 export function buildControlUiCspHeader(opts?: { inlineScriptHashes?: string[] }): string {
   const hashes = opts?.inlineScriptHashes;
   const scriptSrc = hashes?.length

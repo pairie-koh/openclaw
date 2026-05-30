@@ -5,7 +5,6 @@ import {
 import { getChatCommands } from "../../auto-reply/commands-registry.data.js";
 import type { SkillCommandSpec } from "../types.js";
 
-/** Reused helper for list Reserved Chat Slash Command Names behavior in src/skills/discovery. */
 export function listReservedChatSlashCommandNames(extraNames: string[] = []): Set<string> {
   const reserved = new Set<string>();
   for (const command of getChatCommands()) {
@@ -57,7 +56,6 @@ function findSkillCommand(
   });
 }
 
-/** Reused helper for resolve Skill Command Invocation behavior in src/skills/discovery. */
 export function resolveSkillCommandInvocation(params: {
   commandBodyNormalized: string;
   skillCommands: SkillCommandSpec[];

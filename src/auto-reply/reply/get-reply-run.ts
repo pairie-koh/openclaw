@@ -207,7 +207,6 @@ function resolvePersistedPromptSurface(entry?: SessionEntry): string | undefined
   );
 }
 
-/** Reused helper for resolve Prompt Session Context For System Event behavior in src/auto-reply/reply. */
 export function resolvePromptSessionContextForSystemEvent(params: {
   sessionCtx: TemplateContext;
   sessionEntry?: SessionEntry;
@@ -293,7 +292,6 @@ export function resolvePromptSessionContextForSystemEvent(params: {
   return changed ? next : sessionCtx;
 }
 
-/** Reused helper for build Exec Override Prompt Hint behavior in src/auto-reply/reply. */
 export function buildExecOverridePromptHint(params: {
   execOverrides?: ExecOverrides;
   elevatedLevel: ElevatedLevel;
@@ -439,7 +437,6 @@ type RunPreparedReplyParams = {
   autoFallbackPrimaryProbe?: AutoFallbackPrimaryProbe;
 };
 
-/** Reused helper for run Prepared Reply behavior in src/auto-reply/reply. */
 export async function runPreparedReply(
   params: RunPreparedReplyParams,
 ): Promise<ReplyPayload | ReplyPayload[] | undefined> {

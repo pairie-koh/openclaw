@@ -1,6 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for resolve Emoji And Homepage behavior in src/shared. */
 export function resolveEmojiAndHomepage(params: {
   metadata?: { emoji?: string; homepage?: string } | null;
   frontmatter?: {

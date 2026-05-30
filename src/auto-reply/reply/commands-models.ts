@@ -47,7 +47,6 @@ type ModelsCommandSessionEntry = Partial<
   Pick<SessionEntry, "authProfileOverride" | "modelProvider" | "model">
 >;
 
-/** Shared type for Models Provider Data in src/auto-reply/reply. */
 export type ModelsProviderData = {
   byProvider: Map<string, Set<string>>;
   providers: string[];
@@ -56,7 +55,6 @@ export type ModelsProviderData = {
   runtimeChoicesByProvider?: Map<string, ModelsRuntimeChoice[]>;
 };
 
-/** Shared type for Models Runtime Choice in src/auto-reply/reply. */
 export type ModelsRuntimeChoice = {
   id: string;
   label: string;
@@ -147,7 +145,6 @@ function addRuntimeChoice(
   return choices;
 }
 
-/** Reused helper for build Models Provider Data behavior in src/auto-reply/reply. */
 export async function buildModelsProviderData(
   cfg: OpenClawConfig,
   agentId?: string,
@@ -438,7 +435,6 @@ function resolveProviderLabel(params: {
   return `${params.provider} · 🔑 ${authLabel}`;
 }
 
-/** Reused helper for format Models Available Header behavior in src/auto-reply/reply. */
 export function formatModelsAvailableHeader(params: {
   provider: string;
   total: number;
@@ -487,7 +483,6 @@ function buildProviderInfos(params: {
   }));
 }
 
-/** Reused helper for resolve Models Command Reply behavior in src/auto-reply/reply. */
 export async function resolveModelsCommandReply(params: {
   cfg: OpenClawConfig;
   commandBodyNormalized: string;
@@ -661,7 +656,6 @@ export async function resolveModelsCommandReply(params: {
   return { text: lines.join("\n") };
 }
 
-/** Reused constant for handle Models Command behavior in src/auto-reply/reply. */
 export const handleModelsCommand: CommandHandler = async (params, allowTextCommands) => {
   if (!allowTextCommands) {
     return null;

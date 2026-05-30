@@ -11,7 +11,6 @@ function loadMessageRuntime() {
   return messageRuntimePromise;
 }
 
-/** Reused constant for DEFAULT ECHO TRANSCRIPT FORMAT behavior in src/media-understanding. */
 export const DEFAULT_ECHO_TRANSCRIPT_FORMAT = '📝 "{transcript}"';
 
 function formatEchoTranscript(transcript: string, format: string): string {

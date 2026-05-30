@@ -4,7 +4,6 @@ import { hasConfiguredUnavailableCredentialStatus } from "../../channels/account
 import type { ChannelAccountSnapshot } from "../../channels/plugins/types.public.js";
 import { sha256HexPrefix } from "../../logging/redact-identifier.js";
 
-/** Shared type for Channel Account Token Summary Row in src/commands/status-all. */
 export type ChannelAccountTokenSummaryRow = {
   account: unknown;
   enabled: boolean;
@@ -43,7 +42,6 @@ function formatTokenHint(token: string, opts: { showSecrets: boolean }): string 
   return `${head}…${tail} · len ${t.length}`;
 }
 
-/** Reused helper for summarize Token Config behavior in src/commands/status-all. */
 export function summarizeTokenConfig(params: {
   accounts: ChannelAccountTokenSummaryRow[];
   showSecrets: boolean;

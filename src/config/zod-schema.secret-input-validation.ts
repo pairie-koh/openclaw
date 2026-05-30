@@ -41,7 +41,6 @@ function forEachEnabledAccount<T extends { enabled?: unknown }>(
   }
 }
 
-/** Reused helper for validate Telegram Webhook Secret Requirements behavior in src/config. */
 export function validateTelegramWebhookSecretRequirements(
   value: TelegramConfigLike,
   ctx: z.RefinementCtx,
@@ -72,7 +71,6 @@ export function validateTelegramWebhookSecretRequirements(
   });
 }
 
-/** Reused helper for validate Slack Signing Secret Requirements behavior in src/config. */
 export function validateSlackSigningSecretRequirements(
   value: SlackConfigLike,
   ctx: z.RefinementCtx,

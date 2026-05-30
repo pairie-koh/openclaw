@@ -1,7 +1,6 @@
 import { normalizeTrimmedStringList } from "@openclaw/normalization-core/string-normalization";
 import { defaultVoiceWakeTriggers } from "../infra/voicewake.js";
 
-/** Reused helper for normalize Voice Wake Triggers behavior in src/gateway. */
 export function normalizeVoiceWakeTriggers(input: unknown): string[] {
   const cleaned = normalizeTrimmedStringList(input)
     .slice(0, 32)
@@ -9,7 +8,6 @@ export function normalizeVoiceWakeTriggers(input: unknown): string[] {
   return cleaned.length > 0 ? cleaned : defaultVoiceWakeTriggers();
 }
 
-/** Reused helper for format Error behavior in src/gateway. */
 export function formatError(err: unknown): string {
   if (err instanceof Error) {
     return err.message;

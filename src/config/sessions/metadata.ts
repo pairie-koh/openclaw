@@ -51,7 +51,6 @@ const mergeOrigin = (
   return Object.keys(merged).length > 0 ? merged : undefined;
 };
 
-/** Reused helper for derive Session Origin behavior in src/config/sessions. */
 export function deriveSessionOrigin(
   ctx: MsgContext,
   opts?: { skipSystemEventOrigin?: boolean },
@@ -113,7 +112,6 @@ export function deriveSessionOrigin(
   return Object.keys(origin).length > 0 ? origin : undefined;
 }
 
-/** Reused helper for snapshot Session Origin behavior in src/config/sessions. */
 export function snapshotSessionOrigin(entry?: SessionEntry): SessionOrigin | undefined {
   if (!entry?.origin) {
     return undefined;
@@ -121,7 +119,6 @@ export function snapshotSessionOrigin(entry?: SessionEntry): SessionOrigin | und
   return { ...entry.origin };
 }
 
-/** Reused helper for derive Group Session Patch behavior in src/config/sessions. */
 export function deriveGroupSessionPatch(params: {
   ctx: MsgContext;
   sessionKey: string;
@@ -181,7 +178,6 @@ export function deriveGroupSessionPatch(params: {
   return patch;
 }
 
-/** Reused helper for derive Session Meta Patch behavior in src/config/sessions. */
 export function deriveSessionMetaPatch(params: {
   ctx: MsgContext;
   sessionKey: string;

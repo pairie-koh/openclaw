@@ -22,7 +22,6 @@ function resolvePluginNativeName(
   return command.name;
 }
 
-/** Reused helper for get Plugin Command Specs behavior in src/plugins. */
 export function getPluginCommandSpecs(
   provider?: string,
   options: {

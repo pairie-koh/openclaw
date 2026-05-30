@@ -5,7 +5,6 @@ import { loadInstalledPluginIndexInstallRecordsSync } from "./installed-plugin-i
 import type { PluginPackageChannel, PluginPackageInstall } from "./manifest.js";
 import type { PluginOrigin } from "./plugin-origin.types.js";
 
-/** Shared type for Plugin Channel Catalog Entry in src/plugins. */
 export type PluginChannelCatalogEntry = {
   pluginId: string;
   origin: PluginOrigin;
@@ -16,7 +15,6 @@ export type PluginChannelCatalogEntry = {
   install?: PluginPackageInstall;
 };
 
-/** Reused helper for list Channel Catalog Entries behavior in src/plugins. */
 export function listChannelCatalogEntries(
   params: {
     origin?: PluginOrigin;

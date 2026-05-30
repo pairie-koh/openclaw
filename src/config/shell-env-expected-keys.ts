@@ -4,7 +4,6 @@ import { listKnownProviderAuthEnvVarNames } from "../secrets/provider-env-vars.j
 
 const CORE_SHELL_ENV_EXPECTED_KEYS = ["OPENCLAW_GATEWAY_TOKEN", "OPENCLAW_GATEWAY_PASSWORD"];
 
-/** Reused helper for resolve Shell Env Expected Keys behavior in src/config. */
 export function resolveShellEnvExpectedKeys(env: NodeJS.ProcessEnv): string[] {
   return uniqueStrings([
     ...listKnownProviderAuthEnvVarNames({ env }),

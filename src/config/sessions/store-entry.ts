@@ -6,12 +6,10 @@ import {
 } from "../../sessions/session-key-utils.js";
 import type { SessionEntry } from "./types.js";
 
-/** Reused helper for normalize Store Session Key behavior in src/config/sessions. */
 export function normalizeStoreSessionKey(sessionKey: string): string {
   return normalizeSessionKeyPreservingOpaquePeerIds(sessionKey);
 }
 
-/** Reused helper for folded Session Key Alias Candidates behavior in src/config/sessions. */
 export function foldedSessionKeyAliasCandidates(normalizedKey: string): string[] {
   const aliases = new Set<string>();
   const foldedLegacyKey = normalizeLowercaseStringOrEmpty(normalizedKey);
@@ -99,7 +97,6 @@ export function isConfirmedLowercasedLegacyAlias(
   return entryThreadId(entry) === threadId;
 }
 
-/** Reused helper for has Mismatched Case Sensitive Delivery Proof behavior in src/config/sessions. */
 export function hasMismatchedCaseSensitiveDeliveryProof(
   entry: SessionEntry | undefined,
   normalizedKey: string,
@@ -117,7 +114,6 @@ export function hasMismatchedCaseSensitiveDeliveryProof(
   return Boolean(threadId && storedThreadId && storedThreadId !== threadId);
 }
 
-/** Reused helper for resolve Session Store Entry behavior in src/config/sessions. */
 export function resolveSessionStoreEntry(params: {
   store: Record<string, SessionEntry>;
   sessionKey: string;

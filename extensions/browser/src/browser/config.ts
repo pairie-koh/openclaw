@@ -1,4 +1,3 @@
-// extensions/browser/src/browser config helpers and runtime behavior.
 import os from "node:os";
 import path from "node:path";
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";

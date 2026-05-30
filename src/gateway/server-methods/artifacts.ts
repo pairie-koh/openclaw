@@ -1,4 +1,3 @@
-// gateway/server-methods artifacts helpers and runtime behavior.
 import { createHash } from "node:crypto";
 import { asOptionalRecord } from "@openclaw/normalization-core/record-coerce";
 import { normalizeOptionalString as asNonEmptyString } from "@openclaw/normalization-core/string-coerce";
@@ -317,7 +316,6 @@ function isArtifactBlock(block: Record<string, unknown>): boolean {
   );
 }
 
-/** Reused helper for collect Artifacts From Messages behavior in src/gateway/server-methods. */
 export function collectArtifactsFromMessages(params: {
   messages: unknown[];
   sessionKey: string;
@@ -526,7 +524,6 @@ function toSummary(artifact: ArtifactRecord): ArtifactSummary {
   return summary;
 }
 
-/** Reused constant for artifacts Handlers behavior in src/gateway/server-methods. */
 export const artifactsHandlers: GatewayRequestHandlers = {
   "artifacts.list": async ({ params, respond, context }) => {
     if (!assertValidParams(params, validateArtifactsListParams, "artifacts.list", respond)) {

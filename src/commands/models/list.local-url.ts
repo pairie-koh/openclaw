@@ -1,6 +1,5 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused constant for is Local Base Url behavior in src/commands/models. */
 export const isLocalBaseUrl = (baseUrl: string) => {
   try {
     const url = new URL(baseUrl);

@@ -16,7 +16,6 @@ import type { ModelProviderConfig } from "../config/types.models.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { ProviderAuthMethod, ProviderPlugin } from "./types.js";
 
-/** Reused helper for resolve Provider Match behavior in src/plugins. */
 export function resolveProviderMatch(
   providers: ProviderPlugin[],
   rawProvider?: string,
@@ -36,7 +35,6 @@ export function resolveProviderMatch(
   );
 }
 
-/** Reused helper for pick Auth Method behavior in src/plugins. */
 export function pickAuthMethod(
   provider: ProviderPlugin,
   rawMethod?: string,
@@ -255,7 +253,6 @@ function normalizeConfigModelRefsForWrite(cfg: OpenClawConfig): OpenClawConfig {
   };
 }
 
-/** Reused helper for apply Provider Auth Config Patch behavior in src/plugins. */
 export function applyProviderAuthConfigPatch(
   cfg: OpenClawConfig,
   patch: unknown,
@@ -311,7 +308,6 @@ export function restorePriorAgentsDefaultsModelUnlessOptIn(params: {
   };
 }
 
-/** Reused helper for apply Default Model behavior in src/plugins. */
 export function applyDefaultModel(
   cfg: OpenClawConfig,
   model: string,

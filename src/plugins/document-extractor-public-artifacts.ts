@@ -75,7 +75,6 @@ function collectExtractorFactories(mod: Record<string, unknown>): {
   return { extractors, errors };
 }
 
-/** Reused helper for load Bundled Document Extractor Entries From Dir behavior in src/plugins. */
 export function loadBundledDocumentExtractorEntriesFromDir(params: {
   dirName: string;
   pluginId: string;

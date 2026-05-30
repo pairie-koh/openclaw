@@ -125,7 +125,6 @@ type SkillInstallSpec = {
   targetDir?: string;
 };
 
-/** Shared type for Install Security Scan Result in src/plugins. */
 export type InstallSecurityScanResult = {
   blocked?: {
     code?: "security_scan_blocked" | "security_scan_failed";
@@ -1101,7 +1100,6 @@ async function runBeforeInstallHook(params: {
   return undefined;
 }
 
-/** Reused helper for scan Bundle Install Source Runtime behavior in src/plugins. */
 export async function scanBundleInstallSourceRuntime(
   params: InstallSafetyOverrides & {
     logger: InstallScanLogger;
@@ -1158,7 +1156,6 @@ export async function scanBundleInstallSourceRuntime(
   return hookResult?.blocked ? hookResult : builtinBlocked;
 }
 
-/** Reused helper for scan Package Install Source Runtime behavior in src/plugins. */
 export async function scanPackageInstallSourceRuntime(
   params: InstallSafetyOverrides & {
     extensions: string[];
@@ -1251,7 +1248,6 @@ export async function scanPackageInstallSourceRuntime(
   return hookResult?.blocked ? hookResult : builtinBlocked;
 }
 
-/** Reused helper for scan Installed Package Dependency Tree Runtime behavior in src/plugins. */
 export async function scanInstalledPackageDependencyTreeRuntime(params: {
   additionalPackageDirs?: string[];
   allowManagedNpmRootPackagePeerSymlinks?: boolean;
@@ -1286,7 +1282,6 @@ export async function scanInstalledPackageDependencyTreeRuntime(params: {
   return undefined;
 }
 
-/** Reused helper for scan File Install Source Runtime behavior in src/plugins. */
 export async function scanFileInstallSourceRuntime(
   params: InstallSafetyOverrides & {
     filePath: string;
@@ -1331,7 +1326,6 @@ export async function scanFileInstallSourceRuntime(
   return hookResult?.blocked ? hookResult : builtinBlocked;
 }
 
-/** Reused helper for scan Skill Install Source Runtime behavior in src/plugins. */
 export async function scanSkillInstallSourceRuntime(params: {
   dangerouslyForceUnsafeInstall?: boolean;
   installId: string;

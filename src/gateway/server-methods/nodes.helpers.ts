@@ -13,7 +13,6 @@ type ValidatorFn = ((value: unknown) => boolean) & {
   errors?: ValidationError[] | null;
 };
 
-/** Reused helper for respond Invalid Params behavior in src/gateway/server-methods. */
 export function respondInvalidParams(params: {
   respond: RespondFn;
   method: string;
@@ -29,7 +28,6 @@ export function respondInvalidParams(params: {
   );
 }
 
-/** Reused helper for respond Unavailable On Throw behavior in src/gateway/server-methods. */
 export async function respondUnavailableOnThrow(respond: RespondFn, fn: () => Promise<void>) {
   try {
     await fn();
@@ -38,7 +36,6 @@ export async function respondUnavailableOnThrow(respond: RespondFn, fn: () => Pr
   }
 }
 
-/** Reused helper for respond Unavailable On Node Invoke Error behavior in src/gateway/server-methods. */
 export function respondUnavailableOnNodeInvokeError<T extends { ok: boolean; error?: unknown }>(
   respond: RespondFn,
   res: T,

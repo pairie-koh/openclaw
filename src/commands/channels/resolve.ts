@@ -24,7 +24,6 @@ import { resolveMessageChannelSelection } from "../../infra/outbound/channel-sel
 import { type RuntimeEnv, writeRuntimeJson } from "../../runtime.js";
 import { resolveInstallableChannelPlugin } from "../channel-setup/channel-plugin-resolution.js";
 
-/** Shared type for Channels Resolve Options in src/commands/channels. */
 export type ChannelsResolveOptions = {
   channel?: string;
   account?: string;
@@ -121,7 +120,6 @@ function formatResolveResult(result: ResolveResult): string {
   return `${result.input} -> ${result.id}${name}${note}`;
 }
 
-/** Reused helper for channels Resolve Command behavior in src/commands/channels. */
 export async function channelsResolveCommand(opts: ChannelsResolveOptions, runtime: RuntimeEnv) {
   const sourceSnapshotPromise = readConfigFileSnapshot().catch(() => null);
   const loadedRaw = getRuntimeConfig();

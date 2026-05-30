@@ -67,7 +67,6 @@ function resolveFocusBindingContext(
   };
 }
 
-/** Reused helper for handle Subagents Focus Action behavior in src/auto-reply/reply. */
 export async function handleSubagentsFocusAction(
   ctx: SubagentsCommandContext,
 ): Promise<CommandHandlerResult> {

@@ -32,7 +32,6 @@ function hasDurableGatewayPasswordEnvForInstall(
   );
 }
 
-/** Reused helper for should Require Gateway Token For Install behavior in src/gateway. */
 export function shouldRequireGatewayTokenForInstall(
   cfg: OpenClawConfig,
   env: NodeJS.ProcessEnv,

@@ -2,7 +2,6 @@ import { normalizeStringEntries } from "@openclaw/normalization-core/string-norm
 import { splitTrailingAuthProfile } from "../agents/model-ref-profile.js";
 import { escapeRegExp } from "../utils.js";
 
-/** Reused helper for extract Model Directive behavior in src/auto-reply. */
 export function extractModelDirective(
   body?: string,
   options?: { aliases?: string[] },

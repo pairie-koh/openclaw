@@ -1,6 +1,5 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for normalize Cron Job Identity Fields behavior in src/cron. */
 export function normalizeCronJobIdentityFields(raw: Record<string, unknown>): {
   mutated: boolean;
   legacyJobIdIssue: boolean;

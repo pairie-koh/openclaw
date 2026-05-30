@@ -30,7 +30,6 @@ type ChannelAccountParams = {
   };
 };
 
-/** Reused helper for resolve Command Surface Channel behavior in src/auto-reply/reply. */
 export function resolveCommandSurfaceChannel(params: CommandSurfaceParams): string {
   const channel =
     params.ctx.OriginatingChannel ??
@@ -40,7 +39,6 @@ export function resolveCommandSurfaceChannel(params: CommandSurfaceParams): stri
   return normalizeOptionalLowercaseString(channel) ?? "";
 }
 
-/** Reused helper for resolve Channel Account Id behavior in src/auto-reply/reply. */
 export function resolveChannelAccountId(params: ChannelAccountParams): string {
   const accountId = normalizeOptionalString(params.ctx.AccountId) ?? "";
   if (accountId) {

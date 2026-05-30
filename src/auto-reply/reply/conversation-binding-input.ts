@@ -51,7 +51,6 @@ function resolveBindingThreadId(threadId: string | number | null | undefined): s
   return normalized || undefined;
 }
 
-/** Reused helper for resolve Conversation Binding Context From Message behavior in src/auto-reply/reply. */
 export function resolveConversationBindingContextFromMessage(params: {
   cfg: OpenClawConfig;
   ctx: BindingMsgContext;
@@ -83,7 +82,6 @@ export function resolveConversationBindingContextFromMessage(params: {
   });
 }
 
-/** Reused helper for resolve Conversation Binding Context From Acp Command behavior in src/auto-reply/reply. */
 export function resolveConversationBindingContextFromAcpCommand(
   params: HandleCommandsParams,
 ): ReturnType<typeof resolveConversationBindingContext> {
@@ -97,7 +95,6 @@ export function resolveConversationBindingContextFromAcpCommand(
   });
 }
 
-/** Reused helper for resolve Conversation Binding Channel From Message behavior in src/auto-reply/reply. */
 export function resolveConversationBindingChannelFromMessage(
   ctx: BindingMsgContext,
   commandChannel?: string | null,
@@ -105,7 +102,6 @@ export function resolveConversationBindingChannelFromMessage(
   return resolveBindingChannel(ctx, commandChannel);
 }
 
-/** Reused helper for resolve Conversation Binding Account Id From Message behavior in src/auto-reply/reply. */
 export function resolveConversationBindingAccountIdFromMessage(params: {
   ctx: BindingMsgContext;
   cfg: OpenClawConfig;
@@ -114,7 +110,6 @@ export function resolveConversationBindingAccountIdFromMessage(params: {
   return resolveBindingAccountId(params);
 }
 
-/** Reused helper for resolve Conversation Binding Thread Id From Message behavior in src/auto-reply/reply. */
 export function resolveConversationBindingThreadIdFromMessage(
   ctx: Pick<BindingMsgContext, "MessageThreadId">,
 ): string | undefined {

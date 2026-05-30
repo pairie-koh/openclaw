@@ -1,11 +1,9 @@
 import { isRecord } from "@openclaw/normalization-core/record-coerce";
 
-/** Shared type for Package Plugin Api Range Result in src/plugins. */
 export type PackagePluginApiRangeResult =
   | { ok: true; range?: string }
   | { ok: false; error: string };
 
-/** Reused helper for resolve Package Plugin Api Range behavior in src/plugins. */
 export function resolvePackagePluginApiRange(
   packageMetadata: unknown,
 ): PackagePluginApiRangeResult {

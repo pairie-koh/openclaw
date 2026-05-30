@@ -28,7 +28,6 @@ function isConfigActivationValueEnabled(value: unknown): boolean {
   return true;
 }
 
-/** Reused helper for normalize Configured Speech Provider Id For Startup behavior in src/plugins. */
 export function normalizeConfiguredSpeechProviderIdForStartup(value: unknown): string | undefined {
   if (typeof value !== "string") {
     return undefined;
@@ -138,7 +137,6 @@ function addConfiguredTtsProviderIds(target: Set<string>, value: unknown): void 
   }
 }
 
-/** Reused helper for collect Configured Speech Provider Ids behavior in src/plugins. */
 export function collectConfiguredSpeechProviderIds(config: OpenClawConfig): ReadonlySet<string> {
   const configured = new Set<string>();
   addConfiguredTtsProviderIds(configured, resolveEffectiveTtsConfig(config));

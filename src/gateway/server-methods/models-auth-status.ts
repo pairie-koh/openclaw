@@ -52,7 +52,6 @@ export type ModelAuthExpiry = {
   label: string;
 };
 
-/** Shared type for Model Auth Status Profile in src/gateway/server-methods. */
 export type ModelAuthStatusProfile = {
   profileId: string;
   type: "oauth" | "token" | "api_key";
@@ -60,7 +59,6 @@ export type ModelAuthStatusProfile = {
   expiry?: ModelAuthExpiry;
 };
 
-/** Shared type for Model Auth Status Provider in src/gateway/server-methods. */
 export type ModelAuthStatusProvider = {
   provider: string;
   displayName: string;
@@ -73,14 +71,12 @@ export type ModelAuthStatusProvider = {
   };
 };
 
-/** Shared type for Model Auth Status Result in src/gateway/server-methods. */
 export type ModelAuthStatusResult = {
   /** Snapshot build time, ms since epoch. 0 = never loaded (UI fallback sentinel). */
   ts: number;
   providers: ModelAuthStatusProvider[];
 };
 
-/** Shared type for Model Auth Logout Result in src/gateway/server-methods. */
 export type ModelAuthLogoutResult = {
   provider: string;
   removedProfiles: string[];
@@ -362,7 +358,6 @@ function resolveConfiguredProviders(cfg: OpenClawConfig): {
   return { providers: Array.from(out), expectsOAuth };
 }
 
-/** Reused constant for models Auth Status Handlers behavior in src/gateway/server-methods. */
 export const modelsAuthStatusHandlers: GatewayRequestHandlers = {
   "models.authLogout": async ({ params, respond, context }) => {
     const provider = readProviderParam(params);

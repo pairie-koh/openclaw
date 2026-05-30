@@ -165,7 +165,6 @@ function activeProviderFromTalk(talk: TalkConfig): string | undefined {
   return providerIds.length === 1 ? providerIds[0] : undefined;
 }
 
-/** Reused helper for normalize Talk Section behavior in src/config. */
 export function normalizeTalkSection(value: TalkConfig | undefined): TalkConfig | undefined {
   if (!isRecord(value)) {
     return undefined;
@@ -214,7 +213,6 @@ export function normalizeTalkSection(value: TalkConfig | undefined): TalkConfig 
   return Object.keys(normalized).length > 0 ? normalized : undefined;
 }
 
-/** Reused helper for normalize Talk Config behavior in src/config. */
 export function normalizeTalkConfig(config: OpenClawConfig): OpenClawConfig {
   if (!config.talk) {
     return config;
@@ -229,7 +227,6 @@ export function normalizeTalkConfig(config: OpenClawConfig): OpenClawConfig {
   };
 }
 
-/** Reused helper for resolve Active Talk Provider Config behavior in src/config. */
 export function resolveActiveTalkProviderConfig(
   talk: TalkConfig | undefined,
 ): ResolvedTalkConfig | undefined {
@@ -247,7 +244,6 @@ export function resolveActiveTalkProviderConfig(
   };
 }
 
-/** Reused helper for build Talk Config Response behavior in src/config. */
 export function buildTalkConfigResponse(value: unknown): TalkConfigResponse | undefined {
   if (!isRecord(value)) {
     return undefined;

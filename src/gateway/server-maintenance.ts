@@ -16,7 +16,6 @@ import type { DedupeEntry } from "./server-shared.js";
 import { formatError } from "./server-utils.js";
 import { setBroadcastHealthUpdate } from "./server/health-state.js";
 
-/** Reused helper for start Gateway Maintenance Timers behavior in src/gateway. */
 export function startGatewayMaintenanceTimers(params: {
   broadcast: (
     event: string,
