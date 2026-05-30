@@ -9,7 +9,7 @@ import type { ChannelDirectoryEntryKind, ChannelId } from "../../channels/plugin
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import { getActivePluginChannelRegistryVersion } from "../../plugins/runtime.js";
 
-/** Reused helper for normalize Channel Target Input behavior in src/infra/outbound. */
+/** Trim raw channel target input without applying provider-specific normalization. */
 export function normalizeChannelTargetInput(raw: string): string {
   return raw.trim();
 }
@@ -30,7 +30,7 @@ function resetTargetNormalizerCacheForTests(): void {
   targetNormalizerCacheByChannelId.clear();
 }
 
-/** Reused constant for testing behavior in src/infra/outbound. */
+/** Test hooks for clearing target-normalizer cache state. */
 export const testing = {
   resetTargetNormalizerCacheForTests,
 } as const;
@@ -50,7 +50,7 @@ function resolveTargetNormalizer(channelId: ChannelId): TargetNormalizer {
   return normalizer;
 }
 
-/** Reused helper for normalize Target For Provider behavior in src/infra/outbound. */
+/** Normalize a target through the channel plugin normalizer with trimmed fallback. */
 export function normalizeTargetForProvider(provider: string, raw?: string): string | undefined {
   if (!raw) {
     return undefined;
@@ -64,10 +64,10 @@ export function normalizeTargetForProvider(provider: string, raw?: string): stri
   return normalizeOptionalString(normalizer?.(raw) ?? fallback);
 }
 
-/** Shared type for Target Resolve Kind Like in src/infra/outbound. */
+/** Target kinds accepted by plugin messaging resolvers. */
 export type TargetResolveKindLike = ChannelDirectoryEntryKind | "channel";
 
-/** Shared type for Resolved Plugin Messaging Target in src/infra/outbound. */
+/** Target resolved by a plugin-specific messaging target resolver. */
 export type ResolvedPluginMessagingTarget = {
   to: string;
   kind: TargetResolveKindLike;
@@ -76,7 +76,7 @@ export type ResolvedPluginMessagingTarget = {
   resolutionSource: "plugin";
 };
 
-/** Reused helper for resolve Normalized Target Input behavior in src/infra/outbound. */
+/** Return raw and provider-normalized target input when non-empty. */
 export function resolveNormalizedTargetInput(
   provider: string,
   raw?: string,
@@ -91,7 +91,7 @@ export function resolveNormalizedTargetInput(
   };
 }
 
-/** Reused helper for looks Like Target Id behavior in src/infra/outbound. */
+/** Return whether input looks like a direct target id rather than a directory query. */
 export function looksLikeTargetId(params: {
   channel: ChannelId;
   raw: string;
@@ -119,7 +119,7 @@ export function looksLikeTargetId(params: {
   return /^(conversation|user):/i.test(params.raw);
 }
 
-/** Reused helper for maybe Resolve Plugin Messaging Target behavior in src/infra/outbound. */
+/** Resolve a target with the plugin messaging resolver when one is available. */
 export async function maybeResolvePluginMessagingTarget(params: {
   cfg: OpenClawConfig;
   channel: ChannelId;
@@ -165,7 +165,7 @@ export async function maybeResolvePluginMessagingTarget(params: {
   };
 }
 
-/** Reused helper for build Target Resolver Signature behavior in src/infra/outbound. */
+/** Build a stable cache signature for channel target resolver behavior. */
 export function buildTargetResolverSignature(channel: ChannelId): string {
   const plugin = resolveChannelPluginForTargetRead(channel);
   const resolver = plugin?.messaging?.targetResolver;
@@ -182,5 +182,5 @@ function hashSignature(value: string): string {
   }
   return (hash >>> 0).toString(36);
 }
-/** Re-exported API for src/infra/outbound, starting with testing. */
+/** Test-only target-normalization cache controls. */
 export { testing as __testing };
