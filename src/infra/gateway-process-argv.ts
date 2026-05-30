@@ -5,7 +5,7 @@ function normalizeProcArg(arg: string): string {
   return normalizeLowercaseStringOrEmpty(arg.replaceAll("\\", "/"));
 }
 
-/** Reused helper for parse Proc Cmdline behavior in src/infra. */
+/** Parses Linux `/proc/<pid>/cmdline` null-delimited argv text. */
 export function parseProcCmdline(raw: string): string[] {
   return normalizeStringEntries(raw.split("\0"));
 }
@@ -36,7 +36,7 @@ export function parseWindowsCmdline(raw: string): string[] {
   return args;
 }
 
-/** Reused helper for is Gateway Argv behavior in src/infra. */
+/** Returns whether argv looks like an OpenClaw gateway entry process. */
 export function isGatewayArgv(args: string[], opts?: { allowGatewayBinary?: boolean }): boolean {
   const normalized = args.map(normalizeProcArg);
   if (!normalized.includes("gateway")) {
