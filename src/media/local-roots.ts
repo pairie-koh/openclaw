@@ -1,4 +1,3 @@
-// Local filesystem roots from which media attachments may be read. These roots
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { uniqueStrings } from "@openclaw/normalization-core/string-normalization";

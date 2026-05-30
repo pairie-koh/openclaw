@@ -1,4 +1,3 @@
-// Security audit orchestration and shared collectors. Heavy channel/plugin and
 import path from "node:path";
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { asNullableRecord } from "@openclaw/normalization-core/record-coerce";

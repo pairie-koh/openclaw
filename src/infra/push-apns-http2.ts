@@ -1,4 +1,3 @@
-// APNs HTTP/2 connection helpers with managed-proxy support.
 import http2 from "node:http2";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import { openHttpConnectTunnel } from "./net/http-connect-tunnel.js";

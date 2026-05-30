@@ -1,4 +1,3 @@
-// Package dist inventory generation and validation helpers.
 import fs from "node:fs/promises";
 import path from "node:path";
 import { sortUniqueStrings } from "@openclaw/normalization-core/string-normalization";

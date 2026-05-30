@@ -1,5 +1,3 @@
-// Policy and execution pipeline for node-host system.run. This module parses
-// incoming commands, layers global/agent exec policy, applies approval and
 import crypto from "node:crypto";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import type { OpenClawConfig } from "../config/types.openclaw.js";

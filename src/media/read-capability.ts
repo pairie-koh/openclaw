@@ -1,4 +1,3 @@
-// Agent-scoped host file read capability for outbound media. This module keeps
 import path from "node:path";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 import { resolveAgentWorkspaceDir } from "../agents/agent-scope.js";

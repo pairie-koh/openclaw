@@ -1,4 +1,3 @@
-// Hosted APNs relay client.
 import { URL } from "node:url";
 import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coercion";
 import {

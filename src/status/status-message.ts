@@ -1,6 +1,3 @@
-// Builds the multi-line status payload shown by chat commands and control
-// surfaces. Keep this formatter display-only: it reads session/runtime facts
-// and normalizes labels, but ownership of model, sandbox, queue, and TTS state
 import fs from "node:fs";
 import {
   normalizeLowercaseStringOrEmpty,

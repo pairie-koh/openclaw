@@ -1,4 +1,3 @@
-// Gateway relay for browser Talk realtime sessions, bridging provider audio,
 import { randomUUID } from "node:crypto";
 import {
   asDateTimestampMs,

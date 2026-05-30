@@ -1,4 +1,3 @@
-// Control UI asset discovery and on-demand build helpers.
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
