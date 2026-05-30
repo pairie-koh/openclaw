@@ -1,4 +1,3 @@
-// Keep provider onboarding helpers dependency-light so bundled provider plugins
 import { findNormalizedProviderKey } from "@openclaw/model-catalog-core/provider-id";
 import { resolvePrimaryStringValue } from "../../packages/normalization-core/src/string-coerce.js";
 import { ensureStaticModelAllowlistEntry } from "../agents/model-allowlist-entry.js";
