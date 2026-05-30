@@ -1,19 +1,19 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
-/** Shared type for Custom Command Input in src/shared. */
+/** Raw custom command entry from config. */
 export type CustomCommandInput = {
   command?: string | null;
   description?: string | null;
 };
 
-/** Shared type for Custom Command Issue in src/shared. */
+/** Validation issue for one custom command config entry. */
 export type CustomCommandIssue = {
   index: number;
   field: "command" | "description";
   message: string;
 };
 
-/** Shared type for Custom Command Config in src/shared. */
+/** Validation and display settings for a custom command namespace. */
 export type CustomCommandConfig = {
   label: string;
   pattern: RegExp;
@@ -23,7 +23,7 @@ export type CustomCommandConfig = {
 
 const DEFAULT_PREFIX = "/";
 
-/** Reused helper for normalize Slash Command Name behavior in src/shared. */
+/** Normalize slash command names to lowercase underscore form without the slash. */
 export function normalizeSlashCommandName(value: string): string {
   const trimmed = value.trim();
   if (!trimmed) {
@@ -33,12 +33,12 @@ export function normalizeSlashCommandName(value: string): string {
   return normalizeLowercaseStringOrEmpty(withoutSlash).replace(/-/g, "_");
 }
 
-/** Reused helper for normalize Command Description behavior in src/shared. */
+/** Normalize a custom command description. */
 export function normalizeCommandDescription(value: string): string {
   return value.trim();
 }
 
-/** Reused helper for resolve Custom Commands behavior in src/shared. */
+/** Validate, dedupe, and normalize configured custom command entries. */
 export function resolveCustomCommands(params: {
   commands?: CustomCommandInput[] | null;
   reservedCommands?: Set<string>;
