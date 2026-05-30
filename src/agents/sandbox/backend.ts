@@ -7,7 +7,7 @@ import type {
   SandboxBackendRegistration,
 } from "./backend.types.js";
 
-/** Re-exported API for src/agents/sandbox. */
+/** Sandbox backend factory/manager registration types. */
 export type {
   CreateSandboxBackendParams,
   SandboxBackendFactory,
@@ -16,7 +16,7 @@ export type {
   SandboxBackendRegistration,
   SandboxBackendRuntimeInfo,
 } from "./backend.types.js";
-/** Re-exported API for src/agents/sandbox. */
+/** Sandbox backend command and handle contracts. */
 export type {
   SandboxBackendCommandParams,
   SandboxBackendCommandResult,

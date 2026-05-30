@@ -6,7 +6,7 @@ import {
 } from "@openclaw/normalization-core/number-coercion";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused constant for NOVNC PASSWORD ENV KEY behavior in src/agents/sandbox. */
+/** Env var carrying the generated noVNC password for browser sandboxes. */
 export const NOVNC_PASSWORD_ENV_KEY = "OPENCLAW_BROWSER_NOVNC_PASSWORD"; // pragma: allowlist secret
 const NOVNC_TOKEN_TTL_MS = 60 * 1000;
 const MAX_NOVNC_TOKEN_TTL_MS = NOVNC_TOKEN_TTL_MS;
@@ -19,7 +19,7 @@ type NoVncObserverTokenEntry = {
   expiresAt: number;
 };
 
-/** Shared type for No Vnc Observer Token Payload in src/agents/sandbox. */
+/** Payload returned for a short-lived noVNC observer token. */
 export type NoVncObserverTokenPayload = {
   noVncPort: number;
   password?: string;

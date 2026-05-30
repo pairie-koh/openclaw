@@ -1,6 +1,6 @@
 import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/string-coerce";
 
-/** Shared type for Network Mode Block Reason in src/agents/sandbox. */
+/** Reason a Docker network mode is blocked by sandbox policy. */
 export type NetworkModeBlockReason = "host" | "container_namespace_join";
 
 /** Normalizes a configured Docker network mode. */
