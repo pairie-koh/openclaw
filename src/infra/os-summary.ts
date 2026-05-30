@@ -1,4 +1,4 @@
-// infra os summary helpers and runtime behavior.
+/** Builds a cached human-readable summary for the current operating system. */
 import { spawnSync } from "node:child_process";
 import os from "node:os";
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
@@ -18,7 +18,7 @@ function macosVersion(): string {
   return out || os.release();
 }
 
-/** Reused helper for resolve Os Summary behavior in src/infra. */
+/** Resolve platform, arch, release, and display label for diagnostics. */
 export function resolveOsSummary(): OsSummary {
   const platform = os.platform();
   const release = os.release();
