@@ -10,7 +10,7 @@ import {
 } from "./exec-wrapper-resolution.js";
 import { POSIX_INLINE_COMMAND_FLAGS, resolveInlineCommandMatch } from "./shell-inline-command.js";
 
-/** Re-exported API for src/infra. */
+/** Command-resolution helpers re-exported for exec approval policy callers. */
 export {
   matchAllowlist,
   parseExecArgvToken,
@@ -32,7 +32,7 @@ export {
   type ExecArgvToken,
 } from "./exec-command-resolution.js";
 
-/** Shared type for Exec Command Segment in src/infra. */
+/** One parsed shell/argv segment plus resolved executable metadata. */
 export type ExecCommandSegment = {
   raw: string;
   argv: string[];
@@ -40,7 +40,7 @@ export type ExecCommandSegment = {
   resolution: CommandResolution | null;
 };
 
-/** Shared type for Exec Command Analysis in src/infra. */
+/** Conservative analysis result for a shell command or argv invocation. */
 export type ExecCommandAnalysis = {
   ok: boolean;
   reason?: string;
@@ -48,10 +48,10 @@ export type ExecCommandAnalysis = {
   chains?: ExecCommandSegment[][]; // Segments grouped by chain operator (&&, ||, ;)
 };
 
-/** Shared type for Shell Chain Operator in src/infra. */
+/** Shell chain operators supported by exec approval analysis. */
 export type ShellChainOperator = "&&" | "||" | ";";
 
-/** Shared type for Shell Chain Part in src/infra. */
+/** Command part paired with the operator that follows it. */
 export type ShellChainPart = {
   part: string;
   opToNext: ShellChainOperator | null;
@@ -681,7 +681,7 @@ function analyzeWindowsShellCommand(params: {
   };
 }
 
-/** Reused helper for is Windows Platform behavior in src/infra. */
+/** Return whether a platform string represents Windows semantics. */
 export function isWindowsPlatform(platform?: string | null): boolean {
   const normalized = normalizeLowercaseStringOrEmpty(platform);
   return normalized.startsWith("win");
@@ -844,7 +844,7 @@ function shellEscapeSingleArg(value: string): string {
 // strings (unlike cmd.exe delayed expansion), so "Hello!" is safe to pass through.
 const WINDOWS_UNSAFE_CMD_META = /[%`]|\$(?=[A-Za-z_{(?$])/;
 
-/** Reused helper for windows Escape Arg behavior in src/infra. */
+/** Quote one Windows argv token for enforced command rendering when safe. */
 export function windowsEscapeArg(value: string): { ok: true; escaped: string } | { ok: false } {
   if (value === "") {
     return { ok: true, escaped: '""' };
@@ -992,7 +992,7 @@ function finalizeRebuiltShellCommand(
   return { ok: true, command: rebuilt.command };
 }
 
-/** Reused helper for resolve Planned Segment Argv behavior in src/infra. */
+/** Resolve the argv that should be executed for an analyzed segment. */
 export function resolvePlannedSegmentArgv(segment: ExecCommandSegment): string[] | null {
   if (segment.resolution?.policyBlocked === true) {
     return null;
@@ -1167,7 +1167,7 @@ export function buildSafeBinsShellCommand(params: {
   return finalizeRebuiltShellCommand(rebuilt, params.segments.length);
 }
 
-/** Reused helper for build Enforced Shell Command behavior in src/infra. */
+/** Rebuild an analyzed shell command from resolved argv for enforced execution. */
 export function buildEnforcedShellCommand(params: {
   command: string;
   segments: ExecCommandSegment[];
@@ -1207,7 +1207,7 @@ export function splitCommandChain(command: string): string[] | null {
   return parts.map((p) => p.part);
 }
 
-/** Reused helper for analyze Shell Command behavior in src/infra. */
+/** Analyze a shell command into executable segments and optional chain groups. */
 export function analyzeShellCommand(params: {
   command: string;
   cwd?: string;
@@ -1256,7 +1256,7 @@ export function analyzeShellCommand(params: {
   return { ok: true, segments };
 }
 
-/** Reused helper for analyze Argv Command behavior in src/infra. */
+/** Analyze a direct argv invocation as a single exec approval segment. */
 export function analyzeArgvCommand(params: {
   argv: string[];
   cwd?: string;
