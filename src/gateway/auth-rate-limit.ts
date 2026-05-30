@@ -23,7 +23,7 @@ import { isLoopbackAddress, resolveClientIp } from "./net.js";
 // Types
 // ---------------------------------------------------------------------------
 
-/** Shared type for Rate Limit Config in src/gateway. */
+/** Configuration for gateway auth failure rate limiting. */
 export interface RateLimitConfig {
   /** Maximum failed attempts before blocking.  @default 10 */
   maxAttempts?: number;
@@ -37,13 +37,13 @@ export interface RateLimitConfig {
   pruneIntervalMs?: number;
 }
 
-/** Reused constant for AUTH RATE LIMIT SCOPE DEFAULT behavior in src/gateway. */
+/** Default auth rate-limit scope used when callers do not provide one. */
 export const AUTH_RATE_LIMIT_SCOPE_DEFAULT = "default";
-/** Reused constant for AUTH RATE LIMIT SCOPE SHARED SECRET behavior in src/gateway. */
+/** Auth rate-limit scope for token/password shared-secret attempts. */
 export const AUTH_RATE_LIMIT_SCOPE_SHARED_SECRET = "shared-secret";
-/** Reused constant for AUTH RATE LIMIT SCOPE DEVICE TOKEN behavior in src/gateway. */
+/** Auth rate-limit scope for device-token attempts. */
 export const AUTH_RATE_LIMIT_SCOPE_DEVICE_TOKEN = "device-token";
-/** Reused constant for AUTH RATE LIMIT SCOPE HOOK AUTH behavior in src/gateway. */
+/** Auth rate-limit scope for hook-auth attempts. */
 export const AUTH_RATE_LIMIT_SCOPE_HOOK_AUTH = "hook-auth";
 const BROWSER_ORIGIN_RATE_LIMIT_KEY_PREFIX = "browser-origin:";
 
@@ -54,7 +54,7 @@ interface RateLimitEntry {
   lockedUntil?: number;
 }
 
-/** Shared type for Rate Limit Check Result in src/gateway. */
+/** Result returned by auth rate-limit checks. */
 export interface RateLimitCheckResult {
   /** Whether the request is allowed to proceed. */
   allowed: boolean;
@@ -64,7 +64,7 @@ export interface RateLimitCheckResult {
   retryAfterMs: number;
 }
 
-/** Shared type for Auth Rate Limiter in src/gateway. */
+/** Stateful gateway auth rate limiter interface. */
 export interface AuthRateLimiter {
   /** Check whether `ip` is currently allowed to attempt authentication. */
   check(ip: string | undefined, scope?: string): RateLimitCheckResult;
