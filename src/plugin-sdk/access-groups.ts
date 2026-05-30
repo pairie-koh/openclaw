@@ -7,7 +7,6 @@ import type { ChannelId } from "../channels/plugins/types.public.js";
 import type { AccessGroupConfig } from "../config/types.access-groups.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
-/** Re-exported API for src/plugin-sdk, starting with ACCESS GROUP ALLOW FROM PREFIX. */
 export { ACCESS_GROUP_ALLOW_FROM_PREFIX, parseAccessGroupAllowFromEntry };
 
 /** Host-provided resolver that can evaluate a named access group against full config. */
