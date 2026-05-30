@@ -29,7 +29,6 @@ export const CONTEXT_WINDOW_RUNTIME_STATE = (() => {
   return globalState[CONTEXT_WINDOW_RUNTIME_STATE_KEY];
 })();
 
-/** Reset context-window runtime caches between tests. */
 export function resetContextWindowCacheForTest(): void {
   CONTEXT_WINDOW_RUNTIME_STATE.loadPromise = null;
   CONTEXT_WINDOW_RUNTIME_STATE.configuredConfig = undefined;

@@ -162,7 +162,6 @@ export function consumeExecApprovalFollowupRuntimeHandoff(params: {
   return cloneExecApprovalFollowupRuntimeHandoff(entry);
 }
 
-/** Reset exec approval follow-up handoff state between tests. */
 export function resetExecApprovalFollowupRuntimeHandoffsForTests(): void {
   execApprovalFollowupRuntimeHandoffs.clear();
 }

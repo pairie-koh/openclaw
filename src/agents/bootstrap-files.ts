@@ -51,7 +51,6 @@ function rememberBootstrapWarning(key: string): boolean {
   return true;
 }
 
-/** Reset bootstrap warning dedupe state between tests. */
 export function resetBootstrapWarningCacheForTest(): void {
   seenBootstrapWarnings.clear();
   bootstrapWarningOrder.length = 0;

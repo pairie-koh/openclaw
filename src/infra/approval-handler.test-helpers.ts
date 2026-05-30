@@ -14,7 +14,6 @@ export type ApprovalNativeRuntimeAdapterStubParams = {
   bindPending?: NonNullable<ChannelApprovalNativeRuntimeAdapter["interactions"]>["bindPending"];
 };
 
-/** Creates a minimally configured native approval runtime adapter with Vitest stubs. */
 export function createApprovalNativeRuntimeAdapterStubs(
   params: ApprovalNativeRuntimeAdapterStubParams = {},
 ): ChannelApprovalNativeRuntimeAdapter {

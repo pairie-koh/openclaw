@@ -962,7 +962,6 @@ export function getLastTtsAttempt(): TtsStatusEntry | undefined {
   return lastTtsAttempt;
 }
 
-/** Override the last-attempt status snapshot for tests or integration hooks. */
 export function setLastTtsAttempt(entry: TtsStatusEntry | undefined): void {
   lastTtsAttempt = entry;
 }

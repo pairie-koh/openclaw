@@ -30,12 +30,10 @@ const cliAuthEpochDeps: CliAuthEpochDeps = { ...defaultCliAuthEpochDeps };
 /** Version salt for CLI/auth-profile fingerprinting when epoch inputs change shape. */
 export const CLI_AUTH_EPOCH_VERSION = 4;
 
-/** Override CLI auth epoch dependencies for tests. */
 export function setCliAuthEpochTestDeps(overrides: Partial<CliAuthEpochDeps>): void {
   Object.assign(cliAuthEpochDeps, overrides);
 }
 
-/** Reset CLI auth epoch dependencies after tests. */
 export function resetCliAuthEpochTestDeps(): void {
   Object.assign(cliAuthEpochDeps, defaultCliAuthEpochDeps);
 }
