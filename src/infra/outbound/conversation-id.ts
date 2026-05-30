@@ -13,7 +13,7 @@ function resolveExplicitConversationTargetId(target: string): string | undefined
   return undefined;
 }
 
-/** Reused helper for resolve Conversation Id From Targets behavior in src/infra/outbound. */
+/** Picks the best conversation id from explicit thread, target prefixes, or numeric ids. */
 export function resolveConversationIdFromTargets(params: {
   threadId?: string | number;
   targets: Array<string | undefined | null>;

@@ -1,6 +1,6 @@
 import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/string-coerce";
 
-/** Reused helper for build Node Shell Command behavior in src/infra. */
+/** Returns Windows or POSIX shell argv for executing one command string. */
 export function buildNodeShellCommand(command: string, platform?: string | null) {
   const normalized = normalizeLowercaseStringOrEmpty((platform ?? "").trim());
   if (normalized.startsWith("win")) {

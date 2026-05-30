@@ -10,7 +10,7 @@ import {
 import { applyTargetToParams } from "./channel-target.js";
 import { actionHasTarget, actionRequiresTarget } from "./message-action-spec.js";
 
-/** Reused helper for normalize Message Action Input behavior in src/infra/outbound. */
+/** Converts legacy target fields, inferred channel context, and target aliases into action args. */
 export function normalizeMessageActionInput(params: {
   action: ChannelMessageActionName;
   args: Record<string, unknown>;
