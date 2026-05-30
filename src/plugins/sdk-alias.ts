@@ -1,4 +1,4 @@
-// plugins sdk alias helpers and runtime behavior.
+/** Plugin loader alias resolution for SDK subpaths, runtime modules, and Jiti options. */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -10,10 +10,10 @@ import { resolveOpenClawDevSourceRoot } from "./dev-source-root.js";
 import { PluginLruCache } from "./plugin-cache-primitives.js";
 
 type PluginSdkAliasCandidateKind = "dist" | "src";
-/** Shared type for Plugin Sdk Resolution Preference in src/plugins. */
+/** Loader preference for resolving plugin SDK aliases from source or built dist. */
 export type PluginSdkResolutionPreference = "auto" | "dist" | "src";
 
-/** Shared type for Loader Module Resolve Params in src/plugins. */
+/** Inputs used to resolve loader-relative package roots and aliases. */
 export type LoaderModuleResolveParams = {
   modulePath?: string;
   argv1?: string;
@@ -23,7 +23,7 @@ export type LoaderModuleResolveParams = {
   pluginSdkResolution?: PluginSdkResolutionPreference;
 };
 
-/** Shared type for Plugin Runtime Module Resolution in src/plugins. */
+/** Diagnostic result for locating the plugin runtime module entrypoint. */
 export type PluginRuntimeModuleResolution = {
   modulePath?: string;
   packageRoot: string | null;
@@ -75,7 +75,7 @@ function shouldUseJitiFsCache(): boolean {
   return readJitiBooleanEnv("JITI_FS_CACHE", readJitiBooleanEnv("JITI_CACHE", true));
 }
 
-/** Reused helper for normalize Jiti Alias Target Path behavior in src/plugins. */
+/** Normalizes alias paths for Jiti, which expects POSIX separators on Windows. */
 export function normalizeJitiAliasTargetPath(targetPath: string): string {
   return process.platform === "win32" ? targetPath.replace(/\\/g, "/") : targetPath;
 }
@@ -109,7 +109,7 @@ function resolveJitiCacheModulePath(params: LoaderModuleResolveParams = {}): str
   return resolveLoaderModulePath(params);
 }
 
-/** Reused helper for resolve Plugin Loader Jiti Fs Cache Dir behavior in src/plugins. */
+/** Resolves the Jiti filesystem cache directory for the current OpenClaw install. */
 export function resolvePluginLoaderJitiFsCacheDir(params: LoaderModuleResolveParams = {}): string {
   const modulePath = resolveJitiCacheModulePath(params);
   const packageRoot =
@@ -134,7 +134,7 @@ export function resolvePluginLoaderJitiFsCacheDir(params: LoaderModuleResolvePar
   );
 }
 
-/** Reused helper for resolve Plugin Loader Jiti Fs Cache Option behavior in src/plugins. */
+/** Resolves the Jiti fsCache option, honoring JITI cache environment flags. */
 export function resolvePluginLoaderJitiFsCacheOption(
   params: LoaderModuleResolveParams = {},
 ): false | string {
@@ -225,7 +225,7 @@ function findNearestPluginSdkPackageRoot(startDir: string, maxDepth = 12): strin
   return null;
 }
 
-/** Reused helper for resolve Loader Package Root behavior in src/plugins. */
+/** Resolves the OpenClaw package root for a loader module. */
 export function resolveLoaderPackageRoot(
   params: LoaderModuleResolveParams & { modulePath: string },
 ): string | null {
@@ -374,7 +374,7 @@ function resolveLoaderPluginSdkPackageRoot(
   );
 }
 
-/** Reused helper for resolve Plugin Sdk Alias Candidate Order behavior in src/plugins. */
+/** Chooses whether SDK aliases should prefer dist or source candidates. */
 export function resolvePluginSdkAliasCandidateOrder(params: {
   modulePath: string;
   isProduction: boolean;
@@ -391,7 +391,7 @@ export function resolvePluginSdkAliasCandidateOrder(params: {
   return isDistRuntime || params.isProduction ? ["dist", "src"] : ["src", "dist"];
 }
 
-/** Reused helper for list Plugin Sdk Alias Candidates behavior in src/plugins. */
+/** Lists candidate files for one plugin SDK root-alias target. */
 export function listPluginSdkAliasCandidates(params: {
   srcFile: string;
   distFile: string;
@@ -434,7 +434,7 @@ export function listPluginSdkAliasCandidates(params: {
   return candidates;
 }
 
-/** Reused helper for resolve Plugin Sdk Alias File behavior in src/plugins. */
+/** Resolves the first existing plugin SDK alias file for source/dist candidates. */
 export function resolvePluginSdkAliasFile(params: {
   srcFile: string;
   distFile: string;
@@ -1301,7 +1301,7 @@ function listPrivateLocalOnlyPluginSdkSubpaths(params: {
   );
 }
 
-/** Reused helper for list Plugin Sdk Exported Subpaths behavior in src/plugins. */
+/** Lists plugin SDK subpaths exported by the trusted OpenClaw package root. */
 export function listPluginSdkExportedSubpaths(
   params: {
     modulePath?: string;
@@ -1346,7 +1346,7 @@ export function listPluginSdkExportedSubpaths(
   return subpaths;
 }
 
-/** Reused helper for resolve Plugin Sdk Scoped Alias Map behavior in src/plugins. */
+/** Builds aliases for scoped plugin SDK subpaths such as openclaw/plugin-sdk/core. */
 export function resolvePluginSdkScopedAliasMap(
   params: {
     modulePath?: string;
@@ -1430,7 +1430,7 @@ export function resolvePluginSdkScopedAliasMap(
   return aliasMap;
 }
 
-/** Reused helper for resolve Extension Api Alias behavior in src/plugins. */
+/** Resolves the legacy extension API alias from source or dist artifacts. */
 export function resolveExtensionApiAlias(params: LoaderModuleResolveParams = {}): string | null {
   try {
     const modulePath = resolveLoaderModulePath(params);
@@ -1629,7 +1629,7 @@ function buildPluginLoaderModuleConfigCacheKey(params: {
   ].join("\0");
 }
 
-/** Reused helper for build Plugin Loader Alias Map behavior in src/plugins. */
+/** Builds the complete module alias map used by plugin loaders. */
 export function buildPluginLoaderAliasMap(
   modulePath: string,
   argv1: string | undefined = STARTUP_ARGV1,
@@ -1705,14 +1705,14 @@ export function buildPluginLoaderAliasMap(
   return result;
 }
 
-/** Reused helper for resolve Plugin Runtime Module Path behavior in src/plugins. */
+/** Resolves the plugin runtime module path without diagnostic metadata. */
 export function resolvePluginRuntimeModulePath(
   params: LoaderModuleResolveParams = {},
 ): string | null {
   return resolvePluginRuntimeModulePathWithDiagnostics(params).resolvedPath;
 }
 
-/** Reused helper for resolve Plugin Runtime Module Path With Diagnostics behavior in src/plugins. */
+/** Resolves the plugin runtime module path plus attempted candidates and errors. */
 export function resolvePluginRuntimeModulePathWithDiagnostics(
   params: LoaderModuleResolveParams = {},
 ): PluginRuntimeModuleResolution {
@@ -1772,7 +1772,7 @@ export function resolvePluginRuntimeModulePathWithDiagnostics(
   };
 }
 
-/** Reused helper for build Plugin Loader Jiti Options behavior in src/plugins. */
+/** Builds Jiti loader options with aliases, cache, native loading, and extensions. */
 export function buildPluginLoaderJitiOptions(
   aliasMap: Record<string, string>,
   params: LoaderModuleResolveParams = {},
@@ -1803,7 +1803,7 @@ function isBundledPluginDistModulePath(modulePath: string): boolean {
   return modulePath.replace(/\\/g, "/").includes("/dist/extensions/");
 }
 
-/** Reused helper for should Prefer Native Module Load behavior in src/plugins. */
+/** Returns whether a module extension can use the native Node loader. */
 export function shouldPreferNativeModuleLoad(modulePath: string): boolean {
   if (!supportsNativeModuleRuntime()) {
     return false;
@@ -1819,7 +1819,7 @@ export function shouldPreferNativeModuleLoad(modulePath: string): boolean {
   }
 }
 
-/** Reused helper for resolve Plugin Loader Try Native behavior in src/plugins. */
+/** Resolves whether the plugin loader should try native loading for a module. */
 export function resolvePluginLoaderTryNative(
   modulePath: string,
   options?: {
@@ -1837,7 +1837,7 @@ export function resolvePluginLoaderTryNative(
   );
 }
 
-/** Reused helper for create Plugin Loader Module Cache Key behavior in src/plugins. */
+/** Creates a cache key for the loader implementation and alias map content. */
 export function createPluginLoaderModuleCacheKey(params: {
   tryNative: boolean;
   aliasMap: Record<string, string>;
@@ -1849,7 +1849,7 @@ export function createPluginLoaderModuleCacheKey(params: {
   return `${params.tryNative ? "native" : "transform"}\0${aliasMapKey}`;
 }
 
-/** Reused helper for resolve Plugin Loader Module Config behavior in src/plugins. */
+/** Resolves and caches native-load, alias-map, and module-cache settings. */
 export function resolvePluginLoaderModuleConfig(params: {
   modulePath: string;
   argv1?: string;
@@ -1891,7 +1891,7 @@ export function resolvePluginLoaderModuleConfig(params: {
   return result;
 }
 
-/** Reused helper for is Bundled Plugin Extension Path behavior in src/plugins. */
+/** Checks whether a module path belongs to bundled plugin source or dist roots. */
 export function isBundledPluginExtensionPath(params: {
   modulePath: string;
   openClawPackageRoot: string;
