@@ -30,7 +30,6 @@ import type {
 } from "../plugins/types.js";
 import { toSafeImportPath } from "../shared/import-specifier.js";
 
-/** Re-exported API for src/plugin-sdk. */
 export type {
   AnyAgentTool,
   OpenClawPluginApi,

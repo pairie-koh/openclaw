@@ -1,6 +1,3 @@
-// Numeric coercion helpers for plugin runtime inputs.
-
-/** Re-exported API for src/plugin-sdk. */
 export {
   asDateTimestampMs,
   asFiniteNumberInRange,
