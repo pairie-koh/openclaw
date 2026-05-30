@@ -3,13 +3,10 @@ import path from "node:path";
 
 export const QA_CODEX_OAUTH_PROFILE_ID = "openai:qa-oauth";
 export const QA_OPENAI_API_KEY_PROFILE_ID = "openai:media-api";
-/** Fixture auth-profile store version. */
 export const QA_AUTH_PROFILE_STORE_VERSION = 1;
 
-/** Auth profile fixture shapes supported by seeding helpers. */
 export type QaAuthProfileShape = "oauth-only" | "apikey-only" | "mixed";
 
-/** Fake OpenAI API-key auth profile shape. */
 export type QaApiKeyAuthProfile = {
   type: "api_key";
   provider: "openai";
@@ -17,7 +14,6 @@ export type QaApiKeyAuthProfile = {
   displayName: string;
 };
 
-/** Fake OpenAI Codex OAuth auth profile shape. */
 export type QaOAuthAuthProfile = {
   type: "oauth";
   provider: "openai";
@@ -28,16 +24,13 @@ export type QaOAuthAuthProfile = {
   displayName: string;
 };
 
-/** Supported QA auth profile union. */
 export type QaAuthProfile = QaApiKeyAuthProfile | QaOAuthAuthProfile;
 
-/** Snapshot of the QA auth profile store. */
 export type QaAuthProfileSnapshot = {
   version: number;
   profiles: Record<string, QaAuthProfile>;
 };
 
-/** Result of selecting a usable Codex OAuth profile from a snapshot. */
 export type QaCodexAuthProfileSelection =
   | {
       status: "ready";
@@ -131,7 +124,6 @@ function normalizeAuthProfileSnapshot(value: unknown): QaAuthProfileSnapshot {
   };
 }
 
-/** Seeds fake auth profiles under an agent directory. */
 export async function seedAuthProfiles(
   shape: QaAuthProfileShape,
   agentDir: string,
@@ -145,7 +137,6 @@ export async function seedAuthProfiles(
   return snapshot;
 }
 
-/** Reads and normalizes auth profiles from an agent directory. */
 export async function snapshotAuthProfiles(agentDir: string): Promise<QaAuthProfileSnapshot> {
   const raw = await fs.readFile(authProfilesPath(agentDir), "utf8").catch((error: unknown) => {
     if (error && typeof error === "object" && (error as { code?: unknown }).code === "ENOENT") {
@@ -159,7 +150,6 @@ export async function snapshotAuthProfiles(agentDir: string): Promise<QaAuthProf
   return normalizeAuthProfileSnapshot(JSON.parse(raw) as unknown);
 }
 
-/** Selects a Codex OAuth auth profile or returns remediation details. */
 export function resolveCodexAuthProfile(
   snapshot: QaAuthProfileSnapshot,
 ): QaCodexAuthProfileSelection {
