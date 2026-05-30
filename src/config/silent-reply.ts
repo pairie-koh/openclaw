@@ -34,7 +34,7 @@ function resolveSilentReplyConversationContext(params: ResolveSilentReplyParams)
   };
 }
 
-/** Reused helper for resolve Silent Reply Settings behavior in src/config. */
+/** Resolve silent-reply settings for a conversation context. */
 export function resolveSilentReplySettings(params: ResolveSilentReplyParams): {
   policy: SilentReplyPolicy;
 } {
@@ -44,7 +44,7 @@ export function resolveSilentReplySettings(params: ResolveSilentReplyParams): {
   };
 }
 
-/** Reused helper for resolve Silent Reply Policy behavior in src/config. */
+/** Resolve only the silent-reply policy for a conversation context. */
 export function resolveSilentReplyPolicy(params: ResolveSilentReplyParams): SilentReplyPolicy {
   return resolveSilentReplySettings(params).policy;
 }
