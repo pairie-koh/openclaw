@@ -4,7 +4,7 @@ import type { ExecCommandSegment } from "../exec-approvals-analysis.js";
 import { analyzeCommandForPolicy } from "./policy.js";
 import { detectCommandCarrierArgv, detectInlineEvalInSegments } from "./risks.js";
 
-/** Shared type for Command Explanation Summary in src/infra/command-analysis. */
+/** Display summary of command count and detected risk labels. */
 export type CommandExplanationSummary = {
   commandCount: number;
   nestedCommandCount: number;
@@ -31,7 +31,7 @@ function riskLabel(risk: CommandRisk): string {
   }
 }
 
-/** Reused helper for summarize Command Explanation behavior in src/infra/command-analysis. */
+/** Converts a full command explanation into compact display metadata. */
 export function summarizeCommandExplanation(
   explanation: CommandExplanation,
 ): CommandExplanationSummary {
@@ -48,7 +48,7 @@ export function summarizeCommandExplanation(
   };
 }
 
-/** Reused helper for summarize Command Segments For Display behavior in src/infra/command-analysis. */
+/** Summarizes parsed command segments without invoking the full explainer. */
 export function summarizeCommandSegmentsForDisplay(
   segments: readonly ExecCommandSegment[],
 ): CommandExplanationSummary {
@@ -80,7 +80,7 @@ export function summarizeCommandSegmentsForDisplay(
   };
 }
 
-/** Reused helper for resolve Command Analysis Summary For Display behavior in src/infra/command-analysis. */
+/** Resolves a sanitized command-analysis summary for approval display. */
 export function resolveCommandAnalysisSummaryForDisplay(params: {
   host?: string | null;
   commandText: string;
@@ -118,7 +118,7 @@ export function resolveCommandAnalysisSummaryForDisplay(params: {
   };
 }
 
-/** Reused helper for explain Command For Display behavior in src/infra/command-analysis. */
+/** Runs the shell command explainer and returns its compact display summary. */
 export async function explainCommandForDisplay(
   command: string,
 ): Promise<{ explanation: CommandExplanation; summary: CommandExplanationSummary } | null> {
