@@ -75,7 +75,7 @@ export async function readResponseTextLimited(
   return text;
 }
 
-/** Reused helper for format Provider Error Payload behavior in src/agents. */
+/** Extract a compact provider error message from common JSON error payload shapes. */
 export function formatProviderErrorPayload(payload: unknown): string | undefined {
   const root = asObject(payload);
   const detailObject = asObject(root?.detail);
