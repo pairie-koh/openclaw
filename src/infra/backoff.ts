@@ -7,14 +7,14 @@ export type BackoffPolicy = {
   jitter: number;
 };
 
-/** Reused helper for compute Backoff behavior in src/infra. */
+/** Computes the delay for a one-based retry attempt. */
 export function computeBackoff(policy: BackoffPolicy, attempt: number) {
   const base = policy.initialMs * policy.factor ** Math.max(attempt - 1, 0);
   const jitter = base * policy.jitter * Math.random();
   return Math.min(policy.maxMs, Math.round(base + jitter));
 }
 
-/** Reused helper for sleep With Abort behavior in src/infra. */
+/** Sleeps for the requested delay and rejects if the abort signal fires. */
 export async function sleepWithAbort(ms: number, abortSignal?: AbortSignal) {
   const delayMs = clampPositiveTimerTimeoutMs(ms);
   if (delayMs === undefined) {
