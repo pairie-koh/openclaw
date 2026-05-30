@@ -33,7 +33,7 @@ function formatEnvValue(value: string, redact?: boolean): string {
   return `${singleLine.slice(0, 160)}…`;
 }
 
-/** Reused helper for log Accepted Env Option behavior in src/infra. */
+/** Log a recognized environment option once, skipping tests and empty values. */
 export function logAcceptedEnvOption(option: AcceptedEnvOption): void {
   if (process.env.VITEST || process.env.NODE_ENV === "test") {
     return;
@@ -57,14 +57,14 @@ export function logAcceptedEnvOption(option: AcceptedEnvOption): void {
     });
 }
 
-/** Reused helper for normalize Zai Env behavior in src/infra. */
+/** Accept the legacy Z_AI_API_KEY spelling by mapping it to ZAI_API_KEY. */
 export function normalizeZaiEnv(): void {
   if (!process.env.ZAI_API_KEY?.trim() && process.env.Z_AI_API_KEY?.trim()) {
     process.env.ZAI_API_KEY = process.env.Z_AI_API_KEY;
   }
 }
 
-/** Reused helper for is Truthy Env Value behavior in src/infra. */
+/** Parse common truthy environment flag values. */
 export function isTruthyEnvValue(value?: string): boolean {
   if (typeof value !== "string") {
     return false;
@@ -80,7 +80,7 @@ export function isTruthyEnvValue(value?: string): boolean {
   }
 }
 
-/** Reused helper for is Vitest Runtime Env behavior in src/infra. */
+/** Detect Vitest/test runtime markers without importing Vitest. */
 export function isVitestRuntimeEnv(env: NodeJS.ProcessEnv = process.env): boolean {
   return (
     env.VITEST === "true" ||
@@ -91,7 +91,7 @@ export function isVitestRuntimeEnv(env: NodeJS.ProcessEnv = process.env): boolea
   );
 }
 
-/** Reused helper for normalize Env behavior in src/infra. */
+/** Apply process-wide environment compatibility normalization. */
 export function normalizeEnv(): void {
   normalizeZaiEnv();
 }

@@ -33,7 +33,7 @@ function parseStructuredExecCompletionEvent(evt: string): StructuredExecCompleti
   };
 }
 
-/** Reused helper for is Relayable Exec Completion Event behavior in src/infra. */
+/** Return whether an exec completion event has user-relevant output or failure status. */
 export function isRelayableExecCompletionEvent(evt: string): boolean {
   const parsed = parseStructuredExecCompletionEvent(evt);
   if (!parsed) {
@@ -73,7 +73,7 @@ function formatExecEventPromptText(pendingEvents: string[]): {
 // Build a dynamic prompt for cron events by embedding the actual event content.
 // This ensures the model sees the reminder text directly instead of relying on
 // "shown in the system messages above" which may not be visible in context.
-/** Reused helper for build Cron Event Prompt behavior in src/infra. */
+/** Build the agent prompt used to handle scheduled reminder events. */
 export function buildCronEventPrompt(
   pendingEvents: string[],
   opts?: {
@@ -116,7 +116,7 @@ export function buildCronEventPrompt(
   );
 }
 
-/** Reused helper for build Exec Event Prompt behavior in src/infra. */
+/** Build the agent prompt used to relay async exec completion events. */
 export function buildExecEventPrompt(
   pendingEvents: string[],
   opts?: { deliverToUser?: boolean; useHeartbeatResponseTool?: boolean },
@@ -202,7 +202,7 @@ function isHeartbeatNoiseEvent(evt: string): boolean {
   );
 }
 
-/** Reused helper for is Exec Completion Event behavior in src/infra. */
+/** Detect structured or legacy async exec completion system events. */
 export function isExecCompletionEvent(evt: string): boolean {
   const trimmed = evt.trimStart();
   const normalized = normalizeLowercaseStringOrEmpty(trimmed);
@@ -213,7 +213,7 @@ export function isExecCompletionEvent(evt: string): boolean {
 }
 
 // Returns true when a system event should be treated as real cron reminder content.
-/** Reused helper for is Cron System Event behavior in src/infra. */
+/** Return whether a system event should be treated as cron/reminder content. */
 export function isCronSystemEvent(evt: string) {
   if (!evt.trim()) {
     return false;
