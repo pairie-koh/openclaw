@@ -1,4 +1,3 @@
-// ui/src/ui/views chat helpers and runtime behavior.
 import { html, nothing, type TemplateResult } from "lit";
 import { ifDefined } from "lit/directives/if-defined.js";
 import { ref } from "lit/directives/ref.js";
@@ -78,7 +77,6 @@ function hasTerminalRunStatus(status: ChatRunUiStatus | null | undefined): boole
   return status?.phase === "done" || status?.phase === "interrupted";
 }
 
-/** Shared type for Chat Props in ui/src/ui/views. */
 export type ChatProps = {
   sessionKey: string;
   onSessionKeyChange: (next: string) => void;
@@ -408,7 +406,6 @@ export function resetChatViewState() {
   Object.assign(vs, createChatEphemeralState());
 }
 
-/** Reused constant for cleanup Chat Module State behavior in ui/src/ui/views. */
 export const cleanupChatModuleState = resetChatViewState;
 
 function adjustTextareaHeight(el: HTMLTextAreaElement) {
@@ -1085,7 +1082,6 @@ function renderSlashMenu(
   `;
 }
 
-/** Reused helper for render Chat behavior in ui/src/ui/views. */
 export function renderChat(props: ChatProps) {
   const canCompose = props.connected;
   const isBusy = props.sending || props.stream !== null;
