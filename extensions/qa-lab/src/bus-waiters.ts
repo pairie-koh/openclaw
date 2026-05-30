@@ -7,10 +7,8 @@ import type {
   QaBusWaitForInput,
 } from "./runtime-api.js";
 
-/** Default timeout for QA bus wait operations. */
 export const DEFAULT_WAIT_TIMEOUT_MS = 5_000;
 
-/** Match payload returned by QA bus waiters. */
 export type QaBusWaitMatch = QaBusEvent | QaBusMessage | QaBusThread;
 
 type Waiter = {
@@ -48,7 +46,6 @@ function createQaBusMatcher(
   };
 }
 
-/** Creates a waiter store that resolves when QA bus snapshots satisfy wait predicates. */
 export function createQaBusWaiterStore(getSnapshot: () => QaBusStateSnapshot) {
   const waiters = new Set<Waiter>();
   const cursorWaiters = new Set<CursorWaiter>();
