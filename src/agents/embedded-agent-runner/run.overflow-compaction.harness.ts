@@ -297,7 +297,6 @@ export const overflowBaseRunParams = {
   runId: "run-1",
 } as const;
 
-/** Reset all harness mocks and register the test Codex agent harness. */
 export function resetRunOverflowCompactionHarnessMocks(): void {
   clearAgentHarnesses();
   registerAgentHarness({

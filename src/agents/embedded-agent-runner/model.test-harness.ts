@@ -90,7 +90,6 @@ export function buildOpenAICodexForwardCompatExpectation(
   };
 }
 
-/** Reset discovery mocks to the no-model-found baseline. */
 export function resetMockDiscoverModels(discoverModelsMock: DiscoverModelsMock): void {
   vi.mocked(discoverModelsMock).mockReturnValue({
     find: vi.fn(() => null),

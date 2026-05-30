@@ -95,7 +95,6 @@ type AttemptSpawnWorkspaceHoisted = {
   sessionManager: SessionManagerMocks;
 };
 
-/** Creates a controllable session subscription mock for attempt tests. */
 export function createSubscriptionMock(): SubscriptionMock {
   return {
     assistantTexts: [] as string[],
@@ -237,7 +236,6 @@ const hoisted = vi.hoisted((): AttemptSpawnWorkspaceHoisted => {
   };
 });
 
-/** Returns hoisted module mocks used by spawned-workspace attempt tests. */
 export function getHoisted(): AttemptSpawnWorkspaceHoisted {
   return hoisted;
 }
@@ -1025,7 +1023,6 @@ export async function cleanupTempPaths(tempPaths: string[]) {
   }
 }
 
-/** Creates a default fake embedded session for attempt harness tests. */
 export function createDefaultEmbeddedSession(params?: {
   initialMessages?: unknown[];
   prompt?: (
@@ -1114,7 +1111,6 @@ export function createDefaultEmbeddedSession(params?: {
   return session;
 }
 
-/** Creates paired bootstrap/assemble mocks for context-engine attempt tests. */
 export function createContextEngineBootstrapAndAssemble() {
   return {
     bootstrap: vi.fn(async (_params: { sessionKey?: string }) => ({ bootstrapped: true })),
@@ -1145,7 +1141,6 @@ const testAuthStorage = {
   getApiKey: async () => undefined,
 };
 
-/** Builds a reusable runner around the context-engine attempt harness. */
 export async function createContextEngineAttemptRunner(params: {
   contextEngine: {
     bootstrap?: (params: {
