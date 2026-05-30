@@ -6,7 +6,7 @@ import { mapAllowFromEntries } from "openclaw/plugin-sdk/channel-config-helpers"
 import type { RuntimeEnv } from "../../runtime.js";
 import { summarizeStringEntries } from "../../shared/string-sample.js";
 
-/** Shared type for Allowlist User Resolution Like in src/channels/allowlists. */
+/** Minimal resolved-user shape used when canonicalizing channel allowlists. */
 export type AllowlistUserResolutionLike = {
   input: string;
   resolved: boolean;
@@ -31,7 +31,7 @@ function dedupeAllowlistEntries(entries: string[]): string[] {
   return deduped;
 }
 
-/** Reused helper for merge Allowlist behavior in src/channels/allowlists. */
+/** Merge existing allowlist entries with resolved additions using case-insensitive dedupe. */
 export function mergeAllowlist(params: {
   existing?: Array<string | number>;
   additions: string[];
@@ -39,7 +39,7 @@ export function mergeAllowlist(params: {
   return dedupeAllowlistEntries([...mapAllowFromEntries(params.existing), ...params.additions]);
 }
 
-/** Reused helper for build Allowlist Resolution Summary behavior in src/channels/allowlists. */
+/** Build resolved/unresolved/addition summaries from channel user lookup results. */
 export function buildAllowlistResolutionSummary<T extends AllowlistUserResolutionLike>(
   resolvedUsers: T[],
   opts?: { formatResolved?: (entry: T) => string; formatUnresolved?: (entry: T) => string },
@@ -77,7 +77,7 @@ function resolveAllowlistIdAdditions<T extends AllowlistUserResolutionLike>(para
   return additions;
 }
 
-/** Reused helper for canonicalize Allowlist With Resolved Ids behavior in src/channels/allowlists. */
+/** Replace resolvable allowlist aliases with canonical ids while preserving wildcards. */
 export function canonicalizeAllowlistWithResolvedIds<
   T extends AllowlistUserResolutionLike,
 >(params: { existing?: Array<string | number>; resolvedMap: Map<string, T> }): string[] {
@@ -97,7 +97,7 @@ export function canonicalizeAllowlistWithResolvedIds<
   return dedupeAllowlistEntries(canonicalized);
 }
 
-/** Reused helper for patch Allowlist Users In Config Entries behavior in src/channels/allowlists. */
+/** Patch config entries' user allowlists by merging or canonicalizing resolved ids. */
 export function patchAllowlistUsersInConfigEntries<
   T extends AllowlistUserResolutionLike,
   TEntries extends Record<string, unknown>,
@@ -136,7 +136,7 @@ export function patchAllowlistUsersInConfigEntries<
   return nextEntries as TEntries;
 }
 
-/** Reused helper for add Allowlist User Entries From Config Entry behavior in src/channels/allowlists. */
+/** Collect non-wildcard user entries from one config entry into a lookup set. */
 export function addAllowlistUserEntriesFromConfigEntry(target: Set<string>, entry: unknown): void {
   if (!entry || typeof entry !== "object") {
     return;
@@ -153,7 +153,7 @@ export function addAllowlistUserEntriesFromConfigEntry(target: Set<string>, entr
   }
 }
 
-/** Reused helper for summarize Mapping behavior in src/channels/allowlists. */
+/** Format a bounded allowlist mapping/unresolved summary for CLI output. */
 export function summarizeMapping(
   label: string,
   mapping: string[],
