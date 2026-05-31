@@ -13,11 +13,8 @@ import {
   type RespawnChildRuntime,
 } from "./process/respawn-child-runner.js";
 
-/** Node flag used by the respawned CLI to suppress experimental builtin warnings. */
 export const EXPERIMENTAL_WARNING_FLAG = "--disable-warning=ExperimentalWarning";
-/** Env guard that prevents repeated NODE_OPTIONS respawns. */
 export const OPENCLAW_NODE_OPTIONS_READY = "OPENCLAW_NODE_OPTIONS_READY";
-/** Env guard that prevents repeated NODE_EXTRA_CA_CERTS respawns. */
 export const OPENCLAW_NODE_EXTRA_CA_CERTS_READY = "OPENCLAW_NODE_EXTRA_CA_CERTS_READY";
 const WINDOWS_STACK_SIZE_FLAG = "--stack-size=8192";
 
@@ -35,7 +32,6 @@ function pathModuleForPlatform(platform: NodeJS.Platform): typeof path.posix {
   return platform === "win32" ? path.win32 : path.posix;
 }
 
-/** Resolves the executable used for a respawn, unwrapping Volta's shim when needed. */
 export function resolveCliRespawnCommand(params: {
   execPath: string;
   platform?: NodeJS.Platform;
@@ -73,7 +69,6 @@ function hasStackSizeConfigured(execArgv: string[]): boolean {
   );
 }
 
-/** Builds a respawn command only when startup flags or TLS env need one more process. */
 export function buildCliRespawnPlan(
   params: {
     argv?: string[];
@@ -158,7 +153,6 @@ export function buildCliRespawnPlan(
   };
 }
 
-/** Spawns the planned CLI child and bridges parent signals to child shutdown. */
 export function runCliRespawnPlan(
   plan: CliRespawnPlan,
   runtime: CliRespawnRuntime = {
