@@ -23,8 +23,6 @@ export {
 
 export * from "./types.js";
 
-// ============================================================================
-// Provider Registry
 import { anthropicOAuthProvider } from "./anthropic.js";
 import { githubCopilotOAuthProvider } from "./github-copilot.js";
 import { openaiCodexOAuthProvider } from "./openai-chatgpt.js";
@@ -101,10 +99,6 @@ export function getOAuthProviderInfoList(): OAuthProviderInfo[] {
     available: true,
   }));
 }
-
-// ============================================================================
-// High-level API (uses provider registry)
-// ============================================================================
 
 /**
  * Refresh token for unknown OAuth provider.
