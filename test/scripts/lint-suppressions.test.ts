@@ -133,7 +133,7 @@ describe("production lint suppressions", () => {
       "scripts/lib/plugin-npm-release.ts|typescript/no-unnecessary-type-parameters|1",
       "src/agents/agent-scope.ts|no-control-regex|1",
       "src/agents/code-mode.worker.ts|unicorn/require-post-message-target-origin|1",
-      "src/agents/pi-embedded-runner/run/images.ts|no-control-regex|1",
+      "src/agents/embedded-agent-runner/run/images.ts|no-control-regex|1",
       "src/agents/runtime-worker.entry.ts|unicorn/require-post-message-target-origin|1",
       "src/agents/runtime-worker.ts|unicorn/require-post-message-target-origin|1",
       "src/agents/subagent-attachments.ts|no-control-regex|1",
