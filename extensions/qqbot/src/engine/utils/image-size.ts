@@ -17,9 +17,6 @@ interface ImageSize {
 
 const DEFAULT_IMAGE_SIZE: ImageSize = { width: 512, height: 512 };
 
-/**
- * Parse image dimensions from the PNG header.
- */
 function parsePngSize(buffer: Buffer): ImageSize | null {
   // PNG signature: 89 50 4E 47 0D 0A 1A 0A
   if (buffer.length < 24) {
@@ -34,7 +31,6 @@ function parsePngSize(buffer: Buffer): ImageSize | null {
   return { width, height };
 }
 
-/** Parse image dimensions from JPEG SOF0/SOF2 markers. */
 function parseJpegSize(buffer: Buffer): ImageSize | null {
   // JPEG signature: FF D8 FF
   if (buffer.length < 4) {
@@ -74,7 +70,6 @@ function parseJpegSize(buffer: Buffer): ImageSize | null {
   return null;
 }
 
-/** Parse image dimensions from the GIF header. */
 function parseGifSize(buffer: Buffer): ImageSize | null {
   if (buffer.length < 10) {
     return null;
@@ -88,7 +83,6 @@ function parseGifSize(buffer: Buffer): ImageSize | null {
   return { width, height };
 }
 
-/** Parse image dimensions from WebP headers. */
 function parseWebpSize(buffer: Buffer): ImageSize | null {
   if (buffer.length < 30) {
     return null;
@@ -137,7 +131,6 @@ function parseWebpSize(buffer: Buffer): ImageSize | null {
   return null;
 }
 
-/** Parse image dimensions from raw image bytes. */
 export function parseImageSize(buffer: Buffer): ImageSize | null {
   // Try each supported image format in sequence.
   return (
@@ -197,7 +190,6 @@ export async function getImageSizeFromUrl(
   }
 }
 
-/** Parse image dimensions from a Base64 data URL. */
 function getImageSizeFromDataUrl(dataUrl: string): ImageSize | null {
   try {
     // Format: data:image/png;base64,xxxxx
@@ -221,9 +213,6 @@ function getImageSizeFromDataUrl(dataUrl: string): ImageSize | null {
   }
 }
 
-/**
- * Resolve image dimensions from either an HTTP URL or a Base64 data URL.
- */
 export async function getImageSize(source: string): Promise<ImageSize | null> {
   if (source.startsWith("data:")) {
     return getImageSizeFromDataUrl(source);
@@ -236,13 +225,11 @@ export async function getImageSize(source: string): Promise<ImageSize | null> {
   return null;
 }
 
-/** Format a markdown image with QQ Bot width/height annotations. */
 export function formatQQBotMarkdownImage(url: string, size: ImageSize | null): string {
   const { width, height } = size ?? DEFAULT_IMAGE_SIZE;
   return `![#${width}px #${height}px](${url})`;
 }
 
-/** Return true when markdown already contains QQ Bot size annotations. */
 export function hasQQBotImageSize(markdownImage: string): boolean {
   return /!\[#\d+px\s+#\d+px\]/.test(markdownImage);
 }
