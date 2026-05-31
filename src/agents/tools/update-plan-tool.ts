@@ -73,7 +73,6 @@ function readPlanSteps(params: Record<string, unknown>): UpdatePlanStep[] {
   return steps;
 }
 
-/** Creates the update_plan AgentTool. */
 export function createUpdatePlanTool(): AnyAgentTool {
   return {
     label: "Update Plan",

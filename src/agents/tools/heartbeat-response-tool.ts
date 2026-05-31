@@ -32,7 +32,6 @@ function readRequiredBoolean(params: Record<string, unknown>, key: string): bool
   return raw;
 }
 
-/** Creates the heartbeat response AgentTool. */
 export function createHeartbeatResponseTool(): AnyAgentTool {
   let recorded = false;
   return {

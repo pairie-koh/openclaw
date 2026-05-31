@@ -122,7 +122,6 @@ const NodesToolSchema = Type.Object({
   invokeTimeoutMs: optionalPositiveIntegerSchema(),
 });
 
-/** Creates the nodes management AgentTool. */
 export function createNodesTool(options?: {
   agentSessionKey?: string;
   agentChannel?: GatewayMessageChannel;

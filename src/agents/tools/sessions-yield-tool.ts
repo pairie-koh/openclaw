@@ -6,7 +6,6 @@ const SessionsYieldToolSchema = Type.Object({
   message: Type.Optional(Type.String()),
 });
 
-/** Creates the sessions yield AgentTool. */
 export function createSessionsYieldTool(opts?: {
   sessionId?: string;
   onYield?: (message: string) => Promise<void> | void;

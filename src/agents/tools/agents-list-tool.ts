@@ -27,7 +27,6 @@ type AgentListEntry = {
   };
 };
 
-/** Creates the agents-list AgentTool. */
 export function createAgentsListTool(opts?: {
   agentSessionKey?: string;
   /** Explicit agent ID override for cron/hook sessions. */

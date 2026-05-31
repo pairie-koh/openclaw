@@ -69,7 +69,6 @@ function isWebSearchDisabled(config?: OpenClawConfig): boolean {
   return Boolean(search && typeof search === "object" && search.enabled === false);
 }
 
-/** Creates the web_search AgentTool. */
 export function createWebSearchTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;
