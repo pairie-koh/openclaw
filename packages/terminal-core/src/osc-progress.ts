@@ -3,14 +3,12 @@ const OSC_PROGRESS_ST = "\u001b\\";
 const OSC_PROGRESS_BEL = "\u0007";
 const OSC_PROGRESS_C1_ST = "\u009c";
 
-/** Controller for terminal progress state sent through OSC escape sequences. */
 export type OscProgressController = {
   setIndeterminate: (label: string) => void;
   setPercent: (label: string, percent: number) => void;
   clear: () => void;
 };
 
-/** Return whether the terminal environment is known to support OSC progress. */
 export function supportsOscProgress(env: NodeJS.ProcessEnv, isTty: boolean): boolean {
   if (!isTty) {
     return false;
@@ -41,7 +39,6 @@ function formatOscProgress(state: number, percent: number | null, label: string)
   return `${OSC_PROGRESS_PREFIX}${state};${normalizedPercent};${cleanLabel}${OSC_PROGRESS_ST}`;
 }
 
-/** Create a no-op or OSC-backed progress controller for the current terminal. */
 export function createOscProgressController(params: {
   env: NodeJS.ProcessEnv;
   isTty: boolean;

@@ -152,7 +152,6 @@ function normalizeNamedEventType(event: GatewayEvent): OpenClawEventType {
   }
 }
 
-/** Normalize a raw gateway event into the versioned SDK event envelope. */
 export function normalizeGatewayEvent(event: GatewayEvent): OpenClawEvent {
   const payload = asRecord(event.payload);
   const runId = readString(payload.runId);

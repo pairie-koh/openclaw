@@ -2,17 +2,14 @@ import type { GatewayEvent } from "./types.js";
 
 type Listener<T> = (event: T) => void;
 
-/** Event hub options controlling how many past events are replayed to new streams. */
 export type EventHubOptions = {
   replayLimit?: number;
 };
 
-/** Stream options controlling whether iteration starts with buffered replay events. */
 export type EventStreamOptions = {
   replay?: boolean;
 };
 
-/** In-memory publish/subscribe hub that exposes async iterables and optional replay. */
 export class EventHub<T> {
   private readonly replayLimit: number;
   private readonly replayEvents: T[] = [];
@@ -123,7 +120,6 @@ export class EventHub<T> {
   }
 }
 
-/** Narrow unknown values to raw gateway events by checking the event name field. */
 export function isGatewayEvent(value: unknown): value is GatewayEvent {
   return (
     typeof value === "object" &&
