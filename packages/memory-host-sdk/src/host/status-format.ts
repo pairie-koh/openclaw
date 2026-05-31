@@ -1,6 +1,5 @@
 export type Tone = "ok" | "warn" | "muted";
 
-/** Converts vector-search availability into display tone and state. */
 export function resolveMemoryVectorState(vector: { enabled: boolean; available?: boolean }): {
   tone: Tone;
   state: "ready" | "unavailable" | "disabled" | "unknown";
@@ -17,7 +16,6 @@ export function resolveMemoryVectorState(vector: { enabled: boolean; available?:
   return { tone: "muted", state: "unknown" };
 }
 
-/** Converts FTS availability into display tone and state. */
 export function resolveMemoryFtsState(fts: { enabled: boolean; available: boolean }): {
   tone: Tone;
   state: "ready" | "unavailable" | "disabled";
@@ -39,7 +37,6 @@ export function resolveMemoryCacheSummary(cache: { enabled: boolean; entries?: n
   return { tone: "ok", text: `cache on${suffix}` };
 }
 
-/** Converts cache enablement into display tone and state. */
 export function resolveMemoryCacheState(cache: { enabled: boolean }): {
   tone: Tone;
   state: "enabled" | "disabled";

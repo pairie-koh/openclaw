@@ -6,7 +6,6 @@ import type { EmbeddingInput } from "./embedding-inputs.js";
 // Tokenizers operate over bytes; a token must contain at least one byte, so
 // token_count <= utf8_byte_length.
 
-/** Estimates tokenizer upper bound by counting UTF-8 bytes. */
 export function estimateUtf8Bytes(text: string): number {
   if (!text) {
     return 0;
@@ -14,7 +13,6 @@ export function estimateUtf8Bytes(text: string): number {
   return Buffer.byteLength(text, "utf8");
 }
 
-/** Estimates structured embedding input size across text and inline-data parts. */
 export function estimateStructuredEmbeddingInputBytes(input: EmbeddingInput): number {
   if (!input.parts?.length) {
     return estimateUtf8Bytes(input.text);
@@ -31,7 +29,6 @@ export function estimateStructuredEmbeddingInputBytes(input: EmbeddingInput): nu
   return total;
 }
 
-/** Splits text into chunks that each fit a UTF-8 byte budget without surrogate splits. */
 export function splitTextToUtf8ByteLimit(text: string, maxUtf8Bytes: number): string[] {
   if (maxUtf8Bytes <= 0) {
     return [text];

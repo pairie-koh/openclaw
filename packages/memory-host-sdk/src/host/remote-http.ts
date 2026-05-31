@@ -5,14 +5,11 @@ import {
 } from "./openclaw-runtime-network.js";
 import type { SsrFPolicy } from "./ssrf-policy.js";
 
-/** Fetch guard mode used when a remote memory URL is allowed to use env proxy settings. */
 export const MEMORY_REMOTE_TRUSTED_ENV_PROXY_MODE = "trusted_env_proxy";
 
-/** Builds an SSRF policy that permits the hostname from a configured remote base URL. */
 export const buildRemoteBaseUrlPolicy: (baseUrl: string) => SsrFPolicy | undefined =
   ssrfPolicyFromHttpBaseUrlAllowedHostname;
 
-/** Runs a guarded fetch and guarantees response resources are released. */
 export async function withRemoteHttpResponse<T>(params: {
   url: string;
   init?: RequestInit;

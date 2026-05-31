@@ -2,7 +2,6 @@ import { normalizeLowercaseStringOrEmpty } from "./string-utils.js";
 
 const debugEmbeddings = isTruthyEnvValue(process.env.OPENCLAW_DEBUG_MEMORY_EMBEDDINGS);
 
-/** Writes embedding debug output only when OPENCLAW_DEBUG_MEMORY_EMBEDDINGS is truthy. */
 export function debugEmbeddingsLog(message: string, meta?: Record<string, unknown>): void {
   if (!debugEmbeddings) {
     return;

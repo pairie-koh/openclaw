@@ -16,7 +16,6 @@ if (!hasPythonModeOverride) {
   configureFsSafePython({ mode: "off" });
 }
 
-/** Detects missing-file errors across Node and fs-safe error codes. */
 export function isFileMissingError(
   err: unknown,
 ): err is NodeJS.ErrnoException & { code: "ENOENT" | "ENOTDIR" | "not-found" } {
