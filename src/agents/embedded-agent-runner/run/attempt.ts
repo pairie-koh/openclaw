@@ -1992,7 +1992,6 @@ export async function runEmbeddedAttempt(
       applyAgentAutoCompactionGuard(autoCompactionGuardArgs);
       prepStages.mark("session-resource-loader");
 
-      // Get hook runner early so it's available when creating tools
       const hookRunner = getGlobalHookRunner();
 
       const { customTools } = splitSdkTools({

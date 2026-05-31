@@ -2457,7 +2457,6 @@ export async function runEmbeddedAgent(
               authRetryPending = true;
               continue;
             }
-            // Handle role ordering errors with a user-friendly message
             if (/incorrect role information|roles must alternate/i.test(errorText)) {
               attempt.setTerminalLifecycleMeta?.({
                 replayInvalid: resolveReplayInvalidForAttempt(),
@@ -2493,7 +2492,6 @@ export async function runEmbeddedAgent(
                 },
               };
             }
-            // Handle image size errors with a user-friendly message (no retry needed)
             const imageSizeError = parseImageSizeError(errorText);
             if (imageSizeError) {
               const maxMb = imageSizeError.maxMb;

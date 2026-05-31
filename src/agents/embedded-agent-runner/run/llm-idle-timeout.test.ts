@@ -420,7 +420,6 @@ describe("streamWithIdleTimeout", () => {
 
   it("handles stream with delays between chunks", async () => {
     vi.useFakeTimers();
-    // Create a stream with small delays
     const delayedStream: AsyncIterable<{ text: string }> = {
       [Symbol.asyncIterator]() {
         let count = 0;

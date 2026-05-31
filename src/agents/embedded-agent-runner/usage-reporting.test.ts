@@ -182,13 +182,11 @@ describe("runEmbeddedAgent usage reporting", () => {
       runId: "run-1",
     });
 
-    // Check usage in meta
     const usage = result.meta.agentMeta?.usage;
     expect(usage?.input).toBe(250);
     expect(usage?.output).toBe(100);
     expect(usage?.total).toBe(200);
 
-    // Check if total matches the last turn's total (200)
     // If the bug exists, it will likely be 350
     expect(usage?.total).toBe(200);
   });

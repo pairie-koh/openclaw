@@ -508,7 +508,6 @@ export function getSlashCommandCompletions(
   }
 
   return commands.toSorted((a, b) => {
-    // Sort by tier first (essential → standard → power)
     const aTier = TIER_ORDER[a.tier ?? "standard"] ?? 1;
     const bTier = TIER_ORDER[b.tier ?? "standard"] ?? 1;
     if (aTier !== bTier) {

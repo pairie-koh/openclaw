@@ -1600,7 +1600,6 @@ describe("connectGateway", () => {
     connectGateway(host);
     const client = requireGatewayClient();
 
-    // Add a plugin approval first
     client.emitEvent({
       event: "plugin.approval.requested",
       payload: {
@@ -1612,7 +1611,6 @@ describe("connectGateway", () => {
     });
     expect(host.execApprovalQueue).toHaveLength(1);
 
-    // Resolve it
     client.emitEvent({
       event: "plugin.approval.resolved",
       payload: { id: "plugin-approval-2", decision: "allow-once" },

@@ -123,7 +123,6 @@ describe("truncateToolResultText", () => {
     expect(result).toContain("truncated");
     // The truncated content should be shorter than the original
     expect(result.length).toBeLessThan(lines.length);
-    // Extract the kept content (before the truncation suffix marker)
     const suffixIndex = result.indexOf("\n\n⚠️");
     if (suffixIndex > 0) {
       const keptContent = result.slice(0, suffixIndex);
