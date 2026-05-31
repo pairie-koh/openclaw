@@ -1,11 +1,9 @@
 export type PluginJsonPrimitive = string | number | boolean | null;
-/** Recursive JSON value shape accepted by plugin host hooks. */
 export type PluginJsonValue =
   | PluginJsonPrimitive
   | PluginJsonValue[]
   | { [key: string]: PluginJsonValue };
 
-/** Size and depth limits applied to plugin hook JSON payloads. */
 export type PluginJsonValueLimits = {
   maxDepth: number;
   maxNodes: number;
@@ -14,7 +12,6 @@ export type PluginJsonValueLimits = {
   maxSerializedBytes: number;
 };
 
-/** Default limits that keep plugin hook JSON payloads bounded. */
 export const PLUGIN_JSON_VALUE_LIMITS: PluginJsonValueLimits = {
   maxDepth: 32,
   maxNodes: 4096,
@@ -67,7 +64,6 @@ function isPluginJsonValueWithinLimits(
   return ok;
 }
 
-/** Return whether a value is JSON-serializable and within plugin hook limits. */
 export function isPluginJsonValue(value: unknown): value is PluginJsonValue {
   if (!isPluginJsonValueWithinLimits(value, PLUGIN_JSON_VALUE_LIMITS, { depth: 0, nodes: 0 })) {
     return false;
