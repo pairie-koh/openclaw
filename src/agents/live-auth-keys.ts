@@ -172,7 +172,6 @@ export function collectGeminiApiKeys(): string[] {
   return collectProviderApiKeys("google");
 }
 
-/** Return whether an error message looks like a generic API-key rate limit. */
 export function isApiKeyRateLimitError(message: string): boolean {
   const lower = normalizeLowercaseStringOrEmpty(message);
   if (lower.includes("rate_limit")) {
@@ -196,12 +195,10 @@ export function isApiKeyRateLimitError(message: string): boolean {
   return false;
 }
 
-/** Return whether an error message is Anthropic rate limiting. */
 export function isAnthropicRateLimitError(message: string): boolean {
   return isApiKeyRateLimitError(message);
 }
 
-/** Return whether an error message is Anthropic billing exhaustion. */
 export function isAnthropicBillingError(message: string): boolean {
   const lower = normalizeLowercaseStringOrEmpty(message);
   if (lower.includes("credit balance")) {

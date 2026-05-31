@@ -17,7 +17,6 @@ export {
 } from "../shared/text/assistant-visible-text.js";
 export { stripModelSpecialTokens } from "../shared/text/model-special-tokens.js";
 
-/** Return whether a session message is an assistant message. */
 export function isAssistantMessage(msg: AgentMessage | undefined): msg is AssistantMessage {
   return msg?.role === "assistant";
 }

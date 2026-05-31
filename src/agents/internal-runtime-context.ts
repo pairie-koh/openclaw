@@ -241,7 +241,6 @@ export function extractInternalRuntimeContext(text: string): {
   };
 }
 
-/** Return whether text contains an internal runtime-context block. */
 export function hasInternalRuntimeContext(text: string): boolean {
   if (!text) {
     return false;

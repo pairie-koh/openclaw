@@ -92,7 +92,6 @@ export function parseIdentityMarkdown(content: string): AgentIdentityFile {
   return identity;
 }
 
-/** Return whether parsed identity contains any configured value. */
 export function identityHasValues(identity: AgentIdentityFile): boolean {
   return Boolean(
     identity.name ||

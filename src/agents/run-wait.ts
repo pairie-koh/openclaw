@@ -131,7 +131,6 @@ const RECOVERABLE_AGENT_WAIT_ERROR_PATTERNS: readonly RegExp[] = [
   /\b(ECONNRESET|ECONNREFUSED|ETIMEDOUT|EPIPE|EHOSTUNREACH|ENETUNREACH)\b/i,
 ];
 
-/** Return whether an agent.wait error is transient enough to retry/continue. */
 export function isRecoverableAgentWaitError(error: string | undefined): boolean {
   const message = error?.trim();
   if (!message) {

@@ -1167,7 +1167,6 @@ export function resolveAllowedModelRefFromAliasIndex(
   return { ref: resolved.ref, key: status.key };
 }
 
-/** Return whether config contains provider model rows. */
 export function hasConfiguredProviderModelRows(cfg: OpenClawConfig): boolean {
   const providers = cfg.models?.providers;
   if (!providers || typeof providers !== "object") {
