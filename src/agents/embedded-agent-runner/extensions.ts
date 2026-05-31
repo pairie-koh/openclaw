@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import type { ProviderRuntimeModel } from "../../plugins/provider-runtime-model.types.js";
+import { normalizeOptionalLowercaseString } from "../../shared/string-coerce.js";
 import type { AgentToolResult } from "../agent-core-contract.js";
 import type { ExtensionFactory } from "../agent-extension-contract.js";
 import { setCompactionSafeguardRuntime } from "../agent-hooks/compaction-safeguard-runtime.js";
@@ -37,6 +38,15 @@ function recordFromUnknown(value: unknown): Record<string, unknown> {
     : {};
 }
 
+// Only checks "error" and "timeout" -- the status values emitted by the
+// adapter's buildToolExecutionErrorResult. The subscribe-side classifier
+// handles arbitrary external tool results with a broader status policy.
+function hasErrorToolResultStatus(result: AgentToolResult): boolean {
+  const details = recordFromUnknown(result.details);
+  const status = normalizeOptionalLowercaseString(details.status);
+  return status === "error" || status === "timeout";
+}
+
 function buildAgentToolResultMiddlewareFactory(): ExtensionFactory {
   const runner = createAgentToolResultMiddlewareRunner({ runtime: "openclaw" });
   return (agent) => {
@@ -54,6 +64,7 @@ function buildAgentToolResultMiddlewareFactory(): ExtensionFactory {
         content,
         details: event.details,
       } satisfies AgentToolResult;
+      const inputHadErrorStatus = hasErrorToolResultStatus(current);
       const result = await runner.applyToolResultMiddleware({
         threadId: event.threadId,
         turnId: event.turnId,
@@ -64,9 +75,12 @@ function buildAgentToolResultMiddlewareFactory(): ExtensionFactory {
         isError: event.isError,
         result: current,
       });
+      const isError =
+        event.isError === true || inputHadErrorStatus || hasErrorToolResultStatus(result);
       return {
         content: result.content,
         details: result.details,
+        ...(isError ? { isError: true } : {}),
       };
     });
   };
