@@ -236,13 +236,11 @@ describe("sendMessageDiscord", () => {
       discordClientOpts(rest),
     );
     expect(postMock).toHaveBeenCalledTimes(2);
-    // First call: create thread
     expect(requestPath(postMock as unknown as MockCallSource, 0)).toBe(Routes.threads("chan1"));
     expect(requestBody(postMock as unknown as MockCallSource, 0).name).toBe("thread");
     expect(requestBody(postMock as unknown as MockCallSource, 0).type).toBe(
       ChannelType.PublicThread,
     );
-    // Second call: send message to thread
     expect(requestPath(postMock as unknown as MockCallSource, 1)).toBe(
       Routes.channelMessages("t1"),
     );
@@ -287,12 +285,10 @@ describe("sendMessageDiscord", () => {
     // Should not detect channel type for message-attached threads
     expect(getMock).not.toHaveBeenCalled();
     expect(postMock).toHaveBeenCalledTimes(2);
-    // First call: create thread from message
     expect(requestPath(postMock as unknown as MockCallSource, 0)).toBe(
       Routes.threads("chan1", "m1"),
     );
     expect(requestBody(postMock as unknown as MockCallSource, 0)).toEqual({ name: "thread" });
-    // Second call: send message to thread
     expect(requestPath(postMock as unknown as MockCallSource, 1)).toBe(
       Routes.channelMessages("t1"),
     );

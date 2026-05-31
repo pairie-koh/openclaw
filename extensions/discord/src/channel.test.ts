@@ -679,11 +679,9 @@ describe("discordPlugin outbound", () => {
       },
     } as OpenClawConfig;
 
-    // First account (index 0) — no delay
     await startDiscordAccount(cfg, "alpha");
     expect(sleepWithAbortMock).not.toHaveBeenCalled();
 
-    // Second account (index 1) — 10s delay
     const zetaContext = createStartAccountContext({
       account: resolveAccount(cfg, "zeta"),
       cfg,

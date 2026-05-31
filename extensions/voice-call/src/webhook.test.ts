@@ -1541,7 +1541,6 @@ describe("VoiceCallWebhookServer start idempotency", () => {
 
     try {
       const firstUrl = await server.start();
-      // Second call should return immediately without EADDRINUSE
       const secondUrl = await server.start();
 
       // Dynamic port allocations should resolve to a real listening port.
@@ -1578,7 +1577,6 @@ describe("VoiceCallWebhookServer start idempotency", () => {
     expectWebhookUrl(firstUrl, "/voice/webhook");
     await server.stop();
 
-    // After stopping, a new start should succeed
     const secondUrl = await server.start();
     expectWebhookUrl(secondUrl, "/voice/webhook");
     await server.stop();

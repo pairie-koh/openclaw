@@ -1283,7 +1283,6 @@ describe("Discord model picker recents view", () => {
     });
     expect(rows).toHaveLength(4);
 
-    // First row: default model button (slot 1).
     const defaultBtn = requireValue(
       rows[0]?.components?.[0],
       "recents view should render a default model button",
@@ -1297,7 +1296,6 @@ describe("Discord model picker recents view", () => {
     expect(defaultState.view).toBe("recents");
     expect(defaultState.recentSlot).toBe(1);
 
-    // Second row: first recent (slot 2).
     const recentBtn1 = requireValue(
       rows[1]?.components?.[0],
       "recents view should render first recent button",

@@ -28,10 +28,8 @@ describe("markdownToIR tableMode bullets", () => {
 
     const ir = markdownToIR(md, { tableMode: "bullets" });
 
-    // First column becomes row label
     expect(ir.text).toContain("Speed");
     expect(ir.text).toContain("Scale");
-    // Other columns become bullet points
     expect(ir.text).toContain("• SQLite: Fast");
     expect(ir.text).toContain("• Postgres: Medium");
     expect(ir.text).toContain("• SQLite: Small");
