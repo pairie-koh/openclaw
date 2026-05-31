@@ -95,7 +95,6 @@ const AUDIO_FILE_EXTENSIONS = new Set([
 
 const fileTypeModuleLoader = createLazyImportLoader(() => import("file-type"));
 
-/** Normalize a MIME value by removing parameters and canonicalizing common aliases. */
 export function normalizeMimeType(mime?: string | null): string | undefined {
   if (!mime) {
     return undefined;
@@ -143,7 +142,6 @@ function sniffKnownAudioMagic(buffer: Buffer): string | undefined {
   return undefined;
 }
 
-/** Extract a lowercase file extension from a path or URL. */
 export function getFileExtension(filePath?: string | null): string | undefined {
   if (!filePath) {
     return undefined;
@@ -160,7 +158,6 @@ export function getFileExtension(filePath?: string | null): string | undefined {
   return ext || undefined;
 }
 
-/** Resolve a known MIME type from a file path extension. */
 export function mimeTypeFromFilePath(filePath?: string | null): string | undefined {
   const ext = getFileExtension(filePath);
   if (!ext) {
@@ -169,7 +166,6 @@ export function mimeTypeFromFilePath(filePath?: string | null): string | undefin
   return MIME_BY_EXT[ext];
 }
 
-/** Return true when a file name has a known audio extension. */
 export function isAudioFileName(fileName?: string | null): boolean {
   const ext = getFileExtension(fileName);
   if (!ext) {
@@ -178,7 +174,6 @@ export function isAudioFileName(fileName?: string | null): boolean {
   return AUDIO_FILE_EXTENSIONS.has(ext);
 }
 
-/** Detect the best MIME type from bytes, content headers, and file path hints. */
 export function detectMime(opts: {
   buffer?: Buffer;
   headerMime?: string | null;
@@ -235,7 +230,6 @@ async function detectMimeImpl(opts: {
   return undefined;
 }
 
-/** Return OpenClaw's preferred extension for a MIME type. */
 export function extensionForMime(mime?: string | null): string | undefined {
   const normalized = normalizeMimeType(mime);
   if (!normalized) {
@@ -244,7 +238,6 @@ export function extensionForMime(mime?: string | null): string | undefined {
   return EXT_BY_MIME[normalized];
 }
 
-/** Return true when media metadata identifies a GIF image. */
 export function isGifMedia(opts: {
   contentType?: string | null;
   fileName?: string | null;
@@ -256,7 +249,6 @@ export function isGifMedia(opts: {
   return ext === ".gif";
 }
 
-/** Convert an image format name into its MIME type. */
 export function imageMimeFromFormat(format?: string | null): string | undefined {
   if (!format) {
     return undefined;
@@ -280,7 +272,6 @@ export function imageMimeFromFormat(format?: string | null): string | undefined 
   }
 }
 
-/** Resolve a MIME value into the broad media kind used by attachment routing. */
 export function kindFromMime(mime?: string | null): MediaKind | undefined {
   return mediaKindFromMime(normalizeMimeType(mime));
 }

@@ -6,21 +6,18 @@ import type {
   ContextEngineOperation,
 } from "./types.js";
 
-/** Host id, label, and capabilities advertised to context engines. */
 export type ContextEngineHostSupport = {
   id: string;
   label: string;
   capabilities: readonly ContextEngineHostCapability[];
 };
 
-/** Baseline capabilities provided by generic CLI context-engine hosts. */
 export const GENERIC_CLI_CONTEXT_ENGINE_HOST_CAPABILITIES = [
   "bootstrap",
   "after-turn",
   "maintain",
 ] as const satisfies readonly ContextEngineHostCapability[];
 
-/** Capability profile for OpenClaw's embedded runner host. */
 export const OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST = {
   id: "openclaw-embedded",
   label: "OpenClaw embedded runner",
@@ -34,7 +31,6 @@ export const OPENCLAW_EMBEDDED_CONTEXT_ENGINE_HOST = {
   ],
 } as const satisfies ContextEngineHostSupport;
 
-/** Capability profile for the Codex app-server harness host. */
 export const CODEX_APP_SERVER_CONTEXT_ENGINE_HOST = {
   id: "codex-app-server",
   label: "Codex app-server harness",
@@ -49,7 +45,6 @@ export const CODEX_APP_SERVER_CONTEXT_ENGINE_HOST = {
   ],
 } as const satisfies ContextEngineHostSupport;
 
-/** Result of checking engine operation requirements against host capabilities. */
 export type ContextEngineHostSupportEvaluation =
   | {
       ok: true;
@@ -62,7 +57,6 @@ export type ContextEngineHostSupportEvaluation =
       missingCapabilities: ContextEngineHostCapability[];
     };
 
-/** Build the default host support advertised by the generic CLI runner. */
 export function buildGenericCliContextEngineHostSupport(params: {
   backendId: string;
   capabilities?: readonly ContextEngineHostCapability[];
@@ -74,7 +68,6 @@ export function buildGenericCliContextEngineHostSupport(params: {
   };
 }
 
-/** Evaluate whether a context-engine host can safely run the requested operation. */
 export function evaluateContextEngineHostSupport(params: {
   contextEngineInfo: ContextEngineInfo;
   operation: ContextEngineOperation;
@@ -100,7 +93,6 @@ export function evaluateContextEngineHostSupport(params: {
   };
 }
 
-/** Assert that a context engine can safely run under the supplied host. */
 export function assertContextEngineHostSupport(params: {
   contextEngine: ContextEngine;
   operation: ContextEngineOperation;
