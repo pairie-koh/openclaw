@@ -1,17 +1,13 @@
 import { normalizeStringEntries } from "@openclaw/normalization-core/string-normalization";
 
-/** Where DM allowlist/policy fields are stored for a channel config. */
 export type ChannelDmAllowFromMode = "topOnly" | "topOrNested" | "nestedOnly";
-/** Direct-message access policy for a channel/account. */
 export type ChannelDmPolicy = "pairing" | "allowlist" | "open" | "disabled";
 
-/** Resolved DM access policy plus allowlist entries. */
 export type ChannelDmAccess = {
   dmPolicy?: ChannelDmPolicy;
   allowFrom?: Array<string | number>;
 };
 
-/** Mutable config record that may contain top-level or nested DM fields. */
 export type DmAccessRecord = Record<string, unknown>;
 
 type DmFieldKind = "policy" | "allowFrom";
@@ -21,13 +17,11 @@ type DmFieldPaths = {
   legacyPath: readonly string[];
 };
 
-/** Result of a compatibility mutation over a DM access config record. */
 export type CompatMutationResult = {
   entry: DmAccessRecord;
   changed: boolean;
 };
 
-/** Normalizes a raw string into a supported DM policy. */
 export function normalizeChannelDmPolicy(value: string | undefined): ChannelDmPolicy | undefined {
   return value === "pairing" || value === "allowlist" || value === "open" || value === "disabled"
     ? value
@@ -128,7 +122,6 @@ function readCanonicalOrLegacy(
   return readPath(entry, paths.canonicalPath) ?? readPath(entry, paths.legacyPath);
 }
 
-/** Resolves account, parent, or default DM policy using the configured field mode. */
 export function resolveChannelDmPolicy(params: {
   account?: DmAccessRecord | null;
   parent?: DmAccessRecord | null;

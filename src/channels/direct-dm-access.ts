@@ -14,7 +14,6 @@ import {
 import type { ChannelId } from "./plugins/types.public.js";
 export type { AccessGroupMembershipResolver } from "../plugin-sdk/access-groups.js";
 
-/** Runtime hooks needed to compute legacy direct-DM command authorization. */
 export type DirectDmCommandAuthorizationRuntime = {
   shouldComputeCommandAuthorized: (rawBody: string, cfg: OpenClawConfig) => boolean;
   /** @deprecated Command authorization is resolved by channel ingress. Kept for runtime injection compatibility. */
@@ -52,7 +51,6 @@ function toLegacyDmReasonCode(reasonCode: string): DmGroupAccessReasonCode {
 }
 
 /** @deprecated Use `resolveChannelMessageIngress` from `openclaw/plugin-sdk/channel-ingress-runtime`. */
-/** Resolve legacy direct-DM access using explicit runtime dependencies. */
 export async function resolveInboundDirectDmAccessWithRuntime(params: {
   cfg: OpenClawConfig;
   channel: ChannelId;

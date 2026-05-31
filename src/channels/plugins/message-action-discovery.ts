@@ -18,7 +18,6 @@ import type {
   ChannelMessageToolSchemaContribution,
 } from "./types.public.js";
 
-/** Context fields used to discover channel message actions for the current request. */
 export type ChannelMessageActionDiscoveryInput = {
   cfg?: OpenClawConfig;
   channel?: string | null;
@@ -44,12 +43,10 @@ type ChannelMessageToolMediaSourceParamKeyInput = ChannelMessageActionDiscoveryP
 
 const loggedMessageActionErrors = new Set<string>();
 
-/** Normalizes a channel id for message action discovery, preserving unknown ids as strings. */
 export function resolveMessageActionDiscoveryChannelId(raw?: string | null): string | undefined {
   return normalizeAnyChannelId(raw) ?? normalizeOptionalString(raw);
 }
 
-/** Builds the public discovery context passed to channel message tool adapters. */
 export function createMessageActionDiscoveryContext(
   params: ChannelMessageActionDiscoveryInput,
 ): ChannelMessageActionDiscoveryContext {
