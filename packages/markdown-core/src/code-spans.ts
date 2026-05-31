@@ -1,6 +1,5 @@
 import { scanFenceSpans, type FenceScanState, type FenceSpan } from "./fences.js";
 
-/** Carry-over state for inline backtick parsing across streamed chunks. */
 export type InlineCodeState = {
   open: boolean;
   ticks: number;
@@ -21,7 +20,6 @@ type CodeSpanIndex = {
   isInside: (index: number) => boolean;
 };
 
-/** Builds a predicate for checking whether a character index is inside code. */
 export function buildCodeSpanIndex(
   text: string,
   inlineState?: InlineCodeState,

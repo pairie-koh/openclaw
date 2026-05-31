@@ -5,7 +5,6 @@ export type ParsedGenerationModelRef = {
   model: string;
 };
 
-/** Parse a non-empty `provider/model` reference into provider and model components. */
 export function parseGenerationModelRef(raw: string | undefined): ParsedGenerationModelRef | null {
   const trimmed = normalizeOptionalString(raw);
   if (!trimmed) {

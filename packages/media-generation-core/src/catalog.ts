@@ -24,7 +24,6 @@ export type MediaGenerationCatalogEntry<TCapabilities = unknown> = {
   warnings?: readonly string[];
 };
 
-/** Provider definition used to synthesize static media-generation model catalog rows. */
 export type MediaGenerationCatalogProvider<TCapabilities = unknown> = {
   id: string;
   aliases?: readonly string[];
@@ -38,7 +37,6 @@ function uniqueModels(provider: { defaultModel?: string; models?: readonly strin
   return uniqueTrimmedStrings([provider.defaultModel, ...(provider.models ?? [])]);
 }
 
-/** Build static catalog entries for every configured/default model on a provider. */
 export function synthesizeMediaGenerationCatalogEntries<TCapabilities>(params: {
   kind: MediaGenerationCatalogKind;
   provider: MediaGenerationCatalogProvider<TCapabilities>;
@@ -65,7 +63,6 @@ export function synthesizeMediaGenerationCatalogEntries<TCapabilities>(params: {
   });
 }
 
-/** Return de-duplicated provider model ids with the default model first when present. */
 export function listMediaGenerationProviderModels(provider: {
   defaultModel?: string;
   models?: readonly string[];

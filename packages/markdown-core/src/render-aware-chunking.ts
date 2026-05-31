@@ -6,13 +6,11 @@ import {
   type MarkdownStyleSpan,
 } from "./ir.js";
 
-/** Rendered chunk paired with the source Markdown IR slice that produced it. */
 export type RenderedMarkdownChunk<TRendered> = {
   rendered: TRendered;
   source: MarkdownIR;
 };
 
-/** Options for rendering Markdown IR chunks under a measured output limit. */
 export type RenderMarkdownIRChunksWithinLimitOptions<TRendered> = {
   ir: MarkdownIR;
   limit: number;
