@@ -20,8 +20,6 @@ import {
   updateSessionStore,
 } from "openclaw/plugin-sdk/session-store-runtime";
 
-// ── Types ──────────────────────────────────────────────────────────────
-
 type SubagentSurface = {
   run: (params: {
     idempotencyKey: string;
@@ -59,8 +57,6 @@ type Logger = {
   warn: (message: string) => void;
   error: (message: string) => void;
 };
-
-// ── Constants ──────────────────────────────────────────────────────────
 
 const NARRATIVE_SYSTEM_PROMPT = [
   "You are keeping a dream diary. Write a single entry in first person.",
@@ -282,8 +278,6 @@ function buildNarrativeSessionKey(params: {
   return `dreaming-narrative-${params.phase}-${workspaceHash}`;
 }
 
-// ── Prompt building ────────────────────────────────────────────────────
-
 export function buildNarrativePrompt(data: NarrativePhaseData): string {
   const lines: string[] = [];
   lines.push("Write a dream diary entry from these memory fragments:\n");
@@ -308,8 +302,6 @@ export function buildNarrativePrompt(data: NarrativePhaseData): string {
 
   return lines.join("\n");
 }
-
-// ── Message extraction ─────────────────────────────────────────────────
 
 export function extractNarrativeText(messages: unknown[]): string | null {
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -347,8 +339,6 @@ export function extractNarrativeText(messages: unknown[]): string | null {
   return null;
 }
 
-// ── Date formatting ────────────────────────────────────────────────────
-
 export function formatNarrativeDate(epochMs: number, timezone?: string): string {
   const opts: Intl.DateTimeFormatOptions = {
     timeZone: timezone ?? process.env.TZ,
@@ -366,8 +356,6 @@ export function formatNarrativeDate(epochMs: number, timezone?: string): string 
   };
   return new Intl.DateTimeFormat("en-US", opts).format(new Date(epochMs));
 }
-
-// ── DREAMS.md file I/O ─────────────────────────────────────────────────
 
 async function resolveDreamsPath(workspaceDir: string): Promise<string> {
   for (const name of DREAMS_FILENAMES) {
@@ -740,8 +728,6 @@ export async function appendNarrativeEntry(params: {
   });
 }
 
-// ── Orchestrator ───────────────────────────────────────────────────────
-
 function normalizeComparablePath(pathname: string): string {
   return process.platform === "win32" ? pathname.toLowerCase() : pathname;
 }
@@ -1100,8 +1086,6 @@ export async function generateAndAppendDreamNarrative(params: {
   });
 }
 
-// ── Detached narrative concurrency limit ───────────────────────────────
-//
 // Cron-driven dreaming detaches narrative generation across light, REM, and
 // deep phases for every workspace, so a 10-workspace cron sweep used to fire
 // 30 concurrent narrative subagents at once. Each one holds the session
