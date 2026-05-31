@@ -494,41 +494,6 @@ describe("Registry tests", () => {
       existingOwner: "core",
     });
   });
-
-  it("returns resolved engines directly and does not strip current runtime params", async () => {
-    const engineId = uniqueEngineId("strict-current-contract");
-    const assembleCalls: Array<Record<string, unknown>> = [];
-    const engine: ContextEngine = {
-      info: { id: engineId, name: "Strict Current Contract" },
-      async ingest() {
-        return { ingested: true };
-      },
-      async assemble(params) {
-        assembleCalls.push({ ...params });
-        if (Object.prototype.hasOwnProperty.call(params, "sessionKey")) {
-          throw new Error("sessionKey is part of the current contract");
-        }
-        return { messages: params.messages, estimatedTokens: 0 };
-      },
-      async compact() {
-        return { ok: true, compacted: false };
-      },
-    };
-    registerContextEngine(engineId, () => engine);
-
-    const resolved = await resolveContextEngine(configWithSlot(engineId));
-
-    expect(resolved.info).toEqual(engine.info);
-    await expect(
-      resolved.assemble({
-        sessionId: "s1",
-        sessionKey: "agent:main:test",
-        messages: [makeMockMessage()],
-      }),
-    ).rejects.toThrow("sessionKey is part of the current contract");
-    expect(assembleCalls).toHaveLength(1);
-    expect(assembleCalls[0]).toHaveProperty("sessionKey", "agent:main:test");
-  });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════

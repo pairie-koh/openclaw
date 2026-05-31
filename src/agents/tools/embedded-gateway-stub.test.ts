@@ -152,9 +152,10 @@ describe("embedded gateway stub", () => {
       maxMessages: 2,
     });
     expect(runtime.readSessionMessagesAsync).toHaveBeenCalledWith(
-      "sess-main",
-      "/tmp/openclaw-sessions.json",
-      undefined,
+      {
+        agentId: "main",
+        sessionId: "sess-main",
+      },
       {
         mode: "recent",
         maxMessages: 2,
