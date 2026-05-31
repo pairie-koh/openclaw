@@ -29,7 +29,7 @@ vi.mock("../agents/embedded-agent-runner/model.js", () => {
   };
 });
 
-vi.mock("../agents/embedded-agent-runner/runtime.js", () => ({
+vi.mock("../agents/agent-runtime-id.js", () => ({
   resolveEmbeddedAgentRuntime: () => resolveEmbeddedAgentRuntimeMock(),
 }));
 
@@ -150,8 +150,8 @@ describe("gateway startup primary model warmup", () => {
     expect(piModelModuleLoadedMock).not.toHaveBeenCalled();
   });
 
-  it("keeps PI static warmup when the embedded agent runtime is forced", async () => {
-    resolveEmbeddedAgentRuntimeMock.mockReturnValue("pi");
+  it("keeps static warmup when the OpenClaw embedded agent runtime is forced", async () => {
+    resolveEmbeddedAgentRuntimeMock.mockReturnValue("openclaw");
     const cfg = {
       agents: {
         defaults: {

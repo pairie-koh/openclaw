@@ -1101,6 +1101,7 @@ export function registerControlUiAndPairingSuite(): void {
       expect(operatorHandoff?.scopes).toEqual([
         "operator.approvals",
         "operator.read",
+        "operator.talk.secrets",
         "operator.write",
       ]);
       expect(operatorHandoff?.scopes).not.toContain("operator.admin");
@@ -1122,6 +1123,7 @@ export function registerControlUiAndPairingSuite(): void {
       expect(paired?.approvedScopes).toEqual([
         "operator.approvals",
         "operator.read",
+        "operator.talk.secrets",
         "operator.write",
       ]);
       expect(paired?.tokens?.node?.token).toBe(issuedDeviceToken);
@@ -1130,6 +1132,7 @@ export function registerControlUiAndPairingSuite(): void {
       expect(paired?.tokens?.operator?.scopes).toEqual([
         "operator.approvals",
         "operator.read",
+        "operator.talk.secrets",
         "operator.write",
       ]);
 
