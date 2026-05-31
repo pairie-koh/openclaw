@@ -19,7 +19,6 @@ function resolveProviderVoiceSetting(providerConfig: unknown): string | undefine
   );
 }
 
-/** Resolves the preferred voice for the configured TTS provider. */
 export function resolvePreferredTtsVoice(config: { tts?: VoiceCallTtsConfig }): string | undefined {
   const providerId = config.tts?.provider;
   if (!providerId) {

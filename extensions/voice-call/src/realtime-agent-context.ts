@@ -48,7 +48,6 @@ async function readWorkspaceVoiceContextFiles(params: {
   return sections;
 }
 
-/** Build realtime voice instructions with optional compact agent identity and workspace context. */
 export async function buildRealtimeVoiceInstructions(params: {
   baseInstructions: string;
   config: VoiceCallConfig;

@@ -20,7 +20,6 @@ const DEFAULT_MOONSHOT_VIDEO_BASE_URL = "https://api.moonshot.ai/v1";
 const DEFAULT_MOONSHOT_VIDEO_MODEL = MOONSHOT_DEFAULT_MODEL_ID;
 const DEFAULT_MOONSHOT_VIDEO_PROMPT = "Describe the video.";
 
-/** Sends a Moonshot chat-completions video request and extracts description text. */
 export async function describeMoonshotVideo(
   params: VideoDescriptionRequest,
 ): Promise<VideoDescriptionResult> {
@@ -75,7 +74,6 @@ export async function describeMoonshotVideo(
   }
 }
 
-/** Moonshot media-understanding provider descriptor registered by the plugin. */
 export const moonshotMediaUnderstandingProvider: MediaUnderstandingProvider = {
   id: "moonshot",
   capabilities: ["image", "video"],

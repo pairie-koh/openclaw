@@ -17,7 +17,6 @@ export const withTimeout = async <T>(promise: Promise<T>, timeoutMs = 2000): Pro
   }
 };
 
-/** Starts a local HTTP server that delegates WebSocket upgrade handling to the test. */
 export const startUpgradeWsServer = async (params: {
   urlPath: string;
   onUpgrade: (
@@ -59,7 +58,6 @@ export const connectWs = async (url: string): Promise<WebSocket> => {
   return ws;
 };
 
-/** Waits for a WebSocket close event and normalizes its code and reason. */
 export const waitForClose = async (
   ws: WebSocket,
 ): Promise<{

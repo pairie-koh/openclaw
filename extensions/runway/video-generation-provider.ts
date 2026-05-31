@@ -356,7 +356,6 @@ async function downloadRunwayVideos(params: {
   return videos;
 }
 
-/** Builds the Runway video-generation provider descriptor and task executor. */
 export function buildRunwayVideoGenerationProvider(): VideoGenerationProvider {
   return {
     id: "runway",

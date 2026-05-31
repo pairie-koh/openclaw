@@ -119,7 +119,6 @@ function validateDtmfDigits(digits: string): string | null {
     : "digits may only contain digits, *, #, comma, w, p";
 }
 
-/** Initiate an outbound call, persist its record, and map the provider call ID. */
 export async function initiateCall(
   ctx: InitiateContext,
   to: string,
@@ -255,7 +254,6 @@ export async function initiateCall(
   }
 }
 
-/** Play TTS into a connected call and append the bot transcript entry. */
 export async function speak(
   ctx: SpeakContext,
   callId: CallId,
@@ -308,7 +306,6 @@ function shouldStartListeningAfterInitialMessage(ctx: ConversationContext): bool
   return streamAwareProvider.isConversationStreamConnectEnabled?.() !== true;
 }
 
-/** Send validated DTMF digits through a provider that supports outbound DTMF. */
 export async function sendDtmf(
   ctx: SpeakContext,
   callId: CallId,
@@ -338,7 +335,6 @@ export async function sendDtmf(
   }
 }
 
-/** Speak a queued initial message once per call and advance notify/conversation flow. */
 export async function speakInitialMessage(
   ctx: ConversationContext,
   providerCallId: string,
@@ -411,7 +407,6 @@ export async function speakInitialMessage(
   }
 }
 
-/** Run one prompt/listen turn and resolve the final user transcript for the call. */
 export async function continueCall(
   ctx: ConversationContext,
   callId: CallId,
@@ -480,7 +475,6 @@ export async function continueCall(
   }
 }
 
-/** Hang up a connected call and finalize local call state. */
 export async function endCall(
   ctx: EndCallContext,
   callId: CallId,

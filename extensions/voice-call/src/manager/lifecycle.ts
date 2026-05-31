@@ -23,7 +23,6 @@ function removeProviderCallMapping(
   }
 }
 
-/** Persist a terminal call state, reject waiters, clear timers, and remove active mappings. */
 export function finalizeCall(params: {
   ctx: CallLifecycleContext;
   call: CallRecord;

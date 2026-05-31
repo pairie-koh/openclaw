@@ -19,7 +19,6 @@ import type {
 } from "./types.js";
 import { validateToolArguments } from "./validation.js";
 
-/** Async event sink used by loop runners before events enter an EventStream. */
 export type AgentEventSink = (event: AgentEvent) => Promise<void> | void;
 
 const EMPTY_USAGE = {
@@ -113,7 +112,6 @@ export function agentLoopContinue(
   return stream;
 }
 
-/** Run a full agent turn after appending new prompt messages to context. */
 export async function runAgentLoop(
   prompts: AgentMessage[],
   context: AgentContext,
@@ -140,7 +138,6 @@ export async function runAgentLoop(
   return newMessages;
 }
 
-/** Continue an existing agent context without adding another prompt message. */
 export async function runAgentLoopContinue(
   context: AgentContext,
   config: AgentLoopConfig,

@@ -2,7 +2,6 @@ import { isRecord as isPlainObject } from "openclaw/plugin-sdk/string-coerce-run
 
 const QA_MERGE_PATCH_BLOCKED_KEYS = new Set(["__proto__", "constructor", "prototype"]);
 
-/** Returns whether a value can participate as an object merge-patch node. */
 export function isQaMergePatchObject(value: unknown): value is Record<string, unknown> {
   return isPlainObject(value);
 }
@@ -39,7 +38,6 @@ function mergeObjectArraysById(target: unknown[], patch: unknown[]): unknown[] |
   return merged;
 }
 
-/** Applies a QA merge patch, merging arrays of objects by stable `id` when possible. */
 export function applyQaMergePatch(target: unknown, patch: unknown): unknown {
   if (Array.isArray(target) && Array.isArray(patch)) {
     return mergeObjectArraysById(target, patch) ?? structuredClone(patch);

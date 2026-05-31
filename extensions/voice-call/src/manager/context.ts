@@ -31,7 +31,6 @@ type CallManagerTransientState = {
   initialMessageInFlight: Set<CallId>;
 };
 
-/** Issues realtime stream credentials for providers that need per-call stream auth. */
 export type StreamSessionIssuer = (request: {
   providerName: "twilio" | "telnyx";
   callId: CallId;
@@ -45,7 +44,6 @@ type CallManagerHooks = {
   streamSessionIssuer?: StreamSessionIssuer;
 };
 
-/** Shared mutable state and dependencies used by voice-call manager operations. */
 export type CallManagerContext = CallManagerRuntimeState &
   CallManagerRuntimeDeps &
   CallManagerTransientState &

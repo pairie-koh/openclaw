@@ -2,7 +2,6 @@ import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/string-coer
 
 type HttpHeaderMap = Record<string, string | string[] | undefined>;
 
-/** Read a header value by name regardless of incoming header casing. */
 export function getHeader(headers: HttpHeaderMap, name: string): string | undefined {
   const target = normalizeLowercaseStringOrEmpty(name);
   const direct = headers[target];

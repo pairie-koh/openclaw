@@ -39,7 +39,6 @@ async function runKimiSearchProviderSetup(
   return await runtime.runKimiSearchProviderSetup(ctx);
 }
 
-/** Creates the Kimi web-search provider with lazy runtime setup/tool execution. */
 export function createKimiWebSearchProvider(): WebSearchProviderPlugin {
   return {
     id: "kimi",

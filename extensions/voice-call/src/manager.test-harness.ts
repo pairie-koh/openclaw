@@ -18,7 +18,6 @@ import type {
   WebhookVerificationResult,
 } from "./types.js";
 
-/** Fake voice-call provider that records manager calls for assertions. */
 export class FakeProvider implements VoiceCallProvider {
   readonly name: "plivo" | "twilio" | "telnyx";
   twilioStreamConnectEnabled = true;

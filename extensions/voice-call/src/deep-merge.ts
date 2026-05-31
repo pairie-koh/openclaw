@@ -2,7 +2,6 @@ import { isRecord as isPlainObject } from "openclaw/plugin-sdk/string-coerce-run
 
 const BLOCKED_MERGE_KEYS = new Set(["__proto__", "prototype", "constructor"]);
 
-/** Deep-merge objects while ignoring undefined override values and unsafe prototype keys. */
 export function deepMergeDefined(base: unknown, override: unknown): unknown {
   if (!isPlainObject(base) || !isPlainObject(override)) {
     return override === undefined ? base : override;
