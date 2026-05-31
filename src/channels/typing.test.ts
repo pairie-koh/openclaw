@@ -271,7 +271,6 @@ describe("createTypingCallbacks", () => {
     });
   });
 
-  // ========== TTL Safety Tests ==========
   describe("TTL safety", () => {
     it("auto-stops typing after maxDurationMs", async () => {
       await withFakeTimers(async () => {
@@ -282,10 +281,8 @@ describe("createTypingCallbacks", () => {
         expect(start).toHaveBeenCalledTimes(1);
         expect(stop).not.toHaveBeenCalled();
 
-        // Advance past TTL
         await vi.advanceTimersByTimeAsync(10_000);
 
-        // Should auto-stop
         expect(stop).toHaveBeenCalledTimes(1);
         expect(consoleWarn).toHaveBeenCalledWith(
           "[typing] TTL exceeded (10000ms), auto-stopping typing indicator",
