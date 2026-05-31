@@ -1,7 +1,3 @@
-/**
- * Tests for Nostr Profile Import
- */
-
 import { MAX_TIMER_TIMEOUT_MS } from "openclaw/plugin-sdk/number-runtime";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import type { NostrProfile } from "./config-schema.js";
@@ -37,8 +33,6 @@ vi.mock("nostr-tools", () => {
     verifyEvent: vi.fn(() => true),
   };
 });
-
-// Mock SimplePool so importProfileFromRelays can assert the relay subscription shape.
 
 describe("nostr-profile-import", () => {
   beforeEach(() => {

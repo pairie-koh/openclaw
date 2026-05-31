@@ -11,10 +11,6 @@ const max256ProfileFieldCases = [
   { field: "displayName", char: "b" },
 ] as const;
 
-// ============================================================================
-// Unicode Attack Vectors
-// ============================================================================
-
 describe("profile unicode attacks", () => {
   describe("zero-width characters", () => {
     it("handles zero-width space in name", () => {
@@ -197,10 +193,6 @@ describe("profile unicode attacks", () => {
   });
 });
 
-// ============================================================================
-// XSS Attack Vectors
-// ============================================================================
-
 describe("profile XSS attacks", () => {
   describe("script injection", () => {
     it("escapes script tags", () => {
@@ -320,10 +312,6 @@ describe("profile XSS attacks", () => {
   });
 });
 
-// ============================================================================
-// Length Boundary Tests
-// ============================================================================
-
 describe("profile length boundaries", () => {
   describe("short text fields (max 256)", () => {
     it.each(max256ProfileFieldCases)(
@@ -383,10 +371,6 @@ describe("profile length boundaries", () => {
     });
   });
 });
-
-// ============================================================================
-// Type Confusion Tests
-// ============================================================================
 
 describe("profile type confusion", () => {
   it("rejects number as name", () => {

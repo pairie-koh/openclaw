@@ -2,15 +2,6 @@ import { normalizeOptionalLowercaseString } from "@openclaw/normalization-core/s
 import { TOOL_DISPLAY_CONFIG } from "../agents/tool-display-config.js";
 import { resolveToolDisplay } from "../agents/tool-display.js";
 
-/**
- * Channel-agnostic status reaction controller.
- * Provides a unified interface for displaying agent status via message reactions.
- */
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────────────────────────────────────
-
 /** Minimal channel adapter needed to set, clear, or remove status reactions. */
 export type StatusReactionAdapter = {
   /** Set/replace the current reaction emoji. */
@@ -60,10 +51,6 @@ export type StatusReactionController = {
   clear: () => Promise<void>;
   restoreInitial: () => Promise<void>;
 };
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Constants
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const DEFAULT_EMOJIS: Required<StatusReactionEmojis> = {
   queued: "👀",
@@ -151,10 +138,6 @@ export const CONCIERGE_TOOL_TOKENS: string[] = [
   "selenium",
   "chromedp",
 ];
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Functions
-// ─────────────────────────────────────────────────────────────────────────────
 
 /**
  * Resolve the appropriate emoji for a tool invocation.

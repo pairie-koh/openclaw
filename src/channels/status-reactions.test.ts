@@ -9,10 +9,6 @@ import {
   type StatusReactionAdapter,
 } from "./status-reactions.js";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock Adapter
-// ─────────────────────────────────────────────────────────────────────────────
-
 const createMockAdapter = () => {
   const calls: { method: string; emoji: string }[] = [];
   return {
@@ -136,10 +132,6 @@ function expectObjectHasKeys(value: Record<string, unknown>, keys: readonly stri
     expect(value).toHaveProperty(key);
   });
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Tests
-// ─────────────────────────────────────────────────────────────────────────────
 
 describe("resolveToolEmoji", () => {
   it.each([

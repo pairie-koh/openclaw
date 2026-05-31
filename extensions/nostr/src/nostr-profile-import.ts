@@ -1,19 +1,8 @@
-/**
- * Nostr Profile Import
- *
- * Fetches and verifies kind:0 profile events from relays.
- * Used to import existing profiles before editing.
- */
-
 import { SimplePool, verifyEvent, type Event } from "nostr-tools";
 import { resolveTimerTimeoutMs } from "openclaw/plugin-sdk/number-runtime";
 import type { NostrProfile } from "./config-schema.js";
 import { validateUrlSafety } from "./nostr-profile-url-safety.js";
 import { contentToProfile, type ProfileContent } from "./nostr-profile.js";
-
-// ============================================================================
-// Types
-// ============================================================================
 
 interface ProfileImportResult {
   /** Whether the import was successful */
@@ -43,15 +32,7 @@ interface ProfileImportOptions {
   timeoutMs?: number;
 }
 
-// ============================================================================
-// Constants
-// ============================================================================
-
 const DEFAULT_TIMEOUT_MS = 5000;
-
-// ============================================================================
-// Profile Import
-// ============================================================================
 
 /**
  * Sanitize URLs in an imported profile to prevent SSRF attacks.

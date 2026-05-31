@@ -1,7 +1,3 @@
-/**
- * Tests for Nostr Profile HTTP Handler
- */
-
 import { IncomingMessage, ServerResponse } from "node:http";
 import { Socket } from "node:net";
 import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
@@ -26,13 +22,11 @@ vi.mock("./nostr-profile-http-runtime.js", async () => {
   };
 });
 
-// Mock the channel exports
 vi.mock("./channel.js", () => ({
   publishNostrProfile: vi.fn(),
   getNostrProfileState: vi.fn(),
 }));
 
-// Mock the import module
 vi.mock("./nostr-profile-import.js", () => ({
   importProfileFromRelays: vi.fn(),
   mergeProfiles: vi.fn((local, imported) => ({ ...imported, ...local })),
@@ -41,10 +35,6 @@ vi.mock("./nostr-profile-import.js", () => ({
 import { publishNostrProfile, getNostrProfileState } from "./channel.js";
 import { importProfileFromRelays } from "./nostr-profile-import.js";
 import { TEST_HEX_PUBLIC_KEY, TEST_SETUP_RELAY_URLS } from "./test-fixtures.js";
-
-// ============================================================================
-// Test Helpers
-// ============================================================================
 
 const TEST_PROFILE_RELAY_URL = TEST_SETUP_RELAY_URLS[0];
 
@@ -228,10 +218,6 @@ async function expectAdminScopeRejected(params: {
   params.expectOperationNotCalled();
   expect(ctx.updateConfigProfile).not.toHaveBeenCalled();
 }
-
-// ============================================================================
-// Tests
-// ============================================================================
 
 describe("nostr-profile-http", () => {
   beforeEach(() => {
