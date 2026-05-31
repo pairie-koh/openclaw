@@ -211,12 +211,10 @@ export function buildMediaStory(text: string | undefined, mediaUrl: string | und
   const cleanText = text?.trim() ?? "";
   const cleanUrl = mediaUrl?.trim() ?? "";
 
-  // Add text content if present
   if (cleanText) {
     story.push(...markdownToStory(cleanText));
   }
 
-  // Add image block if URL looks like an image
   if (cleanUrl && isImageUrl(cleanUrl)) {
     story.push(createImageBlock(cleanUrl, ""));
   } else if (cleanUrl) {

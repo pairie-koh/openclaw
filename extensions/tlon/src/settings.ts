@@ -171,12 +171,10 @@ function parsePendingApprovals(value: unknown): PendingApproval[] | undefined {
     }
   }
 
-  // Validate it's an array
   if (!Array.isArray(parsed)) {
     return undefined;
   }
 
-  // Filter to valid PendingApproval objects
   return parsed.filter((item): item is PendingApproval => {
     if (!item || typeof item !== "object") {
       return false;
@@ -213,7 +211,6 @@ function parseSettingsEvent(event: unknown): { key: string; value: unknown } | n
     };
   }
 
-  // Handle del-entry events
   if (evt["del-entry"]) {
     const del = evt["del-entry"] as Record<string, unknown>;
     if (del.desk !== SETTINGS_DESK || del["bucket-key"] !== SETTINGS_BUCKET) {

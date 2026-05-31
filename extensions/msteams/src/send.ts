@@ -173,7 +173,6 @@ export async function sendMessageMSTeams(
     hasMedia: Boolean(mediaUrl),
   });
 
-  // Handle media if present
   if (mediaUrl) {
     const mediaMaxBytes = ctx.mediaMaxBytes ?? MSTEAMS_MAX_MEDIA_BYTES;
     const media = await loadOutboundMediaFromUrl(mediaUrl, {

@@ -93,7 +93,6 @@ export function createDiscordDraftStream(params: {
         });
         return true;
       }
-      // Send new message
       const replyToMessageId = resolveReplyToMessageId()?.trim();
       const messageReference = replyToMessageId
         ? { message_id: replyToMessageId, fail_if_not_exists: false }

@@ -762,7 +762,6 @@ export async function monitorTlonProvider(opts: MonitorTlonOpts = {}): Promise<v
         return;
       }
 
-      // Handle post responses (new posts and replies)
       const post = asRecord(response.post);
       const rPost = asRecord(post?.["r-post"]);
       const set = asRecord(rPost?.set);
@@ -971,7 +970,6 @@ export async function monitorTlonProvider(opts: MonitorTlonOpts = {}): Promise<v
         return;
       }
 
-      // Handle add events (new messages)
       const essay = asRecord(asRecord(response.add)?.essay);
       if (!essay) {
         return;
@@ -1206,7 +1204,6 @@ export async function monitorTlonProvider(opts: MonitorTlonOpts = {}): Promise<v
             // Handle group/channel join events
             // Event structure: { group: { flag: "~host/group-name", ... }, channels: { ... } }
             if (eventRecord) {
-              // Check for new channels being added to groups
               const channels = asRecord(eventRecord.channels);
               if (channels) {
                 for (const [channelNest, _channelData] of Object.entries(channels)) {

@@ -291,7 +291,6 @@ export function extractMessageText(content: unknown): string {
         return "";
       }
 
-      // Handle inline content (text, ships, links, etc.)
       if (Array.isArray(verseRecord.inline)) {
         return verseRecord.inline
           .map((item) =>
@@ -304,7 +303,6 @@ export function extractMessageText(content: unknown): string {
           .join("");
       }
 
-      // Handle block content (images, code blocks, etc.)
       const block = asRecord(verseRecord.block);
       if (block) {
         const image = asRecord(block.image);
