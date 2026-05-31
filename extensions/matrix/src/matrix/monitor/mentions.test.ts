@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
 
-// Mock the runtime before importing resolveMentions
 vi.mock("../../runtime.js", () => ({
   getMatrixRuntime: () => ({
     channel: {

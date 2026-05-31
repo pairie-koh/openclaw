@@ -314,7 +314,6 @@ const queueMocks = vi.hoisted(() => ({
   refreshQueuedFollowupSession: vi.fn(),
 }));
 
-// Mock dependencies for directive handling persistence.
 vi.mock("../../agents/agent-scope.js", () => ({
   listAgentEntries: () => [],
   resolveAgentConfig: vi.fn(() => ({})),

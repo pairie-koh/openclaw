@@ -11,7 +11,6 @@ import {
 import * as subagentRegistrySteerRuntime from "./subagent-registry-steer-runtime.js";
 import type { SubagentRunRecord } from "./subagent-registry.types.js";
 
-// Mock dependencies before importing the module under test
 vi.mock("../config/config.js", () => ({
   getRuntimeConfig: vi.fn(() => ({
     session: { store: undefined },
