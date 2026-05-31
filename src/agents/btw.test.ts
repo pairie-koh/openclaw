@@ -24,9 +24,8 @@ const registerProviderStreamForModelMock = vi.fn();
 const resolveEmbeddedAgentStreamFnMock = vi.fn();
 const diagDebugMock = vi.fn();
 
-vi.mock("./pi-ai-contract.js", async () => {
-  const original =
-    await vi.importActual<typeof import("./pi-ai-contract.js")>("./pi-ai-contract.js");
+vi.mock("../llm/stream.js", async () => {
+  const original = await vi.importActual<typeof import("../llm/stream.js")>("../llm/stream.js");
   return {
     ...original,
     streamSimple: (...args: unknown[]) => streamSimpleMock(...args),
@@ -407,6 +406,12 @@ describe("runBtwSideQuestion", () => {
     resolveEmbeddedAgentStreamFnMock.mockReset();
     diagDebugMock.mockReset();
     clearAgentHarnesses();
+    registerAgentHarness({
+      id: "pi",
+      label: "Pi test harness",
+      supports: () => ({ supported: true, priority: 1 }),
+      runAttempt: vi.fn(),
+    });
 
     transcriptEventsMock.mockReturnValue([
       createTranscriptEntry({

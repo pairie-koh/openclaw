@@ -450,6 +450,13 @@ export async function readWorkspaceSetupStateForTests(dir: string): Promise<Work
   return await readWorkspaceSetupStateForResolvedDir(resolveUserPath(dir));
 }
 
+export async function writeWorkspaceSetupStateForTests(
+  dir: string,
+  state: WorkspaceSetupState,
+): Promise<void> {
+  await writeWorkspaceSetupStateForDir(resolveUserPath(dir), state);
+}
+
 async function hasGitRepo(dir: string): Promise<boolean> {
   try {
     await fs.stat(path.join(dir, ".git"));
