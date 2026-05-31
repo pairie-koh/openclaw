@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 import { summarizeText } from "./tts-core.js";
-import type { ResolvedTtsConfig } from "./tts-types.js";
 
 describe("TTS core", () => {
   it("clamps oversized summarization timeout timers", async () => {
@@ -9,8 +8,8 @@ describe("TTS core", () => {
     try {
       const model = { provider: { id: "test-provider" } };
       const config = {
-        summarizeModel: { primary: "test-provider/test-model" },
-      } as ResolvedTtsConfig;
+        summaryModel: "test-provider/test-model",
+      } as Parameters<typeof summarizeText>[0]["config"];
 
       const result = await summarizeText(
         {
@@ -22,15 +21,28 @@ describe("TTS core", () => {
         },
         {
           completeSimple: vi.fn(async () => ({
+            role: "assistant",
+            api: "chat",
+            provider: "test-provider",
+            model: "test-model",
+            timestamp: Date.now(),
             content: [{ type: "text", text: "Short summary." }],
             stopReason: "stop",
             usage: {},
           })),
-          getApiKeyForModel: vi.fn(async () => "key"),
+          getApiKeyForModel: vi.fn(async () => ({
+            apiKey: "key",
+            mode: "api-key",
+            source: "test",
+          })),
           prepareModelForSimpleCompletion: vi.fn(() => model as never),
           requireApiKey: vi.fn(() => "key"),
-          resolveModelAsync: vi.fn(async () => ({ model })),
-        },
+          resolveModelAsync: vi.fn(async () => ({
+            model,
+            authStorage: {} as never,
+            modelRegistry: {} as never,
+          })),
+        } as unknown as Parameters<typeof summarizeText>[1],
       );
 
       expect(result.summary).toBe("Short summary.");
