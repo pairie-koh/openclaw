@@ -16,10 +16,6 @@ import type { SourceInfo } from "../../../sessions/source-info.js";
 import { closeWatcher, watchWithErrorHandler } from "../../../utils/fs-watch.js";
 import { highlight, supportsLanguage } from "../../../utils/syntax-highlight.js";
 
-// ============================================================================
-// Types & Schema
-// ============================================================================
-
 const ColorValueSchema = Type.Union([
   Type.String(), // hex "#ff0000", var ref "primary", or empty ""
   Type.Integer({ minimum: 0, maximum: 255 }), // 256-color index
@@ -162,10 +158,6 @@ export type ThemeBg =
   | "toolErrorBg";
 
 type ColorMode = "truecolor" | "256color";
-
-// ============================================================================
-// Color Utilities
-// ============================================================================
 
 function hexToRgb(hex: string): { r: number; g: number; b: number } {
   const cleaned = hex.replace("#", "");
@@ -331,10 +323,6 @@ function resolveThemeColors<T extends Record<string, ColorValue>>(
   return resolved as Record<keyof T, string | number>;
 }
 
-// ============================================================================
-// Theme Class
-// ============================================================================
-
 /** Resolved terminal theme that applies foreground/background ANSI styling by token. */
 export class Theme {
   readonly name?: string;
@@ -446,10 +434,6 @@ export class Theme {
     return (str: string) => this.fg("bashMode", str);
   }
 }
-
-// ============================================================================
-// Theme Loading
-// ============================================================================
 
 let BUILTIN_THEMES: Record<string, ThemeJson> | undefined;
 
@@ -784,10 +768,6 @@ export function getDefaultTheme(): string {
   return detectTerminalBackground().theme;
 }
 
-// ============================================================================
-// Global Theme Instance
-// ============================================================================
-
 // Use globalThis to share theme across module loaders (tsx + jiti in dev mode)
 const THEME_KEY = Symbol.for("openclaw:agent-theme");
 
@@ -966,10 +946,6 @@ export function stopThemeWatcher(): void {
   themeWatcher = undefined;
 }
 
-// ============================================================================
-// HTML Export Helpers
-// ============================================================================
-
 /**
  * Convert a 256-color index to hex string.
  * Indices 0-15: basic colors (approximate)
@@ -1092,10 +1068,6 @@ export function getThemeExportColors(themeName?: string): {
     return {};
   }
 }
-
-// ============================================================================
-// TUI Helpers
-// ============================================================================
 
 type CliHighlightTheme = Record<string, (s: string) => string>;
 
