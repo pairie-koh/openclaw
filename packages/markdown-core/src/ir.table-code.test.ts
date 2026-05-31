@@ -11,7 +11,6 @@ describe("markdownToIR tableMode code - style overlap", () => {
 
     const ir = markdownToIR(md, { tableMode: "code" });
 
-    // Check for overlapping styles
     const codeBlockSpan = ir.styles.find((s) => s.style === "code_block");
     const boldSpan = ir.styles.find((s) => s.style === "bold");
 
@@ -19,9 +18,7 @@ describe("markdownToIR tableMode code - style overlap", () => {
     // 1. There should be no bold spans in code mode (inner styles stripped), OR
     // 2. If bold spans exist, they should not overlap with code_block span
     if (codeBlockSpan && boldSpan) {
-      // Check for overlap
       const overlaps = boldSpan.start < codeBlockSpan.end && boldSpan.end > codeBlockSpan.start;
-      // Overlapping styles are the bug - this should fail until fixed
       expect(overlaps).toBe(false);
     }
   });
@@ -77,7 +74,6 @@ describe("markdownToIR tableMode code - style overlap", () => {
       return;
     }
 
-    // Check that no non-code_block style overlaps with code_block
     for (const style of ir.styles) {
       if (style.style === "code_block") {
         continue;
