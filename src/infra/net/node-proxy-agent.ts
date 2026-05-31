@@ -3,7 +3,6 @@ import { createRequire } from "node:module";
 import { matchesNoProxy, resolveEnvHttpProxyAgentOptions } from "./proxy-env.js";
 import { resolveActiveManagedProxyTlsOptions } from "./proxy/managed-proxy-undici.js";
 
-/** Error text used when callers configure SOCKS/PAC or another unsupported proxy URL. */
 export const UNSUPPORTED_PROXY_PROTOCOL_MESSAGE =
   "Unsupported proxy protocol. SOCKS and PAC proxy URLs are not supported; use an HTTP or HTTPS proxy URL.";
 
@@ -16,7 +15,6 @@ type ProxylineTlsOptions = ProxylineAgentOptions["proxyTls"];
 
 const require = createRequire(import.meta.url);
 
-/** Proxy agent creation mode for explicit proxy URLs or env-selected proxies. */
 export type CreateNodeProxyAgentOptions =
   | {
       mode: "env";
@@ -103,7 +101,6 @@ function loadCreateAmbientNodeProxyAgent(): ProxylineCreateAmbientNodeProxyAgent
     .createAmbientNodeProxyAgent;
 }
 
-/** Resolves the proxy URL that should handle a target, honoring NO_PROXY. */
 export function resolveEnvNodeProxyUrlForTarget(
   targetUrl: string | URL,
   env: NodeJS.ProcessEnv = process.env,
@@ -146,15 +143,12 @@ function createFixedNodeProxyAgent(
   return agent as HttpAgent;
 }
 
-/** Creates a required Node proxy agent for an explicit proxy URL. */
 export function createNodeProxyAgent(
   options: Extract<CreateNodeProxyAgentOptions, { mode: "explicit" }>,
 ): HttpAgent;
-/** Creates an optional Node proxy agent selected from proxy environment variables. */
 export function createNodeProxyAgent(
   options: Extract<CreateNodeProxyAgentOptions, { mode: "env" }>,
 ): HttpAgent | undefined;
-/** Creates a Node proxy agent for the selected explicit or env mode. */
 export function createNodeProxyAgent(options: CreateNodeProxyAgentOptions): HttpAgent | undefined {
   if (options.mode === "explicit") {
     return createFixedNodeProxyAgent(options.proxyUrl, { protocol: options.protocol });
@@ -178,7 +172,6 @@ function createEnvNodeProxyAgentForTarget(
   });
 }
 
-/** Creates HTTP and HTTPS agents that both route through one fixed proxy URL. */
 export function createFixedNodeProxyAgentPair(proxyUrl: string | URL): {
   httpAgent: HttpAgent;
   httpsAgent: HttpAgent;
