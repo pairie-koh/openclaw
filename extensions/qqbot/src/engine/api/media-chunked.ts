@@ -122,7 +122,6 @@ interface ChunkedMediaApiConfig {
 
 // ============ Tuning constants ============
 
-/** Default concurrency when the server does not specify one. */
 const DEFAULT_CONCURRENT_PARTS = 1;
 
 /** Hard cap on per-upload concurrency regardless of what the server returns. */

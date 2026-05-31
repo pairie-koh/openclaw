@@ -94,7 +94,6 @@ function asCommandTextMode(value: unknown): ChannelStreamingCommandTextMode | un
   return value === "raw" || value === "status" ? value : undefined;
 }
 
-/** Default rotating labels used when a progress draft has no configured label. */
 export const DEFAULT_PROGRESS_DRAFT_LABELS = [
   "Working",
   "Shelling",

@@ -44,7 +44,6 @@ export type ThreadBindingSpawnPolicy = {
   defaultSpawnContext: ThreadBindingSpawnContext;
 };
 
-/** Default context inheritance mode for sessions spawned from a native thread. */
 export type ThreadBindingSpawnContext = "isolated" | "fork";
 
 function normalizeChannelId(value: string | undefined | null): string {

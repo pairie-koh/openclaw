@@ -65,7 +65,6 @@ export type StatusReactionController = {
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Default reaction palette for channels that do not supply overrides. */
 export const DEFAULT_EMOJIS: Required<StatusReactionEmojis> = {
   queued: "👀",
   thinking: "🧠",
@@ -82,7 +81,6 @@ export const DEFAULT_EMOJIS: Required<StatusReactionEmojis> = {
   compacting: "🗜️",
 };
 
-/** Default debounce and stall timing for reaction updates. */
 export const DEFAULT_TIMING: Required<StatusReactionTiming> = {
   debounceMs: 700,
   stallSoftMs: 10_000,

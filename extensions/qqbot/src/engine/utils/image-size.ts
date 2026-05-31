@@ -15,7 +15,6 @@ interface ImageSize {
   height: number;
 }
 
-/** Default dimensions used when probing fails. */
 const DEFAULT_IMAGE_SIZE: ImageSize = { width: 512, height: 512 };
 
 /**

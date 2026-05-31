@@ -1,7 +1,6 @@
 import fs from "node:fs/promises";
 import { writeJsonFileAtomically } from "openclaw/plugin-sdk/json-store";
 
-/** Default cooldown between reflections per session (5 minutes). */
 export const DEFAULT_COOLDOWN_MS = 300_000;
 
 /** Tracks last reflection time per session to enforce cooldown. */

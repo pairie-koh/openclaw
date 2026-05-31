@@ -157,7 +157,6 @@ function resolveRequiredTelegramTransport(transport?: TelegramTransport): Telegr
   };
 }
 
-/** Default idle timeout for Telegram media downloads (30 seconds). */
 const TELEGRAM_DOWNLOAD_IDLE_TIMEOUT_MS = 30_000;
 
 function usesTrustedTelegramExplicitProxy(transport: TelegramTransport): boolean {
