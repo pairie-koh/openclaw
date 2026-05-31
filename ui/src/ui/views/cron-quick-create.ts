@@ -11,8 +11,6 @@ import { t } from "../../i18n/index.ts";
 import { icons } from "../icons.ts";
 import type { CronFormState } from "../ui-types.ts";
 
-// ── Types ──
-
 export type CronQuickCreateProps = {
   open: boolean;
   step: CronQuickCreateStep;
@@ -42,8 +40,6 @@ type SchedulePresetId =
   | "once";
 
 type DeliveryPresetId = "notify" | "silent" | "isolated";
-
-// ── Presets ──
 
 type SchedulePreset = {
   id: SchedulePresetId;
@@ -115,8 +111,6 @@ const DELIVERY_PRESETS: DeliveryPreset[] = [
   },
 ];
 
-// ── Default draft ──
-
 export function createDefaultDraft(): CronQuickCreateDraft {
   return {
     prompt: "",
@@ -136,8 +130,6 @@ function buildDefaultScheduleAt(now = new Date()): string {
   const minute = String(next.getMinutes()).padStart(2, "0");
   return `${year}-${month}-${day}T${hour}:${minute}`;
 }
-
-// ── Convert draft to CronFormState patch ──
 
 export function draftToCronFormPatch(draft: CronQuickCreateDraft): Partial<CronFormState> {
   const patch: Partial<CronFormState> = {
@@ -203,8 +195,6 @@ export function draftToCronFormPatch(draft: CronQuickCreateDraft): Partial<CronF
   return patch;
 }
 
-// ── Step indicators ──
-
 const STEPS: CronQuickCreateStep[] = ["what", "when", "how"];
 const STEP_LABELS: Record<CronQuickCreateStep, string> = {
   what: "cron.quickCreate.steps.what",
@@ -231,8 +221,6 @@ function renderStepIndicator(current: CronQuickCreateStep) {
     </div>
   `;
 }
-
-// ── Step renderers ──
 
 function renderAdvancedButton(props: CronQuickCreateProps) {
   if (!props.onAdvancedCreate) {
@@ -357,8 +345,6 @@ function renderHowStep(props: CronQuickCreateProps) {
     </div>
   `;
 }
-
-// ── Main render ──
 
 export function renderCronQuickCreate(props: CronQuickCreateProps) {
   if (!props.open) {

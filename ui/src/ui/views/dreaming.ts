@@ -9,8 +9,6 @@ import type {
 } from "../controllers/dreaming.ts";
 import { toSanitizedMarkdownHtml } from "../markdown.ts";
 
-// ── Diary entry parser ─────────────────────────────────────────────────
-
 type DiaryEntry = {
   date: string;
   body: string;
@@ -185,8 +183,6 @@ let dreamIndex = Math.floor(Math.random() * DREAM_PHRASE_KEYS.length);
 let dreamLastSwap = 0;
 const DREAM_SWAP_MS = 6_000;
 
-// ── Sub-tab state ─────────────────────────────────────────────────────
-
 type DreamSubTab = "scene" | "diary" | "advanced";
 let activeSubTab: DreamSubTab = "scene";
 type DreamDiarySubTab = "dreams" | "insights" | "palace";
@@ -216,8 +212,6 @@ export function setDreamAdvancedWaitingSort(sort: AdvancedWaitingSort): void {
 export function setDreamDiarySubTab(tab: DreamDiarySubTab): void {
   activeDiarySubTab = tab;
 }
-
-// ── Diary pagination state ─────────────────────────────────────────────
 
 let diaryPage = 0;
 let diaryEntryCount = 0;
@@ -366,8 +360,6 @@ export function renderDreaming(props: DreamingProps) {
     </div>
   `;
 }
-
-// ── Scene renderer ────────────────────────────────────────────────────
 
 // Strip source citations like [memory/2026-04-09.md:9] and section headings,
 // flatten structured diary entries into plain paragraphs.
@@ -1441,8 +1433,6 @@ function renderDreamDiaryEntries(props: DreamingProps) {
     </article>
   `;
 }
-
-// ── Diary section renderer ────────────────────────────────────────────
 
 function renderDiarySection(props: DreamingProps) {
   const wikiTabSelected = activeDiarySubTab === "insights" || activeDiarySubTab === "palace";
