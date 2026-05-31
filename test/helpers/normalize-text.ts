@@ -1,6 +1,5 @@
 import { stripAnsi } from "../../packages/terminal-core/src/ansi.js";
 
-/** Normalize CLI/test output before text snapshot comparisons. */
 export function normalizeTestText(input: string): string {
   return stripAnsi(input)
     .replaceAll("\r\n", "\n")

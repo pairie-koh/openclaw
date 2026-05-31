@@ -1,6 +1,5 @@
 import path from "node:path";
 
-/** Normalize an absolute config path to repo-relative POSIX form for stable assertions. */
 export function normalizeConfigPath(value: unknown): unknown {
   if (typeof value !== "string" || !path.isAbsolute(value)) {
     return value;
@@ -8,7 +7,6 @@ export function normalizeConfigPath(value: unknown): unknown {
   return path.relative(process.cwd(), value).split(path.sep).join("/");
 }
 
-/** Normalize one or many Vitest config paths for snapshot comparisons. */
 export function normalizeConfigPaths(
   values: readonly unknown[] | string | undefined,
 ): unknown[] | undefined {
