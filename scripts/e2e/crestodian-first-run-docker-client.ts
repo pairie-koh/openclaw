@@ -1,5 +1,3 @@
-// Imports packaged dist modules so the Docker lane verifies the npm tarball,
-// while this small test driver stays mounted from the checkout.
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";

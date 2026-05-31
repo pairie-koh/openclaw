@@ -1,5 +1,3 @@
-// Imports packaged dist modules so tool materialization is verified against the
-// npm tarball installed in the functional image.
 import { randomUUID } from "node:crypto";
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";

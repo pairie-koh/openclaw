@@ -1,5 +1,3 @@
-// Runs QA live transport code against the package candidate installed in Docker.
-
 import fs from "node:fs/promises";
 import path from "node:path";
 import { pathToFileURL } from "node:url";

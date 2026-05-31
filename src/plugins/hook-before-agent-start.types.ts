@@ -1,4 +1,3 @@
-// before_model_resolve hook
 /** Attachment metadata passed to model-resolution hooks before session messages exist. */
 export type PluginHookBeforeModelResolveAttachment = {
   kind: "image" | "video" | "audio" | "document" | "other";
@@ -21,7 +20,6 @@ export type PluginHookBeforeModelResolveResult = {
   providerOverride?: string;
 };
 
-// before_prompt_build hook
 /** Event payload for hooks that can mutate prompt context before model invocation. */
 export type PluginHookBeforePromptBuildEvent = {
   prompt: string;

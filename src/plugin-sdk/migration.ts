@@ -1,5 +1,3 @@
-// Shared migration-provider helpers for plan/apply item bookkeeping.
-
 import { isRecord } from "../../packages/normalization-core/src/record-coerce.js";
 import type {
   MigrationDetection,

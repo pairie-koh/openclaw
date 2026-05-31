@@ -1,4 +1,3 @@
-// Uses packaged plugin-sdk runtime modules so seeded configs match the npm tarball.
 import {
   applyProviderConfigWithDefaultModelPreset,
   type ModelDefinitionConfig,

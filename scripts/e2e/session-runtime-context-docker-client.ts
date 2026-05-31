@@ -1,5 +1,3 @@
-// Imports packaged dist modules so transcript behavior is verified against the
-// npm tarball installed in the functional image.
 import { spawnSync } from "node:child_process";
 import fs from "node:fs/promises";
 import os from "node:os";
