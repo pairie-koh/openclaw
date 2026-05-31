@@ -19,7 +19,6 @@ import type {
   ParsedHookFrontmatter,
 } from "./types.js";
 
-/** Parses a markdown frontmatter block from hook content. */
 export function parseFrontmatter(content: string): ParsedHookFrontmatter {
   return parseFrontmatterBlock(content);
 }
@@ -46,7 +45,6 @@ function parseInstallSpec(input: unknown): HookInstallSpec | undefined {
   return spec;
 }
 
-/** Resolves OpenClaw-specific hook metadata from parsed frontmatter. */
 export function resolveOpenClawMetadata(
   frontmatter: ParsedHookFrontmatter,
 ): OpenClawHookMetadata | undefined {
@@ -71,7 +69,6 @@ export function resolveOpenClawMetadata(
   };
 }
 
-/** Resolves whether a hook is enabled from frontmatter policy. */
 export function resolveHookInvocationPolicy(
   frontmatter: ParsedHookFrontmatter,
 ): HookInvocationPolicy {
@@ -80,7 +77,6 @@ export function resolveHookInvocationPolicy(
   };
 }
 
-/** Resolves the stable hook key, honoring metadata overrides. */
 export function resolveHookKey(hookName: string, entry?: HookEntry): string {
   return entry?.metadata?.hookKey ?? hookName;
 }

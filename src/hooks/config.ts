@@ -15,7 +15,6 @@ const DEFAULT_CONFIG_VALUES: Record<string, boolean> = {
 
 export { hasBinary };
 
-/** Evaluates a config path with hook-specific default truthy values. */
 export function isConfigPathTruthy(config: OpenClawConfig | undefined, pathStr: string): boolean {
   return isConfigPathTruthyWithDefaults(config, pathStr, DEFAULT_CONFIG_VALUES);
 }
@@ -46,7 +45,6 @@ function evaluateHookRuntimeEligibility(params: {
   });
 }
 
-/** Decides whether a hook should be included for the current config and runtime eligibility context. */
 export function shouldIncludeHook(params: {
   entry: HookEntry;
   config?: OpenClawConfig;

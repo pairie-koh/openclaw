@@ -10,7 +10,6 @@ import type {
 
 export type { WizardI18nParams, WizardLocale, WizardTranslationMap };
 
-/** Translation function used by setup modules. */
 export type SetupTranslator = (key: string, params?: WizardI18nParams) => string;
 
 const LOCALES: Record<WizardLocale, WizardTranslationMap> = {
@@ -19,16 +18,13 @@ const LOCALES: Record<WizardLocale, WizardTranslationMap> = {
   "zh-TW": zh_TW,
 };
 
-/** Fallback locale used when environment locale cannot be mapped. */
 export const WIZARD_DEFAULT_LOCALE: WizardLocale = "en";
-/** Locales bundled for setup wizard translations. */
 export const WIZARD_SUPPORTED_LOCALES: readonly WizardLocale[] = ["en", "zh-CN", "zh-TW"];
 
 function normalizeLocaleToken(raw: string | undefined): string {
   return (raw ?? "").trim().split(".")[0]?.split("@")[0]?.replaceAll("_", "-") ?? "";
 }
 
-/** Maps locale tokens such as LANG/LC_* values to a bundled wizard locale. */
 export function resolveWizardLocale(value: string | undefined): WizardLocale {
   const normalized = normalizeLocaleToken(value);
   if (!normalized) {
@@ -48,7 +44,6 @@ export function resolveWizardLocale(value: string | undefined): WizardLocale {
   return WIZARD_DEFAULT_LOCALE;
 }
 
-/** Resolves the wizard locale from OpenClaw and process locale environment variables. */
 export function resolveWizardLocaleFromEnv(env: NodeJS.ProcessEnv = process.env): WizardLocale {
   return resolveWizardLocale(env.OPENCLAW_LOCALE ?? env.LC_ALL ?? env.LC_MESSAGES ?? env.LANG);
 }
@@ -74,7 +69,6 @@ function interpolate(value: string, params?: WizardI18nParams): string {
   });
 }
 
-/** Translates a wizard key with locale fallback and simple `{param}` interpolation. */
 export function wizardT(
   key: string,
   params?: WizardI18nParams,
@@ -86,10 +80,8 @@ export function wizardT(
   return interpolate(fallback, params);
 }
 
-/** Default process-locale translator. */
 export const t = wizardT;
 
-/** Creates a translator bound to an optional locale and key prefix. */
 export function createSetupTranslator(options?: {
   locale?: WizardLocale;
   keyPrefix?: string;
@@ -116,7 +108,6 @@ function collectLeafKeys(tree: WizardTranslationTree, prefix = "", out: string[]
   return out;
 }
 
-/** Lists leaf translation keys for coverage checks and diagnostics. */
 export function listWizardI18nKeys(locale: WizardLocale = WIZARD_DEFAULT_LOCALE): string[] {
   return collectLeafKeys(LOCALES[locale]).toSorted();
 }
