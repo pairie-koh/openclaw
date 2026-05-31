@@ -18,10 +18,6 @@ import type {
   OutboundDeliveryResult,
 } from "../runtime-api.js";
 
-// ============================================================================
-// Twitch-Specific Types
-// ============================================================================
-
 /**
  * Twitch user roles that can be allowed to interact with the bot
  */

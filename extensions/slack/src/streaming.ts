@@ -16,10 +16,6 @@ import type { WebClient } from "@slack/web-api";
 import type { ChatStreamer } from "@slack/web-api/dist/chat-stream.js";
 import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 export type SlackStreamSession = {
   /** The SDK ChatStreamer instance managing this stream. */
   streamer: ChatStreamer;
@@ -98,10 +94,6 @@ export class SlackStreamNotDeliveredError extends Error {
     this.slackCode = slackCode;
   }
 }
-
-// ---------------------------------------------------------------------------
-// Stream lifecycle
-// ---------------------------------------------------------------------------
 
 /**
  * Start a new Slack text stream.
@@ -287,10 +279,6 @@ export async function stopSlackStream(params: StopSlackStreamParams): Promise<vo
 
   logVerbose("slack-stream: stream stopped");
 }
-
-// ---------------------------------------------------------------------------
-// Finalize error classification
-// ---------------------------------------------------------------------------
 
 /**
  * Slack API error codes that indicate `chat.stopStream` (or the
