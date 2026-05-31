@@ -70,7 +70,6 @@ function formatExecEventPromptText(pendingEvents: string[]): {
   return { text: lines.join("\n").trim(), hasMissingOutputFailure };
 }
 
-// Build a dynamic prompt for cron events by embedding the actual event content.
 // This ensures the model sees the reminder text directly instead of relying on
 // "shown in the system messages above" which may not be visible in context.
 /** Build the agent prompt used to handle scheduled reminder events. */

@@ -70,10 +70,7 @@ function parseGeminiAuth(apiKey: string): { headers: Record<string, string> } {
 
 type GeminiTaskType = NonNullable<MemoryEmbeddingProviderCreateOptions["taskType"]>;
 
-export const GEMINI_EMBEDDING_2_MODELS = new Set([
-  "gemini-embedding-2-preview",
-  // Add the GA model name here once released.
-]);
+export const GEMINI_EMBEDDING_2_MODELS = new Set(["gemini-embedding-2-preview"]);
 
 const GEMINI_EMBEDDING_2_DEFAULT_DIMENSIONS = 3072;
 const GEMINI_EMBEDDING_2_VALID_DIMENSIONS = [768, 1536, 3072] as const;

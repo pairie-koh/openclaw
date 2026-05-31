@@ -237,7 +237,6 @@ export function resolveBroadcastAgents(cfg: ClawdbotConfig, peerId: string): str
   return agents as string[];
 }
 
-// Build a session key for a broadcast target agent by replacing the agent ID prefix.
 // Session keys follow the format: agent:<agentId>:<channel>:<peerKind>:<peerId>
 export function buildBroadcastSessionKey(
   baseSessionKey: string,

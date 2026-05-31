@@ -82,7 +82,6 @@ describe("TTL", () => {
       await store.register("short", { v: 1 }, { ttlMs: 500 });
       await store.register("long", { v: 2 }, { ttlMs: 60_000 });
 
-      // Before expiry – both visible.
       await expect(store.lookup("short")).resolves.toEqual({ v: 1 });
       await expect(store.lookup("long")).resolves.toEqual({ v: 2 });
 
@@ -97,7 +96,6 @@ describe("TTL", () => {
       const swept = sweepExpiredPluginStateEntries();
       expect(swept).toBe(1);
 
-      // After sweep the entry list contains only the long-lived record.
       const remaining = await store.entries();
       expect(remaining).toHaveLength(1);
       expect(remaining[0].key).toBe("long");
@@ -123,7 +121,6 @@ describe("isolation", () => {
       await expect(pluginA.lookup("same")).resolves.toEqual({ owner: "a" });
       await expect(pluginB.lookup("same")).resolves.toEqual({ owner: "b" });
 
-      // Clearing one plugin's namespace does not affect the other.
       await pluginA.clear();
       await expect(pluginA.lookup("same")).resolves.toBeUndefined();
       await expect(pluginB.lookup("same")).resolves.toEqual({ owner: "b" });
@@ -209,11 +206,9 @@ describe("failure safety", () => {
       });
       await store.register("k", { v: 1 });
 
-      // First close.
       closePluginStateDatabase();
       await expect(store.lookup("k")).resolves.toEqual({ v: 1 });
 
-      // Second close (idempotent).
       closePluginStateDatabase();
       await expect(store.lookup("k")).resolves.toEqual({ v: 1 });
 
