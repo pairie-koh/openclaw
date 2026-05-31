@@ -23,13 +23,11 @@ export const GATEWAY_CLIENT_IDS = {
   PROBE: "openclaw-probe",
 } as const;
 
-/** Known gateway client id accepted by the protocol. */
 export type GatewayClientId = (typeof GATEWAY_CLIENT_IDS)[keyof typeof GATEWAY_CLIENT_IDS];
 
 // Back-compat naming (internal): these values are IDs, not display names.
 /** Legacy alias for client ids kept for callers that still import "names". */
 export const GATEWAY_CLIENT_NAMES = GATEWAY_CLIENT_IDS;
-/** Legacy alias for `GatewayClientId`; values are not human display names. */
 export type GatewayClientName = GatewayClientId;
 
 /** Coarse runtime mode used to group clients with similar protocol behavior. */
@@ -43,7 +41,6 @@ export const GATEWAY_CLIENT_MODES = {
   TEST: "test",
 } as const;
 
-/** Known gateway client mode accepted by the protocol. */
 export type GatewayClientMode = (typeof GATEWAY_CLIENT_MODES)[keyof typeof GATEWAY_CLIENT_MODES];
 
 /** Metadata a client advertises when opening a gateway session. */
@@ -63,7 +60,6 @@ export const GATEWAY_CLIENT_CAPS = {
   TOOL_EVENTS: "tool-events",
 } as const;
 
-/** Known gateway client capability flag. */
 export type GatewayClientCap = (typeof GATEWAY_CLIENT_CAPS)[keyof typeof GATEWAY_CLIENT_CAPS];
 
 const GATEWAY_CLIENT_ID_SET = new Set<GatewayClientId>(Object.values(GATEWAY_CLIENT_IDS));
