@@ -1,6 +1,5 @@
 export type MediaNormalizationValue = string | number | boolean;
 
-/** Requested/applied value pair plus derivation metadata for one normalized field. */
 export type MediaNormalizationEntry<TValue extends MediaNormalizationValue> = {
   requested?: TValue;
   applied?: TValue;
@@ -8,7 +7,6 @@ export type MediaNormalizationEntry<TValue extends MediaNormalizationValue> = {
   supportedValues?: readonly TValue[];
 };
 
-/** Normalization metadata fields attached to media-generation results. */
 export type MediaGenerationNormalizationMetadataInput = {
   size?: MediaNormalizationEntry<string>;
   aspectRatio?: MediaNormalizationEntry<string>;

@@ -1,6 +1,5 @@
 export type SecretRefSource = "env" | "file" | "exec";
 
-/** Structured secret reference resolved by an active OpenClaw runtime snapshot. */
 export type SecretRef = {
   source: SecretRefSource;
   provider: string;
@@ -105,7 +104,6 @@ function coerceSecretRef(value: unknown): SecretRef | null {
   return parseEnvTemplateSecretRef(value) ?? parseLegacySecretRefEnvMarker(value);
 }
 
-/** Detects literal secret strings and supported SecretRef encodings. */
 export function hasConfiguredSecretInput(value: unknown): boolean {
   if (normalizeSecretInputString(value)) {
     return true;
@@ -123,12 +121,10 @@ function createUnresolvedSecretInputError(params: { path: string; ref: SecretRef
   );
 }
 
-/** Coerces structured, legacy, and ${ENV_VAR} inputs into a SecretRef. */
 export function resolveSecretInputRef(value: unknown): SecretRef | null {
   return coerceSecretRef(value);
 }
 
-/** Returns a literal secret string or throws when an unresolved SecretRef remains. */
 export function normalizeResolvedSecretInputString(params: {
   value: unknown;
   path: string;
@@ -144,7 +140,6 @@ export function normalizeResolvedSecretInputString(params: {
   throw createUnresolvedSecretInputError({ path: params.path, ref });
 }
 
-/** Normalizes a value already read from process.env for secret use. */
 export function normalizeEnvSecretInputString(value: unknown): string | undefined {
   return normalizeSecretInputString(value);
 }
