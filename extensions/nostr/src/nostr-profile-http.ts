@@ -367,13 +367,11 @@ async function handleUpdateProfile(
     return true;
   }
 
-  // Rate limiting
   if (!checkRateLimit(accountId)) {
     sendJson(res, 429, { ok: false, error: "Rate limit exceeded (5 requests/minute)" });
     return true;
   }
 
-  // Parse body
   let body: unknown;
   try {
     body = await readJsonBody(req);
@@ -382,7 +380,6 @@ async function handleUpdateProfile(
     return true;
   }
 
-  // Validate profile
   const parseResult = ProfileUpdateSchema.safeParse(body);
   if (!parseResult.success) {
     const errors = parseResult.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`);
@@ -469,7 +466,6 @@ async function handleImportProfile(
     return true;
   }
 
-  // Get account info
   const accountInfo = ctx.getAccountInfo(accountId);
   if (!accountInfo) {
     sendJson(res, 404, { ok: false, error: `Account not found: ${accountId}` });
@@ -483,7 +479,6 @@ async function handleImportProfile(
     return true;
   }
 
-  // Parse options from body
   let autoMerge = false;
   try {
     const body = await readJsonBody(req);

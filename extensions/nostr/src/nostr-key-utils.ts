@@ -6,7 +6,6 @@ import { getPublicKey, nip19 } from "nostr-tools";
 export function validatePrivateKey(key: string): Uint8Array {
   const trimmed = key.trim();
 
-  // Handle nsec (bech32) format
   if (trimmed.startsWith("nsec1")) {
     const decoded = nip19.decode(trimmed);
     if (decoded.type !== "nsec") {
@@ -15,12 +14,10 @@ export function validatePrivateKey(key: string): Uint8Array {
     return decoded.data;
   }
 
-  // Handle hex format
   if (!/^[0-9a-fA-F]{64}$/.test(trimmed)) {
     throw new Error("Private key must be 64 hex characters or nsec bech32 format");
   }
 
-  // Convert hex string to Uint8Array
   const bytes = new Uint8Array(32);
   for (let i = 0; i < 32; i++) {
     bytes[i] = Number.parseInt(trimmed.slice(i * 2, i * 2 + 2), 16);

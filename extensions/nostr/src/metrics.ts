@@ -159,7 +159,6 @@ export function createMetrics(onMetric?: OnMetricCallback): NostrMetrics {
   // Per-relay stats
   const relays = new Map<string, RelayMetrics>();
 
-  // Rate limiting stats
   const rateLimiting = {
     perSenderHits: 0,
     globalHits: 0,
@@ -333,7 +332,6 @@ export function createMetrics(onMetric?: OnMetricCallback): NostrMetrics {
         }
         break;
 
-      // Rate limiting
       case "rate_limit.per_sender":
         rateLimiting.perSenderHits += value;
         break;
@@ -360,7 +358,6 @@ export function createMetrics(onMetric?: OnMetricCallback): NostrMetrics {
   }
 
   function getSnapshot(): MetricsSnapshot {
-    // Convert relay map to object
     const relaysObj: MetricsSnapshot["relays"] = {};
     for (const [url, stats] of relays) {
       relaysObj[url] = { ...stats, messagesReceived: { ...stats.messagesReceived } };

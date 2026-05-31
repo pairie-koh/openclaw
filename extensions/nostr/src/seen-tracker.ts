@@ -67,7 +67,6 @@ export function createSeenTracker(options?: SeenTrackerOptions): SeenTracker {
       return;
     }
 
-    // Remove from current position
     if (entry.prev) {
       const prevEntry = entries.get(entry.prev);
       if (prevEntry) {
@@ -81,7 +80,6 @@ export function createSeenTracker(options?: SeenTrackerOptions): SeenTracker {
       }
     }
 
-    // Update tail if this was the tail
     if (tail === id) {
       tail = entry.prev;
     }
@@ -103,7 +101,6 @@ export function createSeenTracker(options?: SeenTrackerOptions): SeenTracker {
     }
   }
 
-  // Remove an entry from the linked list
   function removeFromList(id: string): void {
     const entry = entries.get(id);
     if (!entry) {
@@ -213,7 +210,6 @@ export function createSeenTracker(options?: SeenTrackerOptions): SeenTracker {
       return false;
     }
 
-    // Check if expired
     if (Date.now() - entry.seenAt > ttlMs) {
       removeFromList(id);
       entries.delete(id);
@@ -233,7 +229,6 @@ export function createSeenTracker(options?: SeenTrackerOptions): SeenTracker {
       return false;
     }
 
-    // Check if expired
     if (Date.now() - entry.seenAt > ttlMs) {
       removeFromList(id);
       entries.delete(id);

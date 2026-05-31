@@ -47,7 +47,6 @@ function sanitizeProfileUrls(profile: NostrProfile): NostrProfile {
     if (value && typeof value === "string") {
       const validation = validateUrlSafety(value);
       if (!validation.ok) {
-        // Remove unsafe URL
         delete result[field];
       }
     }
@@ -100,12 +99,10 @@ export async function importProfileFromRelays(
     // Query all relays for kind:0 events from this pubkey
     const events: Array<{ event: Event; relay: string }> = [];
 
-    // Create timeout promise
     const timeoutPromise = new Promise<void>((resolve) => {
       scheduleTimeout(resolve);
     });
 
-    // Create subscription promise
     const subscriptionPromise = new Promise<void>((resolve) => {
       let completed = 0;
 
@@ -149,7 +146,6 @@ export async function importProfileFromRelays(
       clearTimeout(timer);
     }
 
-    // No events found
     if (events.length === 0) {
       return {
         ok: false,
@@ -174,7 +170,6 @@ export async function importProfileFromRelays(
       };
     }
 
-    // Verify the event signature
     const isValid = verifyEvent(bestEvent.event);
     if (!isValid) {
       return {
@@ -185,7 +180,6 @@ export async function importProfileFromRelays(
       };
     }
 
-    // Parse the profile content
     let content: ProfileContent;
     try {
       content = JSON.parse(bestEvent.event.content) as ProfileContent;
@@ -198,7 +192,6 @@ export async function importProfileFromRelays(
       };
     }
 
-    // Convert to our profile format
     const profile = contentToProfile(content);
 
     // Sanitize URLs from imported profile to prevent SSRF when auto-merging
