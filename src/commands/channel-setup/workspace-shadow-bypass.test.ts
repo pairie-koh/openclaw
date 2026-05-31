@@ -10,10 +10,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { PluginManifestRecord } from "../../plugins/manifest-registry.js";
 
-// ---------------------------------------------------------------------------
-// Mocks (hoisted to module top level)
-// ---------------------------------------------------------------------------
-
 const listChannelPluginCatalogEntries = vi.hoisted(() => vi.fn((_opts?: unknown): unknown[] => []));
 const listChatChannels = vi.hoisted(() => vi.fn((): unknown[] => []));
 const loadPluginManifestRegistry = vi.hoisted(() => vi.fn());
@@ -57,10 +53,6 @@ vi.mock("../../plugins/loader.js", () => ({
 }));
 
 import { resolveChannelSetupEntries } from "./discovery.js";
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -122,10 +114,6 @@ function mockWorkspaceOnlyCatalogEntry(entry: ReturnType<typeof createWorkspaceC
     (opts as { excludeWorkspace?: boolean } | undefined)?.excludeWorkspace ? [] : [entry],
   );
 }
-
-// ---------------------------------------------------------------------------
-// Regression: resolveChannelSetupEntries (discovery.ts)
-// ---------------------------------------------------------------------------
 
 describe("resolveChannelSetupEntries workspace shadow exclusion (GHSA-2qrv-rc5x-2g2h)", () => {
   it("falls back to the bundled entry for untrusted workspace shadows", () => {

@@ -7,10 +7,6 @@ import {
   isPathInsideWithRealpath,
 } from "./scan-paths.js";
 
-// ---------------------------------------------------------------------------
-// isPathInside
-// ---------------------------------------------------------------------------
-
 describe("isPathInside", () => {
   it("returns true for same directory", () => {
     const base = "/home/user/project";
@@ -33,10 +29,6 @@ describe("isPathInside", () => {
     expect(isPathInside("/home/user/a", "/home/user/b")).toBe(false);
   });
 });
-
-// ---------------------------------------------------------------------------
-// isPathInsideWithRealpath
-// ---------------------------------------------------------------------------
 
 describe("isPathInsideWithRealpath", () => {
   const tmpDir = os.tmpdir();
@@ -80,10 +72,6 @@ describe("isPathInsideWithRealpath", () => {
     expect(result).toBe(false);
   });
 });
-
-// ---------------------------------------------------------------------------
-// extensionUsesSkippedScannerPath
-// ---------------------------------------------------------------------------
 
 describe("extensionUsesSkippedScannerPath", () => {
   it("returns true for node_modules segment", () => {

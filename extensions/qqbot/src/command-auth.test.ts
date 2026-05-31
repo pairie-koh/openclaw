@@ -15,14 +15,6 @@
 import { describe, expect, it } from "vitest";
 import { createSdkAccessAdapter } from "./bridge/sdk-adapter.js";
 
-// ---------------------------------------------------------------------------
-// qqbot: prefix normalization for inbound commandAuthorized
-//
-// Uses qqbotPlugin.config.formatAllowFrom directly — the same function the
-// fixed gateway.ts inbound path calls — so the test stays in sync with the
-// actual implementation without duplicating the logic.
-// ---------------------------------------------------------------------------
-
 describe("qqbot: prefix normalization for inbound commandAuthorized", () => {
   const access = createSdkAccessAdapter();
 

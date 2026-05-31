@@ -168,10 +168,6 @@ type ResolvedOutboundSessionRoute = NonNullable<
   Awaited<ReturnType<typeof resolveOutboundSessionRoute>>
 >;
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 function makeResolvedDelivery(
   overrides: Partial<SuccessfulDeliveryResolution> = {},
 ): SuccessfulDeliveryResolution {
@@ -295,10 +291,6 @@ function mockResolvedOutboundRoute(
   vi.mocked(resolveOutboundSessionRoute).mockResolvedValue(route);
   return route;
 }
-
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
 
 describe("dispatchCronDelivery — double-announce guard", () => {
   beforeEach(() => {
