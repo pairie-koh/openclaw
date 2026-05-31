@@ -35,10 +35,6 @@ import { sanitizeSurrogates } from "../utils/sanitize-unicode.js";
 import { convertResponsesTools } from "./openai-responses-tools.js";
 import { transformMessages } from "./transform-messages.js";
 
-// =============================================================================
-// Utilities
-// =============================================================================
-
 function encodeTextSignatureV1(id: string, phase?: TextSignatureV1["phase"]): string {
   const payload: TextSignatureV1 = { v: 1, id };
   if (phase) {
@@ -131,10 +127,6 @@ type ResponsesCommonParamsOptions = Pick<StreamOptions, "maxTokens" | "temperatu
   reasoningEffort?: ResponsesReasoningEffort;
   reasoningSummary?: ResponsesReasoningSummary;
 };
-
-// =============================================================================
-// Message conversion
-// =============================================================================
 
 /** Convert OpenClaw transcript messages into Responses API input items. */
 export function convertResponsesMessages<TApi extends Api>(
@@ -337,10 +329,6 @@ export function convertResponsesMessages<TApi extends Api>(
   return messages;
 }
 
-// =============================================================================
-// Stream lifecycle
-// =============================================================================
-
 /** Create the mutable assistant message accumulator used while streaming Responses output. */
 export function createResponsesAssistantOutput<TApi extends Api>(
   model: Model<TApi>,
@@ -487,10 +475,6 @@ export async function runResponsesStreamLifecycle<TApi extends Api>(params: {
     stream.end();
   }
 }
-
-// =============================================================================
-// Stream processing
-// =============================================================================
 
 /** Consume Responses stream events into assistant text, thinking, tool calls, usage, and stop state. */
 export async function processResponsesStream<TApi extends Api>(
