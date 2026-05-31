@@ -220,7 +220,6 @@ export function resolveAutoMediaKeyProviders(params: {
   });
 }
 
-/** Reports whether provider metadata declares direct PDF document input support. */
 export function providerSupportsNativePdfDocument(params: {
   providerId: string;
   cfg?: OpenClawConfig;

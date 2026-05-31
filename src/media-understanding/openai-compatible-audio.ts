@@ -19,7 +19,6 @@ function resolveModel(model: string | undefined, fallback: string): string {
   return trimmed || fallback;
 }
 
-/** Transcribe audio through an OpenAI-compatible `/audio/transcriptions` endpoint. */
 export async function transcribeOpenAiCompatibleAudio(
   params: OpenAiCompatibleAudioParams,
 ): Promise<AudioTranscriptionResult> {

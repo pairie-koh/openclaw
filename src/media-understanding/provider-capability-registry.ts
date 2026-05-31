@@ -15,7 +15,6 @@ function mergeProviderCapabilities(
   });
 }
 
-/** Build provider capability metadata from plugins and image-capable config providers. */
 export function buildMediaUnderstandingCapabilityRegistry(
   cfg?: OpenClawConfig,
 ): MediaUnderstandingCapabilityRegistry {
