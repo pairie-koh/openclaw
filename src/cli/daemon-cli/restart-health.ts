@@ -18,11 +18,9 @@ import {
 import { killProcessTree } from "../../process/kill-tree.js";
 import { sleep } from "../../utils.js";
 
-/** Default total wait budget for gateway restart health checks. */
 export const DEFAULT_RESTART_HEALTH_TIMEOUT_MS = 60_000;
 /** Delay between gateway restart health check attempts. */
 export const DEFAULT_RESTART_HEALTH_DELAY_MS = 500;
-/** Default number of restart health check attempts. */
 export const DEFAULT_RESTART_HEALTH_ATTEMPTS = Math.ceil(
   DEFAULT_RESTART_HEALTH_TIMEOUT_MS / DEFAULT_RESTART_HEALTH_DELAY_MS,
 );

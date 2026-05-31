@@ -53,7 +53,6 @@ function resolveDefaultLogFile(defaultLogDir: string): string {
     : `${POSIX_OPENCLAW_TMP_DIR}/openclaw.log`;
 }
 
-/** Default directory used for active and rolling OpenClaw log files. */
 export const DEFAULT_LOG_DIR = resolveDefaultLogDir();
 /** Legacy single-file log path retained for callers that need a concrete default. */
 export const DEFAULT_LOG_FILE = resolveDefaultLogFile(DEFAULT_LOG_DIR); // legacy single-file path

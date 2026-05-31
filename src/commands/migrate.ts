@@ -463,7 +463,6 @@ export async function migrateApplyCommand(
   });
 }
 
-/** Default migration command: preview interactively, apply with explicit yes/flags. */
 export async function migrateDefaultCommand(
   runtime: RuntimeEnv,
   opts: MigrateDefaultOptions,

@@ -19,7 +19,6 @@ import { redactSensitiveText } from "./redact.js";
 
 /** Schema version for serialized diagnostic stability bundle JSON files. */
 export const DIAGNOSTIC_STABILITY_BUNDLE_VERSION = 1;
-/** Default event limit captured from the process-local stability ring. */
 export const DEFAULT_DIAGNOSTIC_STABILITY_BUNDLE_LIMIT = MAX_DIAGNOSTIC_STABILITY_LIMIT;
 /** Number of newest stability bundles retained after each write. */
 export const DEFAULT_DIAGNOSTIC_STABILITY_BUNDLE_RETENTION = 20;

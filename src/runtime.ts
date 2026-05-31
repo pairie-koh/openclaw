@@ -87,7 +87,6 @@ function createRuntimeIo(): Pick<OutputRuntimeEnv, "log" | "error" | "writeStdou
   };
 }
 
-/** Default process-backed runtime that restores terminal state before exit. */
 export const defaultRuntime: OutputRuntimeEnv = {
   ...createRuntimeIo(),
   exit: (code) => {

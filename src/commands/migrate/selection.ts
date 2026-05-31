@@ -223,12 +223,10 @@ export function formatMigrationPluginSelectionLabel(item: MigrationItem): string
   return readMigrationPluginName(item) ?? item.id.replace(/^plugin:/u, "");
 }
 
-/** Default selected skill values; conflicts remain visible but start deselected. */
 export function getDefaultMigrationSkillSelectionValues(items: readonly MigrationItem[]): string[] {
   return items.filter((item) => item.status === "planned").map(getMigrationSkillSelectionValue);
 }
 
-/** Default selected plugin values; conflicts remain visible but start deselected. */
 export function getDefaultMigrationPluginSelectionValues(
   items: readonly MigrationItem[],
 ): string[] {
