@@ -1,6 +1,5 @@
 import fs from "node:fs/promises";
 
-/** Remove a temp file if present, ignoring cleanup races and missing files. */
 export async function unlinkIfExists(filePath: string | null | undefined): Promise<void> {
   if (!filePath) {
     return;

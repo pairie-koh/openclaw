@@ -44,7 +44,6 @@ function renderCompactTerminalQr(modules: QrTerminalModules): string {
   return lines.join("\n");
 }
 
-/** Returns a terminal QR code, optionally in a compact half-block layout. */
 export async function renderQrTerminal(
   input: string,
   opts: { small?: boolean } = {},

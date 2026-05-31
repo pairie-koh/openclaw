@@ -12,10 +12,8 @@ import { parseFenceSpans } from "../../packages/markdown-core/src/fences.js";
 import { parseAudioTag } from "./audio-tags.js";
 
 // Allow optional wrapping backticks and punctuation after the token; capture the core token.
-/** Regex for `MEDIA:` tokens emitted by agents/tools in command or stdout text. */
 export const MEDIA_TOKEN_RE = /\bMEDIA:\s*`?([^\n]+)`?/gi;
 
-/** Segment produced when splitting visible text from extracted media references. */
 export type ParsedMediaOutputSegment =
   | {
       type: "text";
@@ -26,13 +24,11 @@ export type ParsedMediaOutputSegment =
       url: string;
     };
 
-/** Options for extracting explicit MEDIA tokens and optional Markdown image references. */
 export type SplitMediaFromOutputOptions = {
   extractMarkdownImages?: boolean;
   extractMediaDirectives?: boolean;
 };
 
-/** Converts file URLs into local path strings while leaving other media references intact. */
 export function normalizeMediaSource(src: string) {
   return src.startsWith("file://") ? src.replace("file://", "") : src;
 }

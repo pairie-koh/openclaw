@@ -54,7 +54,6 @@ function resolveQrTempPathSegment(name: string, value: string): string {
   return value;
 }
 
-/** Renders normalized QR text to a PNG base64 payload with bounded scale and margin options. */
 export async function renderQrPngBase64(
   input: string,
   opts: QrPngRenderOptions = {},
@@ -85,12 +84,10 @@ export async function renderQrPngBase64(
   return dataUrl.slice(QR_PNG_DATA_URL_PREFIX.length);
 }
 
-/** Prefixes PNG base64 with a browser/model-compatible data URL header. */
 export function formatQrPngDataUrl(base64: string): string {
   return `${QR_PNG_DATA_URL_PREFIX}${base64}`;
 }
 
-/** Renders QR text directly to a PNG data URL. */
 export async function renderQrPngDataUrl(
   input: string,
   opts: QrPngRenderOptions = {},
@@ -98,7 +95,6 @@ export async function renderQrPngDataUrl(
   return formatQrPngDataUrl(await renderQrPngBase64(input, opts));
 }
 
-/** Writes a QR PNG into a private temp workspace and returns matching media local roots. */
 export async function writeQrPngTempFile(
   input: string,
   opts: QrPngTempFileOptions,
