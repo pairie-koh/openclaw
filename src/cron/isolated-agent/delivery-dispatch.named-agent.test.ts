@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { sourceDeliveryTargetsMatch } from "../../infra/outbound/source-delivery-plan.js";
 
-// Mock the announce flow dependencies to test the fallback behavior.
 vi.mock("../../agents/subagent-announce.js", () => ({
   runSubagentAnnounceFlow: vi.fn(),
 }));

@@ -6,7 +6,6 @@ const ssrfMocks = {
   resolvePinnedHostnameWithPolicy: vi.fn(),
 };
 
-// Mock http and https modules before importing the client
 vi.mock("node:https", async () => {
   const actual = await vi.importActual<typeof import("node:https")>("node:https");
   const httpsRequest = vi.fn();

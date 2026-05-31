@@ -6,7 +6,6 @@ import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { writeSkill } from "../test-support/e2e-test-helpers.js";
 import { buildWorkspaceSkillsPrompt, syncSkillsToWorkspace } from "./workspace.js";
 
-// Mock resolvePluginSkillDirs to return our test plugin skill directories
 const mockResolvePluginSkillDirs = vi.hoisted(() => vi.fn(() => [] as string[]));
 
 vi.mock("./plugin-skills.js", () => ({

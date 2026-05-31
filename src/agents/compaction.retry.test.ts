@@ -5,7 +5,6 @@ import type { AssistantMessage, UserMessage } from "openclaw/plugin-sdk/llm";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { retryAsync } from "../infra/retry.js";
 
-// Mock the external generateSummary function
 vi.mock("openclaw/plugin-sdk/agent-sessions", async () => {
   const actual = await vi.importActual<typeof agentSessions>("openclaw/plugin-sdk/agent-sessions");
   return {
