@@ -32,7 +32,6 @@ function toExecutionError(error: unknown): ExecutionError {
   return new ExecutionError("unknown", cause.message, cause);
 }
 
-/** Drop control characters from process output before it enters transcripts or logs. */
 export function sanitizeBinaryOutput(str: string): string {
   return Array.from(str)
     .filter((char) => {
@@ -54,7 +53,6 @@ export function sanitizeBinaryOutput(str: string): string {
     .join("");
 }
 
-/** Execute a shell command, tail-truncate context output, and spill full output to a temp file. */
 export async function executeShellWithCapture(
   env: ExecutionEnv,
   command: string,

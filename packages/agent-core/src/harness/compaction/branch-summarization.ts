@@ -152,7 +152,6 @@ function getMessageFromEntry(entry: SessionTreeEntry): AgentMessage | undefined 
   return undefined;
 }
 
-/** Prepare branch entries for summarization within an optional token budget. */
 export function prepareBranchEntries(
   entries: SessionTreeEntry[],
   tokenBudget: number = 0,
@@ -235,7 +234,6 @@ Use this EXACT format:
 
 Keep each section concise. Preserve exact file paths, function names, and error messages.`;
 
-/** Generate a summary for abandoned branch entries. */
 export async function generateBranchSummary(
   entries: SessionTreeEntry[],
   options: GenerateBranchSummaryOptions,

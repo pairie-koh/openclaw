@@ -241,7 +241,6 @@ function getShellEnv(
   };
 }
 
-/** ExecutionEnv implementation backed by Node fs, temp files, and shell processes. */
 export class NodeExecutionEnv implements ExecutionEnv {
   cwd: string;
   private shellPath?: string;

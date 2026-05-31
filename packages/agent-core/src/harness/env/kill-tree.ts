@@ -3,7 +3,6 @@ import { spawn } from "node:child_process";
 const DEFAULT_GRACE_MS = 3000;
 const MAX_GRACE_MS = 60_000;
 
-/** Options controlling graceful/forced process-tree termination. */
 export type KillProcessTreeOptions = {
   graceMs?: number;
   detached?: boolean;
@@ -54,7 +53,6 @@ export function killProcessTree(pid: number, opts?: KillProcessTreeOptions): voi
   }, graceMs).unref();
 }
 
-/** Send SIGTERM/SIGKILL-equivalent signals to a process tree or direct child. */
 export function signalProcessTree(
   pid: number,
   signal: "SIGTERM" | "SIGKILL",

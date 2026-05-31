@@ -1,6 +1,5 @@
 import type { Skill } from "./types.js";
 
-/** Format model-visible skill metadata, omitting skills hidden from model invocation. */
 export function formatSkillsForSystemPrompt(skills: Skill[]): string {
   const visibleSkills = skills.filter((skill) => !skill.disableModelInvocation);
   if (visibleSkills.length === 0) {

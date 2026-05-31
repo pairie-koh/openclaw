@@ -33,7 +33,6 @@ function parseSafeNonNegativeInteger(raw: string): number | undefined {
   return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : undefined;
 }
 
-/** Substitute prompt template placeholders (`$1`, `$@`, `$ARGUMENTS`, `${@:N}`, `${@:N:L}`) with command arguments. */
 export function substituteArgs(content: string, args: string[]): string {
   let result = content;
   result = result.replace(/\$(\d+)/g, (_, num: string) => {

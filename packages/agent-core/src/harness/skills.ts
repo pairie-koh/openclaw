@@ -15,7 +15,6 @@ const IGNORE_FILE_NAMES = [".gitignore", ".ignore", ".fdignore"];
 
 type IgnoreMatcher = ReturnType<typeof ignore>;
 
-/** Stable warning codes emitted while discovering and parsing skill files. */
 export type SkillDiagnosticCode =
   | "file_info_failed"
   | "list_failed"
@@ -23,7 +22,6 @@ export type SkillDiagnosticCode =
   | "parse_failed"
   | "invalid_metadata";
 
-/** Warning produced while loading skills. */
 export interface SkillDiagnostic {
   /** Diagnostic severity. Currently only warnings are emitted. */
   type: "warning";
@@ -42,7 +40,6 @@ interface SkillFrontmatter {
   [key: string]: unknown;
 }
 
-/** Format a skill invocation prompt, optionally appending additional user instructions. */
 export function formatSkillInvocation(skill: Skill, additionalInstructions?: string): string {
   const skillBlock = `<skill name="${skill.name}" location="${skill.filePath}">\nReferences are relative to ${dirnameEnvPath(skill.filePath)}.\n\n${skill.content}\n</skill>`;
   return additionalInstructions ? `${skillBlock}\n\n${additionalInstructions}` : skillBlock;

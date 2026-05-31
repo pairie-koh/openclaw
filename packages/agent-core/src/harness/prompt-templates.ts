@@ -7,14 +7,12 @@ export { parseCommandArgs, substituteArgs } from "./prompt-template-arguments.js
 import { substituteArgs } from "./prompt-template-arguments.js";
 import { type ExecutionEnv, type PromptTemplate, type Result } from "./types.js";
 
-/** Stable warning codes emitted while discovering and parsing prompt templates. */
 export type PromptTemplateDiagnosticCode =
   | "file_info_failed"
   | "list_failed"
   | "read_failed"
   | "parse_failed";
 
-/** Warning produced while loading prompt templates. */
 export interface PromptTemplateDiagnostic {
   /** Diagnostic severity. Currently only warnings are emitted. */
   type: "warning";
@@ -191,7 +189,6 @@ async function loadTemplateFromFile(
   };
 }
 
-/** Format a prompt template invocation with positional arguments. */
 export function formatPromptTemplateInvocation(
   template: PromptTemplate,
   args: string[] = [],

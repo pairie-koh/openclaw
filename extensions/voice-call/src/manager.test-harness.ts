@@ -90,7 +90,6 @@ export async function createManagerHarness(
   return { manager, provider };
 }
 
-/** Apply an answered event to an existing call in the manager. */
 export function markCallAnswered(manager: CallManager, callId: string, eventId: string): void {
   manager.processEvent({
     id: eventId,
