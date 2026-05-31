@@ -450,7 +450,6 @@ export async function computeEditsDiff(
   const absolutePath = resolveToCwd(path, cwd);
 
   try {
-    // Check if file exists and is readable
     try {
       if (operations) {
         await operations.access(absolutePath);
@@ -465,7 +464,6 @@ export async function computeEditsDiff(
       return { error: `Could not edit file: ${path}. ${errorMessage}.` };
     }
 
-    // Read the file
     const rawContentResult = operations
       ? await operations.readFile(absolutePath)
       : await readFile(absolutePath, "utf-8");
@@ -481,7 +479,6 @@ export async function computeEditsDiff(
       path,
     );
 
-    // Generate the diff
     return generateDiffString(baseContent, newContent);
   } catch (err) {
     return { error: err instanceof Error ? err.message : String(err) };

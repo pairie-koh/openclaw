@@ -152,7 +152,6 @@ export function createLsToolDefinition(
               return;
             }
 
-            // Read directory entries.
             let entries: string[];
             try {
               entries = await ops.readdir(dirPath);
@@ -162,10 +161,8 @@ export function createLsToolDefinition(
               return;
             }
 
-            // Sort alphabetically, case-insensitive.
             entries.sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
 
-            // Format entries with directory indicators.
             const results: string[] = [];
             let entryLimitReached = false;
             for (const entry of entries) {

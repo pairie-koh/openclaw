@@ -149,7 +149,6 @@ export function renderUsage(props: UsageProps) {
   const hasQuery = filters.query.trim().length > 0;
   const hasDraftQuery = filters.queryDraft.trim().length > 0;
 
-  // Sort sessions by tokens or cost depending on mode
   const sortedSessions = [...data.sessions].toSorted((a, b) => {
     const valA = isTokenMode ? (a.usage?.totalTokens ?? 0) : (a.usage?.totalCost ?? 0);
     const valB = isTokenMode ? (b.usage?.totalTokens ?? 0) : (b.usage?.totalCost ?? 0);
@@ -162,7 +161,6 @@ export function renderUsage(props: UsageProps) {
       )
     : sortedSessions;
 
-  // Filter sessions by selected days
   const dayFilteredSessions =
     filters.selectedDays.length > 0
       ? agentScopedSessions.filter((s) => {
@@ -185,7 +183,6 @@ export function renderUsage(props: UsageProps) {
         )
       : dayFilteredSessions;
 
-  // Filter sessions by query (client-side)
   const queryResult = filterSessionsByQuery(hourFilteredSessions, filters.query);
   const filteredSessions = queryResult.sessions;
   const queryWarnings = queryResult.warnings;
@@ -230,14 +227,12 @@ export function renderUsage(props: UsageProps) {
     12,
   );
 
-  // Get first selected session for detail view (timeseries, logs)
   const primarySelectedEntry =
     filters.selectedSessions.length === 1
       ? (data.sessions.find((s) => s.key === filters.selectedSessions[0]) ??
         filteredSessions.find((s) => s.key === filters.selectedSessions[0]))
       : null;
 
-  // Compute totals from sessions
   const computeSessionTotals = (sessions: UsageSessionEntry[]): UsageTotals => {
     return sessions.reduce(
       (acc, s) => (s.usage ? addUsageTotals(acc, s.usage) : acc),
@@ -251,13 +246,11 @@ export function renderUsage(props: UsageProps) {
     return matchingDays.reduce((acc, day) => addUsageTotals(acc, day), createEmptyUsageTotals());
   };
 
-  // Compute display totals and count based on filters
   let displayTotals: UsageTotals | null;
   let displaySessionCount: number;
   const totalSessions = agentScopedSessions.length;
 
   if (filters.selectedSessions.length > 0) {
-    // Sessions selected - compute totals from selected sessions
     const selectedSessionEntries = filteredSessions.filter((s) =>
       filters.selectedSessions.includes(s.key),
     );
@@ -277,7 +270,6 @@ export function renderUsage(props: UsageProps) {
     displayTotals = computeSessionTotals(agentScopedSessions);
     displaySessionCount = totalSessions;
   } else {
-    // No filters - show all
     displayTotals = data.totals;
     displaySessionCount = totalSessions;
   }
@@ -292,7 +284,6 @@ export function renderUsage(props: UsageProps) {
           : sortedSessions;
   const activeAggregates = buildAggregatesFromSessions(aggregateSessions, data.aggregates);
 
-  // Filter daily chart data if sessions are selected
   const filteredDaily =
     filters.selectedSessions.length > 0
       ? (() => {
