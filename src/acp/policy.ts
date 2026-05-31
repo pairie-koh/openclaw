@@ -42,7 +42,6 @@ export function resolveAcpDispatchPolicyMessage(cfg: OpenClawConfig): string | n
   return null;
 }
 
-/** Return the ACP runtime error for dispatch denial, when denied. */
 export function resolveAcpDispatchPolicyError(cfg: OpenClawConfig): AcpRuntimeError | null {
   const message = resolveAcpDispatchPolicyMessage(cfg);
   if (!message) {
@@ -51,7 +50,6 @@ export function resolveAcpDispatchPolicyError(cfg: OpenClawConfig): AcpRuntimeEr
   return new AcpRuntimeError("ACP_DISPATCH_DISABLED", message);
 }
 
-/** Return the ACP runtime error for explicit turns when ACP is globally disabled. */
 export function resolveAcpExplicitTurnPolicyError(cfg: OpenClawConfig): AcpRuntimeError | null {
   if (isAcpEnabledByPolicy(cfg)) {
     return null;
@@ -70,7 +68,6 @@ export function isAcpAgentAllowedByPolicy(cfg: OpenClawConfig, agentId: string):
   return allowed.includes(normalizeAgentId(agentId));
 }
 
-/** Return the ACP runtime error for agent allowlist denial, when denied. */
 export function resolveAcpAgentPolicyError(
   cfg: OpenClawConfig,
   agentId: string,

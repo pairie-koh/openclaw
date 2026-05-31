@@ -69,7 +69,6 @@ function messageWithAcpRequestErrorDetails(error: Error): string {
   return `${error.message}: ${details}`;
 }
 
-/** Return whether a value is a local or foreign ACP runtime error. */
 export function isAcpRuntimeError(value: unknown): value is AcpRuntimeError {
   return value instanceof AcpRuntimeError || getForeignAcpRuntimeError(value) !== null;
 }

@@ -19,7 +19,6 @@ export function resolveAcpAgentFromSessionKey(sessionKey: string, fallback = "ma
   return normalizeAgentId(parsed?.agentId ?? fallback);
 }
 
-/** Builds the ACP error returned when a session lacks required ACP metadata. */
 export function resolveMissingMetaError(sessionKey: string): AcpRuntimeError {
   return new AcpRuntimeError(
     "ACP_SESSION_INIT_FAILED",
@@ -43,7 +42,6 @@ export function resolveAcpSessionResolutionError(
   );
 }
 
-/** Returns ready ACP metadata or throws the matching resolution error. */
 export function requireReadySessionMeta(resolution: AcpSessionResolution): SessionAcpMeta {
   if (resolution.kind === "ready") {
     return resolution.meta;

@@ -91,7 +91,6 @@ export function resolveSessionIdentityFromMeta(
   return normalizeIdentity(meta.identity);
 }
 
-/** Return whether an identity has a stable backend or agent session id. */
 export function identityHasStableSessionId(identity: SessionAcpIdentity | undefined): boolean {
   return Boolean(identity?.acpxSessionId || identity?.agentSessionId);
 }

@@ -86,7 +86,6 @@ export async function resolveSessionKey(params: {
   return params.fallbackKey;
 }
 
-/** Reset the resolved gateway session when ACP metadata/options request it. */
 export async function resetSessionIfNeeded(params: {
   meta: AcpSessionMeta;
   sessionKey: string;

@@ -316,7 +316,6 @@ export function runtimeOptionsEqual(
   return JSON.stringify(normalizeRuntimeOptions(a)) === JSON.stringify(normalizeRuntimeOptions(b));
 }
 
-/** Builds a stable signature for runtime-control-affecting option values. */
 export function buildRuntimeControlSignature(options: AcpSessionRuntimeOptions): string {
   const normalized = normalizeRuntimeOptions(options);
   const extras = Object.entries(normalized.backendExtras ?? {}).toSorted(([a], [b]) =>
