@@ -1,4 +1,3 @@
-/** Return finite numbers without parsing strings or coercing other primitives. */
 export function asFiniteNumber(value: unknown): number | undefined {
   return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }

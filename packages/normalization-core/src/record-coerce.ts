@@ -1,4 +1,3 @@
-/** Return true for plain object-like records, excluding arrays and null. */
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }

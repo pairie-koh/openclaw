@@ -1,4 +1,3 @@
-/** Network policy passed to guarded fetch helpers for remote memory providers. */
 export type SsrFPolicy = {
   /** Allow private network ranges when the caller owns the target endpoint. */
   allowPrivateNetwork?: boolean;

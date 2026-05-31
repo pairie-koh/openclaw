@@ -1,4 +1,3 @@
-/** Format an OSC-8 terminal hyperlink, falling back to plain text when disabled or non-TTY. */
 export function formatTerminalLink(
   label: string,
   url: string,

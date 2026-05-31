@@ -1,4 +1,3 @@
-/** Display tone used by memory status renderers. */
 export type Tone = "ok" | "warn" | "muted";
 
 /** Resolve vector-search status into a compact state/tone pair for UI and CLI output. */

@@ -1,4 +1,3 @@
-/** Text-only embedding input part used by structured multimodal requests. */
 export type EmbeddingInputTextPart = {
   type: "text";
   text: string;

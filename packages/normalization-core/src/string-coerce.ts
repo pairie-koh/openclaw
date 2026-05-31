@@ -1,4 +1,3 @@
-/** Return a string value as-is, preserving empty strings and whitespace. */
 export function readStringValue(value: unknown): string | undefined {
   return typeof value === "string" ? value : undefined;
 }

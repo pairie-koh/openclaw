@@ -1,4 +1,3 @@
-/** Hooks for safe terminal writes that may encounter closed pipes. */
 export type SafeStreamWriterOptions = {
   /** Called immediately before each attempted write. */
   beforeWrite?: () => void;

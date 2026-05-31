@@ -1,4 +1,3 @@
-/** Supported secret reference backends accepted by memory host config. */
 export type SecretRefSource = "env" | "file" | "exec";
 
 /** Structured secret reference resolved by the gateway runtime before provider use. */

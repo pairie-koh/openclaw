@@ -1,4 +1,3 @@
-/** Attachment metadata passed to model-resolution hooks before session messages exist. */
 export type PluginHookBeforeModelResolveAttachment = {
   kind: "image" | "video" | "audio" | "document" | "other";
   mimeType?: string;
