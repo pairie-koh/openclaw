@@ -5,7 +5,6 @@ import { STATE_DIR } from "../../config/paths.js";
 /** Root directory where per-sandbox workspaces are created. */
 export const DEFAULT_SANDBOX_WORKSPACE_ROOT = path.join(STATE_DIR, "sandboxes");
 
-/** Default Docker image for non-browser agent sandboxes. */
 export const DEFAULT_SANDBOX_IMAGE = "openclaw-sandbox:bookworm-slim";
 /** Prefix used when naming agent sandbox containers. */
 export const DEFAULT_SANDBOX_CONTAINER_PREFIX = "openclaw-sbx-";
@@ -16,7 +15,6 @@ export const DEFAULT_SANDBOX_IDLE_HOURS = 24;
 /** Maximum sandbox container age before cleanup. */
 export const DEFAULT_SANDBOX_MAX_AGE_DAYS = 7;
 
-/** Default tool families allowed inside an agent sandbox. */
 export const DEFAULT_TOOL_ALLOW = [
   "exec",
   "process",
@@ -35,7 +33,6 @@ export const DEFAULT_TOOL_ALLOW = [
 ] as const;
 
 // Provider docking: keep sandbox policy aligned with provider tool names.
-/** Default tool families denied inside an agent sandbox. */
 export const DEFAULT_TOOL_DENY = [
   "browser",
   "canvas",
@@ -45,7 +42,6 @@ export const DEFAULT_TOOL_DENY = [
   ...CHANNEL_IDS,
 ] as const;
 
-/** Default Docker image for browser sandbox containers. */
 export const DEFAULT_SANDBOX_BROWSER_IMAGE = "openclaw-sandbox-browser:bookworm-slim";
 /** Shared base Docker image tag used by sandbox image builds. */
 export const DEFAULT_SANDBOX_COMMON_IMAGE = "openclaw-sandbox-common:bookworm-slim";

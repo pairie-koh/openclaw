@@ -9,19 +9,13 @@ import {
 import { resolveAgentWorkspaceDir, resolveDefaultAgentId } from "../agents/agent-scope.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
-/** Default top-level opt-in state for managed memory dreaming. */
 export const DEFAULT_MEMORY_DREAMING_ENABLED = false;
 /** Optional timezone override used when config and agent defaults omit one. */
 export const DEFAULT_MEMORY_DREAMING_TIMEZONE = undefined;
-/** Default logging verbosity for memory promotion runs. */
 export const DEFAULT_MEMORY_DREAMING_VERBOSE_LOGGING = false;
-/** Default report storage mode for promotion outputs. */
 export const DEFAULT_MEMORY_DREAMING_STORAGE_MODE = "separate";
-/** Default for writing separate promotion reports alongside memory updates. */
 export const DEFAULT_MEMORY_DREAMING_SEPARATE_REPORTS = false;
-/** Default cron expression for the unified managed promotion job. */
 export const DEFAULT_MEMORY_DREAMING_FREQUENCY = "0 3 * * *";
-/** Default plugin id that owns memory dreaming config. */
 export const DEFAULT_MEMORY_DREAMING_PLUGIN_ID = "memory-core";
 /** Cron display name for the current managed promotion job. */
 export const MANAGED_MEMORY_DREAMING_CRON_NAME = "Memory Dreaming Promotion";
@@ -45,57 +39,35 @@ export const LEGACY_MEMORY_REM_DREAMING_EVENT_TEXT = "__openclaw_memory_core_rem
 
 /** Legacy standalone light phase cron expression. */
 export const DEFAULT_MEMORY_LIGHT_DREAMING_CRON_EXPR = "0 */6 * * *";
-/** Default number of days scanned by the light phase. */
 export const DEFAULT_MEMORY_LIGHT_DREAMING_LOOKBACK_DAYS = 2;
-/** Default candidate limit for the light phase. */
 export const DEFAULT_MEMORY_LIGHT_DREAMING_LIMIT = 100;
-/** Default similarity threshold for light-phase dedupe. */
 export const DEFAULT_MEMORY_LIGHT_DREAMING_DEDUPE_SIMILARITY = 0.9;
 
 /** Legacy standalone deep phase cron expression. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_CRON_EXPR = "0 3 * * *";
-/** Default promotion limit for the deep phase. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_LIMIT = 10;
-/** Default minimum score for deep-phase promotion candidates. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_MIN_SCORE = 0.8;
-/** Default minimum recall count required for deep-phase promotion. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_MIN_RECALL_COUNT = 3;
-/** Default minimum unique query count required for deep-phase promotion. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_MIN_UNIQUE_QUERIES = 3;
-/** Default recency half-life used by deep-phase scoring. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECENCY_HALF_LIFE_DAYS = 14;
-/** Default max age for deep-phase promotion candidates. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_MAX_AGE_DAYS = 30;
-/** Default snippet budget for promoted deep-phase memory facts. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_MAX_PROMOTED_SNIPPET_TOKENS = 160;
 
-/** Default opt-in state for deep-phase recovery. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECOVERY_ENABLED = true;
-/** Default health threshold that triggers deep-phase recovery. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECOVERY_TRIGGER_BELOW_HEALTH = 0.35;
-/** Default recovery lookback window for deep dreaming. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECOVERY_LOOKBACK_DAYS = 30;
-/** Default maximum recovery candidates considered by deep dreaming. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECOVERY_MAX_CANDIDATES = 20;
-/** Default confidence threshold for recovered deep-dreaming candidates. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECOVERY_MIN_CONFIDENCE = 0.9;
-/** Default confidence threshold for automatically writing recovered memories. */
 export const DEFAULT_MEMORY_DEEP_DREAMING_RECOVERY_AUTO_WRITE_MIN_CONFIDENCE = 0.97;
 
 /** Legacy standalone REM phase cron expression. */
 export const DEFAULT_MEMORY_REM_DREAMING_CRON_EXPR = "0 5 * * 0";
-/** Default lookback window for REM pattern extraction. */
 export const DEFAULT_MEMORY_REM_DREAMING_LOOKBACK_DAYS = 7;
-/** Default pattern limit for REM dreaming. */
 export const DEFAULT_MEMORY_REM_DREAMING_LIMIT = 10;
-/** Default minimum strength for REM pattern candidates. */
 export const DEFAULT_MEMORY_REM_DREAMING_MIN_PATTERN_STRENGTH = 0.75;
 
-/** Default model speed tier for memory dreaming prompts. */
 export const DEFAULT_MEMORY_DREAMING_SPEED = "balanced";
-/** Default reasoning depth tier for memory dreaming prompts. */
 export const DEFAULT_MEMORY_DREAMING_THINKING = "medium";
-/** Default cost budget tier for memory dreaming prompts. */
 export const DEFAULT_MEMORY_DREAMING_BUDGET = "medium";
 
 /** Latency tier requested for dreaming model calls. */
