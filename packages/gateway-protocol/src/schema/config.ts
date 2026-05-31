@@ -17,10 +17,8 @@ const ConfigDeliveryContextSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Empty params schema for reading the current raw config document. */
 export const ConfigGetParamsSchema = Type.Object({}, { additionalProperties: false });
 
-/** Params schema for replacing raw config with optional optimistic hash guard. */
 export const ConfigSetParamsSchema = Type.Object(
   {
     raw: NonEmptyString,
@@ -41,15 +39,11 @@ const ConfigApplyLikeParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for applying config and scheduling any required restart. */
 export const ConfigApplyParamsSchema = ConfigApplyLikeParamsSchema;
-/** Params schema for patch-style config updates with the same apply metadata. */
 export const ConfigPatchParamsSchema = ConfigApplyLikeParamsSchema;
 
-/** Empty params schema for requesting the generated config schema. */
 export const ConfigSchemaParamsSchema = Type.Object({}, { additionalProperties: false });
 
-/** Params schema for looking up a config schema node by path. */
 export const ConfigSchemaLookupParamsSchema = Type.Object(
   {
     path: ConfigSchemaLookupPathString,
@@ -57,10 +51,8 @@ export const ConfigSchemaLookupParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Empty params schema for reading pending update/restart status. */
 export const UpdateStatusParamsSchema = Type.Object({}, { additionalProperties: false });
 
-/** Params schema for running an update/restart flow with optional delivery context. */
 export const UpdateRunParamsSchema = Type.Object(
   {
     sessionKey: Type.Optional(Type.String()),
