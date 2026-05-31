@@ -29,20 +29,17 @@ const DEFAULT_REALTIME_VOICE_CONSULT_QUESTION_KEYS = ["question", "prompt", "que
 const DEFAULT_REALTIME_VOICE_SPEAKABLE_RESULT_KEYS = ["text", "result", "output", "error"];
 const DEFAULT_REALTIME_VOICE_SPEAKABLE_RESULT_MAX_CHARS = 1_800;
 
-/** Token-overlap thresholds for matching repeated consult questions. */
 export type RealtimeVoiceConsultQuestionMatchOptions = {
   minTokenOverlapRatio?: number;
   minTokenOverlapCount?: number;
 };
 
-/** Field and truncation options for text that can be spoken back to a caller. */
 export type RealtimeVoiceSpeakableToolResultOptions = {
   keys?: readonly string[];
   maxChars?: number;
   stringResult?: boolean;
 };
 
-/** Reads a consult question from provider args using the accepted argument keys. */
 export function readRealtimeVoiceConsultQuestion(
   args: unknown,
   keys: readonly string[] = DEFAULT_REALTIME_VOICE_CONSULT_QUESTION_KEYS,
@@ -63,7 +60,6 @@ export function readRealtimeVoiceConsultQuestion(
   return undefined;
 }
 
-/** Normalizes question text for duplicate and follow-up matching. */
 export function normalizeRealtimeVoiceConsultQuestion(
   value: string | undefined,
 ): string | undefined {
@@ -76,7 +72,6 @@ export function normalizeRealtimeVoiceConsultQuestion(
   );
 }
 
-/** Matches semantically repeated consult questions without requiring exact text. */
 export function matchRealtimeVoiceConsultQuestions(
   left: string | undefined,
   right: string | undefined,
@@ -113,7 +108,6 @@ export function matchRealtimeVoiceConsultQuestions(
   return overlap / Math.min(leftTokens.size, rightTokens.size) >= minTokenOverlapRatio;
 }
 
-/** Extracts bounded speakable text from a tool result payload. */
 export function readSpeakableRealtimeVoiceToolResult(
   result: unknown,
   options: RealtimeVoiceSpeakableToolResultOptions = {},

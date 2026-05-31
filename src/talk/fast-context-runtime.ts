@@ -18,7 +18,6 @@ type MemorySearchHit = {
   score: number;
 };
 
-/** Runtime policy for bounded memory/session context lookup during voice calls. */
 export type RealtimeVoiceFastContextConfig = {
   enabled: boolean;
   maxResults: number;
@@ -27,7 +26,6 @@ export type RealtimeVoiceFastContextConfig = {
   fallbackToConsult: boolean;
 };
 
-/** Labels used when formatting fast-context responses for speech. */
 export type RealtimeVoiceFastContextLabels = {
   audienceLabel: string;
   contextName: string;
@@ -37,7 +35,6 @@ type FastContextLookupResult =
   | { status: "unavailable"; error?: string }
   | { status: "hits"; hits: MemorySearchHit[] };
 
-/** Result of attempting to answer a consult request from fast context alone. */
 export type RealtimeVoiceFastContextConsultResult =
   | { handled: false }
   | { handled: true; result: RealtimeVoiceAgentConsultResult };
@@ -145,7 +142,6 @@ async function lookupFastContext(params: {
   return { status: "hits", hits };
 }
 
-/** Attempts a timed memory/session lookup and returns speakable context or fallback. */
 export async function resolveRealtimeVoiceFastContextConsult(params: {
   cfg: OpenClawConfig;
   agentId: string;

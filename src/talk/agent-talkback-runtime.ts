@@ -1,17 +1,14 @@
 import type { RuntimeLogger } from "../plugins/runtime/types-core.js";
 
-/** Text result returned by an agent talkback consultation. */
 export type RealtimeVoiceAgentTalkbackResult = {
   text: string;
 };
 
-/** Queue API for debounced caller questions sent to the agent. */
 export type RealtimeVoiceAgentTalkbackQueue = {
   close(): void;
   enqueue(question: string, metadata?: unknown): void;
 };
 
-/** Runtime dependencies and policy for talkback queue processing. */
 export type RealtimeVoiceAgentTalkbackQueueParams = {
   debounceMs: number;
   isStopped: () => boolean;
@@ -33,7 +30,6 @@ type PendingQuestion = {
   metadata?: unknown;
 };
 
-/** Creates a debounced serial talkback queue that merges compatible pending questions. */
 export function createRealtimeVoiceAgentTalkbackQueue(
   params: RealtimeVoiceAgentTalkbackQueueParams,
 ): RealtimeVoiceAgentTalkbackQueue {

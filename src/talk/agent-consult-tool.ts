@@ -4,24 +4,19 @@ import {
 } from "@openclaw/normalization-core/string-coerce";
 import type { RealtimeVoiceTool } from "./provider-types.js";
 
-/** Stable function name exposed to realtime voice providers for agent delegation. */
 export const REALTIME_VOICE_AGENT_CONSULT_TOOL_NAME = "openclaw_agent_consult";
-/** Supported tool-exposure policies for voice agent consultation. */
 export const REALTIME_VOICE_AGENT_CONSULT_TOOL_POLICIES = [
   "safe-read-only",
   "owner",
   "none",
 ] as const;
-/** Policy controlling whether the voice model can consult the configured agent. */
 export type RealtimeVoiceAgentConsultToolPolicy =
   (typeof REALTIME_VOICE_AGENT_CONSULT_TOOL_POLICIES)[number];
-/** Provider tool arguments accepted by openclaw_agent_consult. */
 export type RealtimeVoiceAgentConsultArgs = {
   question: string;
   context?: string;
   responseStyle?: string;
 };
-/** Transcript line passed into agent consult prompts for voice context. */
 export type RealtimeVoiceAgentConsultTranscriptEntry = {
   role: "user" | "assistant";
   text: string;
@@ -53,7 +48,6 @@ export const REALTIME_VOICE_AGENT_CONSULT_TOOL: RealtimeVoiceTool = {
   },
 };
 
-/** Builds the interim provider response while the delegated agent result is pending. */
 export function buildRealtimeVoiceAgentConsultWorkingResponse(
   audienceLabel = "person",
 ): Record<string, unknown> {
@@ -73,7 +67,6 @@ const SAFE_READ_ONLY_TOOLS = [
   "memory_get",
 ] as const;
 
-/** Type guard for persisted/configured consult tool policy values. */
 export function isRealtimeVoiceAgentConsultToolPolicy(
   value: unknown,
 ): value is RealtimeVoiceAgentConsultToolPolicy {
@@ -85,7 +78,6 @@ export function isRealtimeVoiceAgentConsultToolPolicy(
   );
 }
 
-/** Normalizes a configured consult policy with a caller-provided fallback. */
 export function resolveRealtimeVoiceAgentConsultToolPolicy(
   value: unknown,
   fallback: RealtimeVoiceAgentConsultToolPolicy,
@@ -94,7 +86,6 @@ export function resolveRealtimeVoiceAgentConsultToolPolicy(
   return isRealtimeVoiceAgentConsultToolPolicy(normalized) ? normalized : fallback;
 }
 
-/** Builds the realtime tool list, preserving custom tools after the consult tool. */
 export function resolveRealtimeVoiceAgentConsultTools(
   policy: RealtimeVoiceAgentConsultToolPolicy,
   customTools: RealtimeVoiceTool[] = [],
@@ -148,7 +139,6 @@ export function buildRealtimeVoiceAgentConsultPolicyInstructions(config: {
   ].join("\n");
 }
 
-/** Parses consult tool args, accepting legacy question aliases from providers. */
 export function parseRealtimeVoiceAgentConsultArgs(args: unknown): RealtimeVoiceAgentConsultArgs {
   const question =
     readConsultStringArg(args, "question") ??
@@ -165,7 +155,6 @@ export function parseRealtimeVoiceAgentConsultArgs(args: unknown): RealtimeVoice
   };
 }
 
-/** Converts consult args into the chat message sent to the delegated agent. */
 export function buildRealtimeVoiceAgentConsultChatMessage(args: unknown): string {
   const parsed = parseRealtimeVoiceAgentConsultArgs(args);
   return [
@@ -177,7 +166,6 @@ export function buildRealtimeVoiceAgentConsultChatMessage(args: unknown): string
     .join("\n\n");
 }
 
-/** Builds the full delegated-agent prompt from voice context and recent transcript. */
 export function buildRealtimeVoiceAgentConsultPrompt(params: {
   args: unknown;
   transcript: RealtimeVoiceAgentConsultTranscriptEntry[];
@@ -210,7 +198,6 @@ export function buildRealtimeVoiceAgentConsultPrompt(params: {
     .join("\n\n");
 }
 
-/** Collects user-visible delegated-agent text while dropping errors and reasoning chunks. */
 export function collectRealtimeVoiceAgentConsultVisibleText(
   payloads: Array<{ text?: unknown; isError?: boolean; isReasoning?: boolean }>,
 ): string | null {
