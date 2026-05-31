@@ -949,10 +949,6 @@ export type PluginHookBeforeInstallResult = {
   blockReason?: string;
 };
 
-// ---------------------------------------------------------------------------
-// before_agent_run — Lifecycle Gate Hook
-// ---------------------------------------------------------------------------
-
 /** Event payload for the before_agent_run gate hook. */
 export type PluginHookBeforeAgentRunEvent = {
   /** The user's message that triggered this run. */

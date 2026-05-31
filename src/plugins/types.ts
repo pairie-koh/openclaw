@@ -1963,10 +1963,6 @@ export type OpenClawPluginGatewayMethod = {
   handler: GatewayRequestHandler;
 };
 
-// =============================================================================
-// Plugin Commands
-// =============================================================================
-
 /** Owner-gated diagnostic session summary available to plugin commands. */
 export type PluginCommandDiagnosticsSession = {
   /** Stable host session key when available. */
