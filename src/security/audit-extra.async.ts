@@ -120,10 +120,6 @@ export async function collectPluginsTrustFindings(
   return await collect(params);
 }
 
-// --------------------------------------------------------------------------
-// Helpers
-// --------------------------------------------------------------------------
-
 async function safeStat(targetPath: string): Promise<{
   ok: boolean;
   isSymlink: boolean;
@@ -271,10 +267,6 @@ async function getCodeSafetySummary(params: {
     includeFiles: params.includeFiles,
   });
 }
-
-// --------------------------------------------------------------------------
-// Exported collectors
-// --------------------------------------------------------------------------
 
 function normalizeDockerLabelValue(raw: string | undefined): string | null {
   const trimmed = normalizeOptionalString(raw) ?? "";

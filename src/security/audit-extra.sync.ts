@@ -55,10 +55,6 @@ type ActiveGatewaySharedSecret = {
   value?: string;
 };
 
-// --------------------------------------------------------------------------
-// Helpers
-// --------------------------------------------------------------------------
-
 function isProbablySyncedPath(p: string): boolean {
   const s = p.toLowerCase();
   return (
@@ -528,10 +524,6 @@ function collectRiskyToolExposureContexts(cfg: OpenClawConfig): {
 
   return { riskyContexts, hasRuntimeRisk };
 }
-
-// --------------------------------------------------------------------------
-// Exported collectors
-// --------------------------------------------------------------------------
 
 /** Warns when config or state paths appear to live in synced cloud folders. */
 export function collectSyncedFolderFindings(params: {
