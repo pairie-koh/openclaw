@@ -1,6 +1,3 @@
-/**
- * Test: before_compaction & after_compaction hook wiring
- */
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { makeZeroUsageSnapshot } from "../agents/usage.js";
 

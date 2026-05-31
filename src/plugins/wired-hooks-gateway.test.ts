@@ -1,10 +1,3 @@
-/**
- * Test: gateway_start & gateway_stop hook wiring (server.impl.ts)
- *
- * Since startGatewayServer is heavily integrated, we test the hook runner
- * calls at the unit level by verifying the hook runner functions exist
- * and validating the integration pattern.
- */
 import { describe, expect, it, vi } from "vitest";
 import { createHookRunnerWithRegistry } from "./hooks.test-helpers.js";
 import type {
