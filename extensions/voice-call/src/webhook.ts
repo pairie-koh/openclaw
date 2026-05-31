@@ -416,7 +416,6 @@ export class VoiceCallWebhookServer {
           (this.provider as TwilioProvider).clearTtsQueue(providerCallId);
         }
 
-        // Create a speech event and process it through the manager
         const event: NormalizedEvent = {
           id: `stream-transcript-${Date.now()}`,
           type: "call.speech",
@@ -1002,7 +1001,6 @@ export class VoiceCallWebhookServer {
   private async handleInboundResponse(callId: string, userMessage: string): Promise<void> {
     console.log(`[voice-call] Auto-responding to inbound call ${callId}: "${userMessage}"`);
 
-    // Get call context for conversation history
     const call = this.manager.getCall(callId);
     if (!call) {
       console.warn(`[voice-call] Call ${callId} not found for auto-response`);
