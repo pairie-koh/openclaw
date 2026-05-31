@@ -27,7 +27,6 @@ export type MemoryMultimodalSettings = {
   maxFileBytes: number;
 };
 
-/** Default maximum multimodal file size accepted for indexing. */
 export const DEFAULT_MEMORY_MULTIMODAL_MAX_FILE_BYTES = 10 * 1024 * 1024;
 
 /** Normalizes raw modality selection, expanding "all" to every supported modality. */

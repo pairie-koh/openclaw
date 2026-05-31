@@ -19,7 +19,6 @@ import { detectMime, extensionForMime } from "./mime.js";
 import { isFsSafeError, readLocalFileSafely, type FsSafeLikeError } from "./store.runtime.js";
 
 const resolveMediaDir = () => path.join(resolveConfigDir(), "media");
-/** Default persisted media size limit for local and remote attachment ingestion. */
 export const MEDIA_MAX_BYTES = 5 * 1024 * 1024; // 5MB default
 const MAX_BYTES = MEDIA_MAX_BYTES;
 const DEFAULT_TTL_MS = 2 * 60 * 1000; // 2 minutes

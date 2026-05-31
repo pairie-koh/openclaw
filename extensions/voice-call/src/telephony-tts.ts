@@ -34,7 +34,6 @@ export type TelephonyTtsProvider = {
   synthesizeForTelephony: (text: string) => Promise<Buffer>;
 };
 
-/** Default timeout for voice-call telephony synthesis requests. */
 export const TELEPHONY_DEFAULT_TTS_TIMEOUT_MS = 8000;
 
 type TelephonyModelOverrideConfig = {

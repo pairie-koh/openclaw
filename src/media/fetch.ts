@@ -16,7 +16,6 @@ import { detectMime, extensionForMime } from "./mime.js";
 import { readResponseTextSnippet, readResponseWithLimit } from "./read-response-with-limit.js";
 import { saveMediaBuffer, saveMediaStream, type SavedMedia } from "./store.js";
 
-/** Default remote media download cap shared with document ingestion limits. */
 export const DEFAULT_FETCH_MEDIA_MAX_BYTES = MAX_DOCUMENT_BYTES;
 
 type FetchMediaResult = {
