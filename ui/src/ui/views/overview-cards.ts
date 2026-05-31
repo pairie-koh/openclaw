@@ -21,7 +21,6 @@ import type {
   ModelAuthStatusResult,
 } from "../types.ts";
 
-/** Data and navigation callback required by the overview metric card strip. */
 export type OverviewCardsProps = {
   usageResult: SessionsUsageResult | null;
   sessionsResult: SessionsListResult | null;

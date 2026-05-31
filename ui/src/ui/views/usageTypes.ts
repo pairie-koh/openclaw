@@ -29,7 +29,6 @@ export type UsageColumnId =
 /** One point in the selected session time-series chart. */
 export type TimeSeriesPoint = SessionUsageTimePoint;
 
-/** Loaded usage data and fetch status for the Usage page. */
 export type UsageDataState = {
   loading: boolean;
   error: string | null;
@@ -42,7 +41,6 @@ export type UsageDataState = {
   cacheStatus: SessionsUsageResult["cacheStatus"];
 };
 
-/** Active filters and query draft state for usage exploration. */
 export type UsageFilterState = {
   startDate: string;
   endDate: string;
@@ -56,7 +54,6 @@ export type UsageFilterState = {
   timeZone: "local" | "utc";
 };
 
-/** Local display preferences for charts, sorting, tabs, and visible columns. */
 export type UsageDisplayState = {
   chartMode: "tokens" | "cost";
   dailyChartMode: "total" | "by-type";
@@ -69,7 +66,6 @@ export type UsageDisplayState = {
   headerPinned: boolean;
 };
 
-/** State for selected session details, time series, and session log filters. */
 export type UsageDetailState = {
   timeSeriesMode: "cumulative" | "per-turn";
   timeSeriesBreakdownMode: "total" | "by-type";

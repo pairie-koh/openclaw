@@ -1,6 +1,5 @@
 import type { SkillStatusEntry } from "../types.ts";
 
-/** Display group containing skills from one source family. */
 export type SkillGroup = {
   id: string;
   label: string;
@@ -14,7 +13,6 @@ const SKILL_SOURCE_GROUPS: Array<{ id: string; label: string; sources: string[] 
   { id: "extra", label: "Extra Skills", sources: ["openclaw-extra"] },
 ];
 
-/** Group skill status entries into ordered source buckets. */
 export function groupSkills(skills: SkillStatusEntry[]): SkillGroup[] {
   const groups = new Map<string, SkillGroup>();
   for (const def of SKILL_SOURCE_GROUPS) {

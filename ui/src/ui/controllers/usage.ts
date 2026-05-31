@@ -8,7 +8,6 @@ import {
   isMissingOperatorReadScopeError,
 } from "./scope-errors.ts";
 
-/** Mutable UI state required by the usage dashboard controller. */
 export type UsageState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

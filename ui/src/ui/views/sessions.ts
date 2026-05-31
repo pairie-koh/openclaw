@@ -22,7 +22,6 @@ import type {
 } from "../types.ts";
 import { resolveAgentRuntimeLabel } from "./agents-utils.ts";
 
-/** State and callbacks required to render and mutate the sessions table. */
 export type SessionsProps = {
   loading: boolean;
   result: SessionsListResult | null;

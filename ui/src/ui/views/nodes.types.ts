@@ -1,7 +1,6 @@
 import type { DevicePairingList } from "../controllers/devices.ts";
 import type { ExecApprovalsFile, ExecApprovalsSnapshot } from "../controllers/exec-approvals.ts";
 
-/** State and callbacks required by the nodes view. */
 export type NodesProps = {
   loading: boolean;
   nodes: Array<Record<string, unknown>>;

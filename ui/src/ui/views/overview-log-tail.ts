@@ -8,13 +8,11 @@ function stripAnsi(text: string): string {
   return text.replace(/\x1b\]8;;.*?\x1b\\|\x1b\]8;;\x1b\\/g, "").replace(/\x1b\[[0-9;]*m/g, "");
 }
 
-/** Log lines and refresh callback available to the Overview panel. */
 export type OverviewLogTailProps = {
   lines: string[];
   onRefreshLogs: () => void;
 };
 
-/** Render the compact Overview log-tail card when log lines exist. */
 export function renderOverviewLogTail(props: OverviewLogTailProps) {
   if (props.lines.length === 0) {
     return nothing;

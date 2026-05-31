@@ -5,12 +5,10 @@ import { formatTimeMs } from "../format.ts";
 import { icons } from "../icons.ts";
 import { formatEventPayload } from "../presenter.ts";
 
-/** Event-log entries available to the Overview panel. */
 export type OverviewEventLogProps = {
   events: EventLogEntry[];
 };
 
-/** Render the compact Overview event-log card when events exist. */
 export function renderOverviewEventLog(props: OverviewEventLogProps) {
   if (props.events.length === 0) {
     return nothing;
