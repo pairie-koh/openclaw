@@ -1,11 +1,8 @@
 export const REALTIME_VOICE_ACTIVATION_NAME_MAX_WORDS = 2;
 
-/** Which edge of the transcript contained the activation name. */
 export type RealtimeVoiceActivationNameEdge = "leading" | "trailing";
-/** Whether the heard activation name matched exactly or through fuzzy tolerance. */
 export type RealtimeVoiceActivationNameMatchKind = "exact" | "fuzzy";
 
-/** Result of allowing or rejecting a transcript after activation-name matching. */
 export type RealtimeVoiceActivationNameTranscriptResult =
   | {
       allowed: true;
@@ -35,18 +32,15 @@ type PreparedEdgeActivationNameCandidate = {
   compact: string;
 };
 
-/** Counts alphanumeric words in a candidate activation name. */
 export function realtimeVoiceActivationNameWordCount(value: string): number {
   return Array.from(value.matchAll(/[a-z0-9]+/gi)).length;
 }
 
-/** Normalizes configured activation names for comparison. */
 export function normalizeRealtimeVoiceActivationName(value: string): string | undefined {
   const normalized = value.toLowerCase().replace(/\s+/g, " ").trim();
   return normalized || undefined;
 }
 
-/** Extracts the leading activation-name-sized prefix from transcript text. */
 export function normalizeRealtimeVoiceActivationNamePrefix(
   value: string,
   maxWords = REALTIME_VOICE_ACTIVATION_NAME_MAX_WORDS,
@@ -58,7 +52,6 @@ export function normalizeRealtimeVoiceActivationNamePrefix(
   return words.slice(0, maxWords).join(" ");
 }
 
-/** Checks whether an activation name fits the supported word-count bounds. */
 export function isSupportedRealtimeVoiceActivationName(
   value: string,
   maxWords = REALTIME_VOICE_ACTIVATION_NAME_MAX_WORDS,
@@ -67,7 +60,6 @@ export function isSupportedRealtimeVoiceActivationName(
   return wordCount >= 1 && wordCount <= maxWords;
 }
 
-/** Normalizes a configured activation name only when it is supported. */
 export function normalizeSupportedRealtimeVoiceActivationName(
   value: string | undefined,
   maxWords = REALTIME_VOICE_ACTIVATION_NAME_MAX_WORDS,
@@ -81,12 +73,10 @@ export function normalizeSupportedRealtimeVoiceActivationName(
     : undefined;
 }
 
-/** Sorts activation names so longer/more-specific names match first. */
 export function sortRealtimeVoiceActivationNames(names: string[]): string[] {
   return names.toSorted((left, right) => right.length - left.length || left.localeCompare(right));
 }
 
-/** Matches and strips leading/trailing activation names from transcript text. */
 export function matchRealtimeVoiceActivationName(
   text: string,
   activationNames: string[],

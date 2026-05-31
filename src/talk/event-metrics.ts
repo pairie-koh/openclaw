@@ -1,6 +1,5 @@
 export { asOptionalRecord as talkEventPayloadRecord } from "../../packages/normalization-core/src/record-coerce.js";
 
-/** Returns the first non-negative finite numeric metric from a payload. */
 export function firstFiniteTalkEventNumber(
   record: Record<string, unknown> | undefined,
   keys: readonly string[],

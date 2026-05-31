@@ -1,16 +1,12 @@
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import type { TalkTransport } from "./talk-events.js";
 
-/** Canonical or alias id for a realtime voice provider plugin. */
 export type RealtimeVoiceProviderId = string;
 
-/** Speaker role used by realtime transcript callbacks. */
 export type RealtimeVoiceRole = "user" | "assistant";
 
-/** Close reason reported by provider bridge sessions. */
 export type RealtimeVoiceCloseReason = "completed" | "error";
 
-/** Audio formats supported by current realtime bridge transports. */
 export type RealtimeVoiceAudioFormat =
   | {
       encoding: "g711_ulaw";
@@ -23,21 +19,18 @@ export type RealtimeVoiceAudioFormat =
       channels: 1;
     };
 
-/** 8 kHz mu-law mono format used by telephony transports. */
 export const REALTIME_VOICE_AUDIO_FORMAT_G711_ULAW_8KHZ: RealtimeVoiceAudioFormat = {
   encoding: "g711_ulaw",
   sampleRateHz: 8000,
   channels: 1,
 };
 
-/** 24 kHz PCM16 mono format used by provider-native realtime sessions. */
 export const REALTIME_VOICE_AUDIO_FORMAT_PCM16_24KHZ: RealtimeVoiceAudioFormat = {
   encoding: "pcm16",
   sampleRateHz: 24000,
   channels: 1,
 };
 
-/** Function-tool schema subset accepted by realtime voice providers. */
 export type RealtimeVoiceTool = {
   type: "function";
   name: string;
@@ -49,7 +42,6 @@ export type RealtimeVoiceTool = {
   };
 };
 
-/** Provider-emitted tool call request normalized for OpenClaw handling. */
 export type RealtimeVoiceToolCallEvent = {
   itemId: string;
   callId: string;
@@ -57,7 +49,6 @@ export type RealtimeVoiceToolCallEvent = {
   args: unknown;
 };
 
-/** Options controlling provider continuation after a tool result is submitted. */
 export type RealtimeVoiceToolResultOptions = {
   /**
    * Submit the tool result without prompting the realtime provider to generate a new assistant
@@ -67,7 +58,6 @@ export type RealtimeVoiceToolResultOptions = {
   willContinue?: boolean;
 };
 
-/** Low-level bridge event surfaced for diagnostics without provider-specific payloads. */
 export type RealtimeVoiceBridgeEvent = {
   direction: "client" | "server";
   type: string;
@@ -76,7 +66,6 @@ export type RealtimeVoiceBridgeEvent = {
   responseId?: string;
 };
 
-/** Callback contract implemented by callers that own a realtime voice bridge session. */
 export type RealtimeVoiceBridgeCallbacks = {
   onAudio: (audio: Buffer) => void;
   onClearAudio: () => void;
