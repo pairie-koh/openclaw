@@ -90,7 +90,6 @@ describe("matrix reply context", () => {
       replyToSenderId: "@alice:example.org",
     });
 
-    // Second call should use cache
     await resolveReplyContext({
       roomId: "!room:example.org",
       eventId: "$original",
@@ -171,14 +170,12 @@ describe("matrix reply context", () => {
       logVerboseMessage: () => {},
     });
 
-    // First call fails
     const first = await resolveReplyContext({
       roomId: "!room:example.org",
       eventId: "$original",
     });
     expect(first).toStrictEqual({});
 
-    // Second call succeeds (should retry, not use cached failure)
     const second = await resolveReplyContext({
       roomId: "!room:example.org",
       eventId: "$original",

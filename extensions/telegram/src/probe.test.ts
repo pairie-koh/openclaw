@@ -336,11 +336,9 @@ describe("probeTelegram retry logic", () => {
       close: async () => {},
     }));
 
-    // First call: timeout (simulate IPv6 hang)
     const timeoutError = new Error("request timed out");
     timeoutError.name = "TimeoutError";
     fetchMock.mockRejectedValueOnce(timeoutError);
-    // Second call (retry after forceFallback): success on IPv4
     fetchMock.mockResolvedValueOnce({
       ok: true,
       json: vi.fn().mockResolvedValue({

@@ -89,11 +89,9 @@ describe("createTelegramSendChatActionHandler", () => {
       maxConsecutive401: 5,
     });
 
-    // First call fails with 401
     await expect(handler.sendChatAction(123, "typing")).rejects.toThrow("401");
     expect(handler.isSuspended()).toBe(false);
 
-    // Second call should mention backoff in logs
     await expect(handler.sendChatAction(123, "typing")).rejects.toThrow("401");
     expect(logger.mock.calls).toEqual([
       ["sendChatAction 401 error (1/5). Retrying with exponential backoff."],

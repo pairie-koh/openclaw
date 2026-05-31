@@ -289,13 +289,11 @@ describe("fetchWithSlackAuth", () => {
   });
 
   it("strips Authorization header on cross-origin redirects", async () => {
-    // First call: redirect response from Slack
     const redirectResponse = new Response(null, {
       status: 302,
       headers: { location: "https://cdn.slack-edge.com/presigned-url?sig=abc123" },
     });
 
-    // Second call: actual file content from CDN
     const fileResponse = new Response(Buffer.from("actual image data"), {
       status: 200,
       headers: { "content-type": "image/jpeg" },
@@ -308,13 +306,11 @@ describe("fetchWithSlackAuth", () => {
     expect(result).toBe(fileResponse);
     expect(mockFetch).toHaveBeenCalledTimes(2);
 
-    // First call should have Authorization header and manual redirect
     expect(mockFetch).toHaveBeenNthCalledWith(1, "https://files.slack.com/test.jpg", {
       headers: { Authorization: "Bearer xoxb-test-token" },
       redirect: "manual",
     });
 
-    // Second call should follow the redirect without Authorization
     expect(mockFetch).toHaveBeenNthCalledWith(
       2,
       "https://cdn.slack-edge.com/presigned-url?sig=abc123",

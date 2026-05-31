@@ -129,7 +129,6 @@ describe("listChannelsMSTeams", () => {
     expect(result.truncated).toBe(false);
     expect(mockState.fetchGraphJson).toHaveBeenCalledTimes(3);
 
-    // Second call should use the relative path stripped from the nextLink
     expect(graphFetchPathAt(1)).toBe(
       "/teams/team-paged/channels?$select=id,displayName,description,membershipType&$skip=1",
     );
