@@ -6,6 +6,7 @@ import {
 import type { ModelProviderConfig } from "../config/types.js";
 import type { ProviderCatalogContext, ProviderCatalogResult } from "./types.js";
 
+/** Finds the first matching catalog template for a provider after id normalization. */
 export function findCatalogTemplate(params: {
   entries: ReadonlyArray<{ provider: string; id: string }>;
   providerId: string;
@@ -22,6 +23,7 @@ export function findCatalogTemplate(params: {
     .find((entry) => entry !== undefined);
 }
 
+/** Builds a single-provider catalog only when its API key is available. */
 export async function buildSingleProviderApiKeyCatalog(params: {
   ctx: ProviderCatalogContext;
   providerId: string;
@@ -51,6 +53,7 @@ export async function buildSingleProviderApiKeyCatalog(params: {
   };
 }
 
+/** Builds a paired-provider catalog by applying one resolved API key to every provider entry. */
 export async function buildPairedProviderApiKeyCatalog(params: {
   ctx: ProviderCatalogContext;
   providerId: string;

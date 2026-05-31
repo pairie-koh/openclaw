@@ -11,6 +11,7 @@ type ReadBundleJsonResult =
   | { ok: true; raw: Record<string, unknown> }
   | { ok: false; error: string };
 
+/** Server-command support summary extracted from a plugin bundle config. */
 export type BundleServerRuntimeSupport = {
   hasSupportedServer: boolean;
   supportedServerNames: string[];
@@ -18,6 +19,7 @@ export type BundleServerRuntimeSupport = {
   diagnostics: string[];
 };
 
+/** Reads a bundle JSON object inside the plugin-root boundary. */
 export function readBundleJsonObject(params: {
   rootDir: string;
   relativePath: string;
@@ -38,6 +40,7 @@ export function readBundleJsonObject(params: {
   return { ok: false, error: result.error };
 }
 
+/** Converts root-file open failures into bundle config load results. */
 export function resolveBundleJsonOpenFailure(params: {
   failure: RootFileOpenFailure;
   relativePath: string;
@@ -57,6 +60,7 @@ export function resolveBundleJsonOpenFailure(params: {
   });
 }
 
+/** Classifies configured bundle servers by whether they expose an executable command. */
 export function inspectBundleServerRuntimeSupport<TConfig>(params: {
   loaded: { config: TConfig; diagnostics: string[] };
   resolveServers: (config: TConfig) => Record<string, Record<string, unknown>>;
@@ -80,6 +84,7 @@ export function inspectBundleServerRuntimeSupport<TConfig>(params: {
   };
 }
 
+/** Merges enabled bundle plugin configs in registry order and wraps diagnostics with plugin ids. */
 export function loadEnabledBundleConfig<TConfig, TDiagnostic>(params: {
   workspaceDir: string;
   cfg?: OpenClawConfig;

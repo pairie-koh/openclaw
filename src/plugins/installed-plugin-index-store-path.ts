@@ -3,12 +3,14 @@ import { resolveStateDir } from "../config/paths.js";
 
 const INSTALLED_PLUGIN_INDEX_STORE_PATH = path.join("plugins", "installs.json");
 
+/** Inputs for resolving the persisted installed-plugin index location. */
 export type InstalledPluginIndexStoreOptions = {
   env?: NodeJS.ProcessEnv;
   stateDir?: string;
   filePath?: string;
 };
 
+/** Resolves the installed-plugin index file path, honoring explicit test overrides first. */
 export function resolveInstalledPluginIndexStorePath(
   options: InstalledPluginIndexStoreOptions = {},
 ): string {

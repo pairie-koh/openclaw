@@ -50,6 +50,7 @@ function collectMissingChannelMetaFields(meta?: Partial<ChannelMeta> | null): st
   return missing;
 }
 
+/** Normalizes a channel plugin registration and reports metadata/config contract problems. */
 export function normalizeRegisteredChannelPlugin(params: {
   pluginId: string;
   source: string;
