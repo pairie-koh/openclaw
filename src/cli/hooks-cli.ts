@@ -43,7 +43,6 @@ export type HooksCheckOptions = {
   json?: boolean;
 };
 
-/** Options for updating hook definitions from plugins/workspace sources. */
 export type HooksUpdateOptions = {
   all?: boolean;
   dryRun?: boolean;

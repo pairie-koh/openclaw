@@ -6,19 +6,16 @@ import type { PluginsListOptions } from "./plugins-list-command.js";
 import { parseStrictPositiveIntOption } from "./program/helpers.js";
 import { applyParentDefaultHelpAction } from "./program/parent-default-help.js";
 
-/** Options for updating one or all installed plugins. */
 export type PluginUpdateOptions = {
   all?: boolean;
   dryRun?: boolean;
   dangerouslyForceUnsafeInstall?: boolean;
 };
 
-/** Options for listing plugins from a marketplace source. */
 export type PluginMarketplaceListOptions = {
   json?: boolean;
 };
 
-/** Options for ClawHub plugin search output and limit. */
 export type PluginSearchOptions = {
   json?: boolean;
   limit?: number;
@@ -33,26 +30,22 @@ export type PluginUninstallOptions = {
   dryRun?: boolean;
 };
 
-/** Options for inspecting or refreshing the persisted plugin registry. */
 export type PluginRegistryOptions = {
   json?: boolean;
   refresh?: boolean;
 };
 
-/** Options for generating simple-tool plugin metadata. */
 export type PluginAuthoringBuildOptions = {
   root?: string;
   entry?: string;
   check?: boolean;
 };
 
-/** Options for validating generated simple-tool plugin metadata. */
 export type PluginAuthoringValidateOptions = {
   root?: string;
   entry?: string;
 };
 
-/** Options for scaffolding a simple-tool plugin project. */
 export type PluginAuthoringInitOptions = {
   directory?: string;
   force?: boolean;
