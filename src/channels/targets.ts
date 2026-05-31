@@ -3,10 +3,8 @@ import { normalizeLowercaseStringOrEmpty } from "@openclaw/normalization-core/st
 export type { DirectoryConfigParams } from "./plugins/directory-types.js";
 export type { ChannelDirectoryEntry } from "./plugins/types.public.js";
 
-/** Supported generic messaging destination families. */
 export type MessagingTargetKind = "user" | "channel";
 
-/** Parsed messaging destination with raw and normalized forms for comparisons. */
 export type MessagingTarget = {
   kind: MessagingTargetKind;
   id: string;
@@ -14,18 +12,15 @@ export type MessagingTarget = {
   normalized: string;
 };
 
-/** Parser options for channel-specific destination grammars. */
 export type MessagingTargetParseOptions = {
   defaultKind?: MessagingTargetKind;
   ambiguousMessage?: string;
 };
 
-/** Build the normalized comparison key for a target kind/id pair. */
 export function normalizeTargetId(kind: MessagingTargetKind, id: string): string {
   return normalizeLowercaseStringOrEmpty(`${kind}:${id}`);
 }
 
-/** Build a parsed target while preserving the user-supplied raw string. */
 export function buildMessagingTarget(
   kind: MessagingTargetKind,
   id: string,
@@ -39,7 +34,6 @@ export function buildMessagingTarget(
   };
 }
 
-/** Validate a target id against a channel grammar and return the original id. */
 export function ensureTargetId(params: {
   candidate: string;
   pattern: RegExp;
@@ -51,7 +45,6 @@ export function ensureTargetId(params: {
   return params.candidate;
 }
 
-/** Parse native mention syntax into a messaging target when the regex captures an id. */
 export function parseTargetMention(params: {
   raw: string;
   mentionPattern: RegExp;
@@ -64,7 +57,6 @@ export function parseTargetMention(params: {
   return buildMessagingTarget(params.kind, match[1], params.raw);
 }
 
-/** Parse a single `prefix:id`-style target. */
 export function parseTargetPrefix(params: {
   raw: string;
   prefix: string;
@@ -77,7 +69,6 @@ export function parseTargetPrefix(params: {
   return id ? buildMessagingTarget(params.kind, id, params.raw) : undefined;
 }
 
-/** Try prefixed target grammars in order and return the first match. */
 export function parseTargetPrefixes(params: {
   raw: string;
   prefixes: Array<{ prefix: string; kind: MessagingTargetKind }>;
@@ -95,7 +86,6 @@ export function parseTargetPrefixes(params: {
   return undefined;
 }
 
-/** Parse shorthand `@user` syntax with channel-specific id validation. */
 export function parseAtUserTarget(params: {
   raw: string;
   pattern: RegExp;
@@ -113,7 +103,6 @@ export function parseAtUserTarget(params: {
   return buildMessagingTarget("user", id, params.raw);
 }
 
-/** Parse mention, prefixed, then `@user` target forms in precedence order. */
 export function parseMentionPrefixOrAtUserTarget(params: {
   raw: string;
   mentionPattern: RegExp;

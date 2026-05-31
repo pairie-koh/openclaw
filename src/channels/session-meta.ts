@@ -10,7 +10,6 @@ function loadInboundSessionRuntime() {
   return inboundSessionRuntimePromise;
 }
 
-/** Records inbound session metadata while isolating persistence failures from message handling. */
 export async function recordInboundSessionMetaSafe(params: {
   cfg: OpenClawConfig;
   agentId: string;

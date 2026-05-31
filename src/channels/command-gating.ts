@@ -3,10 +3,8 @@ export type CommandAuthorizer = {
   allowed: boolean;
 };
 
-/** Fallback mode used when access groups are disabled. */
 export type CommandGatingModeWhenAccessGroupsOff = "allow" | "deny" | "configured";
 
-/** Resolve command authorization from one or more authorizer decisions. */
 export function resolveCommandAuthorizedFromAuthorizers(params: {
   useAccessGroups: boolean;
   authorizers: CommandAuthorizer[];
@@ -30,7 +28,6 @@ export function resolveCommandAuthorizedFromAuthorizers(params: {
   return authorizers.some((entry) => entry.configured && entry.allowed);
 }
 
-/** Resolve whether a detected control command should run or be blocked. */
 export function resolveControlCommandGate(params: {
   useAccessGroups: boolean;
   authorizers: CommandAuthorizer[];
@@ -47,7 +44,6 @@ export function resolveControlCommandGate(params: {
   return { commandAuthorized, shouldBlock };
 }
 
-/** Resolve command gates for dual text/native command surfaces. */
 export function resolveDualTextControlCommandGate(params: {
   useAccessGroups: boolean;
   primaryConfigured: boolean;

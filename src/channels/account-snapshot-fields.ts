@@ -53,7 +53,6 @@ function readCredentialStatus(record: Record<string, unknown>, key: CredentialSt
     : undefined;
 }
 
-/** Resolve configured state from loose credential status fields. */
 export function resolveConfiguredFromCredentialStatuses(account: unknown): boolean | undefined {
   const record = isRecord(account) ? account : null;
   if (!record) {
@@ -73,7 +72,6 @@ export function resolveConfiguredFromCredentialStatuses(account: unknown): boole
   return sawCredentialStatus ? false : undefined;
 }
 
-/** Resolve configured state while requiring every named credential to be configured. */
 export function resolveConfiguredFromRequiredCredentialStatuses(
   account: unknown,
   requiredKeys: CredentialStatusKey[],
@@ -96,7 +94,6 @@ export function resolveConfiguredFromRequiredCredentialStatuses(
   return sawCredentialStatus ? true : undefined;
 }
 
-/** Return true when any credential is configured but currently unavailable. */
 export function hasConfiguredUnavailableCredentialStatus(account: unknown): boolean {
   const record = isRecord(account) ? account : null;
   if (!record) {
@@ -107,7 +104,6 @@ export function hasConfiguredUnavailableCredentialStatus(account: unknown): bool
   );
 }
 
-/** Return true when account data includes a concrete resolved credential value. */
 export function hasResolvedCredentialValue(account: unknown): boolean {
   const record = isRecord(account) ? account : null;
   if (!record) {
@@ -120,7 +116,6 @@ export function hasResolvedCredentialValue(account: unknown): boolean {
   );
 }
 
-/** Project safe credential status fields from account data into a channel snapshot. */
 export function projectCredentialSnapshotFields(
   account: unknown,
 ): Pick<
