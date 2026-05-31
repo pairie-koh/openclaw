@@ -18,8 +18,6 @@ import {
   displaySummary,
 } from "./sandbox-display.js";
 
-// --- Types ---
-
 type SandboxListOptions = {
   browser: boolean;
   json: boolean;
@@ -39,8 +37,6 @@ type FilteredContainers = {
   containers: SandboxContainerInfo[];
   browsers: SandboxBrowserInfo[];
 };
-
-// --- List Command ---
 
 export async function sandboxListCommand(
   opts: SandboxListOptions,
@@ -62,8 +58,6 @@ export async function sandboxListCommand(
 
   displaySummary(containers, browsers, runtime);
 }
-
-// --- Recreate Command ---
 
 export async function sandboxRecreateCommand(
   opts: SandboxRecreateOptions,
@@ -97,8 +91,6 @@ export async function sandboxRecreateCommand(
   }
 }
 
-// --- Validation ---
-
 function validateRecreateOptions(opts: SandboxRecreateOptions, runtime: RuntimeEnv): boolean {
   if (!opts.all && !opts.session && !opts.agent) {
     runtime.error(
@@ -117,8 +109,6 @@ function validateRecreateOptions(opts: SandboxRecreateOptions, runtime: RuntimeE
 
   return true;
 }
-
-// --- Filtering ---
 
 async function fetchAndFilterContainers(opts: SandboxRecreateOptions): Promise<FilteredContainers> {
   const allContainers = await listSandboxContainers().catch(() => []);
@@ -144,8 +134,6 @@ function createAgentMatcher(agentId: string) {
   return (item: ContainerItem) =>
     item.sessionKey === agentPrefix || item.sessionKey.startsWith(`${agentPrefix}:`);
 }
-
-// --- Container Operations ---
 
 async function confirmRecreate(): Promise<boolean> {
   const result = await clackConfirm({

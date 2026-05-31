@@ -1,8 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import type { SandboxBrowserInfo, SandboxContainerInfo } from "../agents/sandbox.js";
 
-// --- Mocks ---
-
 const mocks = vi.hoisted(() => ({
   listSandboxContainers: vi.fn(),
   listSandboxBrowsers: vi.fn(),
@@ -23,8 +21,6 @@ vi.mock("@clack/prompts", () => ({
 }));
 
 import { sandboxListCommand, sandboxRecreateCommand } from "./sandbox.js";
-
-// --- Test Factories ---
 
 const NOW = Date.now();
 
@@ -60,8 +56,6 @@ function createBrowser(overrides: Partial<SandboxBrowserInfo> = {}): SandboxBrow
   };
 }
 
-// --- Test Helpers ---
-
 function createMockRuntime() {
   return {
     log: vi.fn(),
@@ -87,8 +81,6 @@ function expectErrorContains(runtime: ReturnType<typeof createMockRuntime>, text
   const errorOutput = runtime.error.mock.calls.map(([message]) => String(message)).join("\n");
   expect(errorOutput).toContain(text);
 }
-
-// --- Tests ---
 
 describe("sandboxListCommand", () => {
   let runtime: ReturnType<typeof createMockRuntime>;
