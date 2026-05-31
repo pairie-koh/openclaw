@@ -741,6 +741,9 @@ export function createOpenClawCodingTools(options?: {
   const workspaceRoot = resolveWorkspaceRoot(
     options?.agentFilesystem?.workspace?.root ?? options?.workspaceDir,
   );
+  const codingRoot = resolveWorkspaceRoot(
+    options?.cwd ?? options?.agentFilesystem?.workspace?.root ?? options?.workspaceDir,
+  );
   const includeCoreTools = options?.includeCoreTools !== false;
   const toolConstructionPlan = options?.toolConstructionPlan ?? {
     includeBaseCodingTools: includeCoreTools,
@@ -790,12 +793,12 @@ export function createOpenClawCodingTools(options?: {
   options?.recordToolPrepStage?.("workspace-policy");
 
   const base = includeBaseCodingTools
-    ? (createCodingTools(workspaceRoot) as unknown as AnyAgentTool[]).flatMap((tool) => {
+    ? (createCodingTools(codingRoot) as unknown as AnyAgentTool[]).flatMap((tool) => {
         if (tool.name === "read") {
           if (virtualScratch) {
             return [
               createVirtualReadTool({
-                root: workspaceRoot,
+                root: codingRoot,
                 scratch: virtualScratch,
                 modelContextWindowTokens: options?.modelContextWindowTokens,
                 imageSanitization,
@@ -805,7 +808,7 @@ export function createOpenClawCodingTools(options?: {
           if (workspaceScratchOverlay && !sandboxRoot) {
             return [
               createWorkspaceScratchOverlayReadTool({
-                root: workspaceRoot,
+                root: codingRoot,
                 scratch: workspaceScratchOverlay,
                 workspaceOnly,
                 modelContextWindowTokens: options?.modelContextWindowTokens,
@@ -829,14 +832,14 @@ export function createOpenClawCodingTools(options?: {
                 : sandboxed,
             ];
           }
-          const freshReadTool = createReadTool(workspaceRoot);
+          const freshReadTool = createReadTool(codingRoot);
           const wrapped = createOpenClawReadTool(freshReadTool, {
             modelContextWindowTokens: options?.modelContextWindowTokens,
             imageSanitization,
           });
           return [
             workspaceOnly
-              ? wrapToolWorkspaceRootGuardWithOptions(wrapped, workspaceRoot, {
+              ? wrapToolWorkspaceRootGuardWithOptions(wrapped, codingRoot, {
                   additionalRoots: skillReadRoots,
                 })
               : wrapped,
@@ -844,12 +847,12 @@ export function createOpenClawCodingTools(options?: {
         }
         if (tool.name === "write") {
           if (virtualScratch) {
-            return [createVirtualWriteTool({ root: workspaceRoot, scratch: virtualScratch })];
+            return [createVirtualWriteTool({ root: codingRoot, scratch: virtualScratch })];
           }
           if (workspaceScratchOverlay && !sandboxRoot) {
             return [
               createWorkspaceScratchOverlayWriteTool({
-                root: workspaceRoot,
+                root: codingRoot,
                 scratch: workspaceScratchOverlay,
                 workspaceOnly,
               }),
@@ -858,17 +861,17 @@ export function createOpenClawCodingTools(options?: {
           if (sandboxRoot) {
             return [];
           }
-          const wrapped = createHostWorkspaceWriteTool(workspaceRoot, { workspaceOnly });
-          return [workspaceOnly ? wrapToolWorkspaceRootGuard(wrapped, workspaceRoot) : wrapped];
+          const wrapped = createHostWorkspaceWriteTool(codingRoot, { workspaceOnly });
+          return [workspaceOnly ? wrapToolWorkspaceRootGuard(wrapped, codingRoot) : wrapped];
         }
         if (tool.name === "edit") {
           if (virtualScratch) {
-            return [createVirtualEditTool({ root: workspaceRoot, scratch: virtualScratch })];
+            return [createVirtualEditTool({ root: codingRoot, scratch: virtualScratch })];
           }
           if (workspaceScratchOverlay && !sandboxRoot) {
             return [
               createWorkspaceScratchOverlayEditTool({
-                root: workspaceRoot,
+                root: codingRoot,
                 scratch: workspaceScratchOverlay,
                 workspaceOnly,
               }),
@@ -877,8 +880,8 @@ export function createOpenClawCodingTools(options?: {
           if (sandboxRoot) {
             return [];
           }
-          const wrapped = createHostWorkspaceEditTool(workspaceRoot, { workspaceOnly });
-          return [workspaceOnly ? wrapToolWorkspaceRootGuard(wrapped, workspaceRoot) : wrapped];
+          const wrapped = createHostWorkspaceEditTool(codingRoot, { workspaceOnly });
+          return [workspaceOnly ? wrapToolWorkspaceRootGuard(wrapped, codingRoot) : wrapped];
         }
         if (tool.name === "bash" || tool.name === execToolName) {
           return [];
@@ -906,7 +909,7 @@ export function createOpenClawCodingTools(options?: {
     safeBinTrustedDirs: options?.exec?.safeBinTrustedDirs ?? execConfig.safeBinTrustedDirs,
     safeBinProfiles: options?.exec?.safeBinProfiles ?? execConfig.safeBinProfiles,
     agentId,
-    cwd: workspaceRoot,
+    cwd: codingRoot,
     allowBackground,
     scopeKey,
     sessionKey: options?.sessionKey,
@@ -955,8 +958,8 @@ export function createOpenClawCodingTools(options?: {
     !includePatchTool || !applyPatchEnabled || (sandboxRoot && !allowWorkspaceWrites)
       ? null
       : createApplyPatchTool({
-          cwd: sandboxRoot ?? workspaceRoot,
-          virtual: virtualScratch ? { root: workspaceRoot, fs: virtualScratch } : undefined,
+          cwd: sandboxRoot ?? codingRoot,
+          virtual: virtualScratch ? { root: codingRoot, fs: virtualScratch } : undefined,
           sandbox:
             sandboxRoot && allowWorkspaceWrites
               ? { root: sandboxRoot, bridge: sandboxFsBridge! }
@@ -1248,7 +1251,7 @@ export function createOpenClawCodingTools(options?: {
       sessionId: options?.sessionId,
       runId: options?.runId,
       channelId: options?.hookChannelId ?? options?.currentChannelId,
-      cwd: sandboxRoot ?? workspaceRoot,
+      cwd: sandboxRoot ?? codingRoot,
       workspaceDir: workspaceRoot,
       ...(sandboxRoot && sandboxFsBridge
         ? { sandbox: { root: sandboxRoot, bridge: sandboxFsBridge } }

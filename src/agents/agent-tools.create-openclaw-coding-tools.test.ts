@@ -151,6 +151,7 @@ function expectListIncludes(
 
 function createMemoryVirtualFs(): VirtualAgentFs {
   const files = new Map<string, Buffer>();
+  const directories = new Set<string>(["/"]);
   const normalize = (filePath: string) => (filePath.startsWith("/") ? filePath : `/${filePath}`);
   const entry = (filePath: string, kind: "directory" | "file", size = 0): VirtualAgentFsEntry => ({
     path: normalize(filePath),
@@ -166,6 +167,9 @@ function createMemoryVirtualFs(): VirtualAgentFs {
       if (file) {
         return entry(normalized, "file", file.byteLength);
       }
+      if (directories.has(normalized)) {
+        return entry(normalized, "directory");
+      }
       return null;
     },
     readFile: (filePath) => {
@@ -178,7 +182,9 @@ function createMemoryVirtualFs(): VirtualAgentFs {
     writeFile: (filePath, content) => {
       files.set(normalize(filePath), Buffer.isBuffer(content) ? content : Buffer.from(content));
     },
-    mkdir: () => {},
+    mkdir: (filePath) => {
+      directories.add(normalize(filePath));
+    },
     readdir: () => [],
     list: () => [],
     export: () => [],
