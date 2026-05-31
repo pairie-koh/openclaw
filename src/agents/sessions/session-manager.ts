@@ -264,7 +264,6 @@ function migrateV2ToV3(entries: FileEntry[]): void {
       continue;
     }
 
-    // Update message entries with hookMessage role
     if (entry.type === "message") {
       const msgEntry = entry;
       if (msgEntry.message && (msgEntry.message as { role: string }).role === "hookMessage") {
@@ -343,7 +342,6 @@ export function buildSessionContext(
   leafId?: string | null,
   byId?: Map<string, SessionEntry>,
 ): SessionContext {
-  // Build uuid index if not available
   if (!byId) {
     byId = new Map<string, SessionEntry>();
     for (const entry of entries) {
@@ -351,7 +349,6 @@ export function buildSessionContext(
     }
   }
 
-  // Find leaf
   let leaf: SessionEntry | undefined;
   if (leafId === null) {
     // Explicitly null - return no messages (navigated to before first entry)
@@ -1119,14 +1116,12 @@ export class SessionManager {
     const nodeMap = new Map<string, SessionTreeNode>();
     const roots: SessionTreeNode[] = [];
 
-    // Create nodes with resolved labels
     for (const entry of entries) {
       const label = this.labelsById.get(entry.id);
       const labelTimestamp = this.labelTimestampsById.get(entry.id);
       nodeMap.set(entry.id, { entry, children: [], label, labelTimestamp });
     }
 
-    // Build tree
     for (const entry of entries) {
       const node = nodeMap.get(entry.id)!;
       if (entry.parentId === null || entry.parentId === entry.id) {
@@ -1246,7 +1241,6 @@ export class SessionManager {
     }
 
     if (this.shouldPersist) {
-      // Build label entries
       const lastEntryId = pathWithoutLabels[pathWithoutLabels.length - 1]?.id || null;
       let parentId = lastEntryId;
       const labelEntries: LabelEntry[] = [];
@@ -1376,13 +1370,11 @@ export class SessionManager {
       mkdirSync(dir, { recursive: true });
     }
 
-    // Create new session file with new ID but forked content
     const newSessionId = createSessionId();
     const timestamp = new Date().toISOString();
     const fileTimestamp = timestamp.replace(/[:.]/g, "-");
     const newSessionFile = join(dir, `${fileTimestamp}_${newSessionId}.jsonl`);
 
-    // Write new header pointing to source as parent, with updated cwd
     const newHeader: SessionHeader = {
       type: "session",
       version: CURRENT_SESSION_VERSION,
@@ -1447,7 +1439,6 @@ export class SessionManager {
         }
       }
 
-      // Process all files with progress tracking
       let loaded = 0;
       const sessions: SessionInfo[] = [];
       const allFiles = dirFiles.flat();

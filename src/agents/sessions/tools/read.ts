@@ -261,7 +261,6 @@ export function createReadToolDefinition(
 
         void (async () => {
           try {
-            // Check if file exists and is readable.
             await ops.access(absolutePath);
             if (aborted) {
               return;
@@ -273,7 +272,6 @@ export function createReadToolDefinition(
             let details: ReadToolDetails | undefined;
             const nonVisionImageNote = getNonVisionImageNote(ctx?.model);
             if (mimeType) {
-              // Read image as binary.
               const buffer = await ops.readFile(absolutePath);
               const base64 = buffer.toString("base64");
               if (autoResizeImages) {
@@ -310,7 +308,6 @@ export function createReadToolDefinition(
                 ];
               }
             } else {
-              // Read text content.
               const buffer = await ops.readFile(absolutePath);
               const textContent = buffer.toString("utf-8");
               const allLines = textContent.split("\n");
@@ -318,7 +315,6 @@ export function createReadToolDefinition(
               // Apply offset if specified. Convert from 1-indexed input to 0-indexed array access.
               const startLine = offset ? Math.max(0, offset - 1) : 0;
               const startLineDisplay = startLine + 1;
-              // Check if offset is out of bounds.
               if (startLine >= allLines.length) {
                 throw new Error(
                   `Offset ${offset} is beyond end of file (${allLines.length} lines total)`,

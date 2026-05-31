@@ -611,7 +611,6 @@ function resolveExtensionEntries(dir: string): string[] | null {
     }
   }
 
-  // Check for index.ts or index.js
   const indexTs = path.join(dir, "index.ts");
   const indexJs = path.join(dir, "index.js");
   if (fs.existsSync(indexTs)) {

@@ -1006,7 +1006,6 @@ export class DefaultResourceLoader implements ResourceLoader {
     const flagOwners = new Map<string, string>();
 
     for (const ext of extensions) {
-      // Check tools
       for (const toolName of ext.tools.keys()) {
         const existingOwner = toolOwners.get(toolName);
         if (existingOwner && existingOwner !== ext.path) {
@@ -1019,7 +1018,6 @@ export class DefaultResourceLoader implements ResourceLoader {
         }
       }
 
-      // Check flags
       for (const flagName of ext.flags.keys()) {
         const existingOwner = flagOwners.get(flagName);
         if (existingOwner && existingOwner !== ext.path) {
