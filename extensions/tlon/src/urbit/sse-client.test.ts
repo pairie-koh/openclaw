@@ -3,12 +3,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { urbitFetch } from "./fetch.js";
 import { UrbitSSEClient } from "./sse-client.js";
 
-// Mock urbitFetch to avoid real network calls
 vi.mock("./fetch.js", () => ({
   urbitFetch: vi.fn(),
 }));
 
-// Mock channel-ops to avoid real channel operations
 vi.mock("./channel-ops.js", () => ({
   ensureUrbitChannelOpen: vi.fn().mockResolvedValue(undefined),
   pokeUrbitChannel: vi.fn().mockResolvedValue(undefined),
