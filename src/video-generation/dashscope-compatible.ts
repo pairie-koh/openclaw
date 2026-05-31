@@ -22,7 +22,6 @@ import type {
 } from "./types.js";
 
 export const DEFAULT_DASHSCOPE_WAN_VIDEO_MODEL = "wan2.6-t2v";
-/** Known DashScope WAN video model ids supported by compatible providers. */
 export const DASHSCOPE_WAN_VIDEO_MODELS = [
   DEFAULT_DASHSCOPE_WAN_VIDEO_MODEL,
   "wan2.6-i2v",
@@ -30,7 +29,6 @@ export const DASHSCOPE_WAN_VIDEO_MODELS = [
   "wan2.6-r2v-flash",
   "wan2.7-r2v",
 ];
-/** Capability declaration for DashScope-compatible WAN video generation. */
 export const DASHSCOPE_WAN_VIDEO_CAPABILITIES = {
   generate: {
     maxVideos: 1,
@@ -67,7 +65,6 @@ export const DASHSCOPE_WAN_VIDEO_CAPABILITIES = {
 
 export const DEFAULT_VIDEO_GENERATION_DURATION_SECONDS = 5;
 export const DEFAULT_VIDEO_GENERATION_TIMEOUT_MS = 120_000;
-/** DashScope size strings derived from standard resolution labels. */
 export const DEFAULT_VIDEO_RESOLUTION_TO_SIZE: Record<string, string> = {
   "480P": "832*480",
   "720P": "1280*720",
@@ -77,7 +74,6 @@ export const DEFAULT_VIDEO_RESOLUTION_TO_SIZE: Record<string, string> = {
 const DEFAULT_VIDEO_GENERATION_POLL_INTERVAL_MS = 2_500;
 const DEFAULT_VIDEO_GENERATION_MAX_POLL_ATTEMPTS = 120;
 
-/** DashScope async task response payload for video generation. */
 export type DashscopeVideoGenerationResponse = {
   output?: {
     task_id?: string;
@@ -97,7 +93,6 @@ export type DashscopeVideoGenerationResponse = {
   message?: string;
 };
 
-/** Builds the DashScope input object and rejects local buffered reference assets. */
 export function buildDashscopeVideoGenerationInput(params: {
   providerLabel: string;
   req: VideoGenerationRequest;
@@ -129,7 +124,6 @@ export function buildDashscopeVideoGenerationInput(params: {
   return input;
 }
 
-/** Collects remote reference image/video URLs for DashScope-compatible requests. */
 export function resolveVideoGenerationReferenceUrls(
   inputImages: VideoGenerationSourceAsset[] | undefined,
   inputVideos: VideoGenerationSourceAsset[] | undefined,
@@ -139,7 +133,6 @@ export function resolveVideoGenerationReferenceUrls(
     .filter((value): value is string => Boolean(value));
 }
 
-/** Builds DashScope generation parameters from normalized video request options. */
 export function buildDashscopeVideoGenerationParameters(
   req: VideoGenerationRequest,
   resolutionToSize: Record<string, string> = DEFAULT_VIDEO_RESOLUTION_TO_SIZE,
@@ -164,7 +157,6 @@ export function buildDashscopeVideoGenerationParameters(
   return Object.keys(parameters).length > 0 ? parameters : undefined;
 }
 
-/** Extracts unique output video URLs from DashScope completion payloads. */
 export function extractDashscopeVideoUrls(payload: DashscopeVideoGenerationResponse): string[] {
   const urls = [
     ...(payload.output?.results?.map((entry) => entry.video_url).filter(Boolean) ?? []),
@@ -173,7 +165,6 @@ export function extractDashscopeVideoUrls(payload: DashscopeVideoGenerationRespo
   return uniqueStrings(urls);
 }
 
-/** Polls a DashScope task until it succeeds, fails, cancels, or times out. */
 export async function pollDashscopeVideoTaskUntilComplete(params: {
   providerLabel: string;
   taskId: string;

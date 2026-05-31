@@ -59,7 +59,6 @@ function buildProviderMaps(cfg?: OpenClawConfig): {
   return { canonical, aliases };
 }
 
-/** Lists canonical video-generation providers available from built-ins and enabled plugins. */
 export function listVideoGenerationProviders(
   cfg?: OpenClawConfig,
 ): VideoGenerationProviderPlugin[] {

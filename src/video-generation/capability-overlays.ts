@@ -14,7 +14,6 @@ function isVideoGenerationTransformCapabilities(
   return Boolean(capabilities && "enabled" in capabilities);
 }
 
-/** Returns a skip/failure reason when requested image/video/audio references exceed provider capabilities. */
 export function buildReferenceInputCapabilityFailure(params: {
   providerId: string;
   model: string;
@@ -105,7 +104,6 @@ function mergeVideoGenerationModeCapabilities<
   } as T;
 }
 
-/** Merges base provider capabilities with model-specific overlays, including provider option maps. */
 export function mergeVideoGenerationProviderCapabilities(
   base: VideoGenerationProviderCapabilities,
   overlay: VideoGenerationProviderCapabilities,
@@ -132,7 +130,6 @@ export function mergeVideoGenerationProviderCapabilities(
   };
 }
 
-/** Resolves model-specific capability overlays and returns a provider copy with merged capabilities. */
 export async function resolveProviderWithModelCapabilities(params: {
   provider: VideoGenerationProvider;
   providerId: string;

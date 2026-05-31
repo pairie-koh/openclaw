@@ -15,7 +15,6 @@ function resolveEntryType(entry: MediaUnderstandingModelConfig): "provider" | "c
   return entry.type ?? (entry.command ? "cli" : "provider");
 }
 
-/** Return valid media capabilities explicitly configured on a model entry. */
 export function resolveConfiguredMediaEntryCapabilities(
   entry: MediaUnderstandingModelConfig,
 ): MediaUnderstandingCapability[] | undefined {
@@ -26,7 +25,6 @@ export function resolveConfiguredMediaEntryCapabilities(
   return capabilities.length > 0 ? capabilities : undefined;
 }
 
-/** Resolve capabilities from entry config or provider registry defaults. */
 export function resolveEffectiveMediaEntryCapabilities(params: {
   entry: MediaUnderstandingModelConfig;
   source: "shared" | "capability";
@@ -49,7 +47,6 @@ export function resolveEffectiveMediaEntryCapabilities(params: {
   return params.providerRegistry.get(providerId)?.capabilities;
 }
 
-/** Return true when a model entry can satisfy the requested media capability. */
 export function matchesMediaEntryCapability(params: {
   entry: MediaUnderstandingModelConfig;
   source: "shared" | "capability";
