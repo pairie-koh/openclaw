@@ -57,7 +57,6 @@ import {
   testTailnetIPv4,
 } from "./test-helpers.runtime-state.js";
 
-// Import lazily after test env/home setup so config/session paths resolve to test dirs.
 // Keep one cached module per worker for speed.
 let serverModulePromise: Promise<typeof import("./server.js")> | undefined;
 

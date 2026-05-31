@@ -136,7 +136,6 @@ vi.mock("./subagent-followup.runtime.js", () => ({
 }));
 
 import { retireSessionMcpRuntime } from "../../agents/agent-bundle-mcp-tools.js";
-// Import after mocks
 import { countActiveDescendantRuns } from "../../agents/subagent-registry-read.js";
 import { appendAssistantMessageToSessionTranscript } from "../../config/sessions/transcript.runtime.js";
 import { callGateway } from "../../gateway/call.runtime.js";

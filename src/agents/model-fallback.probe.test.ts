@@ -7,7 +7,6 @@ import { createDiagnosticLogRecordCapture } from "../logging/test-helpers/diagno
 import type { AuthProfileStore } from "./auth-profiles.js";
 import { makeModelFallbackCfg } from "./test-helpers/model-fallback-config-fixture.js";
 
-// Mock auth-profile submodules — must be before importing model-fallback
 vi.mock("./auth-profiles/store.js", () => ({
   ensureAuthProfileStore: vi.fn(),
   loadAuthProfileStoreForRuntime: vi.fn(),
