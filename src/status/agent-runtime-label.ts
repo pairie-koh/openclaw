@@ -15,7 +15,6 @@ const AGENT_RUNTIME_LABELS: Readonly<Record<string, string>> = {
   "google-gemini-cli": "Gemini CLI",
 };
 
-/** Resolves a human-readable runtime label from ACP, harness, or CLI provider state. */
 export function resolveAgentRuntimeLabel(args: {
   config?: OpenClawConfig;
   sessionEntry?: Pick<

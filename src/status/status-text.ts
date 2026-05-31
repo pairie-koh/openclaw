@@ -202,14 +202,12 @@ function formatStatusUptimeDuration(ms: number): string {
   return formatDurationCompact(ms, { spaced: true }) ?? "0s";
 }
 
-/** Builds the gateway/system uptime line for status output. */
 export function buildStatusUptimeLine(): string {
   const gatewayUptimeMs = Math.max(0, Math.round(process.uptime() * 1000));
   const systemUptimeMs = Math.max(0, Math.round(os.uptime() * 1000));
   return `⏱️ Uptime: gateway ${formatStatusUptimeDuration(gatewayUptimeMs)} · system ${formatStatusUptimeDuration(systemUptimeMs)}`;
 }
 
-/** Builds the full multi-line status message for a session/channel. */
 export async function buildStatusText(params: BuildStatusTextParams): Promise<string> {
   const {
     cfg,

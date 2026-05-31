@@ -68,7 +68,6 @@ type AgentConfig = Partial<AgentDefaults> & {
   model?: AgentDefaults["model"] | string;
 };
 
-/** Shared short token formatter used by status builders and adjacent tests. */
 export const formatTokenCount = formatTokenCountShared;
 
 type QueueStatus = {
@@ -80,7 +79,6 @@ type QueueStatus = {
   showDetails?: boolean;
 };
 
-/** Runtime and persisted session facts needed to render a status response. */
 export type StatusArgs = {
   config?: OpenClawConfig;
   agent: AgentConfig;
@@ -248,7 +246,6 @@ const formatEstimatedContextBudgetTokens = (
   return `~${totalLabel}/${ctxLabel}${pct !== null ? ` (${pct}% est)` : " (est)"}`;
 };
 
-/** Format the compact context usage label used by queue/status summaries. */
 export const formatContextUsageShort = (
   total: number | null | undefined,
   contextTokens: number | null | undefined,
