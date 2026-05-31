@@ -26,5 +26,4 @@ export function createExtensionBrowserVitestConfig(
   );
 }
 
-/** Default Browser plugin Vitest project configuration. */
 export default createExtensionBrowserVitestConfig();

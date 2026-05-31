@@ -7,5 +7,4 @@ export function createExtensionDiscordVitestConfig(
   return createSingleChannelExtensionVitestConfig("discord", env);
 }
 
-/** Default Discord extension Vitest project config. */
 export default createExtensionDiscordVitestConfig();

@@ -25,5 +25,4 @@ export function createExtensionQaVitestConfig(
   );
 }
 
-/** Default QA Lab plugin Vitest project configuration. */
 export default createExtensionQaVitestConfig();

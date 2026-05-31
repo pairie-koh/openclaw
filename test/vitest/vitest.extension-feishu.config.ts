@@ -27,5 +27,4 @@ export function createExtensionFeishuVitestConfig(
   );
 }
 
-/** Default Feishu plugin Vitest project configuration. */
 export default createExtensionFeishuVitestConfig();

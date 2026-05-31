@@ -9,5 +9,4 @@ export function createGatewayMethodsVitestConfig(env?: Record<string, string | u
   });
 }
 
-/** Default gateway-methods Vitest project configuration. */
 export default createGatewayMethodsVitestConfig();

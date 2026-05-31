@@ -26,5 +26,4 @@ export function createExtensionMattermostVitestConfig(
   );
 }
 
-/** Default Mattermost extension Vitest project config. */
 export default createExtensionMattermostVitestConfig();

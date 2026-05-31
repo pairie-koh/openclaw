@@ -86,7 +86,6 @@ export const rootVitestProjects = [
   "test/vitest/vitest.extensions.config.ts",
 ] as const;
 
-/** Default root Vitest configuration that fans out to all project lanes. */
 export default defineConfig({
   ...sharedVitestConfig,
   test: {

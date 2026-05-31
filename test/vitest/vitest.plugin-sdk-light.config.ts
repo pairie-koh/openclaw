@@ -14,5 +14,4 @@ export function createPluginSdkLightVitestConfig(env?: Record<string, string | u
   });
 }
 
-/** Default Plugin SDK light Vitest project configuration. */
 export default createPluginSdkLightVitestConfig();

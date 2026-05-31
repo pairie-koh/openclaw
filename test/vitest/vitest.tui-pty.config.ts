@@ -54,5 +54,4 @@ export function createTuiPtyVitestConfig(env?: Record<string, string | undefined
   });
 }
 
-/** Default TUI PTY Vitest project configuration. */
 export default createTuiPtyVitestConfig();

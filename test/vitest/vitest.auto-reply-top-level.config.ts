@@ -10,5 +10,4 @@ export function createAutoReplyTopLevelVitestConfig(env?: Record<string, string 
   });
 }
 
-/** Default auto-reply top-level Vitest project configuration. */
 export default createAutoReplyTopLevelVitestConfig();

@@ -13,5 +13,4 @@ export function createSharedCoreVitestConfig(env?: Record<string, string | undef
   });
 }
 
-/** Default shared core Vitest project config. */
 export default createSharedCoreVitestConfig();

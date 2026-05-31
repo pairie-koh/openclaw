@@ -7,5 +7,4 @@ export function createExtensionLineVitestConfig(
   return createSingleChannelExtensionVitestConfig("line", env);
 }
 
-/** Default LINE plugin Vitest project configuration. */
 export default createExtensionLineVitestConfig();

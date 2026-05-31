@@ -20,5 +20,4 @@ export function createCronVitestConfig(env?: Record<string, string | undefined>)
   return config;
 }
 
-/** Default cron Vitest project configuration. */
 export default createCronVitestConfig();

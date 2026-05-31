@@ -13,5 +13,4 @@ export function createPluginSdkVitestConfig(env?: Record<string, string | undefi
   });
 }
 
-/** Default plugin SDK Vitest project config. */
 export default createPluginSdkVitestConfig();

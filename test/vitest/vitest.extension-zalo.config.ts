@@ -25,5 +25,4 @@ export function createExtensionZaloVitestConfig(
   );
 }
 
-/** Default Zalo plugin Vitest project configuration. */
 export default createExtensionZaloVitestConfig();

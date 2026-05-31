@@ -27,5 +27,4 @@ export function createExtensionCodexVitestConfig(
   );
 }
 
-/** Default Codex plugin Vitest project configuration. */
 export default createExtensionCodexVitestConfig();

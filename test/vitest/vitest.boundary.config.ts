@@ -34,5 +34,4 @@ export function createBoundaryVitestConfig(
   });
 }
 
-/** Default boundary Vitest project config. */
 export default createBoundaryVitestConfig();

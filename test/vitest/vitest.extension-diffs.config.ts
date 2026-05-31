@@ -26,5 +26,4 @@ export function createExtensionDiffsVitestConfig(
   );
 }
 
-/** Default Diffs plugin Vitest project configuration. */
 export default createExtensionDiffsVitestConfig();

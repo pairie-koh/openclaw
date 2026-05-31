@@ -13,5 +13,4 @@ export function createCommandsVitestConfig(env?: Record<string, string | undefin
   });
 }
 
-/** Default commands Vitest project configuration. */
 export default createCommandsVitestConfig();

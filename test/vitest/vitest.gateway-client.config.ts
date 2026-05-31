@@ -19,5 +19,4 @@ export function createGatewayClientVitestConfig(env?: Record<string, string | un
   );
 }
 
-/** Default gateway-client Vitest project configuration. */
 export default createGatewayClientVitestConfig();

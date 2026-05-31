@@ -25,5 +25,4 @@ export function createExtensionAcpxVitestConfig(
   );
 }
 
-/** Default ACPx plugin Vitest project configuration. */
 export default createExtensionAcpxVitestConfig();

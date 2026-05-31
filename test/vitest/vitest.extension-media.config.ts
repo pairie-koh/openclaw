@@ -26,5 +26,4 @@ export function createExtensionMediaVitestConfig(
   );
 }
 
-/** Default extension-media Vitest project configuration. */
 export default createExtensionMediaVitestConfig();

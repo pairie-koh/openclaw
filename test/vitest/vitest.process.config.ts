@@ -21,5 +21,4 @@ export function createProcessVitestConfig(env?: Record<string, string | undefine
   };
 }
 
-/** Default process Vitest project config. */
 export default createProcessVitestConfig();

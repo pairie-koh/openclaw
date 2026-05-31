@@ -21,5 +21,4 @@ export function createRuntimeConfigVitestConfig(env?: Record<string, string | un
   };
 }
 
-/** Default runtime-config Vitest project configuration. */
 export default createRuntimeConfigVitestConfig();

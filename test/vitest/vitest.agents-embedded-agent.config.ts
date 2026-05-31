@@ -10,5 +10,4 @@ export function createAgentsEmbeddedVitestConfig(env?: Record<string, string | u
   });
 }
 
-/** Default embedded agent Vitest project config. */
 export default createAgentsEmbeddedVitestConfig();

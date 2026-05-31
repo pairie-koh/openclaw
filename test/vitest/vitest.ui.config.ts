@@ -24,5 +24,4 @@ export function createUiVitestConfig(
   });
 }
 
-/** Default UI Vitest project configuration. */
 export default createUiVitestConfig();

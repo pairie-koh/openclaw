@@ -36,5 +36,4 @@ export function createUiE2eVitestConfig(
   });
 }
 
-/** Default UI E2E Vitest project configuration. */
 export default createUiE2eVitestConfig();

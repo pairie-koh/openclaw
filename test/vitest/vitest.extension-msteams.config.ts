@@ -15,5 +15,4 @@ export function createExtensionMsTeamsVitestConfig(env?: Record<string, string |
   );
 }
 
-/** Default Microsoft Teams plugin Vitest project configuration. */
 export default createExtensionMsTeamsVitestConfig();

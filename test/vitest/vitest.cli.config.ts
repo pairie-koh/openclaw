@@ -10,5 +10,4 @@ export function createCliVitestConfig(env?: Record<string, string | undefined>) 
   });
 }
 
-/** Default CLI Vitest project configuration. */
 export default createCliVitestConfig();

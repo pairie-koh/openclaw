@@ -29,5 +29,4 @@ export function createUnitFastVitestConfig(
   });
 }
 
-/** Default unit-fast Vitest project configuration. */
 export default createUnitFastVitestConfig();

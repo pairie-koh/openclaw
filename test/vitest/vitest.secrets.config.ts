@@ -10,5 +10,4 @@ export function createSecretsVitestConfig(env?: Record<string, string | undefine
   });
 }
 
-/** Default secrets Vitest project configuration. */
 export default createSecretsVitestConfig();

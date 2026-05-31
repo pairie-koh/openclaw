@@ -1,6 +1,5 @@
 import { createUnitVitestConfigWithOptions } from "./vitest.unit.config.ts";
 
-/** Default package support Vitest project configuration. */
 export default createUnitVitestConfigWithOptions(process.env, {
   name: "unit-support",
   includePatterns: ["packages/**/*.test.ts"],

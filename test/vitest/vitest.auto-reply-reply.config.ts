@@ -13,5 +13,4 @@ export function createAutoReplyReplyVitestConfig(env?: Record<string, string | u
   });
 }
 
-/** Default auto-reply reply Vitest project config. */
 export default createAutoReplyReplyVitestConfig();

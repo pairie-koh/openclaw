@@ -11,5 +11,4 @@ export function createToolingIsolatedVitestConfig(env?: Record<string, string | 
   });
 }
 
-/** Default isolated tooling Vitest project configuration. */
 export default createToolingIsolatedVitestConfig();

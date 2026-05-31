@@ -26,5 +26,4 @@ export function createExtensionProvidersVitestConfig(
   );
 }
 
-/** Default provider plugin Vitest project configuration. */
 export default createExtensionProvidersVitestConfig();

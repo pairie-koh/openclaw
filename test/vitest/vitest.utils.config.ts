@@ -13,5 +13,4 @@ export function createUtilsVitestConfig(env?: Record<string, string | undefined>
   });
 }
 
-/** Default utilities Vitest project configuration. */
 export default createUtilsVitestConfig();

@@ -26,5 +26,4 @@ export function createExtensionVoiceCallVitestConfig(
   );
 }
 
-/** Default Voice Call extension Vitest project config. */
 export default createExtensionVoiceCallVitestConfig();

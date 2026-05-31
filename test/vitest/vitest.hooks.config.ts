@@ -10,5 +10,4 @@ export function createHooksVitestConfig(env?: Record<string, string | undefined>
   });
 }
 
-/** Default hooks Vitest project configuration. */
 export default createHooksVitestConfig();

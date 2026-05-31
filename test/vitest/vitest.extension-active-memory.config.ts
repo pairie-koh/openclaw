@@ -26,5 +26,4 @@ export function createExtensionActiveMemoryVitestConfig(
   );
 }
 
-/** Default Active Memory extension Vitest project config. */
 export default createExtensionActiveMemoryVitestConfig();

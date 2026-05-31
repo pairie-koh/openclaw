@@ -10,5 +10,4 @@ export function createMediaUnderstandingVitestConfig(env?: Record<string, string
   });
 }
 
-/** Default media-understanding Vitest project configuration. */
 export default createMediaUnderstandingVitestConfig();

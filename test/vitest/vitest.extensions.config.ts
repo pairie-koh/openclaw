@@ -72,5 +72,4 @@ export function createExtensionsVitestConfig(
   });
 }
 
-/** Default bundled extensions Vitest project configuration. */
 export default createExtensionsVitestConfig();

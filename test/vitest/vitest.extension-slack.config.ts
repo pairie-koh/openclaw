@@ -15,5 +15,4 @@ export function createExtensionSlackVitestConfig(
   });
 }
 
-/** Default Slack plugin Vitest project configuration. */
 export default createExtensionSlackVitestConfig();

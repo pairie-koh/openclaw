@@ -9,5 +9,4 @@ export function createAcpVitestConfig(env?: Record<string, string | undefined>) 
   });
 }
 
-/** Default ACP Vitest project configuration. */
 export default createAcpVitestConfig();

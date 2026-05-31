@@ -25,5 +25,4 @@ export function createExtensionMiscVitestConfig(
   );
 }
 
-/** Default miscellaneous plugin Vitest project configuration. */
 export default createExtensionMiscVitestConfig();

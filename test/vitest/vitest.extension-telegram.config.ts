@@ -27,5 +27,4 @@ export function createExtensionTelegramVitestConfig(
   );
 }
 
-/** Default Telegram extension Vitest project config. */
 export default createExtensionTelegramVitestConfig();

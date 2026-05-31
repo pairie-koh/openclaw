@@ -14,5 +14,4 @@ export function createCommandsLightVitestConfig(env?: Record<string, string | un
   });
 }
 
-/** Default commands-light Vitest project configuration. */
 export default createCommandsLightVitestConfig();

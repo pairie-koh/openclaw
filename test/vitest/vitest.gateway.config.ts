@@ -27,7 +27,6 @@ export function createGatewayProjectShardVitestConfig() {
   return createProjectShardVitestConfig(gatewayProjectConfigs);
 }
 
-/** Default gateway Vitest config, selected by the project-shard env toggle. */
 export default process.env.OPENCLAW_GATEWAY_PROJECT_SHARDS === "1"
   ? createGatewayProjectShardVitestConfig()
   : createGatewayVitestConfig();

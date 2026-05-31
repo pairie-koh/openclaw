@@ -41,5 +41,4 @@ export function createExtensionProviderOpenAiVitestConfig(
   };
 }
 
-/** Default OpenAI provider extension Vitest project config. */
 export default createExtensionProviderOpenAiVitestConfig();

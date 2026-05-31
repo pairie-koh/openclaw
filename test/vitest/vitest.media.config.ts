@@ -10,5 +10,4 @@ export function createMediaVitestConfig(env?: Record<string, string | undefined>
   });
 }
 
-/** Default media Vitest project configuration. */
 export default createMediaVitestConfig();

@@ -17,5 +17,4 @@ export function createExtensionChannelsVitestConfig(
   });
 }
 
-/** Default extension channels Vitest project config. */
 export default createExtensionChannelsVitestConfig();

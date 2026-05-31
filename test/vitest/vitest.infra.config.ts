@@ -15,5 +15,4 @@ export function createInfraVitestConfig(env?: Record<string, string | undefined>
   });
 }
 
-/** Default infra Vitest project config. */
 export default createInfraVitestConfig();

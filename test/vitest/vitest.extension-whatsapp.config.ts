@@ -26,5 +26,4 @@ export function createExtensionWhatsAppVitestConfig(
   );
 }
 
-/** Default WhatsApp plugin Vitest project configuration. */
 export default createExtensionWhatsAppVitestConfig();

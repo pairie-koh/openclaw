@@ -9,5 +9,4 @@ export function createAutoReplyVitestConfig(env?: Record<string, string | undefi
   });
 }
 
-/** Default auto-reply Vitest project config. */
 export default createAutoReplyVitestConfig();

@@ -11,5 +11,4 @@ export function createAgentsSupportVitestConfig(env?: Record<string, string | un
   });
 }
 
-/** Default agent support Vitest project config. */
 export default createAgentsSupportVitestConfig();

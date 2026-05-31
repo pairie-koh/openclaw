@@ -26,7 +26,6 @@ const { projects: _projects, ...baseTest } = baseTestWithProjects as {
 };
 const exclude = (baseTest.exclude ?? []).filter((p) => p !== "**/*.e2e.test.ts");
 
-/** Default E2E Vitest project configuration. */
 export default defineConfig({
   ...base,
   test: {

@@ -7,5 +7,4 @@ export function createExtensionImessageVitestConfig(
   return createSingleChannelExtensionVitestConfig("imessage", env);
 }
 
-/** Default iMessage extension Vitest project config. */
 export default createExtensionImessageVitestConfig();

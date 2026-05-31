@@ -23,5 +23,4 @@ export function createToolingVitestConfig(env?: Record<string, string | undefine
   );
 }
 
-/** Default tooling Vitest project configuration. */
 export default createToolingVitestConfig();

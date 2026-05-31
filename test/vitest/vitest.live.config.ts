@@ -13,7 +13,6 @@ const { projects: _projects, ...baseTest } = baseTestWithProjects as {
 };
 const exclude = (baseTest.exclude ?? []).filter((p) => p !== "**/*.live.test.ts");
 
-/** Default live Vitest config with project lists removed and live globs re-enabled. */
 export default defineConfig({
   ...base,
   test: {

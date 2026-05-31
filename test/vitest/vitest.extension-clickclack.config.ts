@@ -7,5 +7,4 @@ export function createExtensionClickClackVitestConfig(
   return createSingleChannelExtensionVitestConfig("clickclack", env);
 }
 
-/** Default ClickClack extension Vitest project config. */
 export default createExtensionClickClackVitestConfig();

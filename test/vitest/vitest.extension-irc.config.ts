@@ -25,5 +25,4 @@ export function createExtensionIrcVitestConfig(
   );
 }
 
-/** Default IRC extension Vitest project config. */
 export default createExtensionIrcVitestConfig();

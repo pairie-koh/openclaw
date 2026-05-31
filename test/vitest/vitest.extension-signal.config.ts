@@ -7,5 +7,4 @@ export function createExtensionSignalVitestConfig(
   return createSingleChannelExtensionVitestConfig("signal", env);
 }
 
-/** Default Signal plugin Vitest project configuration. */
 export default createExtensionSignalVitestConfig();

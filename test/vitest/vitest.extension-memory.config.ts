@@ -26,5 +26,4 @@ export function createExtensionMemoryVitestConfig(
   );
 }
 
-/** Default memory plugin Vitest project configuration. */
 export default createExtensionMemoryVitestConfig();

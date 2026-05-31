@@ -10,5 +10,4 @@ export function createTuiVitestConfig(env?: Record<string, string | undefined>) 
   });
 }
 
-/** Default TUI Vitest project configuration. */
 export default createTuiVitestConfig();

@@ -189,5 +189,4 @@ export function createUnitVitestConfig(env: Record<string, string | undefined> =
   return createUnitVitestConfigWithOptions(env);
 }
 
-/** Default broad unit Vitest project configuration. */
 export default createUnitVitestConfigWithOptions();

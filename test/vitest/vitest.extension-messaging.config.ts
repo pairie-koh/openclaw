@@ -26,5 +26,4 @@ export function createExtensionMessagingVitestConfig(
   );
 }
 
-/** Default messaging plugin Vitest project configuration. */
 export default createExtensionMessagingVitestConfig();

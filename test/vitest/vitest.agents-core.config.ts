@@ -11,5 +11,4 @@ export function createAgentsCoreVitestConfig(env?: Record<string, string | undef
   });
 }
 
-/** Default agent core Vitest project config. */
 export default createAgentsCoreVitestConfig();

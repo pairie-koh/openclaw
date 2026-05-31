@@ -10,5 +10,4 @@ export function createDaemonVitestConfig(env?: Record<string, string | undefined
   });
 }
 
-/** Default daemon Vitest project config. */
 export default createDaemonVitestConfig();

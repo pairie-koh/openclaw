@@ -3,7 +3,6 @@ import {
   createContractsVitestConfig,
 } from "./vitest.contracts-shared.ts";
 
-/** Default channel registry contract Vitest project configuration. */
 export default createContractsVitestConfig(
   channelRegistryContractPatterns,
   process.env,

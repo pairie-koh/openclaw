@@ -29,7 +29,6 @@ const bundledUnitExcludePatterns = unitTestAdditionalExcludePatterns.filter(
     ),
 );
 
-/** Default bundled-plugin-dependent unit Vitest project configuration. */
 export default createUnitVitestConfigWithOptions(process.env, {
   includePatterns: bundledPluginDependentUnitTestFiles,
   extraExcludePatterns: bundledUnitExcludePatterns,

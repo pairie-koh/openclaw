@@ -11,5 +11,4 @@ export function createAgentsToolsVitestConfig(env?: Record<string, string | unde
   });
 }
 
-/** Default agent tools Vitest project config. */
 export default createAgentsToolsVitestConfig();

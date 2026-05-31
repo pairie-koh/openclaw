@@ -19,5 +19,4 @@ export function createChannelsVitestConfig(env?: Record<string, string | undefin
   });
 }
 
-/** Default channels Vitest project config. */
 export default createChannelsVitestConfig();

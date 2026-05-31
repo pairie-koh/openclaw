@@ -10,5 +10,4 @@ export function createWizardVitestConfig(env?: Record<string, string | undefined
   });
 }
 
-/** Default wizard Vitest project config. */
 export default createWizardVitestConfig();

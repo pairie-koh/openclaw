@@ -15,5 +15,4 @@ export function createExtensionMatrixVitestConfig(env?: Record<string, string | 
   );
 }
 
-/** Default Matrix plugin Vitest project configuration. */
 export default createExtensionMatrixVitestConfig();

@@ -10,5 +10,4 @@ export function createLoggingVitestConfig(env?: Record<string, string | undefine
   });
 }
 
-/** Default logging Vitest project config. */
 export default createLoggingVitestConfig();

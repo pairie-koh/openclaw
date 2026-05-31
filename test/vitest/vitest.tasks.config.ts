@@ -23,5 +23,4 @@ export function createTasksVitestConfig(env?: Record<string, string | undefined>
   return config;
 }
 
-/** Default tasks Vitest project configuration. */
 export default createTasksVitestConfig();
