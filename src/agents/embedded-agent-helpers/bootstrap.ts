@@ -49,7 +49,6 @@ function isBase64Signature(value: string): boolean {
  * Gemini expects thought signatures as base64-encoded bytes, but Claude stores message ids
  * like "msg_abc123...". We only strip "msg_*" to preserve any provider-valid signatures.
  */
-/** Removes provider thought-signature fields before replaying bootstrap messages. */
 export function stripThoughtSignatures<T>(
   content: T,
   options?: ThoughtSignatureSanitizeOptions,
@@ -86,11 +85,8 @@ export function stripThoughtSignatures<T>(
   }) as T;
 }
 
-/** Default per-file character budget for bootstrap prompt context. */
 export const DEFAULT_BOOTSTRAP_MAX_CHARS = 12_000;
-/** Default total character budget for bootstrap prompt context. */
 export const DEFAULT_BOOTSTRAP_TOTAL_MAX_CHARS = 60_000;
-/** Default policy for including bootstrap truncation warnings. */
 export const DEFAULT_BOOTSTRAP_PROMPT_TRUNCATION_WARNING_MODE = "always";
 const MIN_BOOTSTRAP_FILE_BUDGET_CHARS = 64;
 // Ratios split `contentBudget` (= maxChars − marker.length − join separators), not `maxChars`.
@@ -118,7 +114,6 @@ type PolicyDigest = {
   omittedLines: number;
 };
 
-/** Resolves per-file bootstrap context character budget. */
 export function resolveBootstrapMaxChars(cfg?: OpenClawConfig, agentId?: string | null): number {
   const raw =
     cfg && agentId
@@ -131,7 +126,6 @@ export function resolveBootstrapMaxChars(cfg?: OpenClawConfig, agentId?: string 
   return DEFAULT_BOOTSTRAP_MAX_CHARS;
 }
 
-/** Resolves total bootstrap context character budget. */
 export function resolveBootstrapTotalMaxChars(
   cfg?: OpenClawConfig,
   agentId?: string | null,
@@ -147,7 +141,6 @@ export function resolveBootstrapTotalMaxChars(
   return DEFAULT_BOOTSTRAP_TOTAL_MAX_CHARS;
 }
 
-/** Resolves how bootstrap truncation warnings should be surfaced. */
 export function resolveBootstrapPromptTruncationWarningMode(
   cfg?: OpenClawConfig,
 ): "off" | "once" | "always" {

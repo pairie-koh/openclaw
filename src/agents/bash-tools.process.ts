@@ -30,7 +30,6 @@ import type { AgentToolResult } from "./runtime/index.js";
 import { PROCESS_TOOL_DISPLAY_SUMMARY } from "./tool-description-presets.js";
 import type { AgentToolWithMeta } from "./tools/common.js";
 
-/** Runtime defaults for the process-management tool. */
 export type ProcessToolDefaults = {
   cleanupMs?: number;
   hasCronTool?: boolean;
@@ -174,7 +173,6 @@ async function sleepPollInterval(ms: number, signal?: AbortSignal): Promise<void
   });
 }
 
-/** Create the process agent tool for session list/poll/log/input/kill actions. */
 export function createProcessTool(
   defaults?: ProcessToolDefaults,
 ): AgentToolWithMeta<typeof processSchema, unknown> {

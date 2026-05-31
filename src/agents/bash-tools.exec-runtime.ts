@@ -85,7 +85,6 @@ export function detectCursorKeyMode(raw: string): "application" | "normal" | nul
 
 // Sanitize inherited host env before merge so dangerous variables from process.env
 // are not propagated into non-sandboxed executions.
-/** Remove dangerous inherited env vars before host exec env merge. */
 export function sanitizeHostBaseEnv(env: Record<string, string>): Record<string, string> {
   const sanitized: Record<string, string> = {};
   for (const [key, value] of Object.entries(env)) {
@@ -103,7 +102,6 @@ export function sanitizeHostBaseEnv(env: Record<string, string>): Record<string,
 }
 // Centralized sanitization helper.
 // Throws an error if dangerous variables or PATH modifications are detected on the host.
-/** Reject host exec env overrides that would weaken execution safety. */
 export function validateHostEnv(env: Record<string, string>): void {
   for (const key of Object.keys(env)) {
     const upperKey = key.toUpperCase();
@@ -124,29 +122,23 @@ export function validateHostEnv(env: Record<string, string>): void {
     }
   }
 }
-/** Default maximum captured output for completed exec processes. */
 export const DEFAULT_MAX_OUTPUT = clampWithDefault(
   readEnvInt("OPENCLAW_BASH_MAX_OUTPUT_CHARS", "PI_BASH_MAX_OUTPUT_CHARS"),
   200_000,
   1_000,
   200_000,
 );
-/** Default maximum captured output for still-running exec processes. */
 export const DEFAULT_PENDING_MAX_OUTPUT = clampWithDefault(
   readEnvInt("OPENCLAW_BASH_PENDING_MAX_OUTPUT_CHARS"),
   30_000,
   1_000,
   200_000,
 );
-/** Fallback PATH used when the runtime env does not provide one. */
 export const DEFAULT_PATH =
   process.env.PATH ?? "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin";
-/** Tail length included in exec completion notifications. */
 export const DEFAULT_NOTIFY_TAIL_CHARS = 400;
 const DEFAULT_NOTIFY_SNIPPET_CHARS = 180;
-/** Default timeout while waiting for an exec approval decision. */
 export const DEFAULT_APPROVAL_TIMEOUT_MS = DEFAULT_EXEC_APPROVAL_TIMEOUT_MS;
-/** Default timeout for approval request delivery plus decision latency. */
 export const DEFAULT_APPROVAL_REQUEST_TIMEOUT_MS = DEFAULT_APPROVAL_TIMEOUT_MS + 10_000;
 const DEFAULT_APPROVAL_RUNNING_NOTICE_MS = 10_000;
 const APPROVAL_SLUG_LENGTH = 8;
