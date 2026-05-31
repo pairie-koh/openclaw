@@ -253,6 +253,7 @@ export function buildCliSessionHistoryPrompt(params: {
 
 function resolveSafeCliTranscriptScope(params: {
   sessionId: string;
+  sessionFile?: string;
   sessionKey?: string;
   agentId?: string;
   config?: OpenClawConfig;
@@ -264,12 +265,14 @@ function resolveSafeCliTranscriptScope(params: {
   });
   return {
     agentId: sessionAgentId ?? defaultAgentId,
+    ...(params.sessionFile ? { path: params.sessionFile } : {}),
     sessionId: params.sessionId,
   };
 }
 
 async function loadCliSessionEntries(params: {
   sessionId: string;
+  sessionFile?: string;
   sessionKey?: string;
   agentId?: string;
   config?: OpenClawConfig;
@@ -293,6 +296,7 @@ async function loadCliSessionEntries(params: {
 
 export async function loadCliSessionHistoryMessages(params: {
   sessionId: string;
+  sessionFile?: string;
   sessionKey?: string;
   agentId?: string;
   config?: OpenClawConfig;
@@ -306,6 +310,7 @@ export async function loadCliSessionHistoryMessages(params: {
 
 export async function loadCliSessionContextEngineMessages(params: {
   sessionId: string;
+  sessionFile?: string;
   sessionKey?: string;
   agentId?: string;
   config?: OpenClawConfig;
@@ -358,6 +363,7 @@ export async function hasCliSessionTranscript(params: {
 
 export async function loadCliSessionReseedMessages(params: {
   sessionId: string;
+  sessionFile?: string;
   sessionKey?: string;
   agentId?: string;
   config?: OpenClawConfig;

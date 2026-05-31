@@ -130,6 +130,7 @@ async function persistApprovedCliUserTurnTranscript(params: RunCliAgentParams): 
   }
 
   const target = {
+    transcriptPath: params.sessionFile,
     sessionId: params.sessionId,
     agentId: params.agentId,
     ...(params.sessionKey ? { sessionKey: params.sessionKey } : {}),
@@ -297,6 +298,7 @@ export async function runPreparedCliAgent(
     hasLlmInputHooks || hasAgentEndHooks || hasBeforeAgentRunHooks
       ? await loadCliSessionHistoryMessages({
           sessionId: params.sessionId,
+          sessionFile: params.sessionFile,
           sessionKey: params.sessionKey,
           agentId: params.agentId,
           config: params.config,
@@ -603,6 +605,7 @@ export async function runPreparedCliAgent(
     const contextEngineHistoryMessages = context.contextEngine
       ? await loadCliSessionContextEngineMessages({
           sessionId: params.sessionId,
+          sessionFile: params.sessionFile,
           sessionKey: params.sessionKey,
           agentId: params.agentId,
           config: params.config,

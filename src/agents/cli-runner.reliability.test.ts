@@ -427,6 +427,7 @@ describe("runCliAgent reliability", () => {
               cliSessionId: "thread-123",
             }).params,
             agentId: "main",
+            sessionFile,
             workspaceDir: dir,
           },
         }),
@@ -1172,6 +1173,7 @@ describe("runCliAgent reliability", () => {
         params: {
           ...context.params,
           agentId: "main",
+          sessionFile,
           workspaceDir: dir,
           prompt: "secret prompt",
           userTurnTranscriptRecorder: createCliUserTurnRecorder({
@@ -1375,7 +1377,7 @@ describe("runCliAgent reliability", () => {
       runAgentEnd: vi.fn(async () => undefined),
     };
     setHookRunnerForTest(hookRunner);
-    const { dir } = createTranscriptStateFixture({
+    const { dir, sessionFile } = createTranscriptStateFixture({
       history: Array.from({ length: MAX_CLI_SESSION_HISTORY_MESSAGES + 5 }, (_, index) => ({
         role: "user" as const,
         content: `history-${index}`,
@@ -1423,6 +1425,7 @@ describe("runCliAgent reliability", () => {
             cliSessionId: "thread-123",
           }).params,
           agentId: "main",
+          sessionFile,
           workspaceDir: dir,
         },
       });
