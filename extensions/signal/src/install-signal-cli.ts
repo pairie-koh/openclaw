@@ -193,10 +193,6 @@ async function findSignalCliBinary(root: string): Promise<string | null> {
   return candidates[0] ?? null;
 }
 
-// ---------------------------------------------------------------------------
-// Brew-based install (used on architectures without an official native build)
-// ---------------------------------------------------------------------------
-
 async function resolveBrewSignalCliPath(brewExe: string): Promise<string | null> {
   try {
     const result = await runPluginCommandWithTimeout({
@@ -268,10 +264,6 @@ async function installSignalCliViaBrew(runtime: RuntimeEnv): Promise<SignalInsta
 
   return { ok: true, cliPath, version };
 }
-
-// ---------------------------------------------------------------------------
-// Direct download install (used when an official native asset is available)
-// ---------------------------------------------------------------------------
 
 /** @internal Exported for testing. */
 export async function installSignalCliFromRelease(
@@ -357,10 +349,6 @@ export async function installSignalCliFromRelease(
 
   return { ok: true, cliPath, version };
 }
-
-// ---------------------------------------------------------------------------
-// Public entry point
-// ---------------------------------------------------------------------------
 
 export async function installSignalCli(runtime: RuntimeEnv): Promise<SignalInstallResult> {
   if (process.platform === "win32") {
