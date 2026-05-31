@@ -1,7 +1,9 @@
+/** Return finite numbers without parsing strings or coercing other primitives. */
 export function asFiniteNumber(value: unknown): number | undefined {
   return typeof value === "number" && Number.isFinite(value) ? value : undefined;
 }
 
+/** Return a finite number only when it satisfies the supplied inclusive/exclusive bounds. */
 export function asFiniteNumberInRange(
   value: unknown,
   range: {
@@ -28,6 +30,7 @@ export function asFiniteNumberInRange(
   return number;
 }
 
+/** Return a safe integer only when it falls inside optional inclusive bounds. */
 export function asSafeIntegerInRange(
   value: unknown,
   range: {
@@ -52,6 +55,7 @@ function normalizeNumericString(value: string): string | undefined {
   return trimmed ? trimmed : undefined;
 }
 
+/** Parse a finite number from a number or strict numeric string. */
 export function parseFiniteNumber(value: unknown): number | undefined {
   if (typeof value === "number") {
     return Number.isFinite(value) ? value : undefined;
@@ -59,6 +63,7 @@ export function parseFiniteNumber(value: unknown): number | undefined {
   return parseStrictFiniteNumber(value);
 }
 
+/** Parse only integer numbers or integer strings; decimals and unsafe integers are rejected. */
 export function parseStrictInteger(value: unknown): number | undefined {
   if (typeof value === "number") {
     return Number.isSafeInteger(value) ? value : undefined;
@@ -74,6 +79,7 @@ export function parseStrictInteger(value: unknown): number | undefined {
   return Number.isSafeInteger(parsed) ? parsed : undefined;
 }
 
+/** Parse decimal/scientific numeric strings while rejecting partial or non-finite values. */
 export function parseStrictFiniteNumber(value: unknown): number | undefined {
   if (typeof value === "number") {
     return Number.isFinite(value) ? value : undefined;
@@ -89,15 +95,21 @@ export function parseStrictFiniteNumber(value: unknown): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
+/** Return a positive safe integer number without parsing strings. */
 export function asPositiveSafeInteger(value: unknown): number | undefined {
   return typeof value === "number" && Number.isSafeInteger(value) && value > 0 ? value : undefined;
 }
 
+/** Largest delay accepted by Node timers without overflowing the signed 32-bit cap. */
 export const MAX_TIMER_TIMEOUT_MS = 2_147_000_000;
+/** Timer cap expressed in whole seconds for APIs that accept second-based timeouts. */
 export const MAX_TIMER_TIMEOUT_SECONDS = Math.floor(MAX_TIMER_TIMEOUT_MS / 1000);
+/** Largest absolute timestamp accepted by JavaScript Date. */
 export const MAX_DATE_TIMESTAMP_MS = 8_640_000_000_000_000;
+/** ISO fallback used when no valid timestamp or fallback timestamp exists. */
 export const UNIX_EPOCH_ISO_STRING = "1970-01-01T00:00:00.000Z";
 
+/** Return a finite millisecond timestamp inside JavaScript Date's representable range. */
 export function asDateTimestampMs(value: unknown): number | undefined {
   return asFiniteNumberInRange(value, {
     min: -MAX_DATE_TIMESTAMP_MS,
@@ -105,6 +117,7 @@ export function asDateTimestampMs(value: unknown): number | undefined {
   });
 }
 
+/** Test whether a valid millisecond timestamp is later than `nowMs` or the current clock. */
 export function isFutureDateTimestampMs(
   value: unknown,
   opts: { nowMs?: number } = {},
@@ -114,11 +127,13 @@ export function isFutureDateTimestampMs(
   return timestampMs !== undefined && nowMs !== undefined && timestampMs > nowMs;
 }
 
+/** Convert a valid millisecond timestamp to ISO, returning undefined for invalid dates. */
 export function timestampMsToIsoString(value: unknown): string | undefined {
   const timestampMs = asDateTimestampMs(value);
   return timestampMs === undefined ? undefined : new Date(timestampMs).toISOString();
 }
 
+/** Resolve a valid millisecond timestamp using a fallback, then epoch when both fail. */
 export function resolveDateTimestampMs(
   value: unknown,
   fallbackValue: unknown = Date.now(),
@@ -126,6 +141,7 @@ export function resolveDateTimestampMs(
   return asDateTimestampMs(value) ?? asDateTimestampMs(fallbackValue) ?? 0;
 }
 
+/** Convert a timestamp or fallback timestamp to ISO, using epoch as the final fallback. */
 export function resolveTimestampMsToIsoString(
   value: unknown,
   fallbackValue: unknown = Date.now(),
@@ -135,6 +151,7 @@ export function resolveTimestampMsToIsoString(
   );
 }
 
+/** Convert a timestamp to an ISO-like file stamp by replacing colon separators. */
 export function timestampMsToIsoFileStamp(
   value: unknown,
   fallbackValue: unknown = Date.now(),
@@ -142,6 +159,7 @@ export function timestampMsToIsoFileStamp(
   return resolveTimestampMsToIsoString(value, fallbackValue).replaceAll(":", "-");
 }
 
+/** Clamp a finite millisecond timeout to the Node timer range and requested minimum. */
 export function clampTimerTimeoutMs(valueMs: unknown, minMs = 1): number | undefined {
   const value = asFiniteNumber(valueMs);
   if (value === undefined) {
@@ -151,6 +169,7 @@ export function clampTimerTimeoutMs(valueMs: unknown, minMs = 1): number | undef
   return Math.min(Math.max(Math.floor(value), min), MAX_TIMER_TIMEOUT_MS);
 }
 
+/** Clamp a positive millisecond timeout; zero and negative values are treated as absent. */
 export function clampPositiveTimerTimeoutMs(valueMs: unknown): number | undefined {
   const value = asFiniteNumber(valueMs);
   if (value === undefined || value <= 0) {
@@ -159,10 +178,12 @@ export function clampPositiveTimerTimeoutMs(valueMs: unknown): number | undefine
   return clampTimerTimeoutMs(value);
 }
 
+/** Resolve a positive timeout or fall back to a timer-safe value. */
 export function resolvePositiveTimerTimeoutMs(valueMs: unknown, fallbackMs: number): number {
   return clampPositiveTimerTimeoutMs(valueMs) ?? resolveTimerTimeoutMs(fallbackMs, 1);
 }
 
+/** Resolve a timeout from a candidate or fallback, flooring and clamping to timer-safe bounds. */
 export function resolveTimerTimeoutMs(valueMs: unknown, fallbackMs: number, minMs = 1): number {
   const value = asFiniteNumber(valueMs) ?? asFiniteNumber(fallbackMs);
   const min = Math.max(0, Math.floor(minMs));
@@ -172,6 +193,7 @@ export function resolveTimerTimeoutMs(valueMs: unknown, fallbackMs: number, minM
   return Math.min(Math.max(Math.floor(value), min), MAX_TIMER_TIMEOUT_MS);
 }
 
+/** Add grace to a timeout and clamp the result to timer-safe bounds. */
 export function addTimerTimeoutGraceMs(timeoutMs: unknown, graceMs = 5_000): number | undefined {
   const timeout = asFiniteNumber(timeoutMs);
   const grace = asFiniteNumber(graceMs);
@@ -182,6 +204,7 @@ export function addTimerTimeoutGraceMs(timeoutMs: unknown, graceMs = 5_000): num
   return Number.isFinite(withGrace) ? clampTimerTimeoutMs(withGrace) : MAX_TIMER_TIMEOUT_MS;
 }
 
+/** Convert positive finite seconds to timer-safe milliseconds. */
 export function finiteSecondsToTimerSafeMilliseconds(
   value: unknown,
   opts: { floorSeconds?: boolean } = {},
@@ -198,6 +221,7 @@ export function finiteSecondsToTimerSafeMilliseconds(
   return Math.min(milliseconds, MAX_TIMER_TIMEOUT_MS);
 }
 
+/** Resolve a finite numeric option by flooring it, applying fallback, then bounds. */
 export function resolveIntegerOption(
   value: unknown,
   fallback: number,
@@ -212,6 +236,7 @@ export function resolveIntegerOption(
   return range.max === undefined ? minBounded : Math.min(range.max, minBounded);
 }
 
+/** Resolve an optional finite numeric option by flooring and bounding it. */
 export function resolveOptionalIntegerOption(
   value: unknown,
   range: {
@@ -225,20 +250,24 @@ export function resolveOptionalIntegerOption(
   return resolveIntegerOption(value, value, range);
 }
 
+/** Resolve an integer option with zero as the lower bound. */
 export function resolveNonNegativeIntegerOption(value: unknown, fallback: number): number {
   return resolveIntegerOption(value, fallback, { min: 0 });
 }
 
+/** Parse a strict integer and require it to be greater than zero. */
 export function parseStrictPositiveInteger(value: unknown): number | undefined {
   const parsed = parseStrictInteger(value);
   return parsed !== undefined && parsed > 0 ? parsed : undefined;
 }
 
+/** Parse a strict integer and require it to be zero or greater. */
 export function parseStrictNonNegativeInteger(value: unknown): number | undefined {
   const parsed = parseStrictInteger(value);
   return parsed !== undefined && parsed >= 0 ? parsed : undefined;
 }
 
+/** Convert a positive whole-second value to safe milliseconds. */
 export function positiveSecondsToSafeMilliseconds(value: unknown): number | undefined {
   const seconds = parseStrictPositiveInteger(value);
   if (seconds === undefined) {
@@ -248,6 +277,7 @@ export function positiveSecondsToSafeMilliseconds(value: unknown): number | unde
   return Number.isSafeInteger(milliseconds) ? milliseconds : undefined;
 }
 
+/** Convert a non-negative whole-second value to safe milliseconds. */
 export function nonNegativeSecondsToSafeMilliseconds(value: unknown): number | undefined {
   const seconds = parseStrictNonNegativeInteger(value);
   if (seconds === undefined) {
@@ -257,6 +287,7 @@ export function nonNegativeSecondsToSafeMilliseconds(value: unknown): number | u
   return Number.isSafeInteger(milliseconds) ? milliseconds : undefined;
 }
 
+/** Resolve an expiry timestamp from a positive duration in milliseconds. */
 export function resolveExpiresAtMsFromDurationMs(
   value: unknown,
   opts: { nowMs?: number; bufferMs?: number; minRemainingMs?: number } = {},
@@ -285,6 +316,7 @@ export function resolveExpiresAtMsFromDurationMs(
   return Math.max(expiresAt, minExpiresAt);
 }
 
+/** Resolve an expiry timestamp from a positive duration in seconds. */
 export function resolveExpiresAtMsFromDurationSeconds(
   value: unknown,
   opts: { nowMs?: number; bufferMs?: number; minRemainingMs?: number } = {},
@@ -293,6 +325,7 @@ export function resolveExpiresAtMsFromDurationSeconds(
   return durationMs === undefined ? undefined : resolveExpiresAtMsFromDurationMs(durationMs, opts);
 }
 
+/** Resolve an expiry timestamp from epoch seconds, applying optional buffer and max caps. */
 export function resolveExpiresAtMsFromEpochSeconds(
   value: unknown,
   opts: { bufferMs?: number; maxMs?: number } = {},
@@ -315,6 +348,7 @@ export function resolveExpiresAtMsFromEpochSeconds(
   return maxMs === undefined || expiresAt <= maxMs ? expiresAt : undefined;
 }
 
+/** Interpret small values as durations, mid-sized values as epoch seconds, and large values as ms. */
 export function resolveExpiresAtMsFromDurationOrEpoch(
   value: unknown,
   opts: {
