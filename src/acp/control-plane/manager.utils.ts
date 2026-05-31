@@ -13,7 +13,6 @@ import {
 import { ACP_ERROR_CODES, AcpRuntimeError } from "../runtime/errors.js";
 import type { AcpSessionResolution } from "./manager.types.js";
 
-/** Resolves the ACP agent id embedded in a session key with a fallback agent. */
 export function resolveAcpAgentFromSessionKey(sessionKey: string, fallback = "main"): string {
   const parsed = parseAgentSessionKey(sessionKey);
   return normalizeAgentId(parsed?.agentId ?? fallback);
@@ -26,7 +25,6 @@ export function resolveMissingMetaError(sessionKey: string): AcpRuntimeError {
   );
 }
 
-/** Converts a non-ready session resolution into its ACP runtime error. */
 export function resolveAcpSessionResolutionError(
   resolution: AcpSessionResolution,
 ): AcpRuntimeError | null {
@@ -53,7 +51,6 @@ function normalizeSessionKey(sessionKey: string): string {
   return sessionKey.trim();
 }
 
-/** Canonicalizes ACP session aliases through configured main-session rules. */
 export function canonicalizeAcpSessionKey(params: {
   cfg: OpenClawConfig;
   sessionKey: string;
@@ -81,12 +78,10 @@ export function canonicalizeAcpSessionKey(params: {
   return lowered;
 }
 
-/** Normalizes actor/session keys for ACP control-plane maps. */
 export function normalizeActorKey(sessionKey: string): string {
   return normalizeLowercaseStringOrEmpty(sessionKey);
 }
 
-/** Normalizes unknown ACP error codes to the generic turn-failed code. */
 export function normalizeAcpErrorCode(code: string | undefined): AcpRuntimeError["code"] {
   if (!code) {
     return "ACP_TURN_FAILED";
@@ -100,7 +95,6 @@ export function normalizeAcpErrorCode(code: string | undefined): AcpRuntimeError
   return "ACP_TURN_FAILED";
 }
 
-/** Builds an ACP error for backend control methods that are unavailable. */
 export function createUnsupportedControlError(params: {
   backend: string;
   control: string;
@@ -111,7 +105,6 @@ export function createUnsupportedControlError(params: {
   );
 }
 
-/** Resolves ACP runtime idle TTL from config minutes into milliseconds. */
 export function resolveRuntimeIdleTtlMs(cfg: OpenClawConfig): number {
   const ttlMinutes = cfg.acp?.runtime?.ttlMinutes;
   if (typeof ttlMinutes !== "number" || !Number.isFinite(ttlMinutes) || ttlMinutes <= 0) {
@@ -120,7 +113,6 @@ export function resolveRuntimeIdleTtlMs(cfg: OpenClawConfig): number {
   return Math.round(ttlMinutes * 60 * 1000);
 }
 
-/** Detects old ACP identity fields that should be migrated to current metadata. */
 export function hasLegacyAcpIdentityProjection(meta: SessionAcpMeta): boolean {
   const raw = meta as Record<string, unknown>;
   return (

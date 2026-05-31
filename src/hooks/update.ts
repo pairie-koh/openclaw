@@ -11,16 +11,13 @@ import {
 } from "./install.js";
 import { recordHookInstall } from "./installs.js";
 
-/** Minimal logger used while updating hook packs. */
 export type HookPackUpdateLogger = {
   info?: (message: string) => void;
   warn?: (message: string) => void;
 };
 
-/** Per-hook-pack update outcome status. */
 export type HookPackUpdateStatus = "updated" | "unchanged" | "skipped" | "error";
 
-/** Result for one hook pack update attempt. */
 export type HookPackUpdateOutcome = {
   hookId: string;
   status: HookPackUpdateStatus;
@@ -29,14 +26,12 @@ export type HookPackUpdateOutcome = {
   nextVersion?: string;
 };
 
-/** Aggregate update result including the next config when install records changed. */
 export type HookPackUpdateSummary = {
   config: OpenClawConfig;
   changed: boolean;
   outcomes: HookPackUpdateOutcome[];
 };
 
-/** Integrity drift payload exposed before accepting an updated npm hook pack. */
 export type HookPackUpdateIntegrityDriftParams = HookNpmIntegrityDriftParams & {
   hookId: string;
   resolvedSpec?: string;
@@ -71,7 +66,6 @@ function createHookPackUpdateIntegrityDriftHandler(params: {
   };
 }
 
-/** Updates npm-sourced hook packs in config and records changed install metadata. */
 export async function updateNpmInstalledHookPacks(params: {
   config: OpenClawConfig;
   logger?: HookPackUpdateLogger;

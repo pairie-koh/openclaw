@@ -12,7 +12,6 @@ type CredentialMatrixEntry = {
   notes?: string;
 };
 
-/** Serializable credential matrix used by docs and coverage checks. */
 export type SecretRefCredentialMatrixDocument = {
   version: 1;
   matrixId: "strictly-user-supplied-credentials";
@@ -22,7 +21,6 @@ export type SecretRefCredentialMatrixDocument = {
   entries: CredentialMatrixEntry[];
 };
 
-/** Builds a deduplicated, sorted matrix from the source secret target registry. */
 export function buildSecretRefCredentialMatrix(): SecretRefCredentialMatrixDocument {
   const entriesByKey = new Map<string, CredentialMatrixEntry>();
   for (const entry of getSourceSecretTargetRegistry()) {

@@ -4,10 +4,8 @@ import { resolveGatewayProfileSuffix } from "./constants.js";
 import { resolveGatewayStateDir, resolveHomeDir } from "./paths.js";
 import type { GatewayServiceEnv } from "./service-types.js";
 
-/** Filename reserved for restart-script diagnostics under the gateway log directory. */
 export const GATEWAY_RESTART_LOG_FILENAME = "gateway-restart.log";
 
-/** Standard stdout/stderr log path set for gateway service supervisors. */
 export type GatewayLogPaths = {
   logDir: string;
   stdoutPath: string;
@@ -24,7 +22,6 @@ function resolveMacLaunchAgentLogPrefix(env: GatewayServiceEnv): string {
   );
 }
 
-/** Resolves cross-platform gateway log paths under the OpenClaw state directory. */
 export function resolveGatewayLogPaths(env: GatewayServiceEnv): GatewayLogPaths {
   const stateDir = resolveGatewayStateDir(env);
   const logDir = path.join(stateDir, "logs");
@@ -36,7 +33,6 @@ export function resolveGatewayLogPaths(env: GatewayServiceEnv): GatewayLogPaths 
   };
 }
 
-/** Resolves LaunchAgent-compatible log paths under ~/Library/Logs/openclaw. */
 export function resolveMacLaunchAgentLogPaths(env: GatewayServiceEnv): GatewayLogPaths {
   const home = resolveHomeDir(env).replaceAll("\\", "/");
   const logDir = path.posix.join(home, "Library", "Logs", "openclaw");
@@ -48,7 +44,6 @@ export function resolveMacLaunchAgentLogPaths(env: GatewayServiceEnv): GatewayLo
   };
 }
 
-/** Picks the correct gateway log path convention for the active supervisor platform. */
 export function resolveGatewaySupervisorLogPaths(
   env: GatewayServiceEnv,
   options?: { platform?: NodeJS.Platform },
@@ -58,17 +53,14 @@ export function resolveGatewaySupervisorLogPaths(
     : resolveGatewayLogPaths(env);
 }
 
-/** Returns the append-only restart log used by generated restart scripts. */
 export function resolveGatewayRestartLogPath(env: GatewayServiceEnv): string {
   return path.join(resolveGatewayLogPaths(env).logDir, GATEWAY_RESTART_LOG_FILENAME);
 }
 
-/** Escapes a value for single-quoted POSIX shell fragments in restart log setup. */
 export function shellEscapeRestartLogValue(value: string): string {
   return value.replace(/'/g, "'\\''");
 }
 
-/** Renders POSIX shell setup that creates and redirects into the restart log. */
 export function renderPosixRestartLogSetup(env: GatewayServiceEnv): string {
   const logDir = path.dirname(resolveGatewayRestartLogPath(env));
   const logPath = resolveGatewayRestartLogPath(env);
@@ -79,7 +71,6 @@ export function renderPosixRestartLogSetup(env: GatewayServiceEnv): string {
 fi`;
 }
 
-/** Renders Windows cmd setup lines that initialize the restart log path. */
 export function renderCmdRestartLogSetup(env: GatewayServiceEnv): {
   lines: string[];
   quotedLogPath: string;

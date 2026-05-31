@@ -10,7 +10,6 @@ const webContentExtractorLoader = createConfigScopedPromiseLoader((config?: Open
   resolvePluginWebContentExtractors(config ? { config } : undefined),
 );
 
-/** Extract readable page content with the first plugin extractor that succeeds. */
 export async function extractReadableContent(params: {
   html: string;
   url: string;

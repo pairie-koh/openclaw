@@ -4,16 +4,11 @@ import type { GatewayServiceEnvironmentValueSource } from "./service-types.js";
 // launchd defaults to a 10s spawn throttle. Keep that default explicitly so
 // crash loops back off instead of respawning every second while still allowing
 // explicit kickstart restarts to take effect.
-/** launchd restart throttle retained explicitly for generated gateway agents. */
 export const LAUNCH_AGENT_THROTTLE_INTERVAL_SECONDS = 10;
-/** Grace period launchd gives the gateway process before termination. */
 export const LAUNCH_AGENT_EXIT_TIMEOUT_SECONDS = 20;
 // launchd stores plist integer values in decimal; 0o077 renders as 63 (owner-only files).
-/** Owner-only umask value as launchd expects it in plist integer form. */
 export const LAUNCH_AGENT_UMASK_DECIMAL = 0o077;
-/** Process type used so macOS treats the gateway as an interactive user service. */
 export const LAUNCH_AGENT_PROCESS_TYPE = "Interactive";
-/** Standard input sink for generated LaunchAgent plists. */
 export const LAUNCH_AGENT_STDIN_PATH = "/dev/null";
 
 const plistEscape = (value: string): string =>
@@ -184,7 +179,6 @@ const renderEnvDict = (env: Record<string, string | undefined> | undefined): str
   return `\n    <key>EnvironmentVariables</key>\n    <dict>${items}\n    </dict>`;
 };
 
-/** Reads program args and env details from a LaunchAgent plist. */
 export async function readLaunchAgentProgramArgumentsFromFile(plistPath: string): Promise<{
   programArguments: string[];
   workingDirectory?: string;
@@ -192,7 +186,6 @@ export async function readLaunchAgentProgramArgumentsFromFile(plistPath: string)
   environmentValueSources?: Record<string, GatewayServiceEnvironmentValueSource>;
   sourcePath?: string;
 } | null>;
-/** Reads program args and unwraps a generated environment-wrapper plist when expected. */
 export async function readLaunchAgentProgramArgumentsFromFile(
   plistPath: string,
   options: ReadLaunchAgentProgramArgumentsOptions,
@@ -203,7 +196,6 @@ export async function readLaunchAgentProgramArgumentsFromFile(
   environmentValueSources?: Record<string, GatewayServiceEnvironmentValueSource>;
   sourcePath?: string;
 } | null>;
-/** Parses generated LaunchAgent plist state for service repair and status checks. */
 export async function readLaunchAgentProgramArgumentsFromFile(
   plistPath: string,
   options?: ReadLaunchAgentProgramArgumentsOptions,
@@ -267,7 +259,6 @@ export async function readLaunchAgentProgramArgumentsFromFile(
   }
 }
 
-/** Renders the LaunchAgent plist installed for the macOS gateway supervisor. */
 export function buildLaunchAgentPlist({
   label,
   comment,

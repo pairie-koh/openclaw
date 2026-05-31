@@ -50,7 +50,6 @@ type SharedServiceEnvironmentFields = {
   nodeUseSystemCa: string | undefined;
 };
 
-/** Proxy env keys considered when building daemon service environments. */
 export const SERVICE_PROXY_ENV_KEYS = [
   "OPENCLAW_PROXY_URL",
   "HTTP_PROXY",
@@ -331,7 +330,6 @@ function resolveLinuxUserBinDirs(
   return dirs;
 }
 
-/** Builds ordered PATH parts suitable for durable daemon services. */
 export function getMinimalServicePathParts(options: MinimalServicePathOptions = {}): string[] {
   const platform = options.platform ?? process.platform;
   if (platform === "win32") {
@@ -374,7 +372,6 @@ export function getMinimalServicePathParts(options: MinimalServicePathOptions = 
   return parts;
 }
 
-/** Builds minimal service PATH parts using HOME and env-derived directories. */
 export function getMinimalServicePathPartsFromEnv(options: BuildServicePathOptions = {}): string[] {
   const env = options.env ?? process.env;
   return getMinimalServicePathParts({
@@ -384,7 +381,6 @@ export function getMinimalServicePathPartsFromEnv(options: BuildServicePathOptio
   });
 }
 
-/** Builds the PATH string installed into daemon service environments. */
 export function buildMinimalServicePath(options: BuildServicePathOptions = {}): string {
   const env = options.env ?? process.env;
   const platform = options.platform ?? process.platform;
@@ -403,7 +399,6 @@ function resolveGatewaySystemdUnitEnv(env: Record<string, string | undefined>): 
   return `${resolveGatewaySystemdServiceName(env.OPENCLAW_PROFILE)}.service`;
 }
 
-/** Builds environment variables for the gateway daemon service. */
 export function buildServiceEnvironment(params: {
   env: Record<string, string | undefined>;
   port: number;
@@ -439,7 +434,6 @@ export function buildServiceEnvironment(params: {
   };
 }
 
-/** Builds environment variables for the companion node daemon service. */
 export function buildNodeServiceEnvironment(params: {
   env: Record<string, string | undefined>;
   platform?: NodeJS.Platform;

@@ -14,7 +14,6 @@ import {
   discoverConfigSecretTargets,
 } from "./target-registry.js";
 
-/** Secret-bearing config/auth value that `secrets configure` can convert. */
 export type ConfigureCandidate = {
   type: string;
   path: string;
@@ -30,12 +29,10 @@ export type ConfigureCandidate = {
   authProfileProvider?: string;
 };
 
-/** Configure candidate selected with the secret ref that should replace it. */
 export type ConfigureSelectedTarget = ConfigureCandidate & {
   ref: SecretRef;
 };
 
-/** Secret provider config upserts/deletes collected for an apply plan. */
 export type ConfigureProviderChanges = {
   upserts: Record<string, SecretProviderConfig>;
   deletes: string[];
@@ -48,7 +45,6 @@ function getSecretProviders(config: OpenClawConfig): Record<string, SecretProvid
   return config.secrets.providers;
 }
 
-/** Discovers configurable secret targets from the active OpenClaw config. */
 export function buildConfigureCandidates(config: OpenClawConfig): ConfigureCandidate[] {
   return buildConfigureCandidatesForScope({ config });
 }
@@ -77,7 +73,6 @@ function resolveAuthProfileProvider(
   return provider.length > 0 ? provider : undefined;
 }
 
-/** Discovers configurable secret targets for config plus optional auth profile scope. */
 export function buildConfigureCandidatesForScope(params: {
   config: OpenClawConfig;
   authoredOpenClawConfig?: OpenClawConfig;
@@ -190,7 +185,6 @@ function hasPath(root: unknown, segments: string[]): boolean {
   return false;
 }
 
-/** Computes provider config upserts and deletes between original and next config. */
 export function collectConfigureProviderChanges(params: {
   original: OpenClawConfig;
   next: OpenClawConfig;
@@ -221,7 +215,6 @@ export function collectConfigureProviderChanges(params: {
   };
 }
 
-/** Checks whether selected targets or provider edits require an apply plan. */
 export function hasConfigurePlanChanges(params: {
   selectedTargets: ReadonlyMap<string, ConfigureSelectedTarget>;
   providerChanges: ConfigureProviderChanges;
@@ -233,7 +226,6 @@ export function hasConfigurePlanChanges(params: {
   );
 }
 
-/** Builds the serializable secrets apply plan for selected targets and providers. */
 export function buildSecretsConfigurePlan(params: {
   selectedTargets: ReadonlyMap<string, ConfigureSelectedTarget>;
   providerChanges: ConfigureProviderChanges;
