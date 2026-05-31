@@ -1,7 +1,5 @@
 import type { EmbeddingInput } from "./embedding-inputs.js";
 
-// Helpers for enforcing embedding model input size limits.
-//
 // We use UTF-8 byte length as a conservative upper bound for tokenizer output.
 // Tokenizers operate over bytes; a token must contain at least one byte, so
 // token_count <= utf8_byte_length.

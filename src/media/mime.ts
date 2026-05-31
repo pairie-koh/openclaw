@@ -5,7 +5,6 @@ import { type MediaKind, mediaKindFromMime } from "./constants.js";
 /** @internal */
 export const FILE_TYPE_SNIFF_MAX_BYTES = 1024 * 1024;
 
-// Map common mimes to preferred file extensions.
 const EXT_BY_MIME: Record<string, string> = {
   "image/heic": ".heic",
   "image/heif": ".heif",

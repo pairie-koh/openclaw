@@ -19,7 +19,6 @@ function hasStringValue(value: unknown): boolean {
   return typeof value === "string" ? Boolean(normalizeOptionalString(value)) : Boolean(value);
 }
 
-// Infer auth choice from explicit provider API key flags.
 export function inferAuthChoiceFromFlags(
   opts: OnboardOptions,
   params?: {

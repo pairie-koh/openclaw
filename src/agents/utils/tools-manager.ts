@@ -83,11 +83,9 @@ const TOOLS: Record<string, ToolConfig> = {
   },
 };
 
-// Check if a command exists in PATH by trying to run it
 function commandExists(cmd: string): boolean {
   try {
     const result = spawnSync(cmd, ["--version"], { stdio: "pipe" });
-    // Check for ENOENT error (command not found)
     return result.error === undefined || result.error === null;
   } catch {
     return false;

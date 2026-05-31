@@ -469,7 +469,6 @@ function collectMarkdownImageSegments(params: { line: string; media: string[] })
   };
 }
 
-// Check if a character offset is inside any fenced code block
 function isInsideFence(fenceSpans: Array<{ start: number; end: number }>, offset: number): boolean {
   return fenceSpans.some((span) => offset >= span.start && offset < span.end);
 }
