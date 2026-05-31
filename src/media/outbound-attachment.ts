@@ -2,7 +2,6 @@ import { buildOutboundMediaLoadOptions, type OutboundMediaAccess } from "./load-
 import { saveMediaBuffer } from "./store.js";
 import { loadWebMedia } from "./web-media.js";
 
-/** Resolves a remote or allowed local media URL into a stored outbound file path. */
 export async function resolveOutboundAttachmentFromUrl(
   mediaUrl: string,
   maxBytes: number,

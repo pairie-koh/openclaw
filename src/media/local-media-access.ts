@@ -6,7 +6,6 @@ import { isInboundPathAllowed } from "./inbound-path-policy.js";
 import { getDefaultMediaLocalRoots } from "./local-roots.js";
 import { resolveInboundMediaReference } from "./media-reference.js";
 
-/** Machine-readable local media access denial reason. */
 export type LocalMediaAccessErrorCode =
   | "path-not-allowed"
   | "invalid-root"
@@ -17,7 +16,6 @@ export type LocalMediaAccessErrorCode =
   | "invalid-path"
   | "not-file";
 
-/** Error thrown when a local media path is outside allowed roots or otherwise unsafe. */
 export class LocalMediaAccessError extends Error {
   code: LocalMediaAccessErrorCode;
 
@@ -28,12 +26,10 @@ export class LocalMediaAccessError extends Error {
   }
 }
 
-/** Returns the default local roots accepted for media file access. */
 export function getDefaultLocalRoots(): readonly string[] {
   return getDefaultMediaLocalRoots();
 }
 
-/** Verifies a local path is an inbound reference or contained within configured/default media roots. */
 export async function assertLocalMediaAllowed(
   mediaPath: string,
   localRoots: readonly string[] | "any" | undefined,
