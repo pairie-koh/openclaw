@@ -150,7 +150,6 @@ export function resolveIncludeRoots(
   return roots;
 }
 
-/** Default process state directory resolved at module load. */
 export const STATE_DIR = resolveStateDir();
 
 /**
@@ -267,7 +266,6 @@ export function resolveDefaultConfigCandidates(
   return candidates;
 }
 
-/** Default gateway TCP port when neither env nor config supplies one. */
 export const DEFAULT_GATEWAY_PORT = 18789;
 
 /**

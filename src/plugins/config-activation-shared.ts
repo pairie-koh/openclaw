@@ -60,7 +60,6 @@ export type PluginActivationConfigSourceLike<TRootConfig> = {
   rootConfig?: TRootConfig;
 };
 
-/** Default human reason text for each activation cause. */
 export const PLUGIN_ACTIVATION_REASON_BY_CAUSE: Record<PluginActivationCause, string> = {
   "enabled-in-config": "enabled in config",
   "bundled-channel-enabled-in-config": "channel enabled in config",

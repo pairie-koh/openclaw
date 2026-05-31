@@ -22,7 +22,6 @@ export type SessionFreshness = {
   staleReason?: SessionResetMode;
 };
 
-/** Default reset behavior when no idle or type-specific config is present. */
 export const DEFAULT_RESET_MODE: SessionResetMode = "daily";
 /** Local hour used by the daily reset default. */
 export const DEFAULT_RESET_AT_HOUR = 4;

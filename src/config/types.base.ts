@@ -158,7 +158,6 @@ export type SessionSendPolicyRule = {
   action: SessionSendPolicyAction;
   match?: SessionSendPolicyMatch;
 };
-/** Default and ordered rules for session send authorization. */
 export type SessionSendPolicyConfig = {
   default?: SessionSendPolicyAction;
   rules?: SessionSendPolicyRule[];

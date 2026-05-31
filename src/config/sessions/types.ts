@@ -771,5 +771,4 @@ export type SessionSystemPromptReport = {
 export const DEFAULT_RESET_TRIGGER = "/new";
 /** Commands that reset the current session. */
 export const DEFAULT_RESET_TRIGGERS = ["/new", "/reset"];
-/** Default idle timeout in minutes; zero disables idle expiry. */
 export const DEFAULT_IDLE_MINUTES = 0;

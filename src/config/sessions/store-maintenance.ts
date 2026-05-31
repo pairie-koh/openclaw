@@ -205,7 +205,6 @@ export function pruneStaleEntries(
   return pruned;
 }
 
-/** Default time before a quota-suspended session is allowed to resume. */
 export const DEFAULT_QUOTA_SUSPENSION_TTL_MS = 30 * 60 * 1000; // 30 minutes
 const QUOTA_SUSPENSION_CLEANUP_FACTOR = 2; // entries beyond N*ttl are deleted outright
 

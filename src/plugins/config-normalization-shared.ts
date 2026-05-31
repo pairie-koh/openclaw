@@ -46,7 +46,6 @@ export type NormalizedPluginsConfig = {
 /** Plugin-id normalizer used by callers with registry-aware aliases. */
 export type NormalizePluginId = (id: string) => string;
 
-/** Default id normalizer for config paths that must preserve ids exactly apart from trimming. */
 export const identityNormalizePluginId: NormalizePluginId = (id) => id.trim();
 
 function normalizeList(value: unknown, normalizePluginId: NormalizePluginId): string[] {
