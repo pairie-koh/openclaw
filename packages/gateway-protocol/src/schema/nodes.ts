@@ -70,31 +70,26 @@ export const NodePairRequestParamsSchema = Type.Object(
 /** Empty params contract for listing pending node pair requests. */
 export const NodePairListParamsSchema = Type.Object({}, { additionalProperties: false });
 
-/** Params for approving one pending node pair request. */
 export const NodePairApproveParamsSchema = Type.Object(
   { requestId: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params for rejecting one pending node pair request. */
 export const NodePairRejectParamsSchema = Type.Object(
   { requestId: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params for removing a paired node by id. */
 export const NodePairRemoveParamsSchema = Type.Object(
   { nodeId: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params for verifying a node pairing token. */
 export const NodePairVerifyParamsSchema = Type.Object(
   { nodeId: NonEmptyString, token: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params for updating the display name of a paired node. */
 export const NodeRenameParamsSchema = Type.Object(
   { nodeId: NonEmptyString, displayName: NonEmptyString },
   { additionalProperties: false },
@@ -111,7 +106,6 @@ export const NodePendingAckParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for reading one paired node's current descriptor. */
 export const NodeDescribeParamsSchema = Type.Object(
   { nodeId: NonEmptyString },
   { additionalProperties: false },
@@ -160,7 +154,6 @@ export const NodeEventParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for draining a bounded batch of pending work for a node. */
 export const NodePendingDrainParamsSchema = Type.Object(
   {
     maxItems: Type.Optional(Type.Integer({ minimum: 1, maximum: 10 })),
@@ -192,7 +185,6 @@ export const NodePendingDrainResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for enqueueing work for a node and optionally waking it. */
 export const NodePendingEnqueueParamsSchema = Type.Object(
   {
     nodeId: NonEmptyString,

@@ -8,7 +8,6 @@ const WizardRunStatusSchema = Type.Union([
   Type.Literal("error"),
 ]);
 
-/** Params for starting a local or remote setup wizard run. */
 export const WizardStartParamsSchema = Type.Object(
   {
     mode: Type.Optional(Type.Union([Type.Literal("local"), Type.Literal("remote")])),
@@ -26,7 +25,6 @@ export const WizardAnswerSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for advancing a wizard session with an optional answer. */
 export const WizardNextParamsSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -42,10 +40,8 @@ const WizardSessionIdParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for cancelling an active wizard session. */
 export const WizardCancelParamsSchema = WizardSessionIdParamsSchema;
 
-/** Params for reading the status of an active or finished wizard session. */
 export const WizardStatusParamsSchema = WizardSessionIdParamsSchema;
 
 /** Selectable option shown by wizard steps that present choices. */
@@ -90,12 +86,10 @@ const WizardResultFields = {
   error: Type.Optional(Type.String()),
 };
 
-/** Result for advancing a wizard session, including the next step when not done. */
 export const WizardNextResultSchema = Type.Object(WizardResultFields, {
   additionalProperties: false,
 });
 
-/** Result for starting a wizard session, including its new session id. */
 export const WizardStartResultSchema = Type.Object(
   {
     sessionId: NonEmptyString,

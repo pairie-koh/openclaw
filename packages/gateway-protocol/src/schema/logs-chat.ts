@@ -2,7 +2,6 @@ import type { Static } from "typebox";
 import { Type } from "typebox";
 import { ChatSendSessionKeyString, InputProvenanceSchema, NonEmptyString } from "./primitives.js";
 
-/** Params for reading a bounded tail window from gateway logs. */
 export const LogsTailParamsSchema = Type.Object(
   {
     cursor: Type.Optional(Type.Integer({ minimum: 0 })),
@@ -12,7 +11,6 @@ export const LogsTailParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result for a log tail read, including cursor and truncation/reset hints. */
 export const LogsTailResultSchema = Type.Object(
   {
     file: NonEmptyString,
@@ -26,7 +24,6 @@ export const LogsTailResultSchema = Type.Object(
 );
 
 // WebChat/WebSocket-native chat methods
-/** Params for reading recent chat transcript history for one session. */
 export const ChatHistoryParamsSchema = Type.Object(
   {
     sessionKey: NonEmptyString,
@@ -85,7 +82,6 @@ export const ChatSendParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for aborting the active or named chat run for a session. */
 export const ChatAbortParamsSchema = Type.Object(
   {
     sessionKey: NonEmptyString,
@@ -95,7 +91,6 @@ export const ChatAbortParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for injecting an operator-visible message into chat history. */
 export const ChatInjectParamsSchema = Type.Object(
   {
     sessionKey: NonEmptyString,
@@ -172,7 +167,6 @@ export const ChatErrorEventSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Union of all chat stream events emitted for a run. */
 export const ChatEventSchema = Type.Union([
   ChatDeltaEventSchema,
   ChatFinalEventSchema,

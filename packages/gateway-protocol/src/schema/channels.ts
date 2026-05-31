@@ -1,7 +1,6 @@
 import { Type } from "typebox";
 import { NonEmptyString, SecretInputSchema } from "./primitives.js";
 
-/** Params for enabling or disabling Talk mode and reporting its current phase. */
 export const TalkModeParamsSchema = Type.Object(
   {
     enabled: Type.Boolean(),
@@ -10,7 +9,6 @@ export const TalkModeParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for reading Talk configuration, optionally including secret-shaped fields. */
 export const TalkConfigParamsSchema = Type.Object(
   {
     includeSecrets: Type.Optional(Type.Boolean()),
@@ -248,7 +246,6 @@ export const TalkAgentControlResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for joining an existing managed Talk room. */
 export const TalkSessionJoinParamsSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -287,7 +284,6 @@ export const TalkSessionAppendAudioParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for committing or starting a Talk turn. */
 export const TalkSessionTurnParamsSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -296,7 +292,6 @@ export const TalkSessionTurnParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for cancelling an active Talk turn. */
 export const TalkSessionCancelTurnParamsSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -306,7 +301,6 @@ export const TalkSessionCancelTurnParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for cancelling provider output while keeping the Talk session alive. */
 export const TalkSessionCancelOutputParamsSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -346,7 +340,6 @@ export const TalkSessionSteerParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for closing an active Talk session. */
 export const TalkSessionCloseParamsSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -463,7 +456,6 @@ const BrowserRealtimeAudioContractSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result for a created Talk session, including relay/room/provider handoff details. */
 export const TalkSessionCreateResultSchema = Type.Object(
   {
     sessionId: NonEmptyString,
@@ -485,7 +477,6 @@ export const TalkSessionCreateResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result for a Talk turn operation with optional emitted event backlog. */
 export const TalkSessionTurnResultSchema = Type.Object(
   {
     ok: Type.Boolean(),
@@ -659,7 +650,6 @@ export const TalkSpeakResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for reading channel health/status, optionally probing one channel. */
 export const ChannelsStatusParamsSchema = Type.Object(
   {
     probe: Type.Optional(Type.Boolean()),
@@ -762,7 +752,6 @@ export const ChannelsStatusResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for logging out one channel account. */
 export const ChannelsLogoutParamsSchema = Type.Object(
   {
     channel: NonEmptyString,
@@ -771,7 +760,6 @@ export const ChannelsLogoutParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for stopping one channel account runtime. */
 export const ChannelsStopParamsSchema = Type.Object(
   {
     channel: NonEmptyString,
@@ -780,7 +768,6 @@ export const ChannelsStopParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for starting one channel account runtime. */
 export const ChannelsStartParamsSchema = Type.Object(
   {
     channel: NonEmptyString,
@@ -789,7 +776,6 @@ export const ChannelsStartParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for starting a channel web-login flow. */
 export const WebLoginStartParamsSchema = Type.Object(
   {
     force: Type.Optional(Type.Boolean()),
@@ -805,7 +791,6 @@ const QrDataUrlSchema = Type.String({
   pattern: "^data:image/png;base64,",
 });
 
-/** Params for waiting on a channel web-login flow and current QR state. */
 export const WebLoginWaitParamsSchema = Type.Object(
   {
     timeoutMs: Type.Optional(Type.Integer({ minimum: 0 })),

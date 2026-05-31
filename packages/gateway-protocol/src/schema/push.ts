@@ -3,7 +3,6 @@ import { NonEmptyString } from "./primitives.js";
 
 const ApnsEnvironmentSchema = Type.String({ enum: ["sandbox", "production"] });
 
-/** Params for sending a test APNs notification to a paired node. */
 export const PushTestParamsSchema = Type.Object(
   {
     nodeId: NonEmptyString,
@@ -14,7 +13,6 @@ export const PushTestParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result for an APNs push test, including provider status and token diagnostics. */
 export const PushTestResultSchema = Type.Object(
   {
     ok: Type.Boolean(),
@@ -59,7 +57,6 @@ export const WebPushUnsubscribeParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params for sending a test notification to the current Web Push subscription. */
 export const WebPushTestParamsSchema = Type.Object(
   {
     title: Type.Optional(Type.String()),
@@ -68,18 +65,14 @@ export const WebPushTestParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** TypeScript params type for requesting the Web Push VAPID public key. */
 export type WebPushVapidPublicKeyParams = Record<string, never>;
-/** TypeScript params type for registering a browser Web Push subscription. */
 export type WebPushSubscribeParams = {
   endpoint: string;
   keys: { p256dh: string; auth: string };
 };
-/** TypeScript params type for removing a browser Web Push subscription. */
 export type WebPushUnsubscribeParams = {
   endpoint: string;
 };
-/** TypeScript params type for sending a browser Web Push test notification. */
 export type WebPushTestParams = {
   title?: string;
   body?: string;
