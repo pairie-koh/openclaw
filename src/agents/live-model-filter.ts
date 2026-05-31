@@ -41,9 +41,7 @@ const SMALL_LIVE_MODEL_PRIORITY = [
   "zai/glm-5.1",
 ] as const;
 
-/** Default number of prioritized high-signal live models. */
 export const DEFAULT_HIGH_SIGNAL_LIVE_MODEL_LIMIT = HIGH_SIGNAL_LIVE_MODEL_PRIORITY.length;
-/** Default number of prioritized small live models. */
 export const DEFAULT_SMALL_LIVE_MODEL_LIMIT = SMALL_LIVE_MODEL_PRIORITY.length;
 const DEFAULT_HIGH_SIGNAL_LIVE_EXCLUDED_PROVIDERS = new Set(["codex", "codex-cli"]);
 const CURATED_ONLY_HIGH_SIGNAL_LIVE_PROVIDERS = new Set([

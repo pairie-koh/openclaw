@@ -2,7 +2,6 @@ import type { SubagentRunRecord } from "./subagent-registry.types.js";
 import { resolveSubagentRunDurationMs } from "./subagent-run-timeout.js";
 import { getSubagentSessionStartedAt } from "./subagent-session-metrics.js";
 
-/** Default age after which an unended subagent run is considered stale. */
 export const STALE_UNENDED_SUBAGENT_RUN_MS = 2 * 60 * 60 * 1_000;
 /** Window where an ended subagent still keeps its child session link visible. */
 export const RECENT_ENDED_SUBAGENT_CHILD_SESSION_MS = 30 * 60 * 1_000;

@@ -6,9 +6,7 @@ export type ImageSanitizationLimits = {
   maxBytes?: number;
 };
 
-/** Default maximum image dimension for sanitization. */
 export const DEFAULT_IMAGE_MAX_DIMENSION_PX = 1200;
-/** Default maximum image bytes for sanitization. */
 export const DEFAULT_IMAGE_MAX_BYTES = 5 * 1024 * 1024;
 
 /** Resolve effective image sanitization limits from config. */

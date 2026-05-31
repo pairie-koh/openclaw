@@ -59,7 +59,6 @@ export type AuthHealthSummary = {
   providers: AuthProviderHealth[];
 };
 
-/** Default threshold for warning about OAuth credentials near expiry. */
 export const DEFAULT_OAUTH_WARN_MS = 24 * 60 * 60 * 1000;
 
 function resolveAuthProfileSource(_profileId: string): AuthProfileSource {

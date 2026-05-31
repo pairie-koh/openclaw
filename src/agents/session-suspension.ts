@@ -15,7 +15,6 @@ import type { FailoverReason } from "./embedded-agent-helpers/types.js";
 const log = createSubsystemLogger("session-suspension");
 
 const DEFAULT_CUSTOM_LANE_RESUME_CONCURRENCY = 1;
-/** Default automatic resume TTL for quota suspensions. */
 export const DEFAULT_QUOTA_SUSPENSION_RESUME_MS = 30 * 60 * 1000; // 30 min
 
 const laneResumeTimers = new Map<string, ReturnType<typeof setTimeout>>();
