@@ -10,7 +10,6 @@ import {
 
 const execFileAsync = promisify(execFile);
 
-/** Execution limits and stdin payload for ffmpeg/ffprobe invocations. */
 export type MediaExecOptions = {
   timeoutMs?: number;
   maxBufferBytes?: number;
@@ -42,7 +41,6 @@ function requireSystemBin(name: string): string {
   return resolved;
 }
 
-/** Resolve the trusted ffmpeg binary or throw with an install hint. */
 export function resolveFfmpegBin(): string {
   return requireSystemBin("ffmpeg");
 }
@@ -51,7 +49,6 @@ function isBrokenPipeError(error: Error): boolean {
   return (error as NodeJS.ErrnoException).code === "EPIPE";
 }
 
-/** Run ffprobe with OpenClaw's timeout/buffer defaults. */
 export async function runFfprobe(args: string[], options?: MediaExecOptions): Promise<string> {
   const execOptions = resolveExecOptions(MEDIA_FFPROBE_TIMEOUT_MS, options);
   if (options?.input == null) {
@@ -79,7 +76,6 @@ export async function runFfprobe(args: string[], options?: MediaExecOptions): Pr
   });
 }
 
-/** Run ffmpeg with OpenClaw's timeout/buffer defaults. */
 export async function runFfmpeg(args: string[], options?: MediaExecOptions): Promise<string> {
   const { stdout } = await execFileAsync(
     resolveFfmpegBin(),
@@ -89,7 +85,6 @@ export async function runFfmpeg(args: string[], options?: MediaExecOptions): Pro
   return stdout.toString();
 }
 
-/** Parse compact ffprobe CSV output into normalized lowercase fields. */
 export function parseFfprobeCsvFields(stdout: string, maxFields: number): string[] {
   return stdout
     .trim()
@@ -105,7 +100,6 @@ function parseFfprobeSampleRateHz(value: string | undefined): number | null {
   return Number.isSafeInteger(sampleRate) && sampleRate > 0 ? sampleRate : null;
 }
 
-/** Extract codec and sample-rate facts from ffprobe CSV output. */
 export function parseFfprobeCodecAndSampleRate(stdout: string): {
   codec: string | null;
   sampleRateHz: number | null;

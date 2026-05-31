@@ -1,7 +1,3 @@
-/**
- * Minimal PNG encoder for generating simple RGBA images without native dependencies.
- * Used for QR codes, live probes, and other programmatic image generation.
- */
 import { deflateSync } from "node:zlib";
 
 const CRC_TABLE = (() => {
@@ -16,7 +12,6 @@ const CRC_TABLE = (() => {
   return table;
 })();
 
-/** Compute CRC32 checksum for a buffer (used in PNG chunk encoding). */
 function crc32(buf: Buffer): number {
   let crc = 0xffffffff;
   for (let i = 0; i < buf.length; i += 1) {
@@ -25,7 +20,6 @@ function crc32(buf: Buffer): number {
   return (crc ^ 0xffffffff) >>> 0;
 }
 
-/** Create a PNG chunk with type, data, and CRC. */
 function pngChunk(type: string, data: Buffer): Buffer {
   const typeBuf = Buffer.from(type, "ascii");
   const len = Buffer.alloc(4);
@@ -36,7 +30,6 @@ function pngChunk(type: string, data: Buffer): Buffer {
   return Buffer.concat([len, typeBuf, data, crcBuf]);
 }
 
-/** Write a pixel to an RGBA buffer. Ignores out-of-bounds writes. */
 export function fillPixel(
   buf: Buffer,
   x: number,
@@ -88,12 +81,10 @@ function encodePng(buffer: Buffer, width: number, height: number, channels: 3 | 
   ]);
 }
 
-/** Encode an RGB buffer as a PNG image. */
 export function encodePngRgb(buffer: Buffer, width: number, height: number): Buffer {
   return encodePng(buffer, width, height, 3);
 }
 
-/** Encode an RGBA buffer as a PNG image. */
 export function encodePngRgba(buffer: Buffer, width: number, height: number): Buffer {
   return encodePng(buffer, width, height, 4);
 }

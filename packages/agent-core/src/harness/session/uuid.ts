@@ -12,7 +12,6 @@ function fillRandomBytes(bytes: Uint8Array): void {
   }
 }
 
-/** Generate a monotonically sortable UUIDv7 string. */
 export function uuidv7(): string {
   const random = new Uint8Array(16);
   fillRandomBytes(random);

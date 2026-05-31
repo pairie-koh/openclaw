@@ -3,10 +3,8 @@ export const MAX_AUDIO_BYTES = 16 * 1024 * 1024; // 16MB
 export const MAX_VIDEO_BYTES = 16 * 1024 * 1024; // 16MB
 export const MAX_DOCUMENT_BYTES = 100 * 1024 * 1024; // 100MB
 
-/** Media bucket used to choose attachment size limits and channel handling. */
 export type MediaKind = "image" | "audio" | "video" | "document";
 
-/** Map a normalized MIME type to the broad media kind OpenClaw routes on. */
 export function mediaKindFromMime(mime?: string | null): MediaKind | undefined {
   if (!mime) {
     return undefined;
@@ -32,7 +30,6 @@ export function mediaKindFromMime(mime?: string | null): MediaKind | undefined {
   return undefined;
 }
 
-/** Return the default byte ceiling for a broad media kind. */
 export function maxBytesForKind(kind: MediaKind): number {
   switch (kind) {
     case "image":

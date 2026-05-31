@@ -1,7 +1,6 @@
 import { canonicalizeBase64 } from "./base64.js";
 import { detectMime } from "./mime.js";
 
-/** Returns a best-effort MIME type without decoding the entire base64 string. */
 export async function sniffMimeFromBase64(base64: string): Promise<string | undefined> {
   const trimmed = base64.trim();
   const canonicalBase64 = trimmed ? canonicalizeBase64(trimmed) : undefined;

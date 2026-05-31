@@ -44,7 +44,6 @@ function matchesRootPattern(params: { candidatePath: string; rootPattern: string
   return true;
 }
 
-/** Checks that a root pattern is absolute and only uses whole-segment wildcards. */
 export function isValidInboundPathRootPattern(value: string): boolean {
   const normalized = normalizePosixAbsolutePath(value);
   if (!normalized) {
@@ -57,7 +56,6 @@ export function isValidInboundPathRootPattern(value: string): boolean {
   return segments.every((segment) => segment === WILDCARD_SEGMENT || !segment.includes("*"));
 }
 
-/** Normalizes root patterns, dropping invalid and duplicate entries. */
 export function normalizeInboundPathRoots(roots?: readonly string[]): string[] {
   const normalized: string[] = [];
   const seen = new Set<string>();
@@ -78,7 +76,6 @@ export function normalizeInboundPathRoots(roots?: readonly string[]): string[] {
   return normalized;
 }
 
-/** Merges multiple root lists while preserving first-seen order after normalization. */
 export function mergeInboundPathRoots(
   ...rootsLists: Array<readonly string[] | undefined>
 ): string[] {
@@ -97,7 +94,6 @@ export function mergeInboundPathRoots(
   return merged;
 }
 
-/** Returns true when a candidate path matches configured roots or their fallback roots. */
 export function isInboundPathAllowed(params: {
   filePath: string;
   roots: readonly string[];

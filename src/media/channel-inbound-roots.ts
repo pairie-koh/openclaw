@@ -62,7 +62,6 @@ function findChannelMediaContractApi(
   return loadChannelMediaContractApi(normalized, resolver);
 }
 
-/** Resolves local inbound attachment roots for the channel recorded on a message context. */
 export function resolveChannelInboundAttachmentRoots(params: {
   cfg: OpenClawConfig;
   ctx: MsgContext;
@@ -74,7 +73,6 @@ export function resolveChannelInboundAttachmentRoots(params: {
   });
 }
 
-/** Resolves local inbound attachment roots for a known channel and optional account. */
 export function resolveChannelInboundAttachmentRootsForChannel(params: {
   cfg: OpenClawConfig;
   channelId?: string | null;
@@ -93,7 +91,6 @@ export function resolveChannelInboundAttachmentRootsForChannel(params: {
   return undefined;
 }
 
-/** Resolves remote inbound attachment roots for the channel recorded on a message context. */
 export function resolveChannelRemoteInboundAttachmentRoots(params: {
   cfg: OpenClawConfig;
   ctx: MsgContext;
