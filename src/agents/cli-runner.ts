@@ -768,6 +768,7 @@ export function buildRunClaudeCliAgentParams(params: RunClaudeCliAgentParams): R
     agentId: params.agentId,
     trigger: params.trigger,
     workspaceDir: params.workspaceDir,
+    cwd: params.cwd,
     config: params.config,
     prompt: params.prompt,
     provider: params.provider ?? "claude-cli",
@@ -788,6 +789,11 @@ export function buildRunClaudeCliAgentParams(params: RunClaudeCliAgentParams): R
     images: params.images,
     messageChannel: params.messageChannel,
     messageProvider: params.messageProvider,
+    currentChannelId: params.currentChannelId,
+    currentThreadTs: params.currentThreadTs,
+    currentMessageId: params.currentMessageId,
+    agentAccountId: params.agentAccountId,
+    senderIsOwner: params.senderIsOwner,
   };
 }
 

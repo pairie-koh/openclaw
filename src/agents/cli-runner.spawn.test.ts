@@ -121,6 +121,8 @@ function buildPreparedCliRunContext(params: {
       sessionId: params.sessionId ?? "s1",
       sessionKey: params.sessionKey,
       workspaceDir,
+      sessionEntry: params.sessionEntry,
+      agentId: params.agentId,
       config: params.config,
       prompt: params.prompt ?? "hi",
       provider: params.provider,
@@ -655,10 +657,16 @@ describe("runCliAgent spawn path", () => {
       runId: "run-claude-channel-wrapper",
       messageChannel: "telegram",
       messageProvider: "acp",
+      currentChannelId: "telegram:-100123:topic:42",
+      currentThreadTs: "42",
+      currentMessageId: "reply-message-1",
     });
 
     expect(params.messageChannel).toBe("telegram");
     expect(params.messageProvider).toBe("acp");
+    expect(params.currentChannelId).toBe("telegram:-100123:topic:42");
+    expect(params.currentThreadTs).toBe("42");
+    expect(params.currentMessageId).toBe("reply-message-1");
     expect(params.cwd).toBe("/tmp/task-repo");
   });
 
