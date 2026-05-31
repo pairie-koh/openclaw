@@ -806,10 +806,6 @@ export function createHookRunner(
     return { status: "declined" };
   }
 
-  // =========================================================================
-  // Agent Hooks
-  // =========================================================================
-
   function withAgentRunId<TEvent extends { runId?: string }>(
     event: TEvent,
     ctx: PluginHookAgentContext,
@@ -1006,10 +1002,6 @@ export function createHookRunner(
   ): Promise<void> {
     return runVoidHook("before_reset", event, ctx);
   }
-
-  // =========================================================================
-  // Message Hooks
-  // =========================================================================
 
   /**
    * Run inbound_claim hook.
@@ -1248,9 +1240,6 @@ export function createHookRunner(
     return { decision, pluginId: winningPluginId ?? "unknown" };
   }
 
-  // Tool Hooks
-  // =========================================================================
-
   /**
    * Run before_tool_call hook.
    * Allows plugins to modify or block tool calls.
@@ -1356,10 +1345,6 @@ export function createHookRunner(
     return { message: current };
   }
 
-  // =========================================================================
-  // Message Write Hooks
-  // =========================================================================
-
   /**
    * Run before_message_write hook.
    *
@@ -1427,10 +1412,6 @@ export function createHookRunner(
 
     return undefined;
   }
-
-  // =========================================================================
-  // Session Hooks
-  // =========================================================================
 
   /**
    * Run session_start hook.
@@ -1509,10 +1490,6 @@ export function createHookRunner(
     return runVoidHook("subagent_ended", event, ctx);
   }
 
-  // =========================================================================
-  // Gateway Hooks
-  // =========================================================================
-
   /**
    * Run gateway_start hook.
    * Runs in parallel (fire-and-forget).
@@ -1555,10 +1532,6 @@ export function createHookRunner(
     return runVoidHook("cron_changed", event, ctx);
   }
 
-  // =========================================================================
-  // Skill Install Hooks
-  // =========================================================================
-
   /**
    * Run before_install hook.
    * Allows plugins to augment scan findings or block installs.
@@ -1589,10 +1562,6 @@ export function createHookRunner(
       },
     );
   }
-
-  // =========================================================================
-  // Utility
-  // =========================================================================
 
   function hasHooks(hookName: PluginHookName): boolean {
     return registry.typedHooks.some((h) => h.hookName === hookName);
@@ -1646,14 +1615,11 @@ export function createHookRunner(
     runSubagentDeliveryTarget,
     runSubagentSpawned,
     runSubagentEnded,
-    // Gateway hooks
     runGatewayStart,
     runGatewayStop,
     runHeartbeatPromptContribution,
     runCronChanged,
-    // Install hooks
     runBeforeInstall,
-    // Utility
     hasHooks,
     getHookCount,
   };
