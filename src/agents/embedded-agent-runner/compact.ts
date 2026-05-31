@@ -148,6 +148,7 @@ import { buildEmbeddedMessageActionDiscoveryInput } from "./message-action-disco
 import { readAgentModelContextTokens } from "./model-context-tokens.js";
 import { resolveModelAsync } from "./model.js";
 import { sanitizeSessionHistory, validateReplayTurns } from "./replay-history.js";
+import { resolveAttemptSpawnWorkspaceDir } from "./run/attempt.thread-helpers.js";
 import { buildEmbeddedSandboxInfo, resolveEmbeddedSandboxInfoExecPolicy } from "./sandbox-info.js";
 import { resolveEmbeddedRunSkillEntries } from "./skills-runtime.js";
 import {
@@ -619,11 +620,18 @@ async function compactEmbeddedAgentSessionDirectOnce(
       ? resolvedWorkspace
       : sandbox.workspaceDir
     : resolvedWorkspace;
+  const requestedCwd = params.cwd ? resolveUserPath(params.cwd) : undefined;
+  if (sandbox?.enabled && requestedCwd && requestedCwd !== resolvedWorkspace) {
+    throw new Error(
+      "cwd override is not supported for sandboxed embedded compaction runs; omit cwd or use the agent workspace as cwd",
+    );
+  }
+  const effectiveCwd = sandbox?.enabled ? effectiveWorkspace : (requestedCwd ?? effectiveWorkspace);
   await fs.mkdir(effectiveWorkspace, { recursive: true });
   await ensureSessionHeader({
     agentId: sessionAgentId,
     sessionId: params.sessionId,
-    cwd: effectiveWorkspace,
+    cwd: effectiveCwd,
   });
   const { sessionAgentId: effectiveSkillAgentId } = resolveSessionAgentIds({
     sessionKey: params.sessionKey,
@@ -766,7 +774,15 @@ async function compactEmbeddedAgentSessionDirectOnce(
       senderE164: params.senderE164,
       allowGatewaySubagentBinding: params.allowGatewaySubagentBinding,
       agentDir,
+      cwd: effectiveCwd,
       workspaceDir: effectiveWorkspace,
+      spawnWorkspaceDir:
+        effectiveCwd !== effectiveWorkspace
+          ? resolvedWorkspace
+          : resolveAttemptSpawnWorkspaceDir({
+              sandbox,
+              resolvedWorkspace,
+            }),
       config: params.config,
       abortSignal: runAbortController.signal,
       modelProvider: model.provider,
@@ -1033,7 +1049,7 @@ async function compactEmbeddedAgentSessionDirectOnce(
           sessionId: params.sessionId,
           sessionKey: params.sessionKey,
           config: params.config,
-          contextWindowTokens: ctxInfo.tokens,
+          contextWindowTokens: contextTokenBudget,
           allowSyntheticToolResults: transcriptPolicy.allowSyntheticToolResults,
           missingToolResultText:
             model.api === "openai-responses" ||
@@ -1051,7 +1067,7 @@ async function compactEmbeddedAgentSessionDirectOnce(
       });
       compactionSessionManager = sessionManager;
       const settingsManager = createPreparedEmbeddedAgentSettingsManager({
-        cwd: effectiveWorkspace,
+        cwd: effectiveCwd,
         agentDir,
         cfg: params.config,
         pluginMetadataSnapshot: getCurrentPluginMetadataSnapshot({
@@ -1071,7 +1087,7 @@ async function compactEmbeddedAgentSessionDirectOnce(
         model,
       });
       const resourceLoader = new DefaultResourceLoader({
-        cwd: resolvedWorkspace,
+        cwd: effectiveCwd,
         agentDir,
         settingsManager,
         extensionFactories,
@@ -1105,7 +1121,7 @@ async function compactEmbeddedAgentSessionDirectOnce(
         toolHookContext: {
           agentId: sessionAgentId,
           config: params.config,
-          cwd: effectiveWorkspace,
+          cwd: effectiveCwd,
           sessionKey: sandboxSessionKey,
           sessionId: params.sessionId,
           runId: params.runId,
@@ -1130,7 +1146,7 @@ async function compactEmbeddedAgentSessionDirectOnce(
         let session: Awaited<ReturnType<typeof createAgentSession>>["session"] | undefined;
         try {
           const createdSession = await createAgentSession({
-            cwd: effectiveWorkspace,
+            cwd: effectiveCwd,
             agentDir,
             authStorage,
             modelRegistry,
