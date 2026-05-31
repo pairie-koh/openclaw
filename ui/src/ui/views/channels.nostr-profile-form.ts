@@ -1,16 +1,6 @@
-/**
- * Nostr Profile Edit Form
- *
- * Provides UI for editing and publishing Nostr profile (kind:0).
- */
-
 import { html, nothing, type TemplateResult } from "lit";
 import { t } from "../../i18n/index.ts";
 import type { NostrProfile as NostrProfileType } from "../types.ts";
-
-// ============================================================================
-// Types
-// ============================================================================
 
 /** Editable Nostr profile state and validation feedback for the profile form. */
 export interface NostrProfileFormState {
@@ -46,10 +36,6 @@ export interface NostrProfileFormCallbacks {
   onToggleAdvanced: () => void;
 }
 
-// ============================================================================
-// Helpers
-// ============================================================================
-
 function isFormDirty(state: NostrProfileFormState): boolean {
   const { values, original } = state;
   return (
@@ -63,10 +49,6 @@ function isFormDirty(state: NostrProfileFormState): boolean {
     values.lud16 !== original.lud16
   );
 }
-
-// ============================================================================
-// Form Rendering
-// ============================================================================
 
 /** Render the Nostr kind:0 profile editor with dirty-state aware actions. */
 export function renderNostrProfileForm(params: {
@@ -293,13 +275,6 @@ export function renderNostrProfileForm(params: {
   `;
 }
 
-// ============================================================================
-// Factory
-// ============================================================================
-
-/**
- * Create initial form state from existing profile
- */
 export function createNostrProfileFormState(
   profile: NostrProfileType | undefined,
 ): NostrProfileFormState {

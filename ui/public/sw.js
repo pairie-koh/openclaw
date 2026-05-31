@@ -1,6 +1,3 @@
-// OpenClaw Control – Service Worker
-// Handles offline caching and push notifications.
-
 const CACHE_PREFIX = "openclaw-control-";
 const EMBEDDED_CACHE_VERSION = "__OPENCLAW_CONTROL_UI_BUILD_ID__";
 const URL_CACHE_VERSION = new URL(self.location.href).searchParams
