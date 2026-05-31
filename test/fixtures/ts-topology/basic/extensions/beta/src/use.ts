@@ -1,7 +1,6 @@
 import { sharedThing } from "fixture-sdk";
 import type { SharedType } from "fixture-sdk";
 
-/** Beta extension fixture consumer for topology ownership tests. */
 export function betaUse(input: SharedType) {
   return `${sharedThing()}:${input.value}`;
 }

@@ -2,7 +2,6 @@ import { aliasedThing as renamedThing, sharedThing, singleOwnerHelper } from "fi
 import type { SharedType } from "fixture-sdk";
 import * as extra from "fixture-sdk/extra";
 
-/** Alpha extension fixture consumer for topology ownership tests. */
 export function alphaUse(input: SharedType) {
   return [
     sharedThing(),
