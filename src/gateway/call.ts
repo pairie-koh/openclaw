@@ -1073,7 +1073,6 @@ export async function callGateway<T = Record<string, unknown>>(
   });
 }
 
-/** Creates a random idempotency key for Gateway mutation requests. */
 export function randomIdempotencyKey() {
   return randomUUID();
 }

@@ -54,32 +54,26 @@ function resolveScopedMethod(method: string): OperatorScope | undefined {
   return pluginScope === "node" || pluginScope === "dynamic" ? undefined : pluginScope;
 }
 
-/** Returns true when a method requires the approvals operator scope. */
 export function isApprovalMethod(method: string): boolean {
   return resolveScopedMethod(method) === APPROVALS_SCOPE;
 }
 
-/** Returns true when a method requires the pairing operator scope. */
 export function isPairingMethod(method: string): boolean {
   return resolveScopedMethod(method) === PAIRING_SCOPE;
 }
 
-/** Returns true when a method requires read access. */
 export function isReadMethod(method: string): boolean {
   return resolveScopedMethod(method) === READ_SCOPE;
 }
 
-/** Returns true when a method requires write access. */
 export function isWriteMethod(method: string): boolean {
   return resolveScopedMethod(method) === WRITE_SCOPE;
 }
 
-/** Returns true for methods reserved to node-role clients. */
 export function isNodeRoleMethod(method: string): boolean {
   return isCoreNodeGatewayMethod(method);
 }
 
-/** Returns true when a method requires admin scope. */
 export function isAdminOnlyMethod(method: string): boolean {
   return resolveScopedMethod(method) === ADMIN_SCOPE;
 }

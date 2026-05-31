@@ -81,7 +81,6 @@ export function sendInvalidRequest(res: ServerResponse, message: string) {
   });
 }
 
-/** Builds the standard missing-scope forbidden response body. */
 export function buildMissingScopeForbiddenBody(missingScope: string | undefined) {
   return {
     ok: false,
