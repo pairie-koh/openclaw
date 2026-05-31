@@ -724,7 +724,7 @@ function collectExtensionProductionSdkSubpathImports(subpaths: ReadonlySet<strin
 }
 
 describe("plugin-sdk package contract guardrails", () => {
-  let deprecatedTestBarrelImports: string[] = [];
+  let deprecatedTestBarrelImports: ReturnType<typeof collectDeprecatedTestBarrelImports> = [];
   let unusedReservedSdkSubpaths: string[] = [];
 
   beforeAll(() => {
