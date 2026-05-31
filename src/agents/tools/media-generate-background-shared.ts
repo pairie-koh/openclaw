@@ -302,7 +302,6 @@ export function createDefaultMediaGenerateBackgroundScheduler(params: {
   };
 }
 
-/** Builds the immediate tool result for an async media generation start. */
 export function buildMediaGenerationStartedToolResult(params: {
   toolName: string;
   generationLabel: string;

@@ -79,7 +79,6 @@ function summarizeVideoGenerationCapabilities(
   return capabilities;
 }
 
-/** Builds the video provider/model listing action result. */
 export function createVideoGenerateListActionResult(
   config?: OpenClawConfig,
   options?: { workspaceDir?: string; agentDir?: string; authStore?: AuthProfileStore },
@@ -105,14 +104,12 @@ const videoGenerateTaskStatusActions = createMediaGenerateTaskStatusActions({
   buildStatusDetails: buildVideoGenerationTaskStatusDetails,
 });
 
-/** Builds the video task status action result. */
 export function createVideoGenerateStatusActionResult(
   sessionKey?: string,
 ): VideoGenerateActionResult {
   return videoGenerateTaskStatusActions.createStatusActionResult(sessionKey);
 }
 
-/** Builds the duplicate-task guard result for video generation. */
 export function createVideoGenerateDuplicateGuardResult(
   sessionKey?: string,
   params?: { prompt?: string; requestKey?: string },

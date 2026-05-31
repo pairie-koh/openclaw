@@ -38,7 +38,6 @@ type MediaGenerateListProviderDetails<TProvider extends MediaGenerateProvider> =
 
 export type { MediaGenerateActionResult };
 
-/** Builds a provider/model listing action result for a media tool. */
 export function createMediaGenerateProviderListActionResult<
   TProvider extends MediaGenerateProvider,
 >(params: {

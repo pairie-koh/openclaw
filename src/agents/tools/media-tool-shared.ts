@@ -578,7 +578,6 @@ export function resolvePromptAndModelOverride(
   return { prompt, modelOverride };
 }
 
-/** Build a text tool result payload with model and attempt metadata. */
 export function buildTextToolResult(
   result: TextToolResult,
   extraDetails: Record<string, unknown>,
