@@ -820,7 +820,6 @@ export function createAccountScopedGroupAccessSection<TResolved>(params: {
 type AccountScopedChannel = string;
 type CompatDmChannel = string;
 
-/** Patch compat DM channel config while ensuring nested DM config remains enabled. */
 export function patchCompatDmChannelConfig(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -845,7 +844,6 @@ export function patchCompatDmChannelConfig(params: {
   };
 }
 
-/** Toggle a channel's setup-visible enabled flag. */
 export function setSetupChannelEnabled(
   cfg: OpenClawConfig,
   channel: string,
@@ -895,7 +893,6 @@ function patchConfigForScopedAccount(params: {
   });
 }
 
-/** Patch account-scoped channel config and ensure channel/account enablement. */
 export function patchChannelConfigForAccount(params: {
   cfg: OpenClawConfig;
   channel: AccountScopedChannel;
@@ -908,7 +905,6 @@ export function patchChannelConfigForAccount(params: {
   });
 }
 
-/** Apply a single-token setup prompt result to account-scoped channel config. */
 export function applySingleTokenPromptResult(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -939,7 +935,6 @@ export function applySingleTokenPromptResult(params: {
   return next;
 }
 
-/** Build derived state for a single channel secret prompt. */
 export function buildSingleChannelSecretPromptState(params: {
   accountConfigured: boolean;
   hasConfigToken: boolean;
@@ -957,7 +952,6 @@ export function buildSingleChannelSecretPromptState(params: {
   };
 }
 
-/** Prompt for a plaintext channel token or keep an existing/env-backed token. */
 export async function promptSingleChannelToken(params: {
   prompter: Pick<WizardPrompter, "confirm" | "text">;
   accountConfigured: boolean;
@@ -999,13 +993,11 @@ export async function promptSingleChannelToken(params: {
   return { useEnv: false, token: await promptToken() };
 }
 
-/** Result of prompting for plaintext/env/SecretRef channel credentials. */
 export type SingleChannelSecretInputPromptResult =
   | { action: "keep" }
   | { action: "use-env" }
   | { action: "set"; value: SecretInput; resolvedValue: string };
 
-/** Run a full single-secret setup step and apply selected config changes. */
 export async function runSingleChannelSecretStep(params: {
   cfg: OpenClawConfig;
   prompter: Pick<WizardPrompter, "confirm" | "text" | "select" | "note">;
@@ -1082,7 +1074,6 @@ export async function runSingleChannelSecretStep(params: {
   };
 }
 
-/** Prompt for a channel credential using plaintext or SecretRef modes. */
 export async function promptSingleChannelSecretInput(params: {
   cfg: OpenClawConfig;
   prompter: Pick<WizardPrompter, "confirm" | "text" | "select" | "note">;
@@ -1162,7 +1153,6 @@ export async function promptSingleChannelSecretInput(params: {
 
 type ParsedAllowFromResult = { entries: string[]; error?: string };
 
-/** Prompt, parse, merge, and apply account-scoped allow-from entries. */
 export async function promptParsedAllowFromForAccount<TConfig extends OpenClawConfig>(params: {
   cfg: TConfig;
   accountId?: string;
@@ -1217,7 +1207,6 @@ export async function promptParsedAllowFromForAccount<TConfig extends OpenClawCo
   });
 }
 
-/** Create a DM policy allow-from prompt backed by account-scoped parsing. */
 export function createPromptParsedAllowFromForAccount<TConfig extends OpenClawConfig>(params: {
   defaultAccountId: string | ((cfg: TConfig) => string);
   noteTitle?: string;
@@ -1253,7 +1242,6 @@ export function createPromptParsedAllowFromForAccount<TConfig extends OpenClawCo
     });
 }
 
-/** Prompt parsed allow-from entries for a scoped channel account. */
 export async function promptParsedAllowFromForScopedChannel(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -1291,7 +1279,6 @@ export async function promptParsedAllowFromForScopedChannel(params: {
   });
 }
 
-/** Create a parsed allow-from prompt for top-level channel config. */
 export function createTopLevelChannelParsedAllowFromPrompt(params: {
   channel: string;
   defaultAccountId: string | ((cfg: OpenClawConfig) => string);
@@ -1338,7 +1325,6 @@ export function createTopLevelChannelParsedAllowFromPrompt(params: {
   });
 }
 
-/** Create a parsed allow-from prompt for a nested channel config section. */
 export function createNestedChannelParsedAllowFromPrompt(params: {
   channel: string;
   section: string;
@@ -1390,7 +1376,6 @@ export function createNestedChannelParsedAllowFromPrompt(params: {
   });
 }
 
-/** Convert raw allow-from inputs into resolved/unresolved setup entries. */
 export function resolveParsedAllowFromEntries(params: {
   entries: string[];
   parseId: (raw: string) => string | null;
@@ -1405,7 +1390,6 @@ export function resolveParsedAllowFromEntries(params: {
   });
 }
 
-/** Create a generic allow-from setup wizard section. */
 export function createAllowFromSection(params: {
   helpTitle?: string;
   helpLines?: string[];
@@ -1434,7 +1418,6 @@ export function createAllowFromSection(params: {
   };
 }
 
-/** Show a setup note summarizing resolved and unresolved channel lookup entries. */
 export async function noteChannelLookupSummary(params: {
   prompter: Pick<WizardPrompter, "note">;
   label: string;
@@ -1456,7 +1439,6 @@ export async function noteChannelLookupSummary(params: {
   }
 }
 
-/** Show a setup note when channel lookup fails and typed entries are kept. */
 export async function noteChannelLookupFailure(params: {
   prompter: Pick<WizardPrompter, "note">;
   label: string;
@@ -1474,7 +1456,6 @@ type AllowFromResolution = {
   id?: string | null;
 };
 
-/** Resolve entries with a token when available, otherwise build unresolved fallbacks. */
 export async function resolveEntriesWithOptionalToken<TResult>(params: {
   token?: string | null;
   entries: string[];
@@ -1491,7 +1472,6 @@ export async function resolveEntriesWithOptionalToken<TResult>(params: {
   });
 }
 
-/** Prompt until allow-from entries are parseable or remotely resolvable. */
 export async function promptResolvedAllowFrom(params: {
   prompter: WizardPrompter;
   existing: Array<string | number>;
@@ -1544,7 +1524,6 @@ export async function promptResolvedAllowFrom(params: {
   }
 }
 
-/** Prompt and apply allow-from entries for legacy channel config. */
 export async function promptLegacyChannelAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: CompatDmChannel;
@@ -1579,7 +1558,6 @@ export async function promptLegacyChannelAllowFrom(params: {
   });
 }
 
-/** Prompt and apply legacy allow-from entries using account-derived token state. */
 export async function promptLegacyChannelAllowFromForAccount<TAccount>(params: {
   cfg: OpenClawConfig;
   channel: CompatDmChannel;
@@ -1619,11 +1597,7 @@ export async function promptLegacyChannelAllowFromForAccount<TAccount>(params: {
 }
 
 // Backwards-compatible aliases for existing setup SDK consumers.
-/** Deprecated alias for compat DM channel config patching. */
 export const patchLegacyDmChannelConfig = patchCompatDmChannelConfig;
-/** Deprecated alias for compat DM policy updates. */
 export const setLegacyChannelDmPolicyWithAllowFrom = setCompatChannelDmPolicyWithAllowFrom;
-/** Deprecated alias for compat allow-from updates. */
 export const setLegacyChannelAllowFrom = setCompatChannelAllowFrom;
-/** Deprecated alias for compat DM policy setup metadata. */
 export const createLegacyCompatChannelDmPolicy = createCompatChannelDmPolicy;
