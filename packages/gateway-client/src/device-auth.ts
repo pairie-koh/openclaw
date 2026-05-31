@@ -25,7 +25,6 @@ type DeviceAuthPayloadV3Params = DeviceAuthPayloadParams & {
   deviceFamily?: string | null;
 };
 
-/** Build the v2 pipe-delimited payload that gateway device auth signs. */
 export function buildDeviceAuthPayload(params: DeviceAuthPayloadParams): string {
   const scopes = params.scopes.join(",");
   const token = params.token ?? "";
@@ -42,7 +41,6 @@ export function buildDeviceAuthPayload(params: DeviceAuthPayloadParams): string 
   ].join("|");
 }
 
-/** Build the v3 signed payload with normalized platform/device-family metadata. */
 export function buildDeviceAuthPayloadV3(params: DeviceAuthPayloadV3Params): string {
   const scopes = params.scopes.join(",");
   const token = params.token ?? "";

@@ -30,14 +30,12 @@ import { WebSocket, type ClientOptions, type CertMeta } from "ws";
 import { buildDeviceAuthPayloadV3 } from "./device-auth.js";
 import { resolveConnectChallengeTimeoutMs, resolveSafeTimeoutDelayMs } from "./timeouts.js";
 
-/** Device keypair used to sign gateway pairing/auth payloads. */
 export type DeviceIdentity = {
   deviceId: string;
   privateKeyPem: string;
   publicKeyPem: string;
 };
 
-/** Stored device auth token and scopes returned by host storage. */
 export type DeviceAuthTokenRecord = {
   token?: string;
   scopes?: string[];
@@ -45,7 +43,6 @@ export type DeviceAuthTokenRecord = {
 
 // The package stays reusable by depending on host callbacks for OpenClaw-owned
 // state: device keys, token storage, proxy routing, logging, and TLS formatting.
-/** Host-provided callbacks for identity, auth token storage, logging, and TLS policy. */
 export type GatewayClientHostDeps = {
   loadOrCreateDeviceIdentity?: () => DeviceIdentity | undefined;
   signDevicePayload?: (privateKeyPem: string, payload: string) => string;
@@ -254,7 +251,6 @@ type Pending = {
   acceptedNotified?: boolean;
 };
 
-/** Per-request timeout, cancellation, and accepted/final response handling. */
 export type GatewayClientRequestOptions = {
   expectFinal?: boolean;
   timeoutMs?: number | null;
@@ -304,14 +300,12 @@ type FingerprintCheckingClientOptions = Omit<ClientOptions, "checkServerIdentity
 const DEFAULT_GATEWAY_CLIENT_URL = "ws://127.0.0.1:18789";
 const DEFAULT_CLIENT_VERSION = "0.0.0";
 
-/** Close-frame details reported when reconnect is paused by gateway policy. */
 export type GatewayReconnectPausedInfo = {
   code: number;
   reason: string;
   detailCode: string | null;
 };
 
-/** Error wrapper for gateway response failures with retry metadata. */
 export class GatewayClientRequestError extends Error {
   readonly gatewayCode: string;
   readonly details?: unknown;
@@ -342,7 +336,6 @@ function markGatewayConnectAssemblyError(error: Error): Error {
   return error;
 }
 
-/** Detect errors raised while assembling connect params/auth before socket open. */
 export function isGatewayConnectAssemblyError(value: unknown): value is Error {
   return (
     value instanceof Error &&
@@ -350,7 +343,6 @@ export function isGatewayConnectAssemblyError(value: unknown): value is Error {
   );
 }
 
-/** Construction options for a gateway WebSocket client instance. */
 export type GatewayClientOptions = {
   url?: string; // ws://127.0.0.1:18789
   connectChallengeTimeoutMs?: number;
@@ -396,7 +388,6 @@ export type GatewayClientOptions = {
   onGap?: (info: { expected: number; received: number }) => void;
 };
 
-/** Human-readable hints for common WebSocket close codes seen from gateways. */
 export const GATEWAY_CLOSE_CODE_HINTS: Readonly<Record<number, string>> = {
   1000: "normal closure",
   1006: "abnormal closure (no close frame)",
@@ -405,7 +396,6 @@ export const GATEWAY_CLOSE_CODE_HINTS: Readonly<Record<number, string>> = {
   1013: "try again later",
 };
 
-/** Return a short explanation for known gateway WebSocket close codes. */
 export function describeGatewayCloseCode(code: number): string | undefined {
   return GATEWAY_CLOSE_CODE_HINTS[code];
 }
@@ -440,7 +430,6 @@ function formatGatewayClientErrorForLog(err: unknown): string {
   return redactedUrlLikeString;
 }
 
-/** Resolve the connect challenge watchdog from current and legacy client options. */
 export function resolveGatewayClientConnectChallengeTimeoutMs(
   opts: Pick<
     GatewayClientOptions,
@@ -461,7 +450,6 @@ type PendingStop = {
   resolve: () => void;
 };
 
-/** WebSocket client that speaks the OpenClaw gateway request/response protocol. */
 export class GatewayClient {
   private ws: WebSocket | null = null;
   private opts: GatewayClientOptions;
