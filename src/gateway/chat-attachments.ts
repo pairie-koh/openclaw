@@ -59,7 +59,6 @@ type SavedMedia = {
 const OFFLOAD_THRESHOLD_BYTES = 2_000_000;
 const TEXT_ONLY_OFFLOAD_LIMIT = 10;
 
-/** Default per-attachment ceiling used when config does not set a media limit. */
 export const DEFAULT_CHAT_ATTACHMENT_MAX_MB = 20;
 
 /** Converts configured media megabytes into the byte limit used by gateway validation. */

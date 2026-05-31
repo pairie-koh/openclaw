@@ -17,7 +17,6 @@ import { stripInlineDirectiveTagsForDisplay } from "../utils/directive-tags.js";
 import { stripEnvelopeFromMessages } from "./chat-sanitize.js";
 import { isSuppressedControlReplyText } from "./control-reply-text.js";
 
-/** Default maximum text length retained in chat history display payloads. */
 export const DEFAULT_CHAT_HISTORY_TEXT_MAX_CHARS = 8_000;
 
 type RoleContentMessage = {

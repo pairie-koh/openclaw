@@ -3,7 +3,6 @@ import { CURRENT_MESSAGE_MARKER } from "./mentions.js";
 
 /** Marker heading for previous chat messages included in prompt context. */
 export const HISTORY_CONTEXT_MARKER = "[Chat messages since your last reply - for context]";
-/** Default number of group-chat messages retained for reply context. */
 export const DEFAULT_GROUP_HISTORY_LIMIT = 50;
 
 /** Maximum number of group history keys to retain (LRU eviction when exceeded). */

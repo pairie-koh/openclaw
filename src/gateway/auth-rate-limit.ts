@@ -37,7 +37,6 @@ export interface RateLimitConfig {
   pruneIntervalMs?: number;
 }
 
-/** Default auth rate-limit scope used when callers do not provide one. */
 export const AUTH_RATE_LIMIT_SCOPE_DEFAULT = "default";
 /** Auth rate-limit scope for token/password shared-secret attempts. */
 export const AUTH_RATE_LIMIT_SCOPE_SHARED_SECRET = "shared-secret";

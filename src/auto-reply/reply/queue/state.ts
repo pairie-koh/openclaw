@@ -24,11 +24,8 @@ export type FollowupQueueState = {
   lastRun?: FollowupRun["run"];
 };
 
-/** Default debounce before draining queued follow-up messages. */
 export const DEFAULT_QUEUE_DEBOUNCE_MS = 500;
-/** Default maximum queued follow-up runs per session. */
 export const DEFAULT_QUEUE_CAP = 20;
-/** Default overflow policy for follow-up queues. */
 export const DEFAULT_QUEUE_DROP: QueueDropPolicy = "summarize";
 
 /**

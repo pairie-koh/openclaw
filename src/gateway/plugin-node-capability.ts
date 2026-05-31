@@ -10,7 +10,6 @@ import { safeEqualSecret } from "../security/secret-equal.js";
 /** URL path marker used to carry plugin node capability tokens. */
 export const PLUGIN_NODE_CAPABILITY_PATH_PREFIX = "/__openclaw__/cap";
 const PLUGIN_NODE_CAPABILITY_QUERY_PARAM = "oc_cap";
-/** Default lifetime for a minted plugin node capability token. */
 export const DEFAULT_PLUGIN_NODE_CAPABILITY_TTL_MS = 10 * 60_000;
 
 /** Plugin surface that requires gateway-scoped node capability authorization. */
