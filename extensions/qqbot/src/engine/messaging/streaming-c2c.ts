@@ -344,10 +344,6 @@ export class StreamingController {
     }
   }
 
-  // ------------------------------------------------------------------
-  // 公共访问器
-  // ------------------------------------------------------------------
-
   get isTerminalPhase(): boolean {
     return TERMINAL_PHASES.has(this.phase);
   }
@@ -369,10 +365,6 @@ export class StreamingController {
   get sentChunkCount_debug(): number {
     return this.sentStreamChunkCount;
   }
-
-  // ------------------------------------------------------------------
-  // 状态机
-  // ------------------------------------------------------------------
 
   private transition(to: StreamingPhase, source: string, reason?: string): boolean {
     const from = this.phase;
@@ -442,10 +434,6 @@ export class StreamingController {
       console.debug(m);
     }
   }
-
-  // ------------------------------------------------------------------
-  // SDK 回调绑定
-  // ------------------------------------------------------------------
 
   /**
    * 处理 onPartialReply 回调（流式文本全量更新）
@@ -723,10 +711,6 @@ export class StreamingController {
     await this.flush.waitForFlush();
   }
 
-  // ------------------------------------------------------------------
-  // 外部控制
-  // ------------------------------------------------------------------
-
   /** 标记分发已全部完成 */
   markFullyComplete(): void {
     this.dispatchFullyComplete = true;
@@ -752,10 +736,6 @@ export class StreamingController {
       }
     }
   }
-
-  // ------------------------------------------------------------------
-  // 内部：富媒体标签中断/恢复
-  // ------------------------------------------------------------------
 
   /**
    * 处理富媒体标签（循环消费模型）
@@ -945,10 +925,6 @@ export class StreamingController {
     // 注意：不重置 sentIndex、lastNormalizedFull、dispatchFullyComplete、sentStreamChunkCount、sentMediaCount
   }
 
-  // ------------------------------------------------------------------
-  // 内部：流式会话管理
-  // ------------------------------------------------------------------
-
   /** 确保流式会话已开始（首次调用创建；并发调用者会等待首次完成） */
   private async ensureStreamingStarted(textEndInFull: number): Promise<void> {
     if (this.streamMsgId || this.isTerminalPhase) {
@@ -1047,10 +1023,6 @@ export class StreamingController {
 
     return resp;
   }
-
-  // ------------------------------------------------------------------
-  // 内部：flush 实现
-  // ------------------------------------------------------------------
 
   /** 执行一次实际的流式内容更新 */
   private async performFlush(): Promise<void> {
