@@ -638,7 +638,6 @@ function normalizeModelCatalogDiscovery(
   return Object.keys(discovery).length > 0 ? discovery : undefined;
 }
 
-/** Normalize an unknown model catalog object for the providers owned by one plugin/config. */
 export function normalizeModelCatalog(
   value: unknown,
   params: { ownedProviders: ReadonlySet<string> },
@@ -662,7 +661,6 @@ export function normalizeModelCatalog(
   return Object.keys(catalog).length > 0 ? catalog : undefined;
 }
 
-/** Convert one provider catalog into deterministic normalized model rows. */
 export function normalizeModelCatalogProviderRows(params: {
   provider: string;
   providerCatalog: ModelCatalogProvider;
@@ -724,7 +722,6 @@ export function normalizeModelCatalogProviderRows(params: {
   return rows.toSorted((a, b) => a.provider.localeCompare(b.provider) || a.id.localeCompare(b.id));
 }
 
-/** Convert all provider catalogs in a catalog block into normalized model rows. */
 export function normalizeModelCatalogRows(params: {
   providers: Record<string, ModelCatalogProvider>;
   source: ModelCatalogSource;
