@@ -371,7 +371,6 @@ describe("bedrock mantle discovery", () => {
       }),
     });
 
-    // First call — hits the network
     const first = await discoverMantleModels({
       region: "us-east-1",
       bearerToken: "test-token",
@@ -381,7 +380,6 @@ describe("bedrock mantle discovery", () => {
     expect(first).toHaveLength(1);
     expect(mockFetch).toHaveBeenCalledTimes(1);
 
-    // Second call within refresh interval — uses cache
     now += 60_000; // 1 minute later
     const second = await discoverMantleModels({
       region: "us-east-1",
@@ -392,7 +390,6 @@ describe("bedrock mantle discovery", () => {
     expect(second).toHaveLength(1);
     expect(mockFetch).toHaveBeenCalledTimes(1); // No additional fetch
 
-    // Third call after refresh interval — re-fetches
     now += 3600_000; // 1 hour later
     const third = await discoverMantleModels({
       region: "us-east-1",
@@ -416,7 +413,6 @@ describe("bedrock mantle discovery", () => {
       })
       .mockRejectedValueOnce(new Error("ECONNREFUSED"));
 
-    // First call — succeeds
     await discoverMantleModels({
       region: "us-east-1",
       bearerToken: "test-token",
@@ -424,7 +420,6 @@ describe("bedrock mantle discovery", () => {
       now: () => now,
     });
 
-    // Second call after expiry — fails but returns stale cache
     now += 7200_000;
     const stale = await discoverMantleModels({
       region: "us-east-1",

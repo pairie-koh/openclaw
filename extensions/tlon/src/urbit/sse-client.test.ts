@@ -149,7 +149,6 @@ describe("UrbitSSEClient", () => {
     it("resets reconnect attempts on successful connect", async () => {
       const mockUrbitFetch = vi.mocked(urbitFetch);
 
-      // Mock a response that returns a readable stream
       const mockStream = new ReadableStream({
         start(controller) {
           controller.close();

@@ -226,11 +226,9 @@ describe("createStatusReactionController", () => {
 
     void controller.setThinking();
 
-    // Before debounce period
     await vi.advanceTimersByTimeAsync(500);
     expect(calls).toHaveLength(0);
 
-    // After debounce period
     await vi.advanceTimersByTimeAsync(300);
     expectSetEmojiCall(calls, DEFAULT_EMOJIS.thinking);
   });

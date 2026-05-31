@@ -38,9 +38,7 @@ describe("SeenTracker", () => {
     it("tracks seen IDs", () => {
       const tracker = createTracker();
 
-      // First check returns false and adds
       expect(tracker.has("id1")).toBe(false);
-      // Second check returns true (already seen)
       expect(tracker.has("id1")).toBe(true);
 
       tracker.stop();
