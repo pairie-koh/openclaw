@@ -2,7 +2,6 @@
 import { pathToFileURL } from "node:url";
 import { collectPluginReleasePlan, parsePluginReleaseArgs } from "./lib/plugin-npm-release.ts";
 
-/** Collect the plugin npm release plan from CLI-style arguments. */
 export function collectPluginNpmReleasePlan(argv: string[]) {
   const { selection, selectionMode, baseRef, headRef } = parsePluginReleaseArgs(argv);
   return collectPluginReleasePlan({
