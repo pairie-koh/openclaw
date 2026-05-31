@@ -1,13 +1,15 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { clearRuntimeAuthProfileStoreSnapshots } from "../agents/auth-profiles/store.js";
 import type { OAuthCredentials } from "../agents/pi-ai-oauth-contract.js";
 import {
   applyAuthProfileConfig,
   upsertApiKeyProfile,
   writeOAuthCredentials,
 } from "../plugins/provider-auth-helpers.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 import {
   createAuthTestLifecycle,
   readAuthProfilesForAgent,
@@ -48,6 +50,17 @@ vi.mock("../secrets/provider-env-vars.js", () => ({
     authEvidenceMap: {},
   }),
 }));
+
+beforeEach(() => {
+  closeOpenClawStateDatabaseForTest();
+  clearRuntimeAuthProfileStoreSnapshots();
+});
+
+afterEach(() => {
+  closeOpenClawStateDatabaseForTest();
+  clearRuntimeAuthProfileStoreSnapshots();
+  vi.unstubAllEnvs();
+});
 
 function requireRecord(value: unknown, label: string): Record<string, unknown> {
   if (!value || typeof value !== "object") {
@@ -238,11 +251,20 @@ describe("upsertApiKeyProfile secret refs", () => {
     return parsed.profiles?.[profileId];
   }
 
+  async function readProfileIds(agentDir: string): Promise<string[]> {
+    const parsed = await readAuthProfilesForAgent<{
+      profiles?: Record<string, AuthProfileEntry>;
+    }>(agentDir);
+    return Object.keys(parsed.profiles ?? {}).toSorted();
+  }
+
   it("handles plaintext, ref mode, and inline env-ref provider keys", async () => {
     const env = await setupAuthTestEnv("openclaw-onboard-auth-credentials-");
     lifecycle.setStateDir(env.stateDir);
-    process.env.MOONSHOT_API_KEY = "sk-moonshot-env"; // pragma: allowlist secret
-    process.env.OPENAI_API_KEY = "sk-openai-env"; // pragma: allowlist secret
+    closeOpenClawStateDatabaseForTest();
+    clearRuntimeAuthProfileStoreSnapshots();
+    vi.stubEnv("MOONSHOT_API_KEY", "sk-moonshot-env"); // pragma: allowlist secret
+    vi.stubEnv("OPENAI_API_KEY", "sk-openai-env"); // pragma: allowlist secret
 
     upsertApiKeyProfile({
       provider: "moonshot",
@@ -278,7 +300,7 @@ describe("upsertApiKeyProfile secret refs", () => {
       agentDir: env.agentDir,
       profileId: "moonshot:inline",
     });
-    process.env.MOONSHOT_API_KEY = "sk-moonshot-other"; // pragma: allowlist secret
+    vi.stubEnv("MOONSHOT_API_KEY", "sk-moonshot-other"); // pragma: allowlist secret
     upsertApiKeyProfile({
       provider: "moonshot",
       input: "sk-moonshot-plaintext",
@@ -306,10 +328,12 @@ describe("upsertApiKeyProfile secret refs", () => {
   it("stores provider-specific env refs and metadata in ref mode", async () => {
     const env = await setupAuthTestEnv("openclaw-onboard-auth-credentials-provider-ref-");
     lifecycle.setStateDir(env.stateDir);
-    process.env.CLOUDFLARE_AI_GATEWAY_API_KEY = "cf-secret"; // pragma: allowlist secret
-    process.env.VOLCANO_ENGINE_API_KEY = "volcengine-secret"; // pragma: allowlist secret
-    process.env.BYTEPLUS_API_KEY = "byteplus-secret"; // pragma: allowlist secret
-    process.env.OPENCODE_API_KEY = "sk-opencode-env"; // pragma: allowlist secret
+    closeOpenClawStateDatabaseForTest();
+    clearRuntimeAuthProfileStoreSnapshots();
+    vi.stubEnv("CLOUDFLARE_AI_GATEWAY_API_KEY", "cf-secret"); // pragma: allowlist secret
+    vi.stubEnv("VOLCANO_ENGINE_API_KEY", "volcengine-secret"); // pragma: allowlist secret
+    vi.stubEnv("BYTEPLUS_API_KEY", "byteplus-secret"); // pragma: allowlist secret
+    vi.stubEnv("OPENCODE_API_KEY", "sk-opencode-env"); // pragma: allowlist secret
 
     upsertApiKeyProfile({
       provider: "cloudflare-ai-gateway",
@@ -335,6 +359,13 @@ describe("upsertApiKeyProfile secret refs", () => {
       });
     }
 
+    expect(await readProfileIds(env.agentDir)).toEqual([
+      "byteplus:default",
+      "cloudflare-ai-gateway:default",
+      "opencode-go:default",
+      "opencode:default",
+      "volcengine:default",
+    ]);
     expectFields(await readProfile(env.agentDir, "cloudflare-ai-gateway:default"), {
       keyRef: { source: "env", provider: "default", id: "CLOUDFLARE_AI_GATEWAY_API_KEY" },
       metadata: { accountId: "account-1", gatewayId: "gateway-1" },

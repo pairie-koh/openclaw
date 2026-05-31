@@ -1,5 +1,9 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { RuntimeEnv } from "../runtime.js";
+import { closeOpenClawStateDatabaseForTest } from "../state/openclaw-state-db.js";
 
 const loadConfigMock = vi.hoisted(() => vi.fn());
 
@@ -60,10 +64,25 @@ function createRuntime(): { runtime: RuntimeEnv; logs: string[] } {
 }
 
 describe("sessionsCommand default store agent selection", () => {
-  beforeEach(() => {
+  let tempRoot: string | undefined;
+
+  beforeEach(async () => {
     vi.clearAllMocks();
+    tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-sessions-command-"));
+    const stateDir = path.join(tempRoot, "state");
+    await fs.mkdir(stateDir, { recursive: true });
+    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
     loadConfigMock.mockImplementation(() => createSessionsConfig());
     listSessionEntriesMock.mockImplementation(() => []);
+  });
+
+  afterEach(async () => {
+    closeOpenClawStateDatabaseForTest();
+    vi.unstubAllEnvs();
+    if (tempRoot) {
+      await fs.rm(tempRoot, { recursive: true, force: true });
+      tempRoot = undefined;
+    }
   });
 
   it("includes agentId on sessions rows for --all-agents JSON output", async () => {

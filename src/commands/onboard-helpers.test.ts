@@ -108,6 +108,16 @@ describe("handleReset", () => {
     vi.stubEnv("OPENCLAW_CONFIG_PATH", profileConfigPath);
 
     const runtime = { log: vi.fn() } as unknown as RuntimeEnv;
+    const expectedTrashedPaths = [
+      profileConfigPath,
+      profileCredentialsDir,
+      profileAgentDb,
+      `${profileAgentDb}-wal`,
+      `${profileAgentDb}-shm`,
+      workspaceDir,
+    ].map(expectedTrashSourcePath);
+    const expectedDefaultCredentialsDir = expectedTrashSourcePath(defaultCredentialsDir);
+
     try {
       await handleReset("full", workspaceDir, runtime);
     } finally {
@@ -115,15 +125,8 @@ describe("handleReset", () => {
     }
 
     const trashedPaths = mocks.movePathToTrash.mock.calls.map(([targetPath]) => targetPath);
-    expect(trashedPaths).toEqual([
-      profileConfigPath,
-      profileCredentialsDir,
-      profileAgentDb,
-      `${profileAgentDb}-wal`,
-      `${profileAgentDb}-shm`,
-      workspaceDir,
-    ]);
-    expect(trashedPaths).not.toContain(defaultCredentialsDir);
+    expect(trashedPaths).toEqual(expectedTrashedPaths);
+    expect(trashedPaths).not.toContain(expectedDefaultCredentialsDir);
   });
 });
 

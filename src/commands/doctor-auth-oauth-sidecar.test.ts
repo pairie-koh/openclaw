@@ -265,7 +265,7 @@ describe("maybeRepairLegacyOAuthSidecarProfiles", () => {
     expect(result.detected).toEqual([authPath]);
     expect(result.warnings).toStrictEqual([]);
     expect(result.changes).toStrictEqual([
-      `Migrated 1 sidecar-backed Codex OAuth profile in ${authPath} to inline credentials (backup: ${authPath}.oauth-ref.321.bak).`,
+      `Migrated 1 legacy Codex OAuth profile in ${authPath} to inline credentials (backup: ${authPath}.oauth-ref.321.bak).`,
     ]);
     expect(readStoredAuthProfiles(state).profiles[profileId]).toMatchObject({
       access: "sqlite-access-token",

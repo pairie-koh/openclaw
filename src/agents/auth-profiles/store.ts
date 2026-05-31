@@ -61,6 +61,14 @@ type SaveAuthProfileStoreOptions = {
   syncExternalCli?: boolean;
 };
 
+let lastAuthProfileStoreUpdatedAt = 0;
+
+function nextAuthProfileStoreUpdatedAt(): number {
+  const now = Date.now();
+  lastAuthProfileStoreUpdatedAt = Math.max(now, lastAuthProfileStoreUpdatedAt + 1);
+  return lastAuthProfileStoreUpdatedAt;
+}
+
 type ResolvedExternalCliOverlayOptions = {
   allowKeychainPrompt?: boolean;
   config?: OpenClawConfig;
@@ -540,7 +548,7 @@ export async function updateAuthProfileStoreWithLock(params: {
           const saveOptions = params.env
             ? { ...params.saveOptions, env: params.saveOptions?.env ?? params.env }
             : params.saveOptions;
-          const updatedAt = Date.now();
+          const updatedAt = nextAuthProfileStoreUpdatedAt();
           savedUpdatedAt = updatedAt;
           saveAuthProfileStoreInTransaction(
             database,
@@ -862,7 +870,7 @@ export function saveAuthProfileStore(
   options?: SaveAuthProfileStoreOptions,
 ): void {
   const storeKey = resolveAuthProfileStoreKey(agentDir, options?.env);
-  const updatedAt = Date.now();
+  const updatedAt = nextAuthProfileStoreUpdatedAt();
   let savedStore = store;
   runOpenClawStateWriteTransaction(
     (database) => {
