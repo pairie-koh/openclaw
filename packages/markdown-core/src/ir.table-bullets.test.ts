@@ -12,10 +12,8 @@ describe("markdownToIR tableMode bullets", () => {
 
     const ir = markdownToIR(md, { tableMode: "bullets" });
 
-    // Should contain bullet points with header:value format
     expect(ir.text).toContain("• Value: 1");
     expect(ir.text).toContain("• Value: 2");
-    // Should use first column as labels
     expect(ir.text).toContain("A");
     expect(ir.text).toContain("B");
   });
@@ -66,7 +64,6 @@ describe("markdownToIR tableMode bullets", () => {
 
     const ir = markdownToIR(md, { tableMode: "bullets" });
 
-    // Should handle empty cell without crashing
     expect(ir.text).toContain("B");
     expect(ir.text).toContain("• Value: 2");
   });
@@ -80,7 +77,6 @@ describe("markdownToIR tableMode bullets", () => {
 
     const ir = markdownToIR(md, { tableMode: "bullets" });
 
-    // Should have bold style for row label
     expect(
       ir.styles
         .filter((style) => style.style === "bold")
