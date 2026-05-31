@@ -159,10 +159,6 @@ export async function uploadAndShareOneDrive(params: {
   };
 }
 
-// ============================================================================
-// SharePoint upload functions for group chats and channels
-// ============================================================================
-
 /**
  * Upload a file to a SharePoint site.
  * This is used for group chats and channels where /me/drive doesn't work for bots.

@@ -299,10 +299,6 @@ export async function listPinsMSTeams(
   return { pins: allPins };
 }
 
-// ---------------------------------------------------------------------------
-// Reactions
-// ---------------------------------------------------------------------------
-
 export const TEAMS_REACTION_TYPES = [
   "like",
   "heart",
@@ -461,10 +457,6 @@ export async function listReactionsMSTeams(
 
   return { reactions };
 }
-
-// ---------------------------------------------------------------------------
-// Search
-// ---------------------------------------------------------------------------
 
 export type SearchMessagesMSTeamsParams = {
   cfg: OpenClawConfig;
