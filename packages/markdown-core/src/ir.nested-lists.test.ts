@@ -254,7 +254,6 @@ describe("Nested Lists - Newline Handling", () => {
     // markdownToIR trims trailing whitespace, so output should end with Item 2
     // (no trailing newline after trimming)
     expect(result.text).toMatch(/Item 2$/);
-    // Should not have excessive newlines before Item 2
     expect(result.text).not.toContain("\n\n• Item 2");
   });
 });
@@ -268,7 +267,6 @@ describe("Nested Lists - Edge Cases", () => {
 
     const result = markdownToIR(input);
 
-    // Should still render the nested item with proper indentation
     expect(result.text).toContain("  • Nested only");
   });
 
@@ -404,7 +402,6 @@ second paragraph
 
 Paragraph after`;
     const result = markdownToIR(input);
-    // Should have two newlines between "item 2" and "Paragraph"
     expect(result.text).toContain("item 2\n\nParagraph");
   });
 
@@ -423,7 +420,6 @@ Paragraph after`;
 
 Paragraph after`;
     const result = markdownToIR(input);
-    // Should NOT have three consecutive newlines
     expect(result.text).not.toContain("\n\n\n");
   });
 });
