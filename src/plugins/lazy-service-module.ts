@@ -3,6 +3,7 @@ import { toSafeImportPath } from "./import-specifier.js";
 
 type LazyServiceModule = Record<string, unknown>;
 
+/** Handle returned by a lazy plugin service module after startup. */
 export type LazyPluginServiceHandle = {
   stop: () => Promise<void>;
 };
@@ -18,6 +19,7 @@ function resolveExport<T>(mod: LazyServiceModule, names: string[]): T | null {
   return null;
 }
 
+/** Imports an override module after converting filesystem-like specifiers to safe import URLs. */
 export async function defaultLoadOverrideModule(
   specifier: string,
   importModule: (specifier: string) => Promise<LazyServiceModule> = async (source: string) =>
@@ -26,6 +28,7 @@ export async function defaultLoadOverrideModule(
   return importModule(toSafeImportPath(specifier));
 }
 
+/** Starts a lazy plugin service unless disabled, optionally loading an env-selected override. */
 export async function startLazyPluginServiceModule(params: {
   skipEnvVar?: string;
   overrideEnvVar?: string;

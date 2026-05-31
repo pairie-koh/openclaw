@@ -12,6 +12,7 @@ import { getPluginSessionExtensionStateSync } from "./host-hook-state.js";
 import type { PluginJsonValue } from "./host-hooks.js";
 import { getActivePluginRegistry } from "./runtime.js";
 
+/** Reports whether any active plugin registered trusted tool policies. */
 export function hasTrustedToolPolicies(): boolean {
   return (getActivePluginRegistry()?.trustedToolPolicies?.length ?? 0) > 0;
 }
@@ -36,6 +37,7 @@ function normalizeToolIdentity(
   };
 }
 
+/** Runs trusted tool policies in registration order, carrying parameter rewrites forward. */
 export async function runTrustedToolPolicies(
   event: PluginHookBeforeToolCallEvent,
   ctx: PluginHookToolContext,

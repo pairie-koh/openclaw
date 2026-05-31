@@ -1,6 +1,7 @@
 import { normalizeChatChannelId } from "../channels/ids.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
+/** Toggles plugin activation and mirrors built-in channel plugins into channel config. */
 export function setPluginEnabledInConfig(
   config: OpenClawConfig,
   pluginId: string,
