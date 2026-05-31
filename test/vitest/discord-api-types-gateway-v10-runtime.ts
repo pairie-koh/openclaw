@@ -7,7 +7,6 @@ const discordGatewayApiTypes = requireDiscordGatewayApiTypes(
 ) as typeof DiscordGatewayApiTypes;
 
 export default discordGatewayApiTypes;
-/** Named Gateway v10 constants re-exported for ESM test imports. */
 export const {
   GatewayCloseCodes,
   GatewayDispatchEvents,
