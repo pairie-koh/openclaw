@@ -119,7 +119,6 @@ export type ConfigProps = {
   onRequestUpdate?: () => void;
 };
 
-// SVG Icons for sidebar (Lucide-style)
 const sidebarIcons = {
   all: html`
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -394,7 +393,6 @@ const sidebarIcons = {
   `,
 };
 
-// Categorised section definitions
 type SectionCategory = {
   id: string;
   label: string;
@@ -477,7 +475,6 @@ const SECTION_CATEGORIES: SectionCategory[] = [
   },
 ];
 
-// Flat lookup: all categorised keys
 const CATEGORISED_KEYS = new Set(SECTION_CATEGORIES.flatMap((c) => c.sections.map((s) => s.key)));
 
 function getSectionIcon(key: string) {

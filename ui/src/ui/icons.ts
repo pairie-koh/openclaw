@@ -1,8 +1,5 @@
 import { html, type TemplateResult } from "lit";
 
-// Lucide-style SVG icons
-// All icons use currentColor for stroke
-
 /** Named icon templates shared across Control UI views and controls. */
 export const icons = {
   // Navigation icons
@@ -490,7 +487,6 @@ export function renderIcon(name: IconName, className = "nav-item__icon"): Templa
   return html`<span class=${className} aria-hidden="true">${icons[name]}</span>`;
 }
 
-// Legacy function for compatibility
 /** Render legacy icon content that may be text/emoji or an SVG template. */
 export function renderEmojiIcon(
   iconContent: string | TemplateResult,
