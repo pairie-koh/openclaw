@@ -2,7 +2,6 @@ import { type SessionMetadata, type SessionTreeEntry } from "../types.js";
 import { BaseSessionStorage } from "./storage-base.js";
 import { uuidv7 } from "./uuid.js";
 
-/** Mutable session tree storage backed by process-local arrays/maps. */
 export class InMemorySessionStorage<
   TMetadata extends SessionMetadata = SessionMetadata,
 > extends BaseSessionStorage<TMetadata> {

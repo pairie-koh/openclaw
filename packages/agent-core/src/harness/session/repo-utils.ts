@@ -35,7 +35,6 @@ export function getFileSystemResultOrThrow<TValue>(
   return result.value;
 }
 
-/** Resolve the transcript path copied into a forked session. */
 export async function getEntriesToFork(
   storage: SessionStorage,
   options: { entryId?: string; position?: "before" | "at" },

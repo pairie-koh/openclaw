@@ -2,7 +2,6 @@ import { type Session, SessionError, type SessionMetadata, type SessionRepo } fr
 import { InMemorySessionStorage } from "./memory-storage.js";
 import { createSessionId, createTimestamp, getEntriesToFork, toSession } from "./repo-utils.js";
 
-/** Session repository backed by process-local memory. */
 export class InMemorySessionRepo implements SessionRepo<SessionMetadata, { id?: string }> {
   private sessions = new Map<string, Session>();
 
