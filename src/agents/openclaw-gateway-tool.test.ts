@@ -217,7 +217,7 @@ describe("gateway tool", () => {
           const sentinel = await readRestartSentinel();
           expect(sentinel?.payload.kind).toBe("restart");
           expect(sentinel?.payload.doctorHint).toBe(
-            "Run: openclaw --profile isolated doctor --non-interactive",
+            "Recommended follow-up: run openclaw --profile isolated doctor --non-interactive in a terminal or approvals-capable OpenClaw surface.",
           );
         },
       );

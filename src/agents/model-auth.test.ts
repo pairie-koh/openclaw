@@ -1209,7 +1209,7 @@ describe("resolveApiKeyForProvider – synthetic local auth for custom providers
 
       expectAuthFields(auth, {
         apiKey: "ollama-local",
-        source: "models.json (local marker)",
+        source: "stored model catalog (local marker)",
         mode: "api-key",
       });
     },
