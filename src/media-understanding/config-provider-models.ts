@@ -14,7 +14,6 @@ function hasImageCapableModel(providerCfg: ConfigProvider): boolean {
   );
 }
 
-/** Returns normalized provider ids whose config includes at least one image-input model. */
 export function resolveImageCapableConfigProviderIds(cfg?: OpenClawConfig): string[] {
   const configProviders = cfg?.models?.providers;
   if (!configProviders || typeof configProviders !== "object") {

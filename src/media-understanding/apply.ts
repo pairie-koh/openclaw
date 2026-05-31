@@ -38,7 +38,6 @@ import type {
   MediaUnderstandingProvider,
 } from "./types.js";
 
-/** Result of applying media understanding and file extraction to a message. */
 export type ApplyMediaUnderstandingResult = {
   outputs: MediaUnderstandingOutput[];
   decisions: MediaUnderstandingDecision[];
@@ -89,7 +88,6 @@ const MIME_TYPE_WITH_OPTIONAL_PARAMS = new RegExp(
   "i",
 );
 
-/** Sanitize a MIME type while permitting valid RFC parameter suffixes. */
 export function sanitizeMimeType(value?: string): string | undefined {
   const trimmed = normalizeOptionalString(value);
   if (!trimmed) {
@@ -521,7 +519,6 @@ async function extractFileBlocks(params: {
   return blocks;
 }
 
-/** Run configured media/file understanding and merge results into message context. */
 export async function applyMediaUnderstanding(params: {
   ctx: MsgContext;
   cfg: OpenClawConfig;

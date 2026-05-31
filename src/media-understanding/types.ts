@@ -204,7 +204,6 @@ export type StructuredExtractionRequest = {
   provider: string;
 };
 
-/** Text or parsed structured extraction payload returned by a provider. */
 export type StructuredExtractionResult = {
   text: string;
   parsed?: unknown;
@@ -218,7 +217,6 @@ export type MediaUnderstandingDocumentModelDefaults = {
   image?: string | false;
 };
 
-/** Provider adapter contract for media understanding capability handlers. */
 export type MediaUnderstandingProvider = {
   id: string;
   capabilities?: MediaUnderstandingCapability[];
