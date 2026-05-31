@@ -19,7 +19,6 @@ const MIN_SEND_INTERVAL_MS = 500;
 let lastSendTime = 0;
 let sendQueue: Promise<void> = Promise.resolve();
 
-// --- Chat user_id resolution ---
 // Synology Chat uses two different user_id spaces:
 //   - Outgoing webhook user_id: per-integration sequential ID (e.g. 1)
 //   - Chat API user_id: global internal ID (e.g. 4)

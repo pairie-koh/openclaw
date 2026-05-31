@@ -27,8 +27,6 @@ export const PushTestResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-// --- Web Push schemas ---
-
 const WebPushKeysSchema = Type.Object(
   {
     p256dh: Type.String({ minLength: 1, maxLength: 512 }),

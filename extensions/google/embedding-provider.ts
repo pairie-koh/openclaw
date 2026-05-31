@@ -70,8 +70,6 @@ function parseGeminiAuth(apiKey: string): { headers: Record<string, string> } {
 
 type GeminiTaskType = NonNullable<MemoryEmbeddingProviderCreateOptions["taskType"]>;
 
-// --- gemini-embedding-2-preview support ---
-
 export const GEMINI_EMBEDDING_2_MODELS = new Set([
   "gemini-embedding-2-preview",
   // Add the GA model name here once released.

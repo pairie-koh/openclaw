@@ -917,7 +917,6 @@ describe("discord media payload", () => {
   });
 });
 
-// --- DM reaction integration tests ---
 // These test that handleDiscordReactionEvent (via DiscordReactionListener)
 // properly handles DM reactions instead of silently dropping them.
 
