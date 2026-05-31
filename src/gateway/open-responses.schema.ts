@@ -1,9 +1,5 @@
 import { z } from "zod";
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Content Parts
-// ─────────────────────────────────────────────────────────────────────────────
-
 export const InputTextContentPartSchema = z
   .object({
     type: z.literal("input_text"),
@@ -75,10 +71,6 @@ export const ContentPartSchema = z.discriminatedUnion("type", [
 
 export type ContentPart = z.infer<typeof ContentPartSchema>;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Item Types (ItemParam)
-// ─────────────────────────────────────────────────────────────────────────────
-
 export const MessageItemRoleSchema = z.enum(["system", "developer", "user", "assistant"]);
 
 export type MessageItemRole = z.infer<typeof MessageItemRoleSchema>;
@@ -147,10 +139,6 @@ export const ItemParamSchema = z.discriminatedUnion("type", [
 
 export type ItemParam = z.infer<typeof ItemParamSchema>;
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Tool Definitions
-// ─────────────────────────────────────────────────────────────────────────────
-
 // Responses API tool definition uses a flat format (not the Chat Completions
 // wrapped-function format). Fields are at the top level alongside `type`.
 export const FunctionToolDefinitionSchema = z
@@ -166,10 +154,6 @@ export const FunctionToolDefinitionSchema = z
 export const ToolDefinitionSchema = FunctionToolDefinitionSchema;
 
 export type ToolDefinition = z.infer<typeof ToolDefinitionSchema>;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Request Body
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const ToolChoiceSchema = z.union([
   z.literal("auto"),
@@ -210,10 +194,6 @@ export const CreateResponseBodySchema = z
   .strict();
 
 export type CreateResponseBody = z.infer<typeof CreateResponseBodySchema>;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Response Resource
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const ResponseStatusSchema = z.enum([
   "in_progress",
@@ -284,10 +264,6 @@ export const ResponseResourceSchema = z.object({
 });
 
 export type ResponseResource = z.infer<typeof ResponseResourceSchema>;
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Streaming Event Types
-// ─────────────────────────────────────────────────────────────────────────────
 
 export const ResponseCreatedEventSchema = z.object({
   type: z.literal("response.created"),
