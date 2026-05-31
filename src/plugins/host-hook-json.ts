@@ -12,6 +12,7 @@ export type PluginJsonValueLimits = {
   maxSerializedBytes: number;
 };
 
+/** Bounds for JSON payloads crossing plugin host-hook boundaries. */
 export const PLUGIN_JSON_VALUE_LIMITS: PluginJsonValueLimits = {
   maxDepth: 32,
   maxNodes: 4096,
@@ -64,6 +65,7 @@ function isPluginJsonValueWithinLimits(
   return ok;
 }
 
+/** Validates plugin hook payloads as bounded JSON-serializable values. */
 export function isPluginJsonValue(value: unknown): value is PluginJsonValue {
   if (!isPluginJsonValueWithinLimits(value, PLUGIN_JSON_VALUE_LIMITS, { depth: 0, nodes: 0 })) {
     return false;
