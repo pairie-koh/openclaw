@@ -122,10 +122,6 @@ function normalizeBranchSummaryResult(
   return { error: result.error.message };
 }
 
-// ============================================================================
-// Skill Block Parsing
-// ============================================================================
-
 /** Parsed skill block from a user message */
 export interface ParsedSkillBlock {
   name: string;
@@ -190,10 +186,6 @@ export type AgentSessionEvent =
 export type AgentSessionEventListener = (event: AgentSessionEvent) => void;
 /** Serializes writes that mutate the session transcript or write-capable hooks. */
 export type AgentSessionWriteLockRunner = <T>(run: () => Promise<T> | T) => Promise<T>;
-
-// ============================================================================
-// Types
-// ============================================================================
 
 /** Constructor dependencies and runtime options for an AgentSession. */
 export interface AgentSessionConfig {
@@ -299,16 +291,8 @@ type CompactionWorkOutcome =
   | { status: "aborted" }
   | { status: "skipped" };
 
-// ============================================================================
-// Constants
-// ============================================================================
-
 /** Standard thinking levels */
 const THINKING_LEVELS: ThinkingLevel[] = ["off", "minimal", "low", "medium", "high"];
-
-// ============================================================================
-// AgentSession Class
-// ============================================================================
 
 /** Coordinates prompts, tools, model selection, transcript writes, and session events. */
 export class AgentSession {
@@ -527,10 +511,6 @@ export class AgentSession {
       };
     };
   }
-
-  // =========================================================================
-  // Event Subscription
-  // =========================================================================
 
   /** Emit an event to all listeners */
   private emit(event: AgentSessionEvent): void {
@@ -819,10 +799,6 @@ export class AgentSession {
     cleanupSessionResources(this.sessionId);
   }
 
-  // =========================================================================
-  // Read-only State Access
-  // =========================================================================
-
   /** Full agent state */
   get state(): AgentState {
     return this.agent.state;
@@ -1051,10 +1027,6 @@ export class AgentSession {
     };
     return buildSystemPrompt(this.baseSystemPromptOptions);
   }
-
-  // =========================================================================
-  // Prompting
-  // =========================================================================
 
   private async runAgentPrompt(messages: AgentMessage | AgentMessage[]): Promise<void> {
     try {
@@ -1540,10 +1512,6 @@ export class AgentSession {
     await this.agent.waitForIdle();
   }
 
-  // =========================================================================
-  // Model Management
-  // =========================================================================
-
   private async emitModelSelect(
     nextModel: Model,
     previousModel: Model | undefined,
@@ -1667,10 +1635,6 @@ export class AgentSession {
     return { model: nextModel, thinkingLevel: this.thinkingLevel, isScoped: false };
   }
 
-  // =========================================================================
-  // Thinking Level Management
-  // =========================================================================
-
   /**
    * Set thinking level.
    * Clamps to model capabilities based on available thinking levels.
@@ -1750,10 +1714,6 @@ export class AgentSession {
     return this.model ? (clampThinkingLevel(this.model, level) as ThinkingLevel) : "off";
   }
 
-  // =========================================================================
-  // Queue Mode Management
-  // =========================================================================
-
   /**
    * Set steering message mode.
    * Saves to settings.
@@ -1771,10 +1731,6 @@ export class AgentSession {
     this.agent.followUpMode = mode;
     this.settingsManager.setFollowUpMode(mode);
   }
-
-  // =========================================================================
-  // Compaction
-  // =========================================================================
 
   /**
    * Manually compact the session context.
@@ -2560,10 +2516,6 @@ export class AgentSession {
     }
   }
 
-  // =========================================================================
-  // Auto-Retry
-  // =========================================================================
-
   /**
    * Check if an error is retryable (overloaded, rate limit, server errors).
    * Context overflow errors are NOT retryable (handled by compaction instead).
@@ -2665,10 +2617,6 @@ export class AgentSession {
   setAutoRetryEnabled(enabled: boolean): void {
     this.settingsManager.setRetryEnabled(enabled);
   }
-
-  // =========================================================================
-  // Bash Execution
-  // =========================================================================
 
   /**
    * Execute a bash command.
@@ -2779,10 +2727,6 @@ export class AgentSession {
     this.pendingBashMessages = [];
   }
 
-  // =========================================================================
-  // Session Management
-  // =========================================================================
-
   /**
    * Set a display name for the current session.
    */
@@ -2790,10 +2734,6 @@ export class AgentSession {
     this.sessionManager.appendSessionInfo(name);
     this.emit({ type: "session_info_changed", name: this.sessionManager.getSessionName() });
   }
-
-  // =========================================================================
-  // Tree Navigation
-  // =========================================================================
 
   /**
    * Navigate to a different node in the session tree.
@@ -3190,10 +3130,6 @@ export class AgentSession {
     return filePath;
   }
 
-  // =========================================================================
-  // Utilities
-  // =========================================================================
-
   /**
    * Get text content of last assistant message.
    * Useful for /copy command.
@@ -3228,10 +3164,6 @@ export class AgentSession {
 
     return text.trim() || undefined;
   }
-
-  // =========================================================================
-  // Extension System
-  // =========================================================================
 
   createReplacedSessionContext(): ReplacedSessionContext {
     const context = Object.defineProperties(
