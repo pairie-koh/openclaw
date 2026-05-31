@@ -55,7 +55,6 @@ const defaultDeps: RealtimeVoiceAgentControlDeps = {
   resolveActiveEmbeddedRunSessionId,
 };
 
-/** Applies a realtime voice control request to the active embedded run for a session. */
 export async function controlRealtimeVoiceAgentRun(
   params: {
     sessionKey: string;

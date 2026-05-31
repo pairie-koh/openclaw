@@ -20,7 +20,6 @@ const OMITTED_TALK_LOG_EVENT_TYPES = new Set<TalkEventType>([
 
 const TALK_LOGGER_BINDINGS = Object.freeze({ subsystem: "talk" });
 
-/** Converts a Talk event into structured logger fields, skipping noisy deltas. */
 export function createTalkLogRecord(event: TalkEvent): TalkLogRecord | undefined {
   if (OMITTED_TALK_LOG_EVENT_TYPES.has(event.type)) {
     return undefined;
@@ -58,7 +57,6 @@ export function createTalkLogRecord(event: TalkEvent): TalkLogRecord | undefined
   };
 }
 
-/** Emits a Talk event log record without letting logger failures break realtime audio. */
 export function recordTalkLogEvent(event: TalkEvent): void {
   const record = createTalkLogRecord(event);
   if (!record) {

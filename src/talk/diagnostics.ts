@@ -7,7 +7,6 @@ import type { TalkEvent } from "./talk-events.js";
 
 type TalkDiagnosticEventInput = Extract<DiagnosticEventInput, { type: "talk.event" }>;
 
-/** Converts a Talk event into the stable diagnostic-event payload shape. */
 export function createTalkDiagnosticEvent(event: TalkEvent): TalkDiagnosticEventInput {
   const payload = talkEventPayloadRecord(event.payload);
   return {
@@ -26,7 +25,6 @@ export function createTalkDiagnosticEvent(event: TalkEvent): TalkDiagnosticEvent
   };
 }
 
-/** Emits a Talk diagnostic event through the trusted diagnostic channel. */
 export function recordTalkDiagnosticEvent(event: TalkEvent): void {
   emitTrustedDiagnosticEvent(createTalkDiagnosticEvent(event));
 }

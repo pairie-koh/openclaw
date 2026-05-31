@@ -10,7 +10,6 @@ import {
 import type { RealtimeVoiceProviderPlugin } from "../plugins/types.js";
 import type { RealtimeVoiceProviderId } from "./provider-types.js";
 
-/** Normalizes provider ids and aliases before registry lookup. */
 export function normalizeRealtimeVoiceProviderId(
   providerId: string | undefined,
 ): RealtimeVoiceProviderId | undefined {
@@ -31,12 +30,10 @@ function buildProviderMaps(cfg?: OpenClawConfig): {
   return buildCapabilityProviderMaps(resolveRealtimeVoiceProviderEntries(cfg));
 }
 
-/** Lists canonical realtime voice providers available from the plugin registry. */
 export function listRealtimeVoiceProviders(cfg?: OpenClawConfig): RealtimeVoiceProviderPlugin[] {
   return [...buildProviderMaps(cfg).canonical.values()];
 }
 
-/** Resolves a realtime voice provider by canonical id or declared alias. */
 export function getRealtimeVoiceProvider(
   providerId: string | undefined,
   cfg?: OpenClawConfig,
@@ -56,7 +53,6 @@ export function getRealtimeVoiceProvider(
   return buildProviderMaps(cfg).aliases.get(normalized);
 }
 
-/** Converts an input provider id or alias to the provider's canonical id. */
 export function canonicalizeRealtimeVoiceProviderId(
   providerId: string | undefined,
   cfg?: OpenClawConfig,
