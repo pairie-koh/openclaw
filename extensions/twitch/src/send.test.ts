@@ -21,7 +21,6 @@ import {
 } from "./test-fixtures.js";
 import { stripMarkdownForTwitch } from "./utils/markdown.js";
 
-// Mock dependencies
 vi.mock("./config.js", () => ({
   DEFAULT_ACCOUNT_ID: "default",
   resolveTwitchAccountContext: vi.fn(),

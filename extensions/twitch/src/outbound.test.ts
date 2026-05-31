@@ -22,7 +22,6 @@ import {
   makeTwitchTestConfig,
 } from "./test-fixtures.js";
 
-// Mock dependencies
 vi.mock("./config.js", () => ({
   DEFAULT_ACCOUNT_ID: "default",
   resolveTwitchAccountContext: vi.fn(),

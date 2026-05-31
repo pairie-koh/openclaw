@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { parseFeishuMessageEvent, type FeishuMessageEvent } from "./bot.js";
 
-// Helper to build a minimal FeishuMessageEvent for testing
 function makeEvent(
   chatType: "p2p" | "group" | "private",
   mentions?: Array<{ key: string; name: string; id: { open_id?: string } }>,

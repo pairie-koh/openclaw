@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mock the runtime before importing buildUserAgent
 const mockRuntime = {
   version: "2026.3.19",
 };

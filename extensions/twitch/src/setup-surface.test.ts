@@ -26,7 +26,6 @@ import {
 } from "./setup-surface.js";
 import type { TwitchAccountConfig } from "./types.js";
 
-// Mock the helpers we're testing
 const mockPromptText = vi.fn();
 const mockPromptConfirm = vi.fn();
 const mockPromptNote = vi.fn();
