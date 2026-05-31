@@ -4,10 +4,8 @@ import path from "node:path";
 import type { resolveApiKeyForProfile } from "./oauth.js";
 import type { AuthProfileStore, OAuthCredential } from "./types.js";
 
-/** Env keys reset by OAuth auth-profile tests. */
 export const OAUTH_AGENT_ENV_KEYS = ["OPENCLAW_STATE_DIR", "OPENCLAW_AGENT_DIR"];
 
-/** Calls `resolveApiKeyForProfile` with an empty config for tests. */
 export function resolveApiKeyForProfileInTest(
   resolver: typeof resolveApiKeyForProfile,
   params: Omit<Parameters<typeof resolveApiKeyForProfile>[0], "cfg">,
@@ -26,12 +24,10 @@ export function oauthCred(params: {
   return { type: "oauth", ...params };
 }
 
-/** Builds an auth profile store containing one OAuth credential. */
 export function storeWith(profileId: string, cred: OAuthCredential): AuthProfileStore {
   return { version: 1, profiles: { [profileId]: cred } };
 }
 
-/** Builds an auth profile store with one expired OAuth credential. */
 export function createExpiredOauthStore(params: {
   profileId: string;
   provider: string;
@@ -68,7 +64,6 @@ export async function createOAuthMainAgentDir(stateDir: string): Promise<string>
   return agentDir;
 }
 
-/** Removes an OAuth test temp root if one was created. */
 export async function removeOAuthTestTempRoot(tempRoot: string): Promise<void> {
   if (tempRoot) {
     await fs.rm(tempRoot, { recursive: true, force: true });

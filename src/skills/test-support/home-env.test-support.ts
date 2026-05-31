@@ -1,14 +1,12 @@
 import os from "node:os";
 import { vi } from "vitest";
 
-/** Previous home-related env values captured for test restoration. */
 export type SkillsHomeEnvSnapshot = {
   previousHome: string | undefined;
   previousOpenClawHome: string | undefined;
   previousUserProfile: string | undefined;
 };
 
-/** Sets HOME and OPENCLAW_HOME to an isolated fake home for tests. */
 export function setMockSkillsHomeEnv(fakeHome: string): SkillsHomeEnvSnapshot {
   const snapshot: SkillsHomeEnvSnapshot = {
     previousHome: process.env.HOME,
@@ -22,7 +20,6 @@ export function setMockSkillsHomeEnv(fakeHome: string): SkillsHomeEnvSnapshot {
   return snapshot;
 }
 
-/** Restores HOME and OPENCLAW_HOME after a test. */
 export async function restoreMockSkillsHomeEnv(
   snapshot: SkillsHomeEnvSnapshot,
   cleanup?: () => Promise<void> | void,
