@@ -13,7 +13,6 @@ import { formatErrorMessage } from "../../infra/errors.js";
 import { createAsyncLock, readDurableJsonFile, writeJsonAtomic } from "../../infra/json-files.js";
 import { validateRequestedSkillSlug } from "./archive-install.js";
 
-/** Default lifetime for an incomplete or committed skill upload record. */
 export const SKILL_UPLOAD_TTL_MS = 60 * 60 * 1000;
 /** Maximum decoded bytes accepted in one upload chunk. */
 export const MAX_SKILL_UPLOAD_CHUNK_BYTES = 4 * 1024 * 1024;
@@ -616,5 +615,4 @@ export function createSkillUploadStore(options?: {
   };
 }
 
-/** Default process-wide skill upload store rooted under OpenClaw state. */
 export const defaultSkillUploadStore = createSkillUploadStore();

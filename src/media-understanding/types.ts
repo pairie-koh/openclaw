@@ -232,7 +232,6 @@ export type StructuredExtractionResult = {
   contentType?: "json" | "text";
 };
 
-/** Default models a provider prefers for native document understanding. */
 export type MediaUnderstandingDocumentModelDefaults = {
   textExtraction?: string;
   image?: string | false;

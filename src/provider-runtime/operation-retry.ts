@@ -31,7 +31,6 @@ export type TransientProviderRetryOptions = {
 /** Retry config shorthand: false/undefined disables, true uses defaults, object customizes. */
 export type TransientProviderRetryConfig = boolean | TransientProviderRetryOptions;
 
-/** Default retry policy for transient provider reads, polls, and downloads. */
 export const DEFAULT_TRANSIENT_PROVIDER_RETRY_OPTIONS = {
   attempts: 2,
   baseDelayMs: 250,

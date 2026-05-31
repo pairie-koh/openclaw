@@ -13,19 +13,14 @@ import { getWindowsInstallRoots } from "../infra/windows-install-roots.js";
 
 /** Gmail label watched when no hook-specific label is configured. */
 export const DEFAULT_GMAIL_LABEL = "INBOX";
-/** Default Pub/Sub topic name used by Gmail watch setup. */
 export const DEFAULT_GMAIL_TOPIC = "gog-gmail-watch";
-/** Default Pub/Sub subscription name used by Gmail watch setup. */
 export const DEFAULT_GMAIL_SUBSCRIPTION = "gog-gmail-watch-push";
 /** Local bind address for the gog Gmail webhook server. */
 export const DEFAULT_GMAIL_SERVE_BIND = "127.0.0.1";
 /** Local port for the gog Gmail webhook server. */
 export const DEFAULT_GMAIL_SERVE_PORT = 8788;
-/** Default path served by gog for Gmail Pub/Sub pushes. */
 export const DEFAULT_GMAIL_SERVE_PATH = "/gmail-pubsub";
-/** Default maximum Gmail body bytes forwarded through the hook. */
 export const DEFAULT_GMAIL_MAX_BYTES = 20_000;
-/** Default Gmail watch renewal interval in minutes. */
 export const DEFAULT_GMAIL_RENEW_MINUTES = 12 * 60;
 const DEFAULT_HOOKS_PATH = "/hooks";
 const GMAIL_WATCH_SENSITIVE_FLAGS = new Set(["--token", "--hook-url", "--hook-token"]);

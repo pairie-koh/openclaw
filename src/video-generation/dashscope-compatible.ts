@@ -21,7 +21,6 @@ import type {
   VideoGenerationSourceAsset,
 } from "./types.js";
 
-/** Default DashScope WAN video model used when a provider does not override it. */
 export const DEFAULT_DASHSCOPE_WAN_VIDEO_MODEL = "wan2.6-t2v";
 /** Known DashScope WAN video model ids supported by compatible providers. */
 export const DASHSCOPE_WAN_VIDEO_MODELS = [
@@ -66,9 +65,7 @@ export const DASHSCOPE_WAN_VIDEO_CAPABILITIES = {
   },
 } satisfies VideoGenerationProviderCapabilities;
 
-/** Default video duration when request duration is omitted. */
 export const DEFAULT_VIDEO_GENERATION_DURATION_SECONDS = 5;
-/** Default end-to-end timeout for submitting, polling, and downloading video output. */
 export const DEFAULT_VIDEO_GENERATION_TIMEOUT_MS = 120_000;
 /** DashScope size strings derived from standard resolution labels. */
 export const DEFAULT_VIDEO_RESOLUTION_TO_SIZE: Record<string, string> = {
