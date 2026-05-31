@@ -1679,10 +1679,6 @@ export async function sendPollTelegram(
   return { messageId: String(messageId), chatId: resolvedChatId, pollId };
 }
 
-// ---------------------------------------------------------------------------
-// Forum topic creation
-// ---------------------------------------------------------------------------
-
 type TelegramCreateForumTopicOpts = {
   cfg: OpenClawConfig;
   token?: string;

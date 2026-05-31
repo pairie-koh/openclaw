@@ -1788,9 +1788,6 @@ export async function dispatchPreparedSlackMessage(prepared: PreparedSlackMessag
     await draftStream?.discardPending();
   }
 
-  // -----------------------------------------------------------------------
-  // Finalize the stream if one was started
-  // -----------------------------------------------------------------------
   let streamFallbackDelivered = false;
   const finalStream = streamSession as SlackStreamSession | null;
   if (finalStream && !finalStream.stopped) {

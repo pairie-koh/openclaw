@@ -2625,10 +2625,6 @@ async function buildResponsesPayload(
   return buildAssistantEvents(buildAssistantText(input, body, scenarioState));
 }
 
-// ---------------------------------------------------------------------------
-// Anthropic /v1/messages adapter
-// ---------------------------------------------------------------------------
-//
 // The QA parity gate needs two comparable scenario runs: one against the
 // "candidate" (openai/gpt-5.5) and one against the "baseline"
 // (anthropic/claude-opus-4-8). The OpenAI mock above already dispatches all
