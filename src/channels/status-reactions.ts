@@ -374,10 +374,6 @@ export function createStatusReactionController(params: {
     }
   }
 
-  // ───────────────────────────────────────────────────────────────────────────
-  // Controller API
-  // ───────────────────────────────────────────────────────────────────────────
-
   function setQueued(): void {
     scheduleEmoji(emojis.queued, { immediate: true });
   }

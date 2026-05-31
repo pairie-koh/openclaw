@@ -67,10 +67,6 @@ async function readErrorBodySnippet(res: Response): Promise<string> {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Anthropic – native PDF via Messages API
-// ---------------------------------------------------------------------------
-
 type AnthropicDocBlock = {
   type: "document";
   source: {
@@ -161,10 +157,6 @@ export async function anthropicAnalyzePdf(params: {
 
   return text.trim();
 }
-
-// ---------------------------------------------------------------------------
-// Google Gemini – native PDF via generateContent API
-// ---------------------------------------------------------------------------
 
 type GeminiPart = { inline_data: { mime_type: string; data: string } } | { text: string };
 
