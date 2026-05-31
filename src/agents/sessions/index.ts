@@ -1,7 +1,3 @@
-/**
- * OpenClaw-owned agent session runtime.
- */
-
 export { getAgentDir, VERSION } from "../config.js";
 export * from "./agent-session.js";
 export * from "./agent-session-runtime.js";
