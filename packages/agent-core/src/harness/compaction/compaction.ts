@@ -37,7 +37,6 @@ import {
   serializeConversation,
 } from "./utils.js";
 
-/** File-operation details stored on generated compaction entries. */
 export interface CompactionDetails {
   /** Files read in the compacted history. */
   readFiles: string[];
@@ -113,7 +112,6 @@ function getMessageFromEntryForCompaction(entry: SessionTreeEntry): AgentMessage
   return getMessageFromEntry(entry);
 }
 
-/** Generated compaction data ready to be persisted as a compaction entry. */
 export interface CompactionResult<T = unknown> {
   /** Summary text that replaces compacted history in future context. */
   summary: string;
@@ -125,7 +123,6 @@ export interface CompactionResult<T = unknown> {
   details?: T;
 }
 
-/** Compaction thresholds and retention settings. */
 export interface CompactionSettings {
   /** Enable automatic compaction decisions. */
   enabled: boolean;
@@ -135,14 +132,12 @@ export interface CompactionSettings {
   keepRecentTokens: number;
 }
 
-/** Default compaction settings used by the harness. */
 export const DEFAULT_COMPACTION_SETTINGS: CompactionSettings = {
   enabled: true,
   reserveTokens: 16384,
   keepRecentTokens: 20000,
 };
 
-/** Calculate total context tokens from provider usage. */
 export function calculateContextTokens(usage: Usage): number {
   return usage.totalTokens || usage.input + usage.output + usage.cacheRead + usage.cacheWrite;
 }
@@ -160,7 +155,6 @@ function getAssistantUsage(msg: AgentMessage): Usage | undefined {
   return undefined;
 }
 
-/** Return usage from the last successful assistant message in session entries. */
 export function getLastAssistantUsage(entries: SessionTreeEntry[]): Usage | undefined {
   for (let i = entries.length - 1; i >= 0; i--) {
     const entry = entries[i];
@@ -174,7 +168,6 @@ export function getLastAssistantUsage(entries: SessionTreeEntry[]): Usage | unde
   return undefined;
 }
 
-/** Estimated context-token usage for a message list. */
 export interface ContextUsageEstimate {
   /** Estimated total context tokens. */
   tokens: number;
@@ -198,7 +191,6 @@ function getLastAssistantUsageInfo(
   return undefined;
 }
 
-/** Estimate context tokens for messages using provider usage when available. */
 export function estimateContextTokens(messages: AgentMessage[]): ContextUsageEstimate {
   const usageInfo = getLastAssistantUsageInfo(messages);
 
@@ -229,7 +221,6 @@ export function estimateContextTokens(messages: AgentMessage[]): ContextUsageEst
   };
 }
 
-/** Return whether context usage exceeds the configured compaction threshold. */
 export function shouldCompact(
   contextTokens: number,
   contextWindow: number,
@@ -241,7 +232,6 @@ export function shouldCompact(
   return contextTokens > contextWindow - settings.reserveTokens;
 }
 
-/** Estimate token count for one message using a conservative character heuristic. */
 export function estimateTokens(message: AgentMessage): number {
   let chars = 0;
   const harnessMessage = message as HarnessMessage;
@@ -347,7 +337,6 @@ function findValidCutPoints(
   return cutPoints;
 }
 
-/** Find the user-visible message that starts the turn containing an entry. */
 export function findTurnStartIndex(
   entries: SessionTreeEntry[],
   entryIndex: number,
@@ -368,7 +357,6 @@ export function findTurnStartIndex(
   return -1;
 }
 
-/** Cut point selected for compaction. */
 export interface CutPointResult {
   /** Index of the first entry retained after compaction. */
   firstKeptEntryIndex: number;
@@ -378,7 +366,6 @@ export interface CutPointResult {
   isSplitTurn: boolean;
 }
 
-/** Find the compaction cut point that keeps approximately the requested recent-token budget. */
 export function findCutPoint(
   entries: SessionTreeEntry[],
   startIndex: number,
@@ -431,7 +418,6 @@ export function findCutPoint(
   };
 }
 
-/** System prompt used for deterministic compaction and branch-summary generation. */
 export const SUMMARIZATION_SYSTEM_PROMPT = `You are a context summarization assistant. Your task is to read a conversation between a user and an AI coding assistant, then produce a structured summary following the exact format specified.
 
 Do NOT continue the conversation. Do NOT respond to any questions in the conversation. ONLY output the structured summary.`;
@@ -536,7 +522,6 @@ async function completeSummarization(
   return await resolveAgentCoreCompleteFn(runtime)(model, context, options);
 }
 
-/** Generate or update a conversation summary for compaction. */
 export async function generateSummary(
   currentMessages: AgentMessage[],
   model: Model,
@@ -601,7 +586,6 @@ export async function generateSummary(
   return ok(textContent);
 }
 
-/** Prepared inputs for a compaction run. */
 export interface CompactionPreparation {
   /** Entry id where retained history starts. */
   firstKeptEntryId: string;
@@ -621,7 +605,6 @@ export interface CompactionPreparation {
   settings: CompactionSettings;
 }
 
-/** Prepare session entries for compaction, or return undefined when compaction is not applicable. */
 export function prepareCompaction(
   pathEntries: SessionTreeEntry[],
   settings: CompactionSettings,
@@ -717,7 +700,6 @@ Be concise. Focus on what's needed to understand the kept suffix.`;
 
 export { serializeConversation } from "./utils.js";
 
-/** Generate compaction summary data from prepared session history. */
 export async function compact(
   preparation: CompactionPreparation,
   model: Model,

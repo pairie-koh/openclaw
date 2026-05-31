@@ -36,7 +36,6 @@ function encodeCwd(cwd: string): string {
   return `--${cwd.replace(/^[/\\]/, "").replace(/[/\\:]/g, "-")}--`;
 }
 
-/** Session repository backed by JSONL transcript files on an injected filesystem. */
 export class JsonlSessionRepo implements JsonlSessionRepoApi {
   private readonly fs: JsonlSessionRepoFileSystem;
   private readonly sessionsRootInput: string;

@@ -1,7 +1,6 @@
 import type { Message } from "../../../../llm-core/src/index.js";
 import type { AgentMessage } from "../../types.js";
 
-/** File paths touched by a session branch or compaction range. */
 export interface FileOperations {
   /** Files read but not necessarily modified. */
   read: Set<string>;
@@ -11,7 +10,6 @@ export interface FileOperations {
   edited: Set<string>;
 }
 
-/** Create an empty file-operation accumulator. */
 export function createFileOps(): FileOperations {
   return {
     read: new Set(),
@@ -20,7 +18,6 @@ export function createFileOps(): FileOperations {
   };
 }
 
-/** Add file operations from assistant tool calls to an accumulator. */
 export function extractFileOpsFromMessage(message: AgentMessage, fileOps: FileOperations): void {
   if (message.role !== "assistant") {
     return;
@@ -64,7 +61,6 @@ export function extractFileOpsFromMessage(message: AgentMessage, fileOps: FileOp
   }
 }
 
-/** Compute sorted read-only and modified file lists from accumulated operations. */
 export function computeFileLists(fileOps: FileOperations): {
   readFiles: string[];
   modifiedFiles: string[];
@@ -75,7 +71,6 @@ export function computeFileLists(fileOps: FileOperations): {
   return { readFiles: readOnly, modifiedFiles };
 }
 
-/** Format file lists as summary metadata tags. */
 export function formatFileOperations(readFiles: string[], modifiedFiles: string[]): string {
   const sections: string[] = [];
   if (readFiles.length > 0) {
@@ -108,7 +103,6 @@ function truncateForSummary(text: string, maxChars: number): string {
   return `${text.slice(0, maxChars)}\n\n[... ${truncatedChars} more characters truncated]`;
 }
 
-/** Serialize LLM messages to plain text for summarization prompts. */
 export function serializeConversation(messages: Message[]): string {
   const parts: string[] = [];
 

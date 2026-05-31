@@ -23,7 +23,6 @@ export function toSession<TMetadata extends SessionMetadata>(
   return new Session(storage);
 }
 
-/** Unwrap filesystem results and translate failures into SessionError values. */
 export function getFileSystemResultOrThrow<TValue>(
   result: Result<TValue, FileError>,
   message: string,

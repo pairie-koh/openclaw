@@ -1,7 +1,6 @@
 import { parse } from "yaml";
 import { type ExecutionEnv, type FileInfo, type Result, toError } from "./types.js";
 
-/** Warning emitted when a file-info lookup cannot be resolved cleanly. */
 export interface FileInfoDiagnostic {
   type: "warning";
   code: "file_info_failed";
@@ -13,7 +12,6 @@ interface FileInfoDiagnostics {
   push(diagnostic: FileInfoDiagnostic): unknown;
 }
 
-/** Parse optional YAML frontmatter while leaving non-frontmatter files untouched. */
 export function parseFrontmatter(
   content: string,
 ): Result<{ frontmatter: Record<string, unknown>; body: string }, Error> {
@@ -37,7 +35,6 @@ export function parseFrontmatter(
   }
 }
 
-/** Resolve file/directory kind through canonical path lookup and warning diagnostics. */
 export async function resolveFileInfoKind(
   env: ExecutionEnv,
   info: FileInfo,
@@ -75,26 +72,22 @@ export async function resolveFileInfoKind(
     : undefined;
 }
 
-/** Join slash-delimited execution-environment paths without importing Node path rules. */
 export function joinEnvPath(base: string, child: string): string {
   return `${base.replace(/\/+$/, "")}/${child.replace(/^\/+/, "")}`;
 }
 
-/** Return the slash-delimited parent directory for an execution-environment path. */
 export function dirnameEnvPath(path: string): string {
   const normalized = path.replace(/\/+$/, "");
   const slashIndex = normalized.lastIndexOf("/");
   return slashIndex <= 0 ? "/" : normalized.slice(0, slashIndex);
 }
 
-/** Return the final path segment for an execution-environment path. */
 export function basenameEnvPath(path: string): string {
   const normalized = path.replace(/\/+$/, "");
   const slashIndex = normalized.lastIndexOf("/");
   return slashIndex === -1 ? normalized : normalized.slice(slashIndex + 1);
 }
 
-/** Compute a slash-delimited relative path under a known environment root. */
 export function relativeEnvPath(root: string, path: string): string {
   const normalizedRoot = root.replace(/\/+$/, "");
   const normalizedPath = path.replace(/\/+$/, "");

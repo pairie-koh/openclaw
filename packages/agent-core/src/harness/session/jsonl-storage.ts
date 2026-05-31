@@ -125,7 +125,6 @@ function headerToSessionMetadata(header: SessionHeader, path: string): JsonlSess
   };
 }
 
-/** Load only the JSONL header so callers can list sessions without parsing every entry. */
 export async function loadJsonlSessionMetadata(
   fs: JsonlSessionStorageFileSystem,
   filePath: string,
@@ -169,7 +168,6 @@ async function loadJsonlStorage(
   return { header, entries, leafId };
 }
 
-/** Append-only JSONL storage implementation for session tree entries and leaf updates. */
 export class JsonlSessionStorage extends BaseSessionStorage<JsonlSessionMetadata> {
   private readonly fs: JsonlSessionStorageFileSystem;
   private readonly filePath: string;

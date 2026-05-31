@@ -23,7 +23,6 @@ import {
   serializeConversation,
 } from "./utils.js";
 
-/** File-operation details stored on generated branch summary entries. */
 export interface BranchSummaryDetails {
   /** Files read while exploring the summarized branch. */
   readFiles: string[];
@@ -33,7 +32,6 @@ export interface BranchSummaryDetails {
 
 export type { FileOperations } from "./utils.js";
 
-/** Prepared branch content for summarization. */
 export interface BranchPreparation {
   /** Messages selected for the branch summary. */
   messages: AgentMessage[];
@@ -43,7 +41,6 @@ export interface BranchPreparation {
   totalTokens: number;
 }
 
-/** Entries selected for branch summarization. */
 export interface CollectEntriesResult {
   /** Entries to summarize in chronological order. */
   entries: SessionTreeEntry[];
@@ -51,13 +48,11 @@ export interface CollectEntriesResult {
   commonAncestorId: string | null;
 }
 
-/** Minimal tree entry shape needed to compare source and target branches. */
 export interface BranchPathEntry {
   id: string;
   parentId: string | null;
 }
 
-/** Branch entries selected for summarization plus their common ancestor. */
 export interface CollectBranchPathEntriesResult<TEntry extends BranchPathEntry> {
   /** Entries to summarize in chronological order. */
   entries: TEntry[];
@@ -65,7 +60,6 @@ export interface CollectBranchPathEntriesResult<TEntry extends BranchPathEntry> 
   commonAncestorId: string | null;
 }
 
-/** Options for generating a branch summary. */
 export interface GenerateBranchSummaryOptions {
   /** Model used for summarization. */
   model: Model;
@@ -87,7 +81,6 @@ export interface GenerateBranchSummaryOptions {
   reserveTokens?: number;
 }
 
-/** Collect entries that should be summarized before navigating to a different session tree entry. */
 export function collectEntriesForBranchSummaryFromBranches<TEntry extends BranchPathEntry>(
   oldBranch: readonly TEntry[],
   targetBranch: readonly TEntry[],
@@ -108,7 +101,6 @@ export function collectEntriesForBranchSummaryFromBranches<TEntry extends Branch
   return { entries: oldBranch.slice(firstSummarizedIndex), commonAncestorId };
 }
 
-/** Collect entries that should be summarized before navigating to a different session tree entry. */
 export async function collectEntriesForBranchSummary(
   session: Session,
   oldLeafId: string | null,

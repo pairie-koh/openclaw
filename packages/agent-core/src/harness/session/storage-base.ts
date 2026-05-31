@@ -37,7 +37,6 @@ function generateEntryId(byId: { has(id: string): boolean }): string {
   return uuidv7();
 }
 
-/** Return the effective leaf id after applying one tree entry. */
 export function leafIdAfterEntry(entry: SessionTreeEntry): string | null {
   return entry.type === "leaf" ? entry.targetId : entry.id;
 }
