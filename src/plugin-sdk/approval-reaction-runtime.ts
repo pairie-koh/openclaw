@@ -87,7 +87,6 @@ export type ApprovalReactionPendingContent = {
   manualFallbackPayload: ReplyPayload;
 };
 
-/** Default approval reaction bindings in display order. */
 export const APPROVAL_REACTION_BINDINGS = [
   { decision: "allow-once", emoji: "👍", label: "Allow Once" },
   { decision: "allow-always", emoji: "♾️", label: "Allow Always" },

@@ -56,7 +56,6 @@ export type PairLoopGuard = {
 const DEFAULT_PRUNE_INTERVAL_MS = 60_000;
 const KEY_SEPARATOR = "\u0001";
 
-/** Default pair-loop guard values in config-friendly seconds/counts. */
 export const DEFAULT_PAIR_LOOP_GUARD_CONFIG: Required<PairLoopGuardConfig> = {
   enabled: true,
   maxEventsPerWindow: 20,
@@ -64,7 +63,6 @@ export const DEFAULT_PAIR_LOOP_GUARD_CONFIG: Required<PairLoopGuardConfig> = {
   cooldownSeconds: 60,
 };
 
-/** Default pair-loop guard values after conversion to runtime milliseconds. */
 export const DEFAULT_PAIR_LOOP_GUARD_SETTINGS: PairLoopGuardSettings = {
   enabled: DEFAULT_PAIR_LOOP_GUARD_CONFIG.enabled,
   maxEventsPerWindow: DEFAULT_PAIR_LOOP_GUARD_CONFIG.maxEventsPerWindow,

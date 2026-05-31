@@ -132,12 +132,9 @@ function loadFacadeModule(): FacadeModule {
 
 // Keep defaults inline so importing the runtime facade stays cold until a helper
 // is actually used. These values are part of the public LM Studio contract.
-/** Default LM Studio server base URL for local desktop installs. */
 export const LMSTUDIO_DEFAULT_BASE_URL: FacadeModule["LMSTUDIO_DEFAULT_BASE_URL"] =
   "http://localhost:1234";
-/** Default OpenAI-compatible inference base derived from the LM Studio server. */
 export const LMSTUDIO_DEFAULT_INFERENCE_BASE_URL: FacadeModule["LMSTUDIO_DEFAULT_INFERENCE_BASE_URL"] = `${LMSTUDIO_DEFAULT_BASE_URL}/v1`;
-/** Default embedding model id used when LM Studio config does not choose one. */
 export const LMSTUDIO_DEFAULT_EMBEDDING_MODEL: FacadeModule["LMSTUDIO_DEFAULT_EMBEDDING_MODEL"] =
   "text-embedding-nomic-embed-text-v1.5";
 /** Display label for the LM Studio provider. */
@@ -153,7 +150,6 @@ export const LMSTUDIO_MODEL_PLACEHOLDER: FacadeModule["LMSTUDIO_MODEL_PLACEHOLDE
   "model-key-from-api-v1-models";
 /** Context length requested when loading LM Studio models without an override. */
 export const LMSTUDIO_DEFAULT_LOAD_CONTEXT_LENGTH: FacadeModule["LMSTUDIO_DEFAULT_LOAD_CONTEXT_LENGTH"] = 64000;
-/** Default chat model id used by generated LM Studio provider config. */
 export const LMSTUDIO_DEFAULT_MODEL_ID: FacadeModule["LMSTUDIO_DEFAULT_MODEL_ID"] =
   "qwen/qwen3.5-9b";
 /** Stable provider id for LM Studio runtime and config lookups. */

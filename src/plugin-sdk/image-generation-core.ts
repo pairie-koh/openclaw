@@ -31,7 +31,6 @@ export { parseImageGenerationModelRef } from "../image-generation/model-ref.js";
 export { createSubsystemLogger } from "../logging/subsystem.js";
 export { normalizeGooglePreviewModelId as normalizeGoogleModelId } from "./provider-model-shared.js";
 export { getProviderEnvVars } from "../secrets/provider-env-vars.js";
-/** Default OpenAI image model used by image-generation provider helpers. */
 export const OPENAI_DEFAULT_IMAGE_MODEL = "gpt-image-2";
 
 type ImageGenerationCoreAuthRuntimeModule =

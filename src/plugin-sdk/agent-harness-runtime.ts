@@ -18,7 +18,6 @@ import { redactToolDetail } from "../logging/redact.js";
 import type { PromptImageOrderEntry } from "../media/prompt-image-order.js";
 import { truncateUtf16Safe } from "../utils.js";
 
-/** Default max characters retained for user-facing tool progress output. */
 export const TOOL_PROGRESS_OUTPUT_MAX_CHARS = 8_000;
 
 export type { AgentMessage } from "../agents/runtime/index.js";
