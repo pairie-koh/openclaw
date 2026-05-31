@@ -10,25 +10,21 @@ const DeliveryModeFieldSchema = z
   .preprocess(trimLowercaseStringPreprocess, z.enum(["deliver", "announce", "none", "webhook"]))
   .transform((value) => (value === "deliver" ? "announce" : value));
 
-/** Field schema for lowercased non-empty delivery values. */
 export const LowercaseNonEmptyStringFieldSchema = z.preprocess(
   trimLowercaseStringPreprocess,
   z.string().min(1),
 );
 
-/** Field schema for trimmed non-empty delivery values that preserve case. */
 export const TrimmedNonEmptyStringFieldSchema = z.preprocess(
   trimStringPreprocess,
   z.string().min(1),
 );
 
-/** Field schema accepting string or numeric thread identifiers. */
 export const DeliveryThreadIdFieldSchema = z.union([
   TrimmedNonEmptyStringFieldSchema,
   z.number().finite(),
 ]);
 
-/** Field schema for non-negative timeout values in seconds. */
 export const TimeoutSecondsFieldSchema = z.number().finite().nonnegative();
 
 type ParsedDeliveryInput = {

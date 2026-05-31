@@ -102,7 +102,6 @@ export type InputFetchResult = {
   contentType?: string;
 };
 
-/** Default MIME allowlist for image inputs. */
 export const DEFAULT_INPUT_IMAGE_MIMES = [
   "image/jpeg",
   "image/png",
@@ -111,7 +110,6 @@ export const DEFAULT_INPUT_IMAGE_MIMES = [
   "image/heic",
   "image/heif",
 ];
-/** Default MIME allowlist for file inputs. */
 export const DEFAULT_INPUT_FILE_MIMES = [
   "text/plain",
   "text/markdown",
@@ -120,21 +118,13 @@ export const DEFAULT_INPUT_FILE_MIMES = [
   "application/json",
   "application/pdf",
 ];
-/** Default max bytes for one image input. */
 export const DEFAULT_INPUT_IMAGE_MAX_BYTES = 10 * 1024 * 1024;
-/** Default max bytes for one file input. */
 export const DEFAULT_INPUT_FILE_MAX_BYTES = 5 * 1024 * 1024;
-/** Default max text characters retained from one extracted file. */
 export const DEFAULT_INPUT_FILE_MAX_CHARS = 60_000;
-/** Default redirect limit for input URL fetches. */
 export const DEFAULT_INPUT_MAX_REDIRECTS = 3;
-/** Default timeout for input URL fetches. */
 export const DEFAULT_INPUT_TIMEOUT_MS = 10_000;
-/** Default maximum PDF pages to inspect. */
 export const DEFAULT_INPUT_PDF_MAX_PAGES = 4;
-/** Default maximum pixels rendered per extracted PDF image. */
 export const DEFAULT_INPUT_PDF_MAX_PIXELS = 4_000_000;
-/** Default minimum PDF text threshold before image extraction is needed. */
 export const DEFAULT_INPUT_PDF_MIN_TEXT_CHARS = 200;
 const NORMALIZED_INPUT_IMAGE_MIME = "image/jpeg";
 const HEIC_INPUT_IMAGE_MIMES = new Set(["image/heic", "image/heif"]);

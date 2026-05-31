@@ -300,7 +300,6 @@ const CronPatchObjectSchema = Type.Optional(
 );
 
 // Flattened schema: runtime validates per-action requirements.
-/** TypeBox schema for cron tool actions and gateway call overrides. */
 export const CronToolSchema = Type.Object(
   {
     action: stringEnum(CRON_ACTIONS),

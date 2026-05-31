@@ -1,9 +1,6 @@
 export const MAX_IMAGE_BYTES = 6 * 1024 * 1024; // 6MB
-/** Default maximum audio attachment size in bytes. */
 export const MAX_AUDIO_BYTES = 16 * 1024 * 1024; // 16MB
-/** Default maximum video attachment size in bytes. */
 export const MAX_VIDEO_BYTES = 16 * 1024 * 1024; // 16MB
-/** Default maximum document attachment size in bytes. */
 export const MAX_DOCUMENT_BYTES = 100 * 1024 * 1024; // 100MB
 
 /** Media bucket used to choose attachment size limits and channel handling. */

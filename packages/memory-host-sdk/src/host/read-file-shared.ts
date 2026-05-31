@@ -1,8 +1,6 @@
 import type { MemoryReadResult } from "./types.js";
 
-/** Default number of lines returned by memory file reads. */
 export const DEFAULT_MEMORY_READ_LINES = 120;
-/** Default character budget for memory file excerpts. */
 export const DEFAULT_MEMORY_READ_MAX_CHARS = 12_000;
 
 export type { MemoryReadResult } from "./types.js";
