@@ -1,5 +1,3 @@
-// Real workspace contract for QMD/session/query helpers used by the memory engine.
-
 export { extractKeywords, isQueryStopWordToken } from "./host/query-expansion.js";
 export {
   buildSessionEntry,

@@ -1,5 +1,3 @@
-// Real workspace contract for memory embedding providers and batch helpers.
-
 export {
   getMemoryEmbeddingProvider,
   listRegisteredMemoryEmbeddingProviders,

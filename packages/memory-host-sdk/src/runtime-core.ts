@@ -1,5 +1,3 @@
-// Focused runtime contract for memory plugin config/state/helpers.
-
 export type { AnyAgentTool } from "./host/openclaw-runtime-agent.js";
 export { resolveCronStyleNow } from "./host/openclaw-runtime-agent.js";
 export { DEFAULT_AGENT_COMPACTION_RESERVE_TOKENS_FLOOR } from "./host/openclaw-runtime-agent.js";

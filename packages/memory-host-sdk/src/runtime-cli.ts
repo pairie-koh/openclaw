@@ -1,5 +1,3 @@
-// Focused runtime contract for memory CLI/UI helpers.
-
 export { formatErrorMessage, withManager } from "./host/openclaw-runtime-cli.js";
 export { formatHelpExamples } from "./host/openclaw-runtime-cli.js";
 export { resolveCommandSecretRefsViaGateway } from "./host/openclaw-runtime-cli.js";

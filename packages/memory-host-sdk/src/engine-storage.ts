@@ -1,5 +1,3 @@
-// Real workspace contract for memory engine storage/index helpers.
-
 export {
   buildFileEntry,
   buildMultimodalChunkForIndexing,
