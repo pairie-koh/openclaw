@@ -543,7 +543,6 @@ function renderTableAsBullets(state: RenderState) {
         state.text += "\n";
       }
 
-      // Add each column as a bullet point
       for (let i = 1; i < row.length; i++) {
         appendTableBulletValue(state, {
           header: headers[i],
@@ -555,7 +554,6 @@ function renderTableAsBullets(state: RenderState) {
       state.text += "\n";
     }
   } else {
-    // Simple table: just list headers and values
     for (const row of rows) {
       for (let i = 0; i < row.length; i++) {
         appendTableBulletValue(state, {
