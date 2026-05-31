@@ -962,10 +962,8 @@ export default function compactionSafeguardExtension(api: ExtensionAPI): void {
       summarizationInstructions,
     );
 
-    // -----------------------------------------------------------------------
     // Provider path — one call with all messages, no LLM-specific prep.
     // Falls through to the LLM path below on failure.
-    // -----------------------------------------------------------------------
     if (providerId) {
       const compactionProvider = getCompactionProvider(providerId);
       if (compactionProvider) {
@@ -1024,9 +1022,7 @@ export default function compactionSafeguardExtension(api: ExtensionAPI): void {
       }
     }
 
-    // -----------------------------------------------------------------------
     // LLM path — resolve model + auth, prune, chunk, quality guard.
-    // -----------------------------------------------------------------------
     const model = ctx.model ?? runtime?.model;
     if (!model) {
       if (!ctx.model && !runtime?.model && !missedModelWarningSessions.has(ctx.sessionManager)) {
