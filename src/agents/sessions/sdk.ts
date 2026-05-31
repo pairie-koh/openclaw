@@ -127,8 +127,6 @@ export {
   createLsTool,
 };
 
-// Helper Functions
-
 function getDefaultAgentDir(): string {
   return getAgentDir();
 }

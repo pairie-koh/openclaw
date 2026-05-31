@@ -1326,7 +1326,6 @@ describe("buildAssistantMessage", () => {
   });
 });
 
-// Helper: build a ReadableStreamDefaultReader from NDJSON lines
 function mockNdjsonReader(lines: string[]): ReadableStreamDefaultReader<Uint8Array> {
   const encoder = new TextEncoder();
   const payload = lines.join("\n") + "\n";

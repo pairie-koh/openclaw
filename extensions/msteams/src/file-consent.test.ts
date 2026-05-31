@@ -7,13 +7,9 @@ import {
 } from "./file-consent.js";
 import { buildUserAgent } from "./user-agent.js";
 
-// Helper: a resolveFn that returns a public IP by default
 const publicResolve = async () => ({ address: "13.107.136.10" });
-// Helper: a resolveFn that returns a private IP
 const privateResolve = (ip: string) => async () => ({ address: ip });
-// Helper: a resolveFn that returns multiple addresses
 const multiResolve = (ips: string[]) => async () => ips.map((address) => ({ address }));
-// Helper: a resolveFn that fails
 const failingResolve = async () => {
   throw new Error("DNS failure");
 };

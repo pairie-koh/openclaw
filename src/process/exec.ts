@@ -175,7 +175,6 @@ export function shouldSpawnWithShell(params: {
   return false;
 }
 
-// Simple promise-wrapped execFile with optional verbosity logging.
 /** Runs a command through execFile and decodes platform-specific output. */
 export async function runExec(
   command: string,

@@ -372,7 +372,6 @@ function formatTemplateValue(value: unknown): string {
   return "";
 }
 
-// Simple {{Placeholder}} interpolation using inbound message context.
 export function applyTemplate(str: string | undefined, ctx: TemplateContext) {
   if (!str) {
     return "";
