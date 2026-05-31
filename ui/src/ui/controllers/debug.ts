@@ -1,7 +1,6 @@
 import type { GatewayBrowserClient } from "../gateway.ts";
 import type { HealthSnapshot, StatusSummary } from "../types.ts";
 
-/** Mutable state for Debug view snapshots and ad hoc RPC results. */
 export type DebugState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

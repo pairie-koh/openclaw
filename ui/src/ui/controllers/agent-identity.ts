@@ -1,7 +1,6 @@
 import type { GatewayBrowserClient } from "../gateway.ts";
 import type { AgentIdentityResult } from "../types.ts";
 
-/** Mutable cache and loading state for agent identity lookups. */
 export type AgentIdentityState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

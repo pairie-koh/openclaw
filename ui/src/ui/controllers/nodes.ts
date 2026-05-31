@@ -1,6 +1,5 @@
 import type { GatewayBrowserClient } from "../gateway.ts";
 
-/** Mutable node-list state for the Nodes view. */
 export type NodesState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

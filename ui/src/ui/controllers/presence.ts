@@ -5,7 +5,6 @@ import {
   isMissingOperatorReadScopeError,
 } from "./scope-errors.ts";
 
-/** Mutable state required to request and render system presence. */
 export type PresenceState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

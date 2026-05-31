@@ -4,7 +4,6 @@ export type UsageWindow = {
   resetAt?: number;
 };
 
-/** Usage state for one provider, including optional plan or error text. */
 export type ProviderUsageSnapshot = {
   provider: UsageProviderId;
   displayName: string;
@@ -13,13 +12,11 @@ export type ProviderUsageSnapshot = {
   error?: string;
 };
 
-/** Timestamped usage snapshot collection. */
 export type UsageSummary = {
   updatedAt: number;
   providers: ProviderUsageSnapshot[];
 };
 
-/** Provider ids supported by usage summary loading. */
 export type UsageProviderId =
   | "anthropic"
   | "github-copilot"

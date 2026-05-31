@@ -7,7 +7,6 @@ import {
   isMissingOperatorReadScopeError,
 } from "./scope-errors.ts";
 
-/** Mutable state for log-tail paging, file metadata, and parsed entries. */
 export type LogsState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

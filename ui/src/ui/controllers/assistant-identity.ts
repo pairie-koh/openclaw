@@ -2,7 +2,6 @@ import { normalizeAssistantIdentity } from "../assistant-identity.ts";
 import type { GatewayBrowserClient } from "../gateway.ts";
 import { loadLocalAssistantIdentity, saveLocalAssistantIdentity } from "../storage.ts";
 
-/** Mutable state for assistant name/avatar resolved for the active session. */
 export type AssistantIdentityState = {
   client: GatewayBrowserClient | null;
   connected: boolean;
@@ -15,7 +14,6 @@ export type AssistantIdentityState = {
   assistantAgentId: string | null;
 };
 
-/** Minimal state updated when the user changes a local assistant avatar. */
 export type AssistantAvatarOverrideState = {
   assistantAvatar?: string | null;
   assistantAvatarSource?: string | null;
