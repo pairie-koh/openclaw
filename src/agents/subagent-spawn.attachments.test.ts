@@ -26,8 +26,6 @@ beforeAll(async () => {
   });
 });
 
-// --- decodeStrictBase64 ---
-
 describe("decodeStrictBase64", () => {
   const maxBytes = 1024;
 
@@ -81,8 +79,6 @@ describe("decodeStrictBase64", () => {
     expect(result?.byteLength).toBe(1024);
   });
 });
-
-// --- filename validation via spawnSubagentDirect ---
 
 describe("spawnSubagentDirect filename validation", () => {
   beforeEach(async () => {

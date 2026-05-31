@@ -13,8 +13,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SILENT_REPLY_TOKEN } from "../../auto-reply/tokens.js";
 
-// --- Module mocks (must be hoisted before imports) ---
-
 const {
   appendAssistantMessageToSessionTranscriptMock,
   countActiveDescendantRunsMock,

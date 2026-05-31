@@ -6,7 +6,6 @@ import {
   hasSlackThreadParticipation,
 } from "./sent-thread-cache.js";
 
-// --- Module mocks (must precede dynamic import) ---
 installSlackBlockTestMocks();
 const loadOutboundMediaFromUrlMock = vi.hoisted(() =>
   vi.fn(async (_mediaUrl: string, _options?: unknown) => ({

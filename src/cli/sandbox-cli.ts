@@ -6,11 +6,7 @@ import { sandboxListCommand, sandboxRecreateCommand } from "../commands/sandbox.
 import { defaultRuntime } from "../runtime.js";
 import { formatHelpExamples } from "./help-format.js";
 
-// --- Types ---
-
 type CommandOptions = Record<string, unknown>;
-
-// --- Helpers ---
 
 const SANDBOX_EXAMPLES = {
   main: [
@@ -53,8 +49,6 @@ function createRunner(
     }
   };
 }
-
-// --- Registration ---
 
 /** Register sandbox list, recreate, and explain commands for Docker-backed isolation. */
 export function registerSandboxCli(program: Command) {

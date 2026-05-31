@@ -3,8 +3,6 @@ import path from "node:path";
 import { resolveStateDir } from "../config/paths.js";
 import { createAsyncLock, tryReadJson, writeJson } from "./json-files.js";
 
-// --- Types ---
-
 type WebPushSubscription = {
   subscriptionId: string;
   endpoint: string;
@@ -30,8 +28,6 @@ type WebPushSendResult = {
   error?: string;
 };
 
-// --- Constants ---
-
 const WEB_PUSH_STATE_FILENAME = "push/web-push-subscriptions.json";
 const VAPID_KEYS_FILENAME = "push/vapid-keys.json";
 const MAX_ENDPOINT_LENGTH = 2048;
@@ -51,8 +47,6 @@ async function loadWebPushRuntime(): Promise<WebPushRuntime> {
   );
   return await webPushRuntimePromise;
 }
-
-// --- Helpers ---
 
 function resolveWebPushStatePath(baseDir?: string): string {
   const root = baseDir ?? resolveStateDir();
@@ -84,8 +78,6 @@ function isValidKey(key: string): boolean {
   return typeof key === "string" && key.length > 0 && key.length <= MAX_KEY_LENGTH;
 }
 
-// --- State persistence ---
-
 async function loadState(baseDir?: string): Promise<WebPushRegistrationState> {
   const filePath = resolveWebPushStatePath(baseDir);
   const state = await tryReadJson<WebPushRegistrationState>(filePath);
@@ -96,8 +88,6 @@ async function persistState(state: WebPushRegistrationState, baseDir?: string): 
   const filePath = resolveWebPushStatePath(baseDir);
   await writeJson(filePath, state, { trailingNewline: true });
 }
-
-// --- VAPID keys ---
 
 /** Resolves operator-provided VAPID keys or creates a persisted keypair on first use. */
 export async function resolveVapidKeys(baseDir?: string): Promise<VapidKeyPair> {
@@ -150,8 +140,6 @@ function resolveVapidPublicKeyFromEnv(): string | undefined {
 function resolveVapidPrivateKeyFromEnv(): string | undefined {
   return process.env.OPENCLAW_VAPID_PRIVATE_KEY || undefined;
 }
-
-// --- Subscription CRUD ---
 
 type RegisterWebPushParams = {
   endpoint: string;
@@ -246,8 +234,6 @@ export async function clearWebPushSubscriptionByEndpoint(
     return false;
   });
 }
-
-// --- Sending ---
 
 type WebPushPayload = {
   title: string;
