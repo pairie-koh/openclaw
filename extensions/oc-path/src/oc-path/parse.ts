@@ -12,14 +12,7 @@
  */
 
 import MarkdownIt from "markdown-it";
-
-import type {
-  AstBlock,
-  AstItem,
-  Diagnostic,
-  FrontmatterEntry,
-  ParseResult,
-} from "./ast.js";
+import type { AstBlock, AstItem, Diagnostic, FrontmatterEntry, ParseResult } from "./ast.js";
 import { slugify } from "./slug.js";
 
 type Token = ReturnType<MarkdownIt["parse"]>[number];
@@ -48,8 +41,6 @@ export function parseMd(raw: string): ParseResult {
     diagnostics,
   };
 }
-
-// ---------- Frontmatter ---------------------------------------------------
 
 interface FrontmatterRange {
   readonly entries: readonly FrontmatterEntry[];
@@ -101,8 +92,6 @@ function unquote(value: string): string {
   return value;
 }
 
-// ---------- H2 block walker -----------------------------------------------
-
 function walkBlocks(
   tokens: readonly Token[],
   bodyLines: readonly string[],
@@ -145,15 +134,15 @@ function walkBlocks(
   return { preamble, blocks };
 }
 
-// ---------- Item extraction ----------------------------------------------
-
 // Every list_item_open becomes an item (bullets, numbered, nested
 // sub-bullets); lint rules flag depth / duplicate-slug collisions.
 function extractItems(tokens: readonly Token[], bodyFileLine: number): AstItem[] {
   const items: AstItem[] = [];
   for (let i = 0; i < tokens.length; i++) {
     const t = tokens[i];
-    if (t.type !== "list_item_open" || t.map === null) {continue;}
+    if (t.type !== "list_item_open" || t.map === null) {
+      continue;
+    }
     // First inline at the item's own depth is the item text.
     let nestedDepth = 0;
     let text = "";
@@ -175,9 +164,7 @@ function extractItems(tokens: readonly Token[], bodyFileLine: number): AstItem[]
       text,
       slug: kvMatch ? slugify(kvMatch[1]) : slugify(text),
       line: bodyFileLine + t.map[0],
-      ...(kvMatch !== null
-        ? { kv: { key: kvMatch[1].trim(), value: kvMatch[2].trim() } }
-        : {}),
+      ...(kvMatch !== null ? { kv: { key: kvMatch[1].trim(), value: kvMatch[2].trim() } } : {}),
     });
   }
   return items;

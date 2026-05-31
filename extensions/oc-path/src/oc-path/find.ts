@@ -36,8 +36,6 @@ import type { PredicateSpec } from "./oc-path.js";
 import type { OcAst, OcMatch } from "./universal.js";
 import { resolveOcPath } from "./universal.js";
 
-// ---------- Public types ---------------------------------------------------
-
 /** A find result: a concrete (wildcard-free) path plus its match info. */
 export interface OcPathMatch {
   readonly path: OcPath;
@@ -55,8 +53,6 @@ interface PatternSub {
 }
 
 type OnMatch = (subs: readonly SlotSub[]) => void;
-
-// ---------- Public verb ----------------------------------------------------
 
 export function findOcPaths(ast: OcAst, pattern: OcPath): readonly OcPathMatch[] {
   const subs = patternSubs(pattern);
@@ -107,8 +103,6 @@ export function findOcPaths(ast: OcAst, pattern: OcPath): readonly OcPathMatch[]
   return out;
 }
 
-// ---------- Pattern unpacking ---------------------------------------------
-
 function patternSubs(pattern: OcPath): readonly PatternSub[] {
   const out: PatternSub[] = [];
   // Bracket-aware split so dots inside `[k=1.0]` or `{a.b,c}` aren't
@@ -152,8 +146,6 @@ function repackSlotSubs(pattern: OcPath, slotSubs: readonly SlotSub[]): OcPath {
     ...(pattern.session !== undefined ? { session: pattern.session } : {}),
   };
 }
-
-// ---------- Shared dispatch ----------------------------------------------
 
 // Per-kind ops the dispatcher uses to drive recursion. Each kind's
 // walker fills these in; the dispatcher handles every segment shape.
@@ -252,8 +244,6 @@ function dispatchSeg<T>(
   ops.walk(m.child, subs, i + 1, [...walked, { slot: cur.slot, value: m.keySub }], onMatch);
 }
 
-// ---------- JSONC walker ---------------------------------------------------
-
 function walkJsonc(
   node: JsoncValue,
   subs: readonly PatternSub[],
@@ -333,8 +323,6 @@ function positionalForJsoncNode(node: JsoncValue, seg: string): string | null {
   }
   return null;
 }
-
-// ---------- JSONL walker ---------------------------------------------------
 
 // First slot is a line address; subsequent slots descend into the
 // line's jsonc value via jsonlOps.walk's holder unwrap.
@@ -471,8 +459,6 @@ function pickLine(ast: JsonlAst, addr: string): JsonlLine | null {
   return null;
 }
 
-// ---------- YAML walker ----------------------------------------------------
-
 function walkYaml(
   node: Node,
   subs: readonly PatternSub[],
@@ -607,8 +593,6 @@ function yamlScalarToText(value: unknown): string | null {
   }
   return JSON.stringify(scalar) ?? null;
 }
-
-// ---------- Markdown walker -----------------------------------------------
 
 type MdItem = MdAst["blocks"][number]["items"][number];
 type MdBlock = MdAst["blocks"][number];

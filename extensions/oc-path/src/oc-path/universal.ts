@@ -41,8 +41,6 @@ import type { YamlAst } from "./yaml/ast.js";
 import { insertYamlOcPath, setYamlOcPath } from "./yaml/edit.js";
 import { resolveYamlOcPath } from "./yaml/resolve.js";
 
-// ---------- Public types ---------------------------------------------------
-
 /** Tagged-union of every AST kind the substrate supports. */
 export type OcAst = MdAst | JsoncAst | JsonlAst | YamlAst;
 

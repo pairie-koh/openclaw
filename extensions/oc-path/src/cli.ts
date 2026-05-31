@@ -268,8 +268,6 @@ export function formatUnifiedDiff(oldBytes: string, newBytes: string, fsPath: st
   return `${lines.join("\n")}\n`;
 }
 
-// ---------- Commands -----------------------------------------------------
-
 export async function pathResolveCommand(
   pathStr: string | undefined,
   options: PathCommandOptions,
@@ -515,8 +513,6 @@ export async function pathEmitCommand(
   }
   runtime.writeStdout(bytes);
 }
-
-// ---------- Commander wiring ---------------------------------------------
 
 function withCommonOpts(cmd: Command): Command {
   return cmd
