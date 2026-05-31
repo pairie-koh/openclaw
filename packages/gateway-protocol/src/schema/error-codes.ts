@@ -10,7 +10,6 @@ export const ErrorCodes = {
   UNAVAILABLE: "UNAVAILABLE",
 } as const;
 
-/** Union of the stable gateway error-code string values. */
 export type ErrorCode = (typeof ErrorCodes)[keyof typeof ErrorCodes];
 
 /** Build a typed gateway error payload with optional retry metadata. */

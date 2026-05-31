@@ -12,11 +12,9 @@ const ENV_SECRET_REF_ID_RE = /^[A-Z][A-Z0-9_]{0,127}$/;
 const INPUT_PROVENANCE_KIND_VALUES = ["external_user", "inter_session", "internal_system"] as const;
 const SESSION_LABEL_MAX_LENGTH = 512;
 
-/** Generic string schema for required non-empty identifiers and names. */
 export const NonEmptyString = Type.String({ minLength: 1 });
 /** Maximum session key length accepted by chat send routes. */
 export const CHAT_SEND_SESSION_KEY_MAX_LENGTH = 512;
-/** Session key string schema for chat send payloads. */
 export const ChatSendSessionKeyString = Type.String({
   minLength: 1,
   maxLength: CHAT_SEND_SESSION_KEY_MAX_LENGTH,
@@ -38,10 +36,8 @@ export const InputProvenanceSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Schema for the stable client ids advertised during gateway connection setup. */
 export const GatewayClientIdSchema = Type.Enum(GATEWAY_CLIENT_IDS);
 
-/** Schema for coarse gateway client runtime modes. */
 export const GatewayClientModeSchema = Type.Enum(GATEWAY_CLIENT_MODES);
 
 /** Allowed secret resolver backends referenced in protocol payloads. */
