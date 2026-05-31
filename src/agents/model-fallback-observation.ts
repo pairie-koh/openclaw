@@ -6,7 +6,6 @@ import type { FallbackAttempt, ModelCandidate } from "./model-fallback.types.js"
 
 const decisionLog = createSubsystemLogger("model-fallback").child("decision");
 
-/** Return whether model fallback decision logging is enabled. */
 export function isModelFallbackDecisionLogEnabled(): boolean {
   return decisionLog.isEnabled("warn");
 }

@@ -62,7 +62,6 @@ async function readErrorBodySnippet(res: Response): Promise<string> {
   }
 }
 
-/** Return whether a provider id can use MiniMax VLM fallback. */
 export function isMinimaxVlmProvider(provider: string): boolean {
   const normalized = provider.trim().toLowerCase();
   return (
@@ -73,7 +72,6 @@ export function isMinimaxVlmProvider(provider: string): boolean {
   );
 }
 
-/** Return whether a provider/model pair is the MiniMax VLM model. */
 export function isMinimaxVlmModel(provider: string, modelId: string): boolean {
   return isMinimaxVlmProvider(provider) && modelId.trim() === "MiniMax-VL-01";
 }

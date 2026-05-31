@@ -135,7 +135,6 @@ export function hasDifferentLiveSessionModelSelection(
   );
 }
 
-/** Return whether live-session model selection should be persisted/tracked. */
 export function shouldTrackPersistedLiveSessionModelSelection(
   current: {
     provider: string;
@@ -169,7 +168,6 @@ export function shouldTrackPersistedLiveSessionModelSelection(
  * (`consumeEmbeddedRunModelSwitch`) which could not distinguish between
  * user-initiated `/model` switches and system-initiated fallback rotations.
  */
-/** Return whether a live session should switch away from its current model. */
 export function shouldSwitchToLiveModel(params: {
   cfg?: { session?: { store?: string } } | undefined;
   sessionKey?: string;

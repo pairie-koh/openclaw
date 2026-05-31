@@ -45,7 +45,6 @@ export function isModelNotFoundErrorMessage(raw: string): boolean {
   return false;
 }
 
-/** Return whether a MiniMax error message means the model id is unavailable. */
 export function isMiniMaxModelNotFoundErrorMessage(raw: string): boolean {
   const msg = raw.trim();
   if (!msg) {

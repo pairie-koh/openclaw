@@ -40,34 +40,28 @@ export function liveProviderErrorText(error: unknown): string {
   return error instanceof Error ? `${error.name}: ${error.message}` : String(error);
 }
 
-/** Return whether a live error is auth drift. */
 export function isLiveAuthDrift(error: unknown): boolean {
   return isAuthErrorMessage(liveProviderErrorText(error));
 }
 
-/** Return whether a live error is billing drift. */
 export function isLiveBillingDrift(error: unknown): boolean {
   const raw = liveProviderErrorText(error);
   return isBillingErrorMessage(raw) || isAnthropicBillingError(raw);
 }
 
-/** Return whether a live error is rate-limit drift. */
 export function isLiveRateLimitDrift(error: unknown): boolean {
   const raw = liveProviderErrorText(error);
   return isRateLimitErrorMessage(raw) || isApiKeyRateLimitError(raw);
 }
 
-/** Return whether a live error is timeout drift. */
 export function isLiveTimeoutDrift(error: unknown): boolean {
   return isTimeoutErrorMessage(liveProviderErrorText(error));
 }
 
-/** Return whether a live error is model-not-found drift. */
 export function isLiveModelNotFoundDrift(error: unknown): boolean {
   return isModelNotFoundErrorMessage(liveProviderErrorText(error));
 }
 
-/** Return whether a live error is provider-unavailable drift. */
 export function isLiveProviderUnavailableDrift(error: unknown): boolean {
   const raw = liveProviderErrorText(error);
   const htmlCandidate = raw.trim().replace(/^error:\s*/i, "");
