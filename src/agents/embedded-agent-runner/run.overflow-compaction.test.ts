@@ -2,6 +2,7 @@ import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
+import { getSessionEntry, upsertSessionEntry } from "../../config/sessions.js";
 import type { AgentHarness } from "../harness/types.js";
 import type { AgentInternalEvent } from "../internal-events.js";
 import type { AgentRuntimePlan } from "../runtime-plan/types.js";
@@ -1887,42 +1888,41 @@ describe("runEmbeddedAgent overflow compaction trigger routing", () => {
 
   it("recovers preflight compaction when stale tokens point at an empty transcript", async () => {
     const dir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-empty-preflight-"));
-    const storePath = path.join(dir, "sessions.json");
-    await fs.writeFile(
-      storePath,
-      JSON.stringify({
-        "test-key": {
-          sessionId: "test-session",
+    const storePath = path.join(dir, "sessions.sqlite");
+    upsertSessionEntry({
+      agentId: "main",
+      path: storePath,
+      sessionKey: "test-key",
+      entry: {
+        sessionId: "test-session",
+        updatedAt: 1,
+        totalTokens: 1_500_000,
+        totalTokensFresh: true,
+        inputTokens: 20,
+        outputTokens: 10_855,
+        cacheRead: 1_761_324,
+        cacheWrite: 33_047,
+        contextBudgetStatus: {
+          schemaVersion: 1,
+          source: "pre-prompt-estimate",
           updatedAt: 1,
-          totalTokens: 1_500_000,
-          totalTokensFresh: true,
-          inputTokens: 20,
-          outputTokens: 10_855,
-          cacheRead: 1_761_324,
-          cacheWrite: 33_047,
-          contextBudgetStatus: {
-            schemaVersion: 1,
-            source: "pre-prompt-estimate",
-            updatedAt: 1,
-            provider: "claude-cli",
-            model: "claude-opus-4-7",
-            route: "compact_only",
-            shouldCompact: true,
-            estimatedPromptTokens: 1_794_391,
-            contextTokenBudget: 1_048_576,
-            promptBudgetBeforeReserve: 1_044_480,
-            reserveTokens: 4_096,
-            effectiveReserveTokens: 4_096,
-            remainingPromptBudgetTokens: 0,
-            overflowTokens: 749_911,
-            toolResultReducibleChars: 0,
-            messageCount: 0,
-            unwindowedMessageCount: 0,
-          },
+          provider: "claude-cli",
+          model: "claude-opus-4-7",
+          route: "compact_only",
+          shouldCompact: true,
+          estimatedPromptTokens: 1_794_391,
+          contextTokenBudget: 1_048_576,
+          promptBudgetBeforeReserve: 1_044_480,
+          reserveTokens: 4_096,
+          effectiveReserveTokens: 4_096,
+          remainingPromptBudgetTokens: 0,
+          overflowTokens: 749_911,
+          toolResultReducibleChars: 0,
+          messageCount: 0,
+          unwindowedMessageCount: 0,
         },
-      }),
-      "utf8",
-    );
+      },
+    });
 
     mockedRunEmbeddedAttempt
       .mockResolvedValueOnce(
@@ -1962,6 +1962,7 @@ describe("runEmbeddedAgent overflow compaction trigger routing", () => {
     try {
       const result = await runEmbeddedAgent({
         ...overflowBaseRunParams,
+        path: storePath,
         config: {
           session: {
             store: storePath,
@@ -1974,7 +1975,14 @@ describe("runEmbeddedAgent overflow compaction trigger routing", () => {
       expect(result.meta.error).toBeUndefined();
       expect(result.meta.agentMeta?.compactionTokensAfter).toBeUndefined();
       expect(result.meta.agentMeta?.contextBudgetStatus).toBeUndefined();
-      const stored = JSON.parse(await fs.readFile(storePath, "utf8"))["test-key"];
+      const stored = getSessionEntry({
+        agentId: "main",
+        path: storePath,
+        sessionKey: "test-key",
+      });
+      if (!stored) {
+        throw new Error("expected SQLite session entry to exist");
+      }
       expect(stored.totalTokens).toBe(0);
       expect(stored.totalTokensFresh).toBe(true);
       expect(stored.inputTokens).toBeUndefined();

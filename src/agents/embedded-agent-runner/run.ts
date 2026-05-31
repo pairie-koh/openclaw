@@ -108,6 +108,10 @@ import { derivePromptTokens, normalizeUsage, type UsageLike } from "../usage.js"
 import { redactRunIdentifier, resolveRunWorkspaceDir } from "../workspace-run.js";
 import { runPostCompactionSideEffects } from "./compaction-hooks.js";
 import { buildEmbeddedCompactionRuntimeContext } from "./compaction-runtime-context.js";
+import {
+  compactContextEngineWithSafetyTimeout,
+  resolveCompactionTimeoutMs,
+} from "./compaction-safety-timeout.js";
 import { resolveContextEngineCapabilities } from "./context-engine-capabilities.js";
 import { runContextEngineMaintenance } from "./context-engine-maintenance.js";
 import { hasMessagingToolDeliveryEvidence } from "./delivery-evidence.js";
@@ -316,6 +320,7 @@ function isNoRealConversationCompactionNoop(params: {
 async function resetNoRealConversationTokenSnapshot(params: {
   config?: RunEmbeddedAgentParams["config"];
   sessionKey?: string;
+  path?: string;
   agentId?: string;
 }): Promise<void> {
   if (!params.sessionKey) {
@@ -330,6 +335,7 @@ async function resetNoRealConversationTokenSnapshot(params: {
     await patchSessionEntry({
       agentId: sessionAgentId ?? defaultAgentId,
       sessionKey: params.sessionKey,
+      ...(params.path ? { path: params.path } : {}),
       update: async () => ({
         totalTokens: 0,
         totalTokensFresh: true,
@@ -836,7 +842,12 @@ export async function runEmbeddedAgent(
                 workspaceDir: resolvedWorkspace,
               });
             })();
-      if (selectedRuntimeProvider !== provider && modelResolution.model) {
+      if (
+        selectedRuntimeProvider !== provider &&
+        modelResolution.model?.provider === selectedRuntimeProvider
+      ) {
+        provider = selectedRuntimeProvider;
+      } else if (selectedRuntimeProvider !== provider && modelResolution.model) {
         const runtimeModelResolution = await resolveModelAsync(
           selectedRuntimeProvider,
           modelId,
@@ -879,13 +890,18 @@ export async function runEmbeddedAgent(
       startupStages.mark("model-resolution");
       notifyExecutionPhase("model_resolution", { provider, model: modelId });
 
+      const effectiveModelProvider = effectiveModel.provider ?? provider;
+      const usesOpenAICodexResponses =
+        effectiveModelProvider === OPENAI_CODEX_PROVIDER_ID ||
+        provider === OPENAI_CODEX_PROVIDER_ID ||
+        selectedRuntimeProvider === OPENAI_CODEX_PROVIDER_ID;
       const pluginHarnessNeedsOpenClawAuthBootstrap =
         pluginHarnessOwnsTransport &&
-        provider === OPENAI_CODEX_PROVIDER_ID &&
+        usesOpenAICodexResponses &&
         effectiveModel.api === "openai-codex-responses";
       const openClawNativeCodexResponsesNeedsAuthBootstrap =
         !pluginHarnessOwnsTransport &&
-        provider === OPENAI_CODEX_PROVIDER_ID &&
+        usesOpenAICodexResponses &&
         effectiveModel.api === "openai-codex-responses";
       let piExternalCliAuthScope = pluginHarnessOwnsTransport
         ? { ignoreAutoPreferredProfile: false }
@@ -947,6 +963,7 @@ export async function runEmbeddedAgent(
             })
           : authStore;
       const requestedProfileId = params.authProfileId?.trim();
+      const requestedProfileIsUserLocked = params.authProfileIdSource === "user";
       const isForwardablePluginHarnessAuthProfile = (
         profileId: string | undefined,
       ): profileId is string => {
@@ -968,7 +985,7 @@ export async function runEmbeddedAgent(
         return runtimeAuthPlan.forwardedAuthProfileId === profileId;
       };
       const resolvePluginHarnessProfileOrder = (): string[] => {
-        if (requestedProfileId && params.authProfileIdSource === "user") {
+        if (requestedProfileId && requestedProfileIsUserLocked) {
           return isForwardablePluginHarnessAuthProfile(requestedProfileId)
             ? [requestedProfileId]
             : [];
@@ -992,12 +1009,14 @@ export async function runEmbeddedAgent(
           cfg: params.config,
           store: attemptAuthProfileStore,
           provider: harnessAuthProvider,
-          preferredProfile: requestedProfileId,
         }).filter(isForwardablePluginHarnessAuthProfile);
         if (resolvedOrder.length > 0) {
           return resolvedOrder;
         }
-        return requestedProfileId ? [requestedProfileId] : [];
+        if (requestedProfileId && isForwardablePluginHarnessAuthProfile(requestedProfileId)) {
+          return [requestedProfileId];
+        }
+        return [];
       };
       const pluginHarnessProfileOrder = pluginHarnessOwnsTransport
         ? resolvePluginHarnessProfileOrder()
@@ -1006,8 +1025,10 @@ export async function runEmbeddedAgent(
         pluginHarnessProfileOrder[0];
       const preferredProfileId = pluginHarnessOwnsTransport
         ? resolvePluginHarnessPreferredProfileId()
-        : requestedProfileId;
-      let lockedProfileId = params.authProfileIdSource === "user" ? preferredProfileId : undefined;
+        : piExternalCliAuthScope.ignoreAutoPreferredProfile && !requestedProfileIsUserLocked
+          ? undefined
+          : requestedProfileId;
+      let lockedProfileId = requestedProfileIsUserLocked ? preferredProfileId : undefined;
       if (lockedProfileId) {
         if (pluginHarnessOwnsTransport) {
           if (!isForwardablePluginHarnessAuthProfile(lockedProfileId)) {
@@ -2223,18 +2244,23 @@ export async function runEmbeddedAgent(
                   attempt: overflowCompactionAttempts,
                   maxAttempts: MAX_OVERFLOW_COMPACTION_ATTEMPTS,
                 };
-                compactResult = await contextEngine.compact({
-                  sessionId: activeSessionId,
-                  sessionKey: params.sessionKey,
-                  transcriptScope: resolveTranscriptScope(activeSessionId),
-                  tokenBudget: ctxInfo.tokens,
-                  ...(observedOverflowTokens !== undefined
-                    ? { currentTokenCount: observedOverflowTokens }
-                    : {}),
-                  force: true,
-                  compactionTarget: "budget",
-                  runtimeContext: overflowCompactionRuntimeContext,
-                });
+                compactResult = await compactContextEngineWithSafetyTimeout(
+                  contextEngine,
+                  {
+                    sessionId: activeSessionId,
+                    sessionKey: params.sessionKey,
+                    transcriptScope: resolveTranscriptScope(activeSessionId),
+                    tokenBudget: ctxInfo.tokens,
+                    ...(overflowTokenCountForCompaction !== undefined
+                      ? { currentTokenCount: overflowTokenCountForCompaction }
+                      : {}),
+                    force: true,
+                    compactionTarget: "budget",
+                    runtimeContext: overflowCompactionRuntimeContext,
+                  },
+                  resolveCompactionTimeoutMs(params.config),
+                  params.abortSignal,
+                );
                 if (compactResult.ok && compactResult.compacted) {
                   adoptCompactionTranscript(compactResult);
                   await runContextEngineMaintenance({
@@ -2266,6 +2292,7 @@ export async function runEmbeddedAgent(
                 await resetNoRealConversationTokenSnapshot({
                   config: params.config,
                   sessionKey: params.sessionKey,
+                  path: params.path,
                   agentId: sessionAgentId,
                 });
                 log.info(
