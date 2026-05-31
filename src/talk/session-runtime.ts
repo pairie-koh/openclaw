@@ -13,7 +13,6 @@ import type {
   RealtimeVoiceToolResultOptions,
 } from "./provider-types.js";
 
-/** Output sink used by bridge sessions to deliver audio and playback marks. */
 export type RealtimeVoiceAudioSink = {
   isOpen?: () => boolean;
   sendAudio: (audio: Buffer) => void;
@@ -21,10 +20,8 @@ export type RealtimeVoiceAudioSink = {
   sendMark?: (markName: string) => void;
 };
 
-/** Strategy for handling provider playback marks when the sink can or cannot ack them. */
 export type RealtimeVoiceMarkStrategy = "transport" | "ack-immediately" | "ignore";
 
-/** Safe bridge facade exposed to callers after provider bridge creation. */
 export type RealtimeVoiceBridgeSession = {
   bridge: RealtimeVoiceBridge;
   acknowledgeMark(): void;
@@ -38,7 +35,6 @@ export type RealtimeVoiceBridgeSession = {
   triggerGreeting(instructions?: string): void;
 };
 
-/** Provider, audio sink, and callback wiring for a realtime voice bridge session. */
 export type RealtimeVoiceBridgeSessionParams = {
   provider: RealtimeVoiceProviderPlugin;
   cfg?: OpenClawConfig;
@@ -60,7 +56,6 @@ export type RealtimeVoiceBridgeSessionParams = {
   onClose?: (reason: RealtimeVoiceCloseReason) => void;
 };
 
-/** Creates a bridge session and routes provider callbacks through sink/session guards. */
 export function createRealtimeVoiceBridgeSession(
   params: RealtimeVoiceBridgeSessionParams,
 ): RealtimeVoiceBridgeSession {

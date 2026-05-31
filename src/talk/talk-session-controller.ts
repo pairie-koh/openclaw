@@ -10,32 +10,26 @@ import {
   type TalkTransport,
 } from "./talk-events.js";
 
-/** Reason a turn-scoped operation could not be applied. */
 export type TalkTurnFailureReason = "no_active_turn" | "stale_turn";
 
-/** Successful turn operation with the emitted final event. */
 export type TalkTurnSuccess = {
   event: TalkEvent;
   ok: true;
   turnId: string;
 };
 
-/** Failed turn operation that did not emit an event. */
 export type TalkTurnFailure = {
   ok: false;
   reason: TalkTurnFailureReason;
 };
 
-/** Result returned by operations that end or cancel a turn. */
 export type TalkTurnResult = TalkTurnSuccess | TalkTurnFailure;
 
-/** Active or newly-created turn id, optionally with the start event. */
 export type TalkEnsureTurnResult = {
   event?: TalkEvent;
   turnId: string;
 };
 
-/** Mutable session controller used by transports to emit correlated Talk events. */
 export type TalkSessionController = {
   readonly activeTurnId: string | undefined;
   readonly context: TalkEventContext;
@@ -51,20 +45,17 @@ export type TalkSessionController = {
   startOutputAudio(params?: { payload?: unknown; turnId?: string }): TalkEnsureTurnResult;
 };
 
-/** Session context and bounded history options for creating a controller. */
 export type TalkSessionControllerParams = TalkEventContext & {
   maxRecentEvents?: number;
   turnIdPrefix?: string;
 };
 
-/** Controller hooks for deterministic clocks, event sinks, and custom sequencers. */
 export type TalkSessionControllerOptions = {
   now?: () => Date | string;
   onEvent?: (event: TalkEvent) => void;
   sequencer?: TalkEventSequencer;
 };
 
-/** Creates a Talk session controller that owns active-turn and output-audio state. */
 export function createTalkSessionController(
   params: TalkSessionControllerParams,
   options: TalkSessionControllerOptions = {},

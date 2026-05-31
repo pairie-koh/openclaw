@@ -4,13 +4,11 @@ import type { RealtimeVoiceProviderPlugin } from "../plugins/types.js";
 import { getRealtimeVoiceProvider, listRealtimeVoiceProviders } from "./provider-registry.js";
 import type { RealtimeVoiceProviderConfig } from "./provider-types.js";
 
-/** Provider plugin plus resolved provider-specific config. */
 export type ResolvedRealtimeVoiceProvider = {
   provider: RealtimeVoiceProviderPlugin;
   providerConfig: RealtimeVoiceProviderConfig;
 };
 
-/** Inputs for selecting a configured realtime voice provider. */
 export type ResolveConfiguredRealtimeVoiceProviderParams = {
   configuredProviderId?: string;
   providerConfigs?: Record<string, Record<string, unknown> | undefined>;
@@ -22,7 +20,6 @@ export type ResolveConfiguredRealtimeVoiceProviderParams = {
   noRegisteredProviderMessage?: string;
 };
 
-/** Selects a registered/configured realtime voice provider or throws an actionable error. */
 export function resolveConfiguredRealtimeVoiceProvider(
   params: ResolveConfiguredRealtimeVoiceProviderParams,
 ): ResolvedRealtimeVoiceProvider {
