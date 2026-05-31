@@ -3,10 +3,8 @@ import type { OpenClawConfig } from "../config/types.openclaw.js";
 
 type MediaUnderstandingKind = "audio.transcription" | "video.description" | "image.description";
 
-/** Capability family a media understanding provider can satisfy. */
 export type MediaUnderstandingCapability = "image" | "audio" | "video";
 
-/** Registry of provider ids to the media capabilities they advertise. */
 export type MediaUnderstandingCapabilityRegistry = Map<
   string,
   {
@@ -14,7 +12,6 @@ export type MediaUnderstandingCapabilityRegistry = Map<
   }
 >;
 
-/** Normalized attachment metadata passed into media-understanding selection. */
 export type MediaAttachment = {
   path?: string;
   url?: string;
@@ -23,7 +20,6 @@ export type MediaAttachment = {
   alreadyTranscribed?: boolean;
 };
 
-/** Text output produced for a single attachment by a chosen provider/model. */
 export type MediaUnderstandingOutput = {
   kind: MediaUnderstandingKind;
   attachmentIndex: number;
@@ -40,7 +36,6 @@ type MediaUnderstandingDecisionOutcome =
   | "no-attachment"
   | "scope-deny";
 
-/** Attempt record for a provider or CLI model considered during selection. */
 export type MediaUnderstandingModelDecision = {
   provider?: string;
   model?: string;
@@ -55,7 +50,6 @@ type MediaUnderstandingAttachmentDecision = {
   chosen?: MediaUnderstandingModelDecision;
 };
 
-/** Aggregate selection result for one capability across candidate attachments. */
 export type MediaUnderstandingDecision = {
   capability: MediaUnderstandingCapability;
   outcome: MediaUnderstandingDecisionOutcome;
@@ -89,7 +83,6 @@ type MediaUnderstandingProviderRequestTransportOverrides = {
   allowPrivateNetwork?: boolean;
 };
 
-/** Binary audio transcription request sent to a media provider adapter. */
 export type AudioTranscriptionRequest = {
   buffer: Buffer;
   fileName: string;
@@ -106,13 +99,11 @@ export type AudioTranscriptionRequest = {
   fetchFn?: typeof fetch;
 };
 
-/** Text transcript returned by an audio provider adapter. */
 export type AudioTranscriptionResult = {
   text: string;
   model?: string;
 };
 
-/** Binary video description request sent to a media provider adapter. */
 export type VideoDescriptionRequest = {
   buffer: Buffer;
   fileName: string;
@@ -127,13 +118,11 @@ export type VideoDescriptionRequest = {
   fetchFn?: typeof fetch;
 };
 
-/** Natural-language video description returned by a provider adapter. */
 export type VideoDescriptionResult = {
   text: string;
   model?: string;
 };
 
-/** Single-image description request with agent auth/config context attached. */
 export type ImageDescriptionRequest = {
   buffer: Buffer;
   fileName: string;
@@ -151,14 +140,12 @@ export type ImageDescriptionRequest = {
   provider: string;
 };
 
-/** One image payload inside a batched image description request. */
 export type ImagesDescriptionInput = {
   buffer: Buffer;
   fileName: string;
   mime?: string;
 };
 
-/** Batched image description request for providers that accept multiple images. */
 export type ImagesDescriptionRequest = {
   images: ImagesDescriptionInput[];
   model: string;
@@ -174,25 +161,21 @@ export type ImagesDescriptionRequest = {
   cfg: OpenClawConfig;
 };
 
-/** Description result for a single-image request. */
 export type ImageDescriptionResult = {
   text: string;
   model?: string;
 };
 
-/** Description result for a batched image request. */
 export type ImagesDescriptionResult = {
   text: string;
   model?: string;
 };
 
-/** Text-only input item for structured extraction prompts. */
 export type StructuredExtractionTextInput = {
   type: "text";
   text: string;
 };
 
-/** Image input item for structured extraction prompts. */
 export type StructuredExtractionImageInput = {
   type: "image";
   buffer: Buffer;
@@ -200,12 +183,10 @@ export type StructuredExtractionImageInput = {
   mime?: string;
 };
 
-/** Supported multimodal inputs for structured extraction. */
 export type StructuredExtractionInput =
   | StructuredExtractionTextInput
   | StructuredExtractionImageInput;
 
-/** Structured extraction request with optional schema and JSON-mode hints. */
 export type StructuredExtractionRequest = {
   /** Image-first extraction input; callers must include at least one image. */
   input: StructuredExtractionInput[];

@@ -13,7 +13,6 @@ function isHeicInput(params: { mime?: string; fileName?: string }): boolean {
   return Boolean(fileName && HEIC_EXT_RE.test(fileName));
 }
 
-/** Convert HEIC/HEIF image inputs to provider-friendly bytes when needed. */
 export async function normalizeImageDescriptionInput(params: {
   buffer: Buffer;
   fileName?: string;

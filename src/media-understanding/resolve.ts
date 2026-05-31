@@ -41,7 +41,6 @@ export function resolveMediaRuntimeTimeoutMs(timeoutMs: number | undefined): num
   return resolveTimerTimeoutMs(timeoutMs, DEFAULT_MEDIA_RUNTIME_TIMEOUT_MS);
 }
 
-/** Resolve the provider prompt, appending character guidance when applicable. */
 export function resolvePrompt(
   capability: MediaUnderstandingCapability,
   prompt?: string,
@@ -54,7 +53,6 @@ export function resolvePrompt(
   return `${base} Respond in at most ${maxChars} characters.`;
 }
 
-/** Resolve output character budget for a capability/model entry. */
 export function resolveMaxChars(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
@@ -70,7 +68,6 @@ export function resolveMaxChars(params: {
   return DEFAULT_MAX_CHARS_BY_CAPABILITY[capability];
 }
 
-/** Resolve input byte budget for a capability/model entry. */
 export function resolveMaxBytes(params: {
   capability: MediaUnderstandingCapability;
   entry: MediaUnderstandingModelConfig;
@@ -87,7 +84,6 @@ export function resolveMaxBytes(params: {
   return DEFAULT_MAX_BYTES[params.capability];
 }
 
-/** Resolve whether media-understanding is allowed for the current message context. */
 export function resolveScopeDecision(params: {
   scope?: MediaUnderstandingScopeConfig;
   ctx: MsgContext;
@@ -100,7 +96,6 @@ export function resolveScopeDecision(params: {
   });
 }
 
-/** Resolve configured model entries that can run a media capability. */
 export function resolveModelEntries(params: {
   cfg: OpenClawConfig;
   capability: MediaUnderstandingCapability;
@@ -140,7 +135,6 @@ export function resolveModelEntries(params: {
     .map(({ entry }) => entry);
 }
 
-/** Resolve the media-understanding concurrency limit. */
 export function resolveConcurrency(cfg: OpenClawConfig): number {
   const configured = cfg.tools?.media?.concurrency;
   if (typeof configured === "number" && Number.isFinite(configured) && configured > 0) {
@@ -149,7 +143,6 @@ export function resolveConcurrency(cfg: OpenClawConfig): number {
   return DEFAULT_MEDIA_CONCURRENCY;
 }
 
-/** Resolve model entries, falling back to the active model when config allows it. */
 export function resolveEntriesWithActiveFallback(params: {
   cfg: OpenClawConfig;
   capability: MediaUnderstandingCapability;

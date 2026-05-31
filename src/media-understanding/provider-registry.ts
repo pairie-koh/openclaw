@@ -44,7 +44,6 @@ function hydrateModelBackedMediaProvider(
 
 export { normalizeMediaExecutionProviderId, normalizeMediaProviderId } from "./provider-id.js";
 
-/** Build the media-understanding provider registry from plugins, config, and overrides. */
 export function buildMediaUnderstandingRegistry(
   overrides?: Record<string, MediaUnderstandingProvider>,
   cfg?: OpenClawConfig,
@@ -75,7 +74,6 @@ export function buildMediaUnderstandingRegistry(
   return registry;
 }
 
-/** Look up a provider by normalized media-understanding id. */
 export function getMediaUnderstandingProvider(
   id: string,
   registry: Map<string, MediaUnderstandingProvider>,
