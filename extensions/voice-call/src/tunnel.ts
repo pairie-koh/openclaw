@@ -52,15 +52,12 @@ export async function startNgrokTunnel(config: {
   authToken?: string;
   domain?: string;
 }): Promise<TunnelResult> {
-  // Set auth token if provided
   if (config.authToken) {
     await runNgrokCommand(["config", "add-authtoken", config.authToken]);
   }
 
-  // Build ngrok command args
   const args = ["http", String(config.port), "--log", "stdout", "--log-format", "json"];
 
-  // Add custom domain if provided (paid ngrok feature)
   if (config.domain) {
     args.push("--domain", config.domain);
   }

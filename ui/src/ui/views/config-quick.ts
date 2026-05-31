@@ -29,8 +29,6 @@ import {
   type ConfigPresetId,
 } from "./config-presets.ts";
 
-// ── Types ──
-
 export type QuickSettingsChannel = {
   id: string;
   label: string;
@@ -124,8 +122,6 @@ export type QuickSettingsProps = {
   basePath?: string | null;
   version: string;
 };
-
-// ── Theme options ──
 
 type ThemeOption = { id: ThemeName; label: string };
 const BUILTIN_THEME_OPTIONS: ThemeOption[] = [
@@ -391,8 +387,6 @@ function renderProfileStat(params: {
     </div>
   `;
 }
-
-// ── Card renderers ──
 
 function renderCardHeader(icon: TemplateResult, title: string, action?: TemplateResult) {
   return html`
@@ -1071,8 +1065,6 @@ function renderConnectionFooter(props: QuickSettingsProps) {
     </div>
   `;
 }
-
-// ── Main render ──
 
 export function renderQuickSettings(props: QuickSettingsProps) {
   return html`

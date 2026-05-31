@@ -1004,7 +1004,6 @@ async function loadWebMediaInternal(
     throw new LocalMediaAccessError("path-not-allowed", HOST_READ_DECLARED_TEXT_ERROR);
   }
 
-  // Local path
   let data: Buffer;
   if (readFileOverride) {
     data = await readFileOverride(mediaUrl);
