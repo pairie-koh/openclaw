@@ -580,7 +580,6 @@ async function resolveUploadInput(
     const absolutePath = isAbsolute(imageInput);
 
     if (unambiguousPath || (absolutePath && existsSync(candidate))) {
-      // Use loadWebMedia to enforce localRoots sandbox (same as sendMediaFeishu).
       const resolvedPath = resolve(candidate);
       const loaded = await getFeishuRuntime().media.loadWebMedia(resolvedPath, {
         maxBytes,
@@ -777,7 +776,6 @@ async function uploadFileBlock(
   // Actually, file blocks need a different approach: use markdown link as placeholder.
   const upload = await resolveUploadInput(url, filePath, maxBytes, localRoots, filename);
 
-  // Create a placeholder text block first
   const placeholderMd = `[${upload.fileName}](https://example.com/placeholder)`;
   const converted = await convertMarkdown(client, placeholderMd);
   const { orderedBlocks } = normalizeConvertedBlockTree(
@@ -786,7 +784,6 @@ async function uploadFileBlock(
   );
   const { children: inserted } = await insertBlocks(client, docToken, orderedBlocks, blockId);
 
-  // Get the first inserted block - we'll delete it and create the file in its place
   const placeholderBlock = inserted[0];
   if (!placeholderBlock?.block_id) {
     throw new Error("Failed to create placeholder block for file upload");
@@ -1362,7 +1359,6 @@ export function registerFeishuDocTools(api: OpenClawPluginApi) {
     return;
   }
 
-  // Check if any account is configured
   const accounts = listEnabledFeishuAccounts(api.config);
   if (accounts.length === 0) {
     return;

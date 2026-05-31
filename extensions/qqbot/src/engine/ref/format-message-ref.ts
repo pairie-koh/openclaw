@@ -83,13 +83,10 @@ export async function formatMessageReferenceForAgent(
   const { attachmentInfo, voiceTranscripts, voiceTranscriptSources, attachmentLocalPaths } =
     processed;
 
-  // Format voice transcript text
   const voiceText = processor.formatVoiceText(voiceTranscripts);
 
-  // Parse QQ face tags into readable text
   const parsedContent = parseFaceTags(ref.content ?? "");
 
-  // Combine text content with voice transcript and attachment info
   const userContent = voiceText
     ? (parsedContent.trim() ? `${parsedContent}\n${voiceText}` : voiceText) + attachmentInfo
     : parsedContent + attachmentInfo;
@@ -119,7 +116,6 @@ export async function formatMessageReferenceForAgent(
     }
   }
 
-  // Format using the same function as the cache-hit path
   const refEntry = {
     content: userContent.trim(),
     senderId: "",

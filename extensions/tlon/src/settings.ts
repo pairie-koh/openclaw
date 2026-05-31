@@ -199,7 +199,6 @@ function parseSettingsEvent(event: unknown): { key: string; value: unknown } | n
 
   const evt = event as Record<string, unknown>;
 
-  // Handle put-entry events
   if (evt["put-entry"]) {
     const put = evt["put-entry"] as Record<string, unknown>;
     if (put.desk !== SETTINGS_DESK || put["bucket-key"] !== SETTINGS_BUCKET) {

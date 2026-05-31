@@ -162,7 +162,6 @@ export function createFeishuClient(creds: FeishuClientCredentials): Lark.Client 
     throw new Error(`Feishu credentials not configured for account "${accountId}"`);
   }
 
-  // Check cache
   const cached = clientCache.get(accountId);
   if (
     cached &&
