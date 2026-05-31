@@ -7,7 +7,6 @@ import { hashText } from "./hash.js";
 import { withRemoteHttpResponse } from "./remote-http.js";
 import { readResponseJsonWithLimit, readResponseTextSnippet } from "./response-snippet.js";
 
-/** Uploads embedding batch requests as a JSONL file and returns the provider file id. */
 export async function uploadBatchJsonlFile(params: {
   client: BatchHttpClientConfig;
   requests: unknown[];

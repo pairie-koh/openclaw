@@ -34,7 +34,6 @@ import { normalizeStringEntries, uniqueStrings } from "./string-utils.js";
 export { hashText } from "./hash.js";
 import { hashText } from "./hash.js";
 
-/** Indexed memory file metadata used to decide whether chunks need refreshing. */
 export type MemoryFileEntry = {
   path: string;
   absPath: string;
@@ -48,7 +47,6 @@ export type MemoryFileEntry = {
   mimeType?: string;
 };
 
-/** Text or structured embedding unit derived from a memory source file. */
 export type MemoryChunk = {
   startLine: number;
   endLine: number;
@@ -57,7 +55,6 @@ export type MemoryChunk = {
   embeddingInput?: EmbeddingInput;
 };
 
-/** Multimodal chunk plus estimated structured input size for provider limits. */
 export type MultimodalMemoryChunk = {
   chunk: MemoryChunk;
   structuredInputBytes: number;
@@ -69,13 +66,11 @@ const DISABLED_MULTIMODAL_SETTINGS: MemoryMultimodalSettings = {
   maxFileBytes: 0,
 };
 
-/** Creates a directory tree and returns the requested path for call chaining. */
 export function ensureDir(dir: string): string {
   fsSync.mkdirSync(dir, { recursive: true });
   return dir;
 }
 
-/** Normalizes memory-relative paths to slash-separated paths without leading dots. */
 export function normalizeRelPath(value: string): string {
   const trimmed = value.trim().replace(/^[./]+/, "");
   return trimmed.replace(/\\/g, "/");
@@ -91,7 +86,6 @@ function expandHomePath(value: string): string {
   return value;
 }
 
-/** Resolves configured extra memory paths against the workspace and home dir. */
 export function normalizeExtraMemoryPaths(workspaceDir: string, extraPaths?: string[]): string[] {
   if (!extraPaths?.length) {
     return [];
@@ -104,7 +98,6 @@ export function normalizeExtraMemoryPaths(workspaceDir: string, extraPaths?: str
   return uniqueStrings(resolved);
 }
 
-/** Returns true for canonical workspace memory files and memory/ descendants. */
 export function isMemoryPath(relPath: string): boolean {
   const normalized = normalizeRelPath(relPath);
   if (!normalized) {
@@ -152,7 +145,6 @@ async function collectMemoryFilesFromDir(
   files.push(...scan.entries.map((entry) => entry.path));
 }
 
-/** Lists markdown and enabled multimodal memory files from workspace and extra paths. */
 export async function listMemoryFiles(
   workspaceDir: string,
   extraPaths?: string[],
@@ -233,7 +225,6 @@ export async function listMemoryFiles(
   return deduped;
 }
 
-/** Builds a stable memory file entry, validating multimodal MIME and size constraints. */
 export async function buildFileEntry(
   absPath: string,
   workspaceDir: string,
@@ -355,7 +346,6 @@ async function loadMultimodalEmbeddingInput(
   };
 }
 
-/** Loads a multimodal file into a structured embedding chunk when it still matches metadata. */
 export async function buildMultimodalChunkForIndexing(
   entry: Pick<
     MemoryFileEntry,
@@ -378,7 +368,6 @@ export async function buildMultimodalChunkForIndexing(
   };
 }
 
-/** Splits markdown into overlapping token-budgeted chunks with stable hashes. */
 export function chunkMarkdown(
   content: string,
   chunking: { tokens: number; overlap: number },
@@ -505,7 +494,6 @@ export function remapChunkLines(chunks: MemoryChunk[], lineMap: number[] | undef
   }
 }
 
-/** Parses a stored embedding JSON array, returning an empty vector on malformed input. */
 export function parseEmbedding(raw: string): number[] {
   try {
     const parsed = JSON.parse(raw) as number[];
@@ -515,7 +503,6 @@ export function parseEmbedding(raw: string): number[] {
   }
 }
 
-/** Computes cosine similarity for two embedding vectors over their shared dimensions. */
 export function cosineSimilarity(a: number[], b: number[]): number {
   if (a.length === 0 || b.length === 0) {
     return 0;
@@ -537,7 +524,6 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   return dot / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
-/** Runs async tasks with bounded concurrency and throws the first task failure. */
 export async function runWithConcurrency<T>(
   tasks: Array<() => Promise<T>>,
   limit: number,

@@ -2,7 +2,6 @@ import { postJson } from "./post-json.js";
 import { retryAsync } from "./retry-utils.js";
 import type { SsrFPolicy } from "./ssrf-policy.js";
 
-/** POSTs JSON with retries for rate-limit and transient server responses. */
 export async function postJsonWithRetry<T>(params: {
   url: string;
   headers: Record<string, string>;

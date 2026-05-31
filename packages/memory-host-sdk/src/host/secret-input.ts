@@ -5,12 +5,10 @@ import {
   resolveSecretInputRef,
 } from "./secret-input-utils.js";
 
-/** Detects whether memory provider config includes a usable secret input. */
 export function hasConfiguredMemorySecretInput(value: unknown): boolean {
   return hasConfiguredSecretInput(value);
 }
 
-/** Resolves memory secret inputs, including env SecretRefs when present. */
 export function resolveMemorySecretInputString(params: {
   value: unknown;
   path: string;
