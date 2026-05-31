@@ -1,5 +1,6 @@
 import { normalizeOptionalString } from "@openclaw/normalization-core/string-coerce";
 
+/** Normalizes optional plugin HTTP paths to leading-slash form with nullable fallback. */
 export function normalizePluginHttpPath(
   path?: string | null,
   fallback?: string | null,

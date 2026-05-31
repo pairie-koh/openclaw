@@ -1,6 +1,7 @@
 import type { WizardPrompter } from "../wizard/prompts.js";
 import type { SecretInputMode } from "./provider-auth-types.js";
 
+/** UI copy overrides for choosing between plaintext and external secret references. */
 export type SecretInputModePromptCopy = {
   modeMessage?: string;
   plaintextLabel?: string;
@@ -9,6 +10,7 @@ export type SecretInputModePromptCopy = {
   refHint?: string;
 };
 
+/** Resolves the secret input mode, prompting only when no explicit mode is supplied. */
 export async function resolveSecretInputModeForEnvSelection(params: {
   prompter: Pick<WizardPrompter, "select">;
   explicitMode?: SecretInputMode;

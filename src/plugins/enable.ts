@@ -2,6 +2,7 @@ import { normalizeChatChannelId } from "../channels/ids.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { setPluginEnabledInConfig } from "./toggle-config.js";
 
+/** Result of applying plugin enablement policy to a config object. */
 export type PluginEnableResult = {
   config: OpenClawConfig;
   enabled: boolean;
@@ -9,6 +10,7 @@ export type PluginEnableResult = {
   reason?: string;
 };
 
+/** Enables a plugin only when global, denylist, and allowlist policy permit it. */
 export function enablePluginInConfig(
   cfg: OpenClawConfig,
   pluginId: string,
