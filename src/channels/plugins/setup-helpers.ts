@@ -226,7 +226,6 @@ export function createPatchedAccountSetupAdapter(params: {
   };
 }
 
-/** Creates a setup input validator backed by a Zod schema and optional custom rule. */
 export function createZodSetupInputValidator<T extends ChannelSetupInput>(params: {
   schema: ZodType<T>;
   validate?: (params: { cfg: OpenClawConfig; accountId: string; input: T }) => string | null;
@@ -263,7 +262,6 @@ function hasPresentSetupValue(value: unknown): boolean {
   return value !== undefined && value !== null;
 }
 
-/** Creates a setup validator that enforces required credential fields unless env mode is used. */
 export function createSetupInputPresenceValidator(params: {
   defaultAccountOnlyEnvError?: string;
   whenNotUseEnv?: SetupInputPresenceRequirement[];
@@ -297,7 +295,6 @@ export function createSetupInputPresenceValidator(params: {
   });
 }
 
-/** Creates a patched setup adapter with env-mode and credential-presence checks. */
 export function createEnvPatchedAccountSetupAdapter(params: {
   channelKey: string;
   alwaysUseAccounts?: boolean;
@@ -327,7 +324,6 @@ export function createEnvPatchedAccountSetupAdapter(params: {
   });
 }
 
-/** Writes a channel config patch at root or account scope depending on account id. */
 export function patchScopedAccountConfig(params: {
   cfg: OpenClawConfig;
   channelKey: string;

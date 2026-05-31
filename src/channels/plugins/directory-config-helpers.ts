@@ -186,7 +186,6 @@ export function createResolvedDirectoryEntriesLister<ResolvedAccount>(params: {
     });
 }
 
-/** Lists user directory entries from an allow-from array. */
 export function listDirectoryUserEntriesFromAllowFrom(params: {
   allowFrom?: readonly unknown[];
   query?: string | null;
@@ -202,7 +201,6 @@ export function listDirectoryUserEntriesFromAllowFrom(params: {
   return toDirectoryEntries("user", applyDirectoryQueryAndLimit(ids, params));
 }
 
-/** Lists user directory entries from allow-from values and map keys. */
 export function listDirectoryUserEntriesFromAllowFromAndMapKeys(params: {
   allowFrom?: readonly unknown[];
   map?: Record<string, unknown>;
@@ -224,7 +222,6 @@ export function listDirectoryUserEntriesFromAllowFromAndMapKeys(params: {
   return toDirectoryEntries("user", applyDirectoryQueryAndLimit(ids, params));
 }
 
-/** Lists group directory entries from config map keys. */
 export function listDirectoryGroupEntriesFromMapKeys(params: {
   groups?: Record<string, unknown>;
   query?: string | null;
@@ -240,7 +237,6 @@ export function listDirectoryGroupEntriesFromMapKeys(params: {
   return toDirectoryEntries("group", applyDirectoryQueryAndLimit(ids, params));
 }
 
-/** Lists group directory entries from map keys plus allow-from values. */
 export function listDirectoryGroupEntriesFromMapKeysAndAllowFrom(params: {
   groups?: Record<string, unknown>;
   allowFrom?: readonly unknown[];
@@ -262,7 +258,6 @@ export function listDirectoryGroupEntriesFromMapKeysAndAllowFrom(params: {
   return toDirectoryEntries("group", applyDirectoryQueryAndLimit(ids, params));
 }
 
-/** Lists user directory entries from a resolved account's allow-from values. */
 export function listResolvedDirectoryUserEntriesFromAllowFrom<ResolvedAccount>(
   params: DirectoryConfigParams & {
     resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) => ResolvedAccount;
@@ -279,7 +274,6 @@ export function listResolvedDirectoryUserEntriesFromAllowFrom<ResolvedAccount>(
   });
 }
 
-/** Lists group directory entries from a resolved account's group map keys. */
 export function listResolvedDirectoryGroupEntriesFromMapKeys<ResolvedAccount>(
   params: DirectoryConfigParams & {
     resolveAccount: (cfg: OpenClawConfig, accountId?: string | null) => ResolvedAccount;

@@ -140,7 +140,6 @@ export function parseMentionOrPrefixedId(params: {
   return params.normalizeId ? params.normalizeId(stripped) : stripped;
 }
 
-/** Normalize allow-from entries and optional channel-specific ids. */
 export function normalizeAllowFromEntries(
   entries: Array<string | number>,
   normalizeEntry?: (value: string) => string | null | undefined,
@@ -159,7 +158,6 @@ export function normalizeAllowFromEntries(
   return uniqueStrings(normalized);
 }
 
-/** Build a standard setup status object with optional dynamic status lines. */
 export function createStandardChannelSetupStatus(params: {
   channelLabel: string;
   configuredLabel: string;
@@ -206,7 +204,6 @@ export function createStandardChannelSetupStatus(params: {
   return status;
 }
 
-/** Resolve the setup account id from an override or default account. */
 export function resolveSetupAccountId(params: {
   accountId?: string;
   defaultAccountId: string;
@@ -214,7 +211,6 @@ export function resolveSetupAccountId(params: {
   return params.accountId?.trim() ? normalizeAccountId(params.accountId) : params.defaultAccountId;
 }
 
-/** Resolve the target account for configure flows, prompting when requested. */
 export async function resolveAccountIdForConfigure(params: {
   cfg: OpenClawConfig;
   prompter: WizardPrompter;
@@ -239,7 +235,6 @@ export async function resolveAccountIdForConfigure(params: {
   return accountId;
 }
 
-/** Set an account-scoped channel allow-from list without forcing enablement. */
 export function setAccountAllowFromForChannel(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -256,7 +251,6 @@ export function setAccountAllowFromForChannel(params: {
   });
 }
 
-/** Patch top-level channel config while optionally clearing fields and enabling it. */
 export function patchTopLevelChannelConfigSection(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -283,7 +277,6 @@ export function patchTopLevelChannelConfigSection(params: {
   };
 }
 
-/** Patch a nested channel config section while preserving sibling fields. */
 export function patchNestedChannelConfigSection(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -317,7 +310,6 @@ export function patchNestedChannelConfigSection(params: {
   };
 }
 
-/** Set top-level channel allow-from entries. */
 export function setTopLevelChannelAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -332,7 +324,6 @@ export function setTopLevelChannelAllowFrom(params: {
   });
 }
 
-/** Set allow-from entries inside a nested channel config section. */
 export function setNestedChannelAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -349,7 +340,6 @@ export function setNestedChannelAllowFrom(params: {
   });
 }
 
-/** Set top-level DM policy and add wildcard allow-from when opening access. */
 export function setTopLevelChannelDmPolicyWithAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
