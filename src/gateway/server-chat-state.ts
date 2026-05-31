@@ -23,7 +23,6 @@ export type ChatRunRegistry = {
   clear: () => void;
 };
 
-/** Creates the per-session FIFO registry for chat run entries. */
 export function createChatRunRegistry(): ChatRunRegistry {
   const chatRunSessions = new Map<string, ChatRunEntry[]>();
 
@@ -94,7 +93,6 @@ export type ChatRunState = {
   clear: () => void;
 };
 
-/** Creates empty chat streaming buffers and registries for a Gateway server. */
 export function createChatRunState(): ChatRunState {
   const registry = createChatRunRegistry();
   const rawBuffers = new Map<string, string>();
@@ -182,7 +180,6 @@ type ToolRecipientEntry = {
 const TOOL_EVENT_RECIPIENT_TTL_MS = 10 * 60 * 1000;
 const TOOL_EVENT_RECIPIENT_FINAL_GRACE_MS = 30 * 1000;
 
-/** Creates the global session-event subscriber registry. */
 export function createSessionEventSubscriberRegistry(): SessionEventSubscriberRegistry {
   const connIds = new Set<string>();
   const empty = new Set<string>();
@@ -209,7 +206,6 @@ export function createSessionEventSubscriberRegistry(): SessionEventSubscriberRe
   };
 }
 
-/** Creates bidirectional session-message subscription indexes. */
 export function createSessionMessageSubscriberRegistry(): SessionMessageSubscriberRegistry {
   const sessionToConnIds = new Map<string, Set<string>>();
   const connToSessionKeys = new Map<string, Set<string>>();
@@ -288,7 +284,6 @@ export function createSessionMessageSubscriberRegistry(): SessionMessageSubscrib
   };
 }
 
-/** Creates the expiring recipient registry for run-scoped tool events. */
 export function createToolEventRecipientRegistry(): ToolEventRecipientRegistry {
   const recipients = new Map<string, ToolRecipientEntry>();
 

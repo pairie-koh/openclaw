@@ -53,12 +53,10 @@ export function buildGatewaySnapshot(opts?: { includeSensitive?: boolean }): Sna
   return snapshot;
 }
 
-/** Returns the last non-sensitive health summary cached for broadcasts. */
 export function getHealthCache(): HealthSummary | null {
   return healthCache;
 }
 
-/** Returns the monotonically increasing health state version. */
 export function getHealthVersion(): number {
   return healthVersion;
 }
@@ -69,7 +67,6 @@ export function incrementPresenceVersion(): number {
   return presenceVersion;
 }
 
-/** Returns the current presence state version. */
 export function getPresenceVersion(): number {
   return presenceVersion;
 }

@@ -139,7 +139,6 @@ export type PluginHttpUpgradeHandler = (
   dispatchContext?: PluginRouteDispatchContext,
 ) => Promise<boolean>;
 
-/** Create the gateway HTTP dispatcher for registered plugin routes. */
 export function createGatewayPluginRequestHandler(params: {
   registry: PluginRegistry;
   getRouteRegistry?: () => PluginRegistry;
@@ -212,7 +211,6 @@ export function createGatewayPluginRequestHandler(params: {
   };
 }
 
-/** Create the gateway WebSocket-upgrade dispatcher for registered plugin routes. */
 export function createGatewayPluginUpgradeHandler(params: {
   registry: PluginRegistry;
   getRouteRegistry?: () => PluginRegistry;
