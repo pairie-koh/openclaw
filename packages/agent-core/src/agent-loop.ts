@@ -1,9 +1,3 @@
-/**
- * Agent loop that works with AgentMessage throughout.
- * Transforms to Message[] only at the LLM call boundary.
- */
-
-// Keep the runtime class on the package specifier so built agent-core shares
 import { EventStream as LlmEventStream } from "@openclaw/llm-core";
 import {
   type AssistantMessage,

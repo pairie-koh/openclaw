@@ -1,8 +1,3 @@
-/**
- * Proxy stream function for apps that route LLM calls through a server.
- * The server manages auth and proxies requests to LLM providers.
- */
-
 import {
   type AssistantMessage,
   type AssistantMessageEvent,
@@ -17,7 +12,6 @@ import { parseStreamingJson } from "../../llm/utils/json-parse.js";
 
 type StreamingToolCall = ToolCall & { partialJson?: string };
 
-// Create stream class matching ProxyMessageEventStream
 class ProxyMessageEventStream extends EventStream<AssistantMessageEvent, AssistantMessage> {
   constructor() {
     super(
