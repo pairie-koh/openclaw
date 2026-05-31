@@ -62,7 +62,7 @@ import { readSqliteSessionRoutingInfo } from "../../config/sessions/session-entr
 import { hasSqliteSessionTranscriptEvents } from "../../config/sessions/transcript-store.sqlite.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
 import { registerAgentRunContext } from "../../infra/agent-events.js";
-import { formatUncaughtError } from "../../infra/errors.js";
+import { formatUncaughtError, readErrorName } from "../../infra/errors.js";
 import {
   resolveAgentDeliveryPlanWithSessionRoute,
   resolveAgentOutboundTarget,
@@ -223,15 +223,24 @@ function resolveCanUseInternalRuntimeHandoff(
 }
 
 function isGatewayAgentAbortRejection(err: unknown, signal: AbortSignal): boolean {
-  if (signal.aborted) {
+  if (!signal.aborted) {
+    return false;
+  }
+  if (readErrorName(signal.reason) === "TimeoutError") {
     return true;
   }
-  return err instanceof Error && err.name === "AbortError";
+  if (!isGatewayAbortSignalReason(signal.reason)) {
+    return false;
+  }
+  return isAbortError(err) || readErrorName(err) === "TimeoutError";
 }
 
-function resolveGatewayAgentAbortStopReason(signal: AbortSignal): string {
-  const reason = signal.reason;
-  return reason instanceof Error ? reason.message : typeof reason === "string" ? reason : "rpc";
+function isGatewayAbortSignalReason(reason: unknown): boolean {
+  return reason === undefined || isAbortError(reason) || readErrorName(reason) === "TimeoutError";
+}
+
+function resolveGatewayAgentAbortStopReason(signal: AbortSignal): "rpc" | "timeout" {
+  return readErrorName(signal.reason) === "TimeoutError" ? "timeout" : "rpc";
 }
 
 function emitAgentSendSessionLifecycleTransition(
@@ -245,6 +254,8 @@ function emitAgentSendSessionLifecycleTransition(
       cfg: transition.cfg,
       sessionKey: transition.sessionKey,
       sessionId: transition.previousSessionId,
+      storePath: transition.storePath,
+      sessionFile: transition.previousSessionFile,
       agentId: transition.agentId,
       reason: transition.previousEndReason ?? "unknown",
       nextSessionId: transition.sessionId,
@@ -256,6 +267,8 @@ function emitAgentSendSessionLifecycleTransition(
     sessionKey: transition.sessionKey,
     sessionId: transition.sessionId,
     resumedFrom: transition.previousSessionId,
+    storePath: transition.storePath,
+    sessionFile: transition.sessionFile,
     agentId: transition.agentId,
   });
 }

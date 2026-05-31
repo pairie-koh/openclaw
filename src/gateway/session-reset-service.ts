@@ -69,6 +69,8 @@ export function emitGatewaySessionEndPluginHook(params: {
   cfg: OpenClawConfig;
   sessionKey: string;
   sessionId?: string;
+  storePath?: string;
+  sessionFile?: string;
   agentId?: string;
   reason:
     | "new"
@@ -112,6 +114,8 @@ export function emitGatewaySessionStartPluginHook(params: {
   sessionKey: string;
   sessionId?: string;
   resumedFrom?: string;
+  storePath?: string;
+  sessionFile?: string;
   agentId?: string;
 }): void {
   if (!params.sessionId) {
