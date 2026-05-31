@@ -782,14 +782,23 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
     );
   });
 
-  it("keeps before_prompt_build prependContext out of post-user transcript messages", async () => {
-    const runBeforePromptBuild = vi.fn(async () => ({ prependContext: "dynamic hook context" }));
+  it("keeps before_prompt_build context in the model prompt and out of transcript messages", async () => {
+    const runBeforePromptBuild = vi.fn(async () => ({
+      prependContext: "dynamic hook context",
+      appendContext: "dynamic hook tail",
+    }));
     hoisted.getGlobalHookRunnerMock.mockReturnValue({
       hasHooks: vi.fn((name: string) => name === "before_prompt_build"),
       runBeforePromptBuild,
       runBeforeAgentStart: vi.fn(),
     });
-    const seen: { prompt?: string; messages?: unknown[]; systemPrompt?: string } = {};
+    const seen: {
+      modelMessages?: unknown[];
+      preprocessedModelMessages?: unknown[];
+      prompt?: string;
+      messages?: unknown[];
+      systemPrompt?: string;
+    } = {};
 
     const result = await createContextEngineAttemptRunner({
       contextEngine: createContextEngineBootstrapAndAssemble(),
@@ -803,6 +812,21 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
         seen.prompt = prompt;
         seen.messages = [...session.messages];
         seen.systemPrompt = session.agent.state.systemPrompt;
+        const transformContext = (
+          session.agent as {
+            transformContext?: (messages: AgentMessage[]) => Promise<AgentMessage[]>;
+          }
+        ).transformContext;
+        seen.modelMessages = await transformContext?.([
+          { role: "user", content: [{ type: "text", text: prompt }], timestamp: 1 },
+        ]);
+        seen.preprocessedModelMessages = await transformContext?.([
+          {
+            role: "user",
+            content: [{ type: "text", text: `session preprocessed\n\n${prompt}` }],
+            timestamp: 1,
+          },
+        ]);
         session.messages = [
           ...session.messages,
           { role: "assistant", content: "done", timestamp: 2 },
@@ -812,25 +836,17 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
 
     expect(seen.prompt).toBe("visible ask");
     expect(result.finalPromptText).toBe("visible ask");
+    expect(JSON.stringify(seen.modelMessages)).toContain("dynamic hook context");
+    expect(JSON.stringify(seen.modelMessages)).toContain("dynamic hook tail");
+    expect(JSON.stringify(seen.preprocessedModelMessages)).toContain("dynamic hook context");
+    expect(JSON.stringify(seen.preprocessedModelMessages)).toContain("session preprocessed");
+    expect(JSON.stringify(seen.preprocessedModelMessages)).toContain("dynamic hook tail");
     expect(seen.systemPrompt).not.toContain("dynamic hook context");
-    expectFields(
-      findRecord(
-        requireRecords(seen.messages, "seen messages"),
-        (message) => message.customType === "openclaw.runtime-context",
-        "hook runtime context message",
-      ),
-      {
-        role: "custom",
-        customType: "openclaw.runtime-context",
-        display: false,
-        content: [
-          "OpenClaw runtime context for the immediately preceding user message.",
-          "This context is runtime-generated, not user-authored. Keep internal details private.",
-          "",
-          "dynamic hook context",
-        ].join("\n"),
-      },
-    );
+    expect(seen.systemPrompt).not.toContain("dynamic hook tail");
+    expect(JSON.stringify(seen.messages)).not.toContain("dynamic hook context");
+    expect(JSON.stringify(seen.messages)).not.toContain("dynamic hook tail");
+    expect(JSON.stringify(result.messagesSnapshot)).not.toContain("dynamic hook context");
+    expect(JSON.stringify(result.messagesSnapshot)).not.toContain("dynamic hook tail");
   });
 
   it("keeps bootstrap truncation warnings out of WebChat runtime context", async () => {

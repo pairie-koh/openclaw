@@ -864,6 +864,10 @@ export type MutableSession = {
   isCompacting: boolean;
   isStreaming: boolean;
   agent: {
+    prompt?: (
+      prompt: string,
+      options?: { images?: unknown[]; preflightResult?: (submitted: boolean) => void },
+    ) => Promise<void>;
     streamFn?: unknown;
     transport?: string;
     reset: () => void;
@@ -895,8 +899,24 @@ export type MutableSession = {
 type SessionPromptOverride = (
   session: MutableSession,
   prompt: string,
-  options?: { images?: unknown[] },
+  options?: { images?: unknown[]; preflightResult?: (submitted: boolean) => void },
 ) => Promise<void>;
+
+type TestAgentStream = {
+  result: () => Promise<unknown>;
+  [Symbol.asyncIterator]: () => AsyncIterator<unknown>;
+};
+
+function createCompletedAssistantStream(): TestAgentStream {
+  return {
+    async result() {
+      return { role: "assistant", content: "done" };
+    },
+    [Symbol.asyncIterator]() {
+      return (async function* () {})();
+    },
+  };
+}
 
 let runEmbeddedAttemptPromise:
   | Promise<typeof import("./attempt.js").runEmbeddedAttempt>
@@ -1023,15 +1043,37 @@ export function createDefaultEmbeddedSession(params?: {
   prompt?: (
     session: MutableSession,
     prompt: string,
-    options?: { images?: unknown[] },
+    options?: { images?: unknown[]; preflightResult?: (submitted: boolean) => void },
   ) => Promise<void>;
 }): MutableSession {
+  let pendingPrompt:
+    | {
+        prompt: string;
+        options?: { images?: unknown[]; preflightResult?: (submitted: boolean) => void };
+      }
+    | undefined;
   const session: MutableSession = {
     sessionId: "embedded-session",
     messages: [...(params?.initialMessages ?? [])],
     isCompacting: false,
     isStreaming: false,
     agent: {
+      prompt: async (prompt, options) => {
+        pendingPrompt = {
+          prompt,
+          options,
+        };
+        await (session.agent.streamFn as (() => Promise<unknown>) | undefined)?.();
+      },
+      streamFn: async () => {
+        if (params?.prompt && pendingPrompt) {
+          const currentPrompt = pendingPrompt;
+          pendingPrompt = undefined;
+          currentPrompt.options?.preflightResult?.(true);
+          await params.prompt(session, currentPrompt.prompt, currentPrompt.options);
+        }
+        return createCompletedAssistantStream();
+      },
       reset: () => {
         session.messages = [];
       },
@@ -1049,8 +1091,8 @@ export function createDefaultEmbeddedSession(params?: {
       session.agent.state.systemPrompt = systemPrompt;
     },
     prompt: async (prompt, options) => {
+      await session.agent.prompt?.(prompt, options);
       if (params?.prompt) {
-        await params.prompt(session, prompt, options);
         return;
       }
       session.messages = [
