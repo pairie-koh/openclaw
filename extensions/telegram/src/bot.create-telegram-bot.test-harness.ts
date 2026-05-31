@@ -1,6 +1,6 @@
-import { rmSync } from "node:fs";
 import { buildChannelInboundEventContext } from "openclaw/plugin-sdk/channel-inbound";
 import type { OpenClawConfig } from "openclaw/plugin-sdk/config-contracts";
+import { clearPluginStateStoreForTests } from "openclaw/plugin-sdk/plugin-state-test-runtime";
 import type { MockFn } from "openclaw/plugin-sdk/plugin-test-runtime";
 import type { GetReplyOptions, MsgContext } from "openclaw/plugin-sdk/reply-runtime";
 import type { SessionEntry } from "openclaw/plugin-sdk/session-store-runtime";
@@ -488,6 +488,7 @@ export function makeForumGroupMessageCtx(params?: {
 }
 
 beforeEach(() => {
+  clearPluginStateStoreForTests();
   getRuntimeConfig.mockReset();
   getRuntimeConfig.mockReturnValue(DEFAULT_TELEGRAM_TEST_CONFIG);
   sessionStoreEntries.value = {};
