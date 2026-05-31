@@ -591,13 +591,11 @@ describe("runConfigureWizard", () => {
       async (params: { nextConfig: unknown; baseHash?: string }) => {
         callCount++;
         if (callCount === 1) {
-          // First call: simulate plugin mutating config during promptAuthConfig
           expect(params.baseHash).toBe(originalHash);
           throw new ConfigMutationConflictError("config changed since last load", {
             currentHash: newHashAfterMutation,
           });
         }
-        // Second call: succeeds with refreshed hash
         expect(params.baseHash).toBe(newHashAfterMutation);
         await mocks.writeConfigFile(params.nextConfig);
       },

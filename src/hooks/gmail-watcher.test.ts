@@ -220,12 +220,10 @@ describe("startGmailWatcher", () => {
       return mockedChild;
     });
 
-    // First start
     await startGmailWatcher(createGmailConfig());
     expect(spawnedChildren).toHaveLength(1);
     expect(spawnedChildren[0].kill).not.toHaveBeenCalled();
 
-    // Second start (re-entry) should kill the first process
     await startGmailWatcher(createGmailConfig());
     expect(spawnedChildren).toHaveLength(2);
     expect(spawnedChildren[0].kill).toHaveBeenCalledWith("SIGTERM");
@@ -236,7 +234,6 @@ describe("startGmailWatcher", () => {
     try {
       mocks.runCommandWithTimeout.mockResolvedValue({ code: 0, stdout: "", stderr: "" });
 
-      // First start - creates a renewal interval
       await startGmailWatcher(createGmailConfig());
       const timersAfterFirstStart = vi.getTimerCount();
       expect(timersAfterFirstStart).toBeGreaterThanOrEqual(1);
@@ -341,7 +338,6 @@ describe("startGmailWatcher", () => {
         return mockedChild;
       });
 
-      // First start
       await startGmailWatcher(createGmailConfig());
       expect(spawnedChildren).toHaveLength(1);
 
