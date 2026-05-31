@@ -1368,7 +1368,6 @@ export class DefaultPackageManager implements PackageManager {
     // Determine which files are enabled based on patterns
     const enabledPaths = applyPatterns(allFiles, patterns, baseDir);
 
-    // Add all files with their enabled state
     for (const f of allFiles) {
       this.addResource(target, f, metadata, enabledPaths.has(f));
     }

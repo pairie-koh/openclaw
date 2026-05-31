@@ -32,12 +32,10 @@ function loadTemplateFromFile(filePath: string, sourceInfo: SourceInfo): PromptT
 
     const name = basename(filePath).replace(/\.md$/, "");
 
-    // Get description from frontmatter or first non-empty line
     let description = frontmatter.description || "";
     if (!description) {
       const firstLine = body.split("\n").find((line) => line.trim());
       if (firstLine) {
-        // Truncate if too long
         description = firstLine.slice(0, 60);
         if (firstLine.length > 60) {
           description += "...";

@@ -203,7 +203,6 @@ export async function createAgentSession(
   const agentDir = options.agentDir ?? getDefaultAgentDir();
   let resourceLoader = options.resourceLoader;
 
-  // Use provided or create AuthStorage and ModelRegistry
   const authPath = options.agentDir ? join(agentDir, "auth.json") : undefined;
   const modelsPath = options.agentDir ? join(agentDir, "models.json") : undefined;
   const authStorage = options.authStorage ?? AuthStorage.create(authPath);
@@ -218,7 +217,6 @@ export async function createAgentSession(
     await resourceLoader.reload();
   }
 
-  // Check if session has existing data to restore
   const existingSession = sessionManager.buildSessionContext();
   const hasExistingSession = existingSession.messages.length > 0;
   const hasThinkingEntry = sessionManager

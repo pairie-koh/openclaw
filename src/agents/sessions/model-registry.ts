@@ -507,7 +507,6 @@ export class ModelRegistry {
         if (!modelDef.id) {
           throw new Error(`Provider ${providerName}: model missing "id"`);
         }
-        // Validate contextWindow/maxTokens only if provided (they have defaults)
         if (modelDef.contextWindow !== undefined && modelDef.contextWindow <= 0) {
           throw new Error(`Provider ${providerName}, model ${modelDef.id}: invalid contextWindow`);
         }
@@ -862,7 +861,6 @@ export class ModelRegistry {
       // Full replacement: remove existing models for this provider
       this.models = this.models.filter((m) => m.provider !== providerName);
 
-      // Parse and add new models
       for (const modelDef of config.models) {
         const api = modelDef.api || config.api;
         this.storeModelHeaders(providerName, modelDef.id, modelDef.headers);

@@ -29,12 +29,10 @@ export interface ScopedModel {
  * Dates are typically in format: -20241022 or -20250929
  */
 function isAlias(id: string): boolean {
-  // Check if ID ends with -latest
   if (id.endsWith("-latest")) {
     return true;
   }
 
-  // Check if ID ends with a date pattern (-YYYYMMDD)
   const datePattern = /-\d{8}$/;
   return !datePattern.test(id);
 }
@@ -246,7 +244,6 @@ export async function resolveModelScope(
   const scopedModels: ScopedModel[] = [];
 
   for (const pattern of patterns) {
-    // Check if pattern contains glob characters
     if (pattern.includes("*") || pattern.includes("?") || pattern.includes("[")) {
       // Extract optional thinking level suffix (e.g., "provider/*:high")
       const colonIdx = pattern.lastIndexOf(":");
@@ -349,7 +346,6 @@ export function resolveCliModel(options: {
     };
   }
 
-  // Build canonical provider lookup (case-insensitive)
   const providerMap = new Map<string, string>();
   for (const m of availableModels) {
     providerMap.set(m.provider.toLowerCase(), m.provider);
