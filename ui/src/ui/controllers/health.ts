@@ -12,7 +12,6 @@ const HEALTH_FALLBACK: HealthSummary = {
   sessions: { path: "", count: 0, recent: [] },
 };
 
-/** State slice consumed by {@link loadHealthState}. Follows the agents/sessions convention. */
 export type HealthState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

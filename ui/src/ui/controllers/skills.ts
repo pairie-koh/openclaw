@@ -62,7 +62,6 @@ export type ClawHubSkillSecurityVerdict = {
   };
 };
 
-/** Mutable UI state for skills status, edits, skill cards, and ClawHub views. */
 export type SkillsState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

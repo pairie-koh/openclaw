@@ -25,7 +25,6 @@ type SessionsChatRunState = {
   requestUpdate?: () => void;
 };
 
-/** Mutable Sessions view state plus active chat-run fields that rows can reconcile. */
 export type SessionsState = SessionsChatRunState & {
   client: GatewayBrowserClient | null;
   connected: boolean;
