@@ -126,10 +126,6 @@ export function readSessionUpdatedAt(params: {
   }
 }
 
-// ============================================================================
-// Session Store Pruning, Capping & File Rotation
-// ============================================================================
-
 /** Summary emitted after save-time pruning, capping, or disk-budget cleanup. */
 export type SessionMaintenanceApplyReport = {
   mode: ResolvedSessionMaintenanceConfig["mode"];

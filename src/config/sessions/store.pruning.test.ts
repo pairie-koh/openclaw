@@ -33,10 +33,8 @@ function makeStore(entries: Array<[string, SessionEntry]>): Record<string, Sessi
   return Object.fromEntries(entries);
 }
 
-// ---------------------------------------------------------------------------
 // Unit tests — each function called with explicit override parameters.
 // No config loading needed; overrides bypass resolveMaintenanceConfig().
-// ---------------------------------------------------------------------------
 
 describe("pruneStaleEntries", () => {
   it("removes entries older than maxAgeDays", () => {
