@@ -25,8 +25,6 @@ import {
 
 const runCronIsolatedAgentTurn = await loadRunCronIsolatedAgentTurn();
 
-// ---------- helpers ----------
-
 function makeJob(overrides?: Record<string, unknown>) {
   return {
     id: "model-fwd-job",
@@ -101,8 +99,6 @@ function hasPhaseWithFields(phases: unknown[], fields: Record<string, unknown>):
     return Object.entries(fields).every(([key, value]) => record[key] === value);
   });
 }
-
-// ---------- tests ----------
 
 describe("runCronIsolatedAgentTurn — cron model override forwarding (#58065)", () => {
   let previousFastTestEnv: string | undefined;

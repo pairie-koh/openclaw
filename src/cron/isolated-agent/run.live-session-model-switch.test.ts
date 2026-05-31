@@ -18,8 +18,6 @@ import {
 
 const runCronIsolatedAgentTurn = await loadRunCronIsolatedAgentTurn();
 
-// ---------- helpers ----------
-
 function makeJob(overrides?: Record<string, unknown>) {
   return {
     id: "cron-model-switch-job",

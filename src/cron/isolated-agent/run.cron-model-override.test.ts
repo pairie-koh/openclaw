@@ -17,8 +17,6 @@ import {
 
 const runCronIsolatedAgentTurn = await loadRunCronIsolatedAgentTurn();
 
-// ---------- helpers ----------
-
 function makeJob(overrides?: Record<string, unknown>) {
   return {
     id: "digest-job",
@@ -73,8 +71,6 @@ function makeSuccessfulRunResult(overrides?: Record<string, unknown>) {
     ...overrides,
   };
 }
-
-// ---------- tests ----------
 
 describe("runCronIsolatedAgentTurn — cron model override (#21057)", () => {
   let previousFastTestEnv: string | undefined;

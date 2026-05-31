@@ -53,8 +53,6 @@ function getFirstMockArg(
   return requireRecord(getMockCallArg(mock, 0, 0, label), `${label} params`);
 }
 
-// ---------- tests ----------
-
 describe("runCronIsolatedAgentTurn — skill filter", () => {
   setupRunCronIsolatedAgentTurnSuite();
 
