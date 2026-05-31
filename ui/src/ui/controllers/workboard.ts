@@ -162,7 +162,6 @@ export type WorkboardLink = {
   url?: string;
 };
 
-/** Verification proof attached to a card. */
 export type WorkboardProof = {
   id: string;
   status: WorkboardProofStatus;
@@ -180,7 +179,6 @@ export type WorkboardStaleState = {
   reason: string;
 };
 
-/** Temporary ownership claim for a card. */
 export type WorkboardClaim = {
   ownerId: string;
   token?: string;
@@ -189,7 +187,6 @@ export type WorkboardClaim = {
   expiresAt?: number;
 };
 
-/** Artifact link or local path attached to a card. */
 export type WorkboardArtifact = {
   id: string;
   createdAt: number;
@@ -199,7 +196,6 @@ export type WorkboardArtifact = {
   mimeType?: string;
 };
 
-/** Uploaded or linked file attached to a workboard card. */
 export type WorkboardAttachment = {
   id: string;
   cardId: string;
@@ -210,7 +206,6 @@ export type WorkboardAttachment = {
   note?: string;
 };
 
-/** Worker log entry attached to a card execution attempt. */
 export type WorkboardWorkerLog = {
   id: string;
   createdAt: number;
@@ -220,14 +215,12 @@ export type WorkboardWorkerLog = {
   runId?: string;
 };
 
-/** Worker protocol state reported by automation runners. */
 export type WorkboardWorkerProtocol = {
   state: "idle" | "running" | "completed" | "blocked" | "violated";
   updatedAt: number;
   detail?: string;
 };
 
-/** Deduplicated diagnostic attached to a card. */
 export type WorkboardDiagnostic = {
   kind: string;
   severity: WorkboardDiagnosticSeverity;
@@ -238,7 +231,6 @@ export type WorkboardDiagnostic = {
   count: number;
 };
 
-/** Notification generated for a Workboard card or run. */
 export type WorkboardNotification = {
   id: string;
   kind: string;
