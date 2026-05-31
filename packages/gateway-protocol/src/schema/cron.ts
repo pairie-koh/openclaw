@@ -375,7 +375,6 @@ export const CronJobSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for filtering, sorting, and paginating cron jobs. */
 export const CronListParamsSchema = Type.Object(
   {
     includeDisabled: Type.Optional(Type.Boolean()),
@@ -392,13 +391,10 @@ export const CronListParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Empty params schema for cron scheduler status. */
 export const CronStatusParamsSchema = Type.Object({}, { additionalProperties: false });
 
-/** Params schema for reading one cron job by id or jobId. */
 export const CronGetParamsSchema = cronIdOrJobIdParams({});
 
-/** Params schema for creating a cron job. */
 export const CronAddParamsSchema = Type.Object(
   {
     name: NonEmptyString,
@@ -429,20 +425,16 @@ export const CronJobPatchSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for updating one cron job by id or jobId. */
 export const CronUpdateParamsSchema = cronIdOrJobIdParams({
   patch: CronJobPatchSchema,
 });
 
-/** Params schema for removing one cron job by id or jobId. */
 export const CronRemoveParamsSchema = cronIdOrJobIdParams({});
 
-/** Params schema for running one cron job immediately or only if due. */
 export const CronRunParamsSchema = cronIdOrJobIdParams({
   mode: Type.Optional(Type.Union([Type.Literal("due"), Type.Literal("force")])),
 });
 
-/** Params schema for filtering and paginating cron run history. */
 export const CronRunsParamsSchema = Type.Object(
   {
     scope: Type.Optional(Type.Union([Type.Literal("job"), Type.Literal("all")])),
