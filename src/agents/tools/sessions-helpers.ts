@@ -71,6 +71,10 @@ export type SessionListRow = {
   systemSent?: boolean;
   abortedLastRun?: boolean;
   sendPolicy?: string;
+  lastChannel?: string;
+  lastTo?: string;
+  lastAccountId?: string;
+  lastThreadId?: string | number;
   messages?: unknown[];
 };
 

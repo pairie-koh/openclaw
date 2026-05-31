@@ -136,17 +136,34 @@ describe("runSessionsSendA2AFlow announce delivery", () => {
     expect(sendParams.threadId).toBeUndefined();
   });
 
-  it("uses Discord session deliveryContext.accountId for announce accountId", async () => {
-    const session = {
-      key: "agent:main:discord:channel:target-room",
-      kind: "group",
-      channel: "discord",
-      deliveryContext: {
+  it.each([
+    {
+      source: "deliveryContext.accountId",
+      accountId: "thinker",
+      session: {
+        key: "agent:main:discord:channel:target-room",
+        kind: "group",
         channel: "discord",
-        to: "channel:target-room",
-        accountId: "thinker",
-      },
-    } satisfies SessionListRow;
+        deliveryContext: {
+          channel: "discord",
+          to: "channel:target-room",
+          accountId: "thinker",
+        },
+      } satisfies SessionListRow,
+    },
+    {
+      source: "lastAccountId",
+      accountId: "scout",
+      session: {
+        key: "agent:main:discord:channel:target-room",
+        kind: "group",
+        channel: "discord",
+        lastChannel: "discord",
+        lastTo: "channel:target-room",
+        lastAccountId: "scout",
+      } satisfies SessionListRow,
+    },
+  ])("uses Discord session $source for announce accountId", async ({ accountId, session }) => {
     sessionListRows = [session];
 
     await runSessionsSendA2AFlow({
@@ -163,7 +180,7 @@ describe("runSessionsSendA2AFlow announce delivery", () => {
     const sendParams = sendCall.params as Record<string, unknown>;
     expect(sendParams.channel).toBe("discord");
     expect(sendParams.to).toBe("channel:target-room");
-    expect(sendParams.accountId).toBe("thinker");
+    expect(sendParams.accountId).toBe(accountId);
   });
 
   it.each(["NO_REPLY", "HEARTBEAT_OK", "ANNOUNCE_SKIP", "REPLY_SKIP"])(

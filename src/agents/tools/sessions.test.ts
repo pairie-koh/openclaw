@@ -150,6 +150,7 @@ const installRegistry = async () => {
             selectionLabel: "WhatsApp",
             docsPath: "/channels/whatsapp",
             blurb: "WhatsApp test stub.",
+            preferSessionLookupForAnnounceTarget: true,
           },
           capabilities: { chatTypes: ["direct", "group"] },
           messaging: {
@@ -173,6 +174,7 @@ const installRegistry = async () => {
             selectionLabel: "Slack",
             docsPath: "/channels/slack",
             blurb: "Slack test stub.",
+            preferSessionLookupForAnnounceTarget: true,
           },
           capabilities: { chatTypes: ["direct", "channel", "thread"] },
           messaging: {
@@ -313,27 +315,13 @@ describe("resolveAnnounceTarget", () => {
     await installRegistry();
   });
 
-  it("prefers typed sessions.list delivery context for announce targets", async () => {
-    callGatewayMock.mockResolvedValueOnce({
-      sessions: [
-        {
-          key: "agent:main:discord:group:dev",
-          deliveryContext: {
-            channel: "discord",
-            to: "group:dev",
-            accountId: "default",
-          },
-        },
-      ],
-    });
-
+  it("derives non-WhatsApp announce targets from the session key", async () => {
     const target = await resolveAnnounceTarget({
       sessionKey: "agent:main:discord:group:dev",
       displayKey: "agent:main:discord:group:dev",
     });
-    expect(target).toEqual({ channel: "discord", to: "group:dev", accountId: "default" });
-    expect(callGatewayMock).toHaveBeenCalledTimes(1);
-    expect(requireGatewayRequest().method).toBe("sessions.list");
+    expect(target).toEqual({ channel: "discord", to: "group:dev" });
+    expect(callGatewayMock).not.toHaveBeenCalled();
   });
 
   it("hydrates WhatsApp accountId from sessions.list when available", async () => {
@@ -365,7 +353,7 @@ describe("resolveAnnounceTarget", () => {
     expect(requireGatewayRequest().method).toBe("sessions.list");
   });
 
-  it("does not hydrate announce targets from legacy sessions.list route shadows", async () => {
+  it("falls back to origin provider and accountId from sessions.list when legacy route fields are absent", async () => {
     callGatewayMock.mockResolvedValueOnce({
       sessions: [
         {
@@ -384,7 +372,12 @@ describe("resolveAnnounceTarget", () => {
       sessionKey: "agent:main:whatsapp:group:123@g.us",
       displayKey: "agent:main:whatsapp:group:123@g.us",
     });
-    expect(target).toBeNull();
+    expect(target).toEqual({
+      channel: "whatsapp",
+      to: "123@g.us",
+      accountId: "work",
+      threadId: "271",
+    });
   });
 
   it("keeps threadId from sessions.list delivery context for announce delivery", async () => {
@@ -473,7 +466,7 @@ describe("resolveAnnounceTarget", () => {
       channel: "slack",
       to: "channel:C123",
       accountId: "workspace",
-      threadId: undefined,
+      threadId: "1710000000.000100",
     });
   });
 });
