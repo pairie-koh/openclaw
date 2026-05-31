@@ -24,10 +24,6 @@ const channel = "feishu" as const;
 const SCAN_TO_CREATE_TP = "ob_cli_app";
 const FEISHU_SETUP_FLOW_KEY = "_flow";
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 function isFeishuConfigured(cfg: OpenClawConfig): boolean {
   const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
 
@@ -220,10 +216,6 @@ const feishuDmPolicy: ChannelSetupDmPolicy = {
 type WizardPrompter = Parameters<NonNullable<ChannelSetupWizard["finalize"]>>[0]["prompter"];
 type FeishuSetupMethod = "manual" | "scan";
 
-// ---------------------------------------------------------------------------
-// Security policy helpers
-// ---------------------------------------------------------------------------
-
 function applyNewAppSecurityPolicy(
   cfg: OpenClawConfig,
   accountId: string,
@@ -246,10 +238,6 @@ function applyNewAppSecurityPolicy(
 
   return next;
 }
-
-// ---------------------------------------------------------------------------
-// Scan-to-create flow
-// ---------------------------------------------------------------------------
 
 let appRegistrationModulePromise: Promise<typeof import("./app-registration.js")> | null = null;
 
