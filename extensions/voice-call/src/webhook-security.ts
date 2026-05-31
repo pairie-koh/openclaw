@@ -689,10 +689,6 @@ export function verifyTwilioWebhook(
   };
 }
 
-// -----------------------------------------------------------------------------
-// Plivo webhook verification
-// -----------------------------------------------------------------------------
-
 /**
  * Result of Plivo webhook verification with detailed info.
  */

@@ -183,5 +183,3 @@ export async function banMemberDiscord(
   });
   return { ok: true };
 }
-
-// Channel management functions

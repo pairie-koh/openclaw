@@ -855,10 +855,6 @@ export class TwilioProvider implements VoiceCallProvider {
   }
 }
 
-// -----------------------------------------------------------------------------
-// Twilio-specific types
-// -----------------------------------------------------------------------------
-
 interface TwilioCallResponse {
   sid: string;
   status: string;
