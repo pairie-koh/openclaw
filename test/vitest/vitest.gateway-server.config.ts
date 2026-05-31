@@ -8,7 +8,6 @@ const gatewayServerBackedHttpTests = [
   "src/gateway/probe.auth.integration.test.ts",
 ];
 
-/** Creates the gateway server Vitest project config. */
 export function createGatewayServerVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(
     ["src/gateway/**/*server*.test.ts", ...gatewayServerBackedHttpTests],

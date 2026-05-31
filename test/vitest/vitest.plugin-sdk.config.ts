@@ -2,7 +2,6 @@ import { pluginSdkLightTestFiles } from "./vitest.plugin-sdk-paths.mjs";
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 import { bundledPluginDependentUnitTestFiles } from "./vitest.unit-paths.mjs";
 
-/** Creates the plugin SDK Vitest project config. */
 export function createPluginSdkVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/plugin-sdk/**/*.test.ts"], {
     dir: "src",

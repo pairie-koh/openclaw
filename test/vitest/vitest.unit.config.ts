@@ -104,7 +104,6 @@ function isCoverageEnabledFromArgv(argv: string[] = process.argv): boolean {
   });
 }
 
-/** Create a unit Vitest config with optional include/exclude lane overrides. */
 export function createUnitVitestConfigWithOptions(
   env: Record<string, string | undefined> = process.env,
   options: {
@@ -184,7 +183,6 @@ export function createUnitVitestConfigWithOptions(
   });
 }
 
-/** Create the default broad unit Vitest config. */
 export function createUnitVitestConfig(env: Record<string, string | undefined> = process.env) {
   return createUnitVitestConfigWithOptions(env);
 }

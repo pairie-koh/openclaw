@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Create the scoped Vitest config for tooling and script tests. */
 export function createToolingVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(
     loadIncludePatternsFromEnv(env) ?? ["test/**/*.test.ts", "src/scripts/**/*.test.ts"],

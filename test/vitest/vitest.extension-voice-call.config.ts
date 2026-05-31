@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the Voice Call extension Vitest project config. */
 export function createExtensionVoiceCallVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

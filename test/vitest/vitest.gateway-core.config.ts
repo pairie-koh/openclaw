@@ -18,7 +18,6 @@ const nonCoreGatewayTestExclude = [
   "src/gateway/sessions-history-http.test.ts",
 ];
 
-/** Create the gateway-core Vitest project config with non-core gateway tests excluded. */
 export function createGatewayCoreVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/gateway/**/*.test.ts"], {
     dir: "src/gateway",

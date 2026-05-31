@@ -1,7 +1,6 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 import { getUnitFastTestFiles } from "./vitest.unit-fast-paths.mjs";
 
-/** Creates the shared core Vitest project config. */
 export function createSharedCoreVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/shared/**/*.test.ts"], {
     dir: "src",

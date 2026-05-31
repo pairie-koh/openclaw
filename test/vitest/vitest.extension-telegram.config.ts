@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the Telegram extension Vitest project config. */
 export function createExtensionTelegramVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

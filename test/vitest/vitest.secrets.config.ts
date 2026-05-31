@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Create the scoped Vitest config for secret-management tests. */
 export function createSecretsVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/secrets/**/*.test.ts"], {
     dir: "src/secrets",

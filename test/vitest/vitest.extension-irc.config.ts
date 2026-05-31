@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the IRC extension Vitest project config. */
 export function createExtensionIrcVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

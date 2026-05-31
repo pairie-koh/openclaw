@@ -3,7 +3,6 @@ import { loadPatternListFromEnv, narrowIncludePatternsForCli } from "./vitest.pa
 import { sharedVitestConfig } from "./vitest.shared.config.ts";
 import { getUnitFastTestFiles, getUnitFastTimerTestFiles } from "./vitest.unit-fast-paths.mjs";
 
-/** Create the Vitest config for the curated unit-fast test file set. */
 export function createUnitFastVitestConfig(
   env: Record<string, string | undefined> = process.env,
   options: { argv?: string[] } = {},

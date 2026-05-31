@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Creates the process Vitest project config. */
 export function createProcessVitestConfig(env?: Record<string, string | undefined>) {
   const config = createScopedVitestConfig(["src/process/**/*.test.ts"], {
     dir: "src",

@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Create the gateway-methods Vitest project config. */
 export function createGatewayMethodsVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/gateway/server-methods/**/*.test.ts"], {
     dir: "src/gateway",

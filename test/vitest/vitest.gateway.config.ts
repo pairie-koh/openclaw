@@ -8,7 +8,6 @@ const gatewayProjectConfigs = [
   "test/vitest/vitest.gateway-server.config.ts",
 ] as const;
 
-/** Creates the non-sharded gateway Vitest project config. */
 export function createGatewayVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/gateway/**/*.test.ts"], {
     dir: "src/gateway",

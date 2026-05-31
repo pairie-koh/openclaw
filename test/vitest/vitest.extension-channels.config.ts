@@ -4,7 +4,6 @@ import {
 } from "./vitest.channel-paths.mjs";
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Creates the extension channels Vitest project config. */
 export function createExtensionChannelsVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

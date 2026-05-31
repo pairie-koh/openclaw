@@ -33,7 +33,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Create the shared bundled plugin Vitest config excluding plugin-specific lanes. */
 export function createExtensionsVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

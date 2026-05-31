@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Create the scoped Vitest config for Slack plugin tests. */
 export function createExtensionSlackVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

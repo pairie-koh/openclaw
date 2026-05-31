@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Create the scoped Vitest config for miscellaneous plugin tests. */
 export function createExtensionMiscVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

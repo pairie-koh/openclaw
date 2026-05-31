@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the Active Memory extension Vitest project config. */
 export function createExtensionActiveMemoryVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

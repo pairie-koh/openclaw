@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Create the extension-media Vitest project config, honoring optional pattern files. */
 export function createExtensionMediaVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

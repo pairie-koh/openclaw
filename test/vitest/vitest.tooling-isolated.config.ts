@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Create the isolated tooling Vitest project config. */
 export function createToolingIsolatedVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["test/scripts/openclaw-e2e-instance.test.ts"], {
     env,

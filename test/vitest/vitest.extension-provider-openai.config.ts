@@ -11,7 +11,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the OpenAI provider extension Vitest project config. */
 export function createExtensionProviderOpenAiVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

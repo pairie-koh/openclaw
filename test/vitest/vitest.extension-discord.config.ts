@@ -1,6 +1,5 @@
 import { createSingleChannelExtensionVitestConfig } from "./vitest.extension-channel-single-config.ts";
 
-/** Creates the Discord extension Vitest project config. */
 export function createExtensionDiscordVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

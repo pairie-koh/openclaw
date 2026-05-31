@@ -1,6 +1,5 @@
 import { createSingleChannelExtensionVitestConfig } from "./vitest.extension-channel-single-config.ts";
 
-/** Creates the ClickClack extension Vitest project config. */
 export function createExtensionClickClackVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

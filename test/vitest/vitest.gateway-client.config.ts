@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Create the scoped Vitest config for gateway client/protocol tests. */
 export function createGatewayClientVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(
     [

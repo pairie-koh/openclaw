@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Creates the auto-reply Vitest project config. */
 export function createAutoReplyVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/auto-reply/**/*.test.ts"], {
     dir: "src/auto-reply",

@@ -11,7 +11,6 @@ export function loadBoundaryIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the boundary Vitest project config. */
 export function createBoundaryVitestConfig(
   env: Record<string, string | undefined> = process.env,
   argv: string[] = process.argv,

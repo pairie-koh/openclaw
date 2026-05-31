@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Create the scoped Vitest config for runtime config tests. */
 export function createRuntimeConfigVitestConfig(env?: Record<string, string | undefined>) {
   const config = createScopedVitestConfig(["src/config/**/*.test.ts"], {
     dir: "src",

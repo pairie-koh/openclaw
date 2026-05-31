@@ -1,6 +1,5 @@
 import { createSingleChannelExtensionVitestConfig } from "./vitest.extension-channel-single-config.ts";
 
-/** Create the scoped Vitest config for LINE plugin tests. */
 export function createExtensionLineVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

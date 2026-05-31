@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the Mattermost extension Vitest project config. */
 export function createExtensionMattermostVitestConfig(
   env: Record<string, string | undefined> = process.env,
 ) {

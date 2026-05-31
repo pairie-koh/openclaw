@@ -1,6 +1,5 @@
 import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 
-/** Creates the logging Vitest project config. */
 export function createLoggingVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(["src/logging/**/*.test.ts"], {
     dir: "src",

@@ -2,7 +2,6 @@ import { createScopedVitestConfig } from "./vitest.scoped-config.ts";
 import { jsdomOptimizedDeps } from "./vitest.shared.config.ts";
 import { unitUiIncludePatterns } from "./vitest.ui-paths.mjs";
 
-/** Create the scoped jsdom Vitest config for UI tests. */
 export function createUiVitestConfig(
   env?: Record<string, string | undefined>,
   options?: { includePatterns?: string[]; name?: string },

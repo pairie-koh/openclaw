@@ -9,7 +9,6 @@ export function loadIncludePatternsFromEnv(
   return loadPatternListFromEnv("OPENCLAW_VITEST_INCLUDE_FILE", env);
 }
 
-/** Creates the channels Vitest project config. */
 export function createChannelsVitestConfig(env?: Record<string, string | undefined>) {
   return createScopedVitestConfig(loadIncludePatternsFromEnv(env) ?? coreChannelTestInclude, {
     env,
