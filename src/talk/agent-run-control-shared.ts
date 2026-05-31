@@ -13,10 +13,8 @@ export const REALTIME_VOICE_AGENT_CONTROL_MODES = [
   "followup",
 ] as const;
 
-/** Voice control mode resolved from tool args or spoken intent. */
 export type RealtimeVoiceAgentControlMode = (typeof REALTIME_VOICE_AGENT_CONTROL_MODES)[number];
 
-/** Provider-facing result shape for a cancelled realtime voice run. */
 export type RealtimeVoiceAgentControlProviderResult = {
   status: "cancelled";
   message: string;
@@ -49,7 +47,6 @@ export const REALTIME_VOICE_AGENT_CONTROL_TOOL: RealtimeVoiceTool = {
   },
 };
 
-/** Parsed intent with confidence and auto-control safety decision. */
 export type RealtimeVoiceAgentControlIntent = {
   mode: RealtimeVoiceAgentControlMode;
   confidence: "high" | "medium" | "low";
@@ -63,7 +60,6 @@ export type RealtimeVoiceAgentControlIntent = {
   shouldAutoControl: boolean;
 };
 
-/** Snapshot of active embedded/model/tool work used for spoken status. */
 export type RealtimeVoiceAgentRunActivity = {
   activeWorkKind?: "tool_call" | "model_call" | "embedded_run";
   hasActiveEmbeddedRun?: boolean;
@@ -74,7 +70,6 @@ export type RealtimeVoiceAgentRunActivity = {
   lastProgressReason?: string;
 };
 
-/** Result returned after applying or rejecting a realtime voice control request. */
 export type RealtimeVoiceAgentControlResult = {
   ok: boolean;
   mode: RealtimeVoiceAgentControlMode;
@@ -94,7 +89,6 @@ export type RealtimeVoiceAgentControlResult = {
   deliveredAtMs?: number;
 };
 
-/** Normalizes model/tool-provided mode text into the closed public mode set. */
 export function normalizeRealtimeVoiceAgentControlMode(
   value: unknown,
 ): RealtimeVoiceAgentControlMode | undefined {
@@ -216,12 +210,10 @@ export function resolveRealtimeVoiceAgentControlIntent(params: {
   };
 }
 
-/** Returns only the resolved mode for callers that do not need confidence metadata. */
 export function classifyRealtimeVoiceAgentControlText(text: string): RealtimeVoiceAgentControlMode {
   return resolveRealtimeVoiceAgentControlIntent({ text }).mode;
 }
 
-/** Reports whether freeform speech is confident enough to control the active run. */
 export function shouldAutoControlRealtimeVoiceAgentText(text: string): boolean {
   return resolveRealtimeVoiceAgentControlIntent({ text }).shouldAutoControl;
 }
@@ -272,7 +264,6 @@ export function buildRealtimeVoiceAgentControlSpeechMessage(text: string): strin
   ].join("\n");
 }
 
-/** Builds the provider result payload used when cancelling active voice work. */
 export function buildRealtimeVoiceAgentCancelProviderResult(
   message = "Cancelled the active OpenClaw run.",
 ): RealtimeVoiceAgentControlProviderResult {
@@ -282,7 +273,6 @@ export function buildRealtimeVoiceAgentCancelProviderResult(
   };
 }
 
-/** Converts a spoken follow-up into steering text for the embedded agent queue. */
 export function buildRealtimeVoiceAgentFollowupSteeringText(text: string): string {
   return [
     "Spoken follow-up for the current voice call.",
@@ -292,7 +282,6 @@ export function buildRealtimeVoiceAgentFollowupSteeringText(text: string): strin
   ].join("\n");
 }
 
-/** Formats user-facing speech when a steer/follow-up request cannot be queued. */
 export function formatRealtimeVoiceAgentQueueRejection(
   mode: RealtimeVoiceAgentControlMode,
   reason: string,
@@ -319,7 +308,6 @@ function isRealtimeVoiceAgentControlToolEvent(event: TalkEvent): boolean {
   return normalizeOptionalString(payload.name) === REALTIME_VOICE_AGENT_CONTROL_TOOL_NAME;
 }
 
-/** Derives a concise spoken status from recent talk events and active-run metadata. */
 export function formatRealtimeVoiceAgentStatus(params: {
   active: boolean;
   recentEvents?: readonly TalkEvent[];

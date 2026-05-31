@@ -29,19 +29,14 @@ export const TALK_EVENT_TYPES = [
   "health.changed",
 ] as const;
 
-/** Talk event type derived from the closed event list. */
 export type TalkEventType = (typeof TALK_EVENT_TYPES)[number];
 
-/** High-level Talk runtime mode for a session. */
 export type TalkMode = "realtime" | "stt-tts" | "transcription";
 
-/** Transport family used by the active Talk session. */
 export type TalkTransport = "webrtc" | "provider-websocket" | "gateway-relay" | "managed-room";
 
-/** Decision engine that produces Talk session responses. */
 export type TalkBrain = "agent-consult" | "direct-tools" | "none";
 
-/** Session-scoped metadata attached to every Talk event. */
 export type TalkEventContext = {
   sessionId: string;
   mode: TalkMode;
@@ -50,7 +45,6 @@ export type TalkEventContext = {
   provider?: string;
 };
 
-/** Fully correlated Talk event emitted to logs, diagnostics, and UI subscribers. */
 export type TalkEvent<TPayload = unknown> = TalkEventContext & {
   id: string;
   type: TalkEventType;
@@ -65,7 +59,6 @@ export type TalkEvent<TPayload = unknown> = TalkEventContext & {
   payload: TPayload;
 };
 
-/** Event payload accepted by the sequencer before id/seq/timestamp are assigned. */
 export type TalkEventInput<TPayload = unknown> = {
   type: TalkEventType;
   payload: TPayload;
@@ -78,7 +71,6 @@ export type TalkEventInput<TPayload = unknown> = {
   parentId?: string;
 };
 
-/** Assigns monotonic event ids and validates required turn/capture correlation. */
 export type TalkEventSequencer = {
   next<TPayload>(input: TalkEventInput<TPayload>): TalkEvent<TPayload>;
 };
@@ -118,7 +110,6 @@ function assertTalkEventCorrelation(input: TalkEventInput): void {
   }
 }
 
-/** Creates a per-session Talk event sequencer with optional deterministic clock. */
 export function createTalkEventSequencer(
   context: TalkEventContext,
   options: { now?: () => Date | string } = {},
