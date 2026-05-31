@@ -5,7 +5,6 @@ import type { ConfigUiHints } from "../types.ts";
 import { matchesNodeSearch, parseConfigSearchQuery, renderNode } from "./config-form.node.ts";
 import { hintForPath, humanize, schemaType, type JsonSchema } from "./config-form.shared.ts";
 
-/** Props required to render and edit the generated config form. */
 export type ConfigFormProps = {
   schema: JsonSchema | null;
   uiHints: ConfigUiHints;
@@ -22,7 +21,6 @@ export type ConfigFormProps = {
   onPatch: (path: Array<string | number>, value: unknown) => void;
 };
 
-// SVG Icons for section cards (Lucide-style)
 const sectionIcons = {
   env: html`
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -113,7 +111,6 @@ const sectionIcons = {
       <path d="M12.2 6.2 11 5"></path>
     </svg>
   `,
-  // Additional sections
   meta: html`
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path d="M12 20h9"></path>

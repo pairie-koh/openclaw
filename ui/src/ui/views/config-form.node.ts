@@ -56,7 +56,6 @@ function matchesComparablePrimitiveValue(left: unknown, right: unknown): boolean
   return leftComparable !== null && leftComparable === rightComparable;
 }
 
-// SVG Icons as template literals
 const icons = {
   chevronDown: html`
     <svg

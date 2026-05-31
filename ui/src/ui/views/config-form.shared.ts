@@ -22,7 +22,6 @@ export type JsonSchema = {
   nullable?: boolean;
 };
 
-/** Return the effective non-null schema type when type is a union. */
 export function schemaType(schema: JsonSchema): string | undefined {
   if (!schema) {
     return undefined;
@@ -33,7 +32,6 @@ export function schemaType(schema: JsonSchema): string | undefined {
   return schema.type;
 }
 
-/** Create a renderable default value for a schema node. */
 export function defaultValue(schema?: JsonSchema): unknown {
   if (!schema) {
     return "";
@@ -59,7 +57,6 @@ export function defaultValue(schema?: JsonSchema): unknown {
   }
 }
 
-/** Convert a string path into the dotted key used by UI hints. */
 export function pathKey(path: Array<string | number>): string {
   return path.filter((segment) => typeof segment === "string").join(".");
 }
@@ -94,7 +91,6 @@ export function hintForPath(path: Array<string | number>, hints: ConfigUiHints) 
   return undefined;
 }
 
-/** Convert config keys into readable fallback labels. */
 export function humanize(raw: string) {
   return raw
     .replace(/_/g, " ")
