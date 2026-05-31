@@ -11,20 +11,26 @@ const MEMORY_MULTIMODAL_SPECS = {
   },
 } as const;
 
+/** Multimodal file classes supported by the memory host indexer. */
 export type MemoryMultimodalModality = keyof typeof MEMORY_MULTIMODAL_SPECS;
+/** Stable list of multimodal modalities accepted by config normalization. */
 export const MEMORY_MULTIMODAL_MODALITIES = Object.keys(
   MEMORY_MULTIMODAL_SPECS,
 ) as MemoryMultimodalModality[];
+/** Config selection value for one modality or every supported modality. */
 export type MemoryMultimodalSelection = MemoryMultimodalModality | "all";
 
+/** Normalized multimodal memory settings after defaults and caps are applied. */
 export type MemoryMultimodalSettings = {
   enabled: boolean;
   modalities: MemoryMultimodalModality[];
   maxFileBytes: number;
 };
 
+/** Default per-file byte cap for multimodal memory ingestion. */
 export const DEFAULT_MEMORY_MULTIMODAL_MAX_FILE_BYTES = 10 * 1024 * 1024;
 
+/** Normalize requested modalities, expanding missing or `all` to every supported modality. */
 export function normalizeMemoryMultimodalModalities(
   raw: MemoryMultimodalSelection[] | undefined,
 ): MemoryMultimodalModality[] {
@@ -40,6 +46,7 @@ export function normalizeMemoryMultimodalModalities(
   return Array.from(normalized);
 }
 
+/** Normalize multimodal settings, disabling modality lists when the feature is off. */
 export function normalizeMemoryMultimodalSettings(raw: {
   enabled?: boolean;
   modalities?: MemoryMultimodalSelection[];
@@ -57,16 +64,19 @@ export function normalizeMemoryMultimodalSettings(raw: {
   };
 }
 
+/** Return true when multimodal indexing has at least one enabled modality. */
 export function isMemoryMultimodalEnabled(settings: MemoryMultimodalSettings): boolean {
   return settings.enabled && settings.modalities.length > 0;
 }
 
+/** Return file extensions associated with one multimodal memory modality. */
 export function getMemoryMultimodalExtensions(
   modality: MemoryMultimodalModality,
 ): readonly string[] {
   return MEMORY_MULTIMODAL_SPECS[modality].extensions;
 }
 
+/** Build the text label stored for a multimodal memory file. */
 export function buildMemoryMultimodalLabel(
   modality: MemoryMultimodalModality,
   normalizedPath: string,
@@ -84,6 +94,7 @@ export function buildCaseInsensitiveExtensionGlob(extension: string): string {
   return `*.${parts.join("")}`;
 }
 
+/** Classify a path by extension under the enabled multimodal settings. */
 export function classifyMemoryMultimodalPath(
   filePath: string,
   settings: MemoryMultimodalSettings,
