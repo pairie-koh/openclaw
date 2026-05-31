@@ -94,6 +94,7 @@ import { resolveBareResetBootstrapFileAccess } from "./session-reset-prompt.js";
 import { drainFormattedSystemEvents } from "./session-system-events.js";
 import { isInternalSourceReplyChannel } from "./source-reply-delivery-mode.js";
 import { buildSessionStartupContextPrelude, shouldApplyStartupContext } from "./startup-context.js";
+import { resolveStoredModelOverride } from "./stored-model-override.js";
 import { resolveTypingMode } from "./typing-mode.js";
 import { resolveRunTypingPolicy } from "./typing-policy.js";
 import type { TypingController } from "./typing.js";
@@ -366,6 +367,7 @@ type RunPreparedReplyParams = {
   };
   typing: TypingController;
   opts?: InternalGetReplyOptions;
+  defaultProvider: string;
   defaultModel: string;
   timeoutMs: number;
   isNewSession: boolean;
@@ -408,6 +410,7 @@ export async function runPreparedReply(
     perMessageQueueOptions,
     typing,
     opts,
+    defaultProvider,
     defaultModel,
     timeoutMs,
     isNewSession,
@@ -935,6 +938,30 @@ export async function runPreparedReply(
           agentHarnessId: entry?.agentHarnessId ?? entry?.agentRuntimeOverride,
         })
       : [provider];
+  const resolveActiveSessionProviderForAuthProfile = (): string => {
+    const storedOverride = resolveStoredModelOverride({
+      sessionEntry: preparedSessionState.sessionEntry,
+      sessionStore,
+      sessionKey,
+      parentSessionKey:
+        preparedSessionState.sessionEntry?.parentSessionKey ??
+        sessionCtx.ModelParentSessionKey ??
+        sessionCtx.ParentSessionKey,
+      defaultProvider,
+    });
+    return (
+      normalizeOptionalString(storedOverride?.provider) ??
+      normalizeOptionalString(preparedSessionState.sessionEntry?.modelProvider) ??
+      defaultProvider
+    );
+  };
+  const shouldResolveEphemeralAuthProfileForMediaOverride = (): boolean => {
+    if (!hasInboundMedia(sessionCtx) && (params.opts?.images?.length ?? 0) === 0) {
+      return false;
+    }
+    const activeSessionProvider = resolveActiveSessionProviderForAuthProfile();
+    return normalizeProviderId(provider) !== normalizeProviderId(activeSessionProvider);
+  };
   const resolveRuntimeAuthProfile = async (): Promise<{
     authProfileId?: string;
     authProfileIdSource?: "auto" | "user";
@@ -945,7 +972,9 @@ export async function runPreparedReply(
         authProfileIdSource: preparedSessionState.sessionEntry?.authProfileOverrideSource,
       };
     }
-    const shouldUseEphemeralSession = params.autoFallbackPrimaryProbe !== undefined;
+    const shouldUseEphemeralSession =
+      shouldResolveEphemeralAuthProfileForMediaOverride() ||
+      params.autoFallbackPrimaryProbe !== undefined;
     const authSessionKey = shouldUseEphemeralSession ? (sessionKey ?? sessionIdFinal) : sessionKey;
     const authSessionEntry =
       shouldUseEphemeralSession && preparedSessionState.sessionEntry
