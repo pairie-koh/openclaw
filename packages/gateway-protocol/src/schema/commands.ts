@@ -49,7 +49,6 @@ export const CommandCategorySchema = Type.Union([
   Type.Literal("docks"),
 ]);
 
-/** Static choice descriptor for a command argument. */
 export const CommandArgChoiceSchema = Type.Object(
   {
     value: Type.String({ maxLength: COMMAND_CHOICE_VALUE_MAX_LENGTH }),
@@ -58,7 +57,6 @@ export const CommandArgChoiceSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Argument descriptor for a command catalog entry. */
 export const CommandArgSchema = Type.Object(
   {
     name: BoundedNonEmptyString(COMMAND_ARG_NAME_MAX_LENGTH),
@@ -73,7 +71,6 @@ export const CommandArgSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Full command catalog entry returned to clients. */
 export const CommandEntrySchema = Type.Object(
   {
     name: BoundedNonEmptyString(COMMAND_NAME_MAX_LENGTH),
@@ -93,7 +90,6 @@ export const CommandEntrySchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for filtering command catalog listings. */
 export const CommandsListParamsSchema = Type.Object(
   {
     agentId: Type.Optional(NonEmptyString),
@@ -104,7 +100,6 @@ export const CommandsListParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for command catalog listings. */
 export const CommandsListResultSchema = Type.Object(
   {
     commands: Type.Array(CommandEntrySchema, { maxItems: COMMAND_LIST_MAX_ITEMS }),
