@@ -1,7 +1,3 @@
-/**
- * Post-restart recovery for main sessions interrupted while holding a transcript lock.
- */
-
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
