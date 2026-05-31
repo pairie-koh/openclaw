@@ -10,10 +10,6 @@ import { TtsConfigSchema } from "../api.js";
 import { deepMergeDefined } from "./deep-merge.js";
 import { DEFAULT_VOICE_CALL_REALTIME_INSTRUCTIONS } from "./realtime-defaults.js";
 
-// -----------------------------------------------------------------------------
-// Phone Number Validation
-// -----------------------------------------------------------------------------
-
 /**
  * E.164 phone number format: +[country code][number]
  * Examples use 555 prefix (reserved for fictional numbers)
@@ -21,10 +17,6 @@ import { DEFAULT_VOICE_CALL_REALTIME_INSTRUCTIONS } from "./realtime-defaults.js
 const E164Schema = z
   .string()
   .regex(/^\+[1-9]\d{1,14}$/, "Expected E.164 format, e.g. +15550001234");
-
-// -----------------------------------------------------------------------------
-// Inbound Policy
-// -----------------------------------------------------------------------------
 
 /**
  * Controls how inbound calls are handled:
@@ -34,10 +26,6 @@ const E164Schema = z
  * - "open": Accept all inbound calls (dangerous!)
  */
 const InboundPolicySchema = z.enum(["disabled", "allowlist", "pairing", "open"]);
-
-// -----------------------------------------------------------------------------
-// Provider-Specific Configuration
-// -----------------------------------------------------------------------------
 
 const SecretInputSchema = buildSecretInputSchema();
 
@@ -92,10 +80,6 @@ const VoiceCallNumberRouteConfigSchema = z
   .strict();
 export type VoiceCallNumberRouteConfig = z.infer<typeof VoiceCallNumberRouteConfigSchema>;
 
-// -----------------------------------------------------------------------------
-// Webhook Server Configuration
-// -----------------------------------------------------------------------------
-
 const VoiceCallServeConfigSchema = z
   .object({
     /** Port to listen on */
@@ -123,10 +107,6 @@ const VoiceCallTailscaleConfigSchema = z
   .strict()
   .default({ mode: "off", path: "/voice/webhook" });
 
-// -----------------------------------------------------------------------------
-// Tunnel Configuration (unified ngrok/tailscale)
-// -----------------------------------------------------------------------------
-
 const VoiceCallTunnelConfigSchema = z
   .object({
     /**
@@ -153,10 +133,6 @@ const VoiceCallTunnelConfigSchema = z
   .strict()
   .default({ provider: "none", allowNgrokFreeTierLoopbackBypass: false });
 
-// -----------------------------------------------------------------------------
-// Webhook Security Configuration
-// -----------------------------------------------------------------------------
-
 const VoiceCallWebhookSecurityConfigSchema = z
   .object({
     /**
@@ -179,10 +155,6 @@ const VoiceCallWebhookSecurityConfigSchema = z
   .default({ allowedHosts: [], trustForwardingHeaders: false, trustedProxyIPs: [] });
 export type WebhookSecurityConfig = z.infer<typeof VoiceCallWebhookSecurityConfigSchema>;
 
-// -----------------------------------------------------------------------------
-// Outbound Call Configuration
-// -----------------------------------------------------------------------------
-
 /**
  * Call mode determines how outbound calls behave:
  * - "notify": Deliver message and auto-hangup after delay (one-way notification)
@@ -203,10 +175,6 @@ const OutboundConfigSchema = z
   })
   .strict()
   .default({ defaultMode: "notify", notifyHangupDelaySec: 3 });
-
-// -----------------------------------------------------------------------------
-// Realtime Voice Configuration
-// -----------------------------------------------------------------------------
 
 const RealtimeToolSchema = z
   .object({
@@ -354,10 +322,6 @@ const VoiceCallRealtimeConfigSchema = z
   });
 export type VoiceCallRealtimeConfig = z.infer<typeof VoiceCallRealtimeConfigSchema>;
 
-// -----------------------------------------------------------------------------
-// Streaming Configuration (Realtime Transcription)
-// -----------------------------------------------------------------------------
-
 const VoiceCallStreamingConfigSchema = z
   .object({
     /** Enable real-time audio streaming (requires WebSocket support) */
@@ -390,10 +354,6 @@ const VoiceCallStreamingConfigSchema = z
     maxPendingConnectionsPerIp: 4,
     maxConnections: 128,
   });
-
-// -----------------------------------------------------------------------------
-// Main Voice Call Configuration
-// -----------------------------------------------------------------------------
 
 export const VoiceCallConfigSchema = z
   .object({
@@ -516,10 +476,6 @@ type DeepPartial<T> = T extends SecretInput
       : T;
 export type VoiceCallConfigInput = DeepPartial<VoiceCallConfig>;
 const TWILIO_AUTH_TOKEN_PATH = "plugins.entries.voice-call.config.twilio.authToken";
-
-// -----------------------------------------------------------------------------
-// Configuration Helpers
-// -----------------------------------------------------------------------------
 
 const DEFAULT_VOICE_CALL_CONFIG = VoiceCallConfigSchema.parse({});
 
