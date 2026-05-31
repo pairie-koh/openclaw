@@ -34,6 +34,7 @@ import { normalizeStringEntries, uniqueStrings } from "./string-utils.js";
 export { hashText } from "./hash.js";
 import { hashText } from "./hash.js";
 
+/** File metadata and optional extracted payload queued for memory indexing. */
 export type MemoryFileEntry = {
   path: string;
   absPath: string;
@@ -47,6 +48,7 @@ export type MemoryFileEntry = {
   mimeType?: string;
 };
 
+/** Text or structured embedding chunk with source line bounds and stable content hash. */
 export type MemoryChunk = {
   startLine: number;
   endLine: number;
@@ -55,6 +57,7 @@ export type MemoryChunk = {
   embeddingInput?: EmbeddingInput;
 };
 
+/** Multimodal chunk plus estimated structured input size for provider limit checks. */
 export type MultimodalMemoryChunk = {
   chunk: MemoryChunk;
   structuredInputBytes: number;
@@ -66,11 +69,13 @@ const DISABLED_MULTIMODAL_SETTINGS: MemoryMultimodalSettings = {
   maxFileBytes: 0,
 };
 
+/** Ensure a directory exists and return its path for fluent setup code. */
 export function ensureDir(dir: string): string {
   fsSync.mkdirSync(dir, { recursive: true });
   return dir;
 }
 
+/** Normalize workspace-relative memory paths to slash-separated, dot-free form. */
 export function normalizeRelPath(value: string): string {
   const trimmed = value.trim().replace(/^[./]+/, "");
   return trimmed.replace(/\\/g, "/");
@@ -86,6 +91,7 @@ function expandHomePath(value: string): string {
   return value;
 }
 
+/** Resolve configured extra memory paths relative to the workspace and remove duplicates. */
 export function normalizeExtraMemoryPaths(workspaceDir: string, extraPaths?: string[]): string[] {
   if (!extraPaths?.length) {
     return [];
@@ -98,6 +104,7 @@ export function normalizeExtraMemoryPaths(workspaceDir: string, extraPaths?: str
   return uniqueStrings(resolved);
 }
 
+/** Return true for canonical memory files and files under the workspace memory directory. */
 export function isMemoryPath(relPath: string): boolean {
   const normalized = normalizeRelPath(relPath);
   if (!normalized) {
@@ -368,6 +375,7 @@ export async function buildMultimodalChunkForIndexing(
   };
 }
 
+/** Split markdown into overlapping chunks sized by estimated token count. */
 export function chunkMarkdown(
   content: string,
   chunking: { tokens: number; overlap: number },
@@ -494,6 +502,7 @@ export function remapChunkLines(chunks: MemoryChunk[], lineMap: number[] | undef
   }
 }
 
+/** Parse a stored embedding vector, returning an empty vector for malformed payloads. */
 export function parseEmbedding(raw: string): number[] {
   try {
     const parsed = JSON.parse(raw) as number[];
@@ -503,6 +512,7 @@ export function parseEmbedding(raw: string): number[] {
   }
 }
 
+/** Compute cosine similarity over the shared prefix of two vectors. */
 export function cosineSimilarity(a: number[], b: number[]): number {
   if (a.length === 0 || b.length === 0) {
     return 0;
@@ -524,6 +534,7 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   return dot / (Math.sqrt(normA) * Math.sqrt(normB));
 }
 
+/** Run async tasks with stop-on-first-error semantics under a concurrency limit. */
 export async function runWithConcurrency<T>(
   tasks: Array<() => Promise<T>>,
   limit: number,
