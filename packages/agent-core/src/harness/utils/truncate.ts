@@ -9,12 +9,9 @@
  */
 
 export const DEFAULT_MAX_LINES = 2000;
-/** Default byte budget for model-visible tool output. */
 export const DEFAULT_MAX_BYTES = 50 * 1024; // 50KB
-/** Maximum grep match line length before long matches are shortened. */
 export const GREP_MAX_LINE_LENGTH = 500; // Max chars per grep match line
 
-/** Detailed truncation result used by shell and file output rendering. */
 export interface TruncationResult {
   /** The truncated content */
   content: string;
@@ -40,7 +37,6 @@ export interface TruncationResult {
   maxBytes: number;
 }
 
-/** Optional line and byte budgets for truncation helpers. */
 export interface TruncationOptions {
   /** Maximum number of lines (default: 2000) */
   maxLines?: number;

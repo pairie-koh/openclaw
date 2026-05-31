@@ -1,14 +1,11 @@
 import type { CompleteSimpleFn, StreamFn } from "../../llm-core/src/index.js";
 
-/** Provider callbacks required when agent-core is used without direct streamFn injection. */
 export interface AgentCoreRuntimeDeps {
   streamSimple: StreamFn;
   completeSimple: CompleteSimpleFn;
 }
 
-/** Runtime dependency subset needed by streaming agent loops. */
 export type AgentCoreStreamRuntimeDeps = Pick<AgentCoreRuntimeDeps, "streamSimple">;
-/** Runtime dependency subset needed by one-shot completions. */
 export type AgentCoreCompletionRuntimeDeps = Pick<AgentCoreRuntimeDeps, "completeSimple">;
 
 function missingRuntimeDep(name: keyof AgentCoreRuntimeDeps): Error {
@@ -17,7 +14,6 @@ function missingRuntimeDep(name: keyof AgentCoreRuntimeDeps): Error {
   );
 }
 
-/** Prefer explicit streamFn, then runtime stream dependency, or throw a setup error. */
 export function resolveAgentCoreStreamFn(
   runtime: AgentCoreStreamRuntimeDeps | undefined,
   streamFn?: StreamFn,
@@ -31,7 +27,6 @@ export function resolveAgentCoreStreamFn(
   throw missingRuntimeDep("streamSimple");
 }
 
-/** Resolve the configured one-shot completion dependency or throw a setup error. */
 export function resolveAgentCoreCompleteFn(
   runtime: AgentCoreCompletionRuntimeDeps | undefined,
 ): CompleteSimpleFn {

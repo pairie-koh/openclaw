@@ -9,7 +9,6 @@ import {
 } from "../types.js";
 import { DEFAULT_MAX_BYTES, truncateTail } from "./truncate.js";
 
-/** Exec options for captured shell runs, with streamed sanitized chunks exposed separately. */
 export interface ShellCaptureOptions extends Omit<
   ExecutionEnvExecOptions,
   "onStdout" | "onStderr"
@@ -17,7 +16,6 @@ export interface ShellCaptureOptions extends Omit<
   onChunk?: (chunk: string) => void;
 }
 
-/** Captured shell result returned to transcripts and model context. */
 export interface ShellCaptureResult {
   output: string;
   exitCode: number | undefined;
