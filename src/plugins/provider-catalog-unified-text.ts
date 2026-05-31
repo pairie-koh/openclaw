@@ -1,6 +1,7 @@
 import type { UnifiedModelCatalogEntry } from "@openclaw/model-catalog-core/model-catalog-types";
 import type { ProviderCatalogResult } from "./types.js";
 
+/** Projects provider catalog text models into unified model-catalog rows. */
 export function projectProviderCatalogResultToUnifiedTextRows(params: {
   providerId: string;
   result: ProviderCatalogResult;

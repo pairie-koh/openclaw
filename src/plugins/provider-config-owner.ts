@@ -1,6 +1,7 @@
 import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
+/** Resolves the API owner behind a configured provider alias when it differs from the provider id. */
 export function resolveProviderConfigApiOwnerHint(params: {
   provider: string;
   config?: OpenClawConfig;
