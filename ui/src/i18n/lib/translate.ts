@@ -146,7 +146,5 @@ class I18nManager {
   }
 }
 
-/** Shared browser UI i18n manager singleton. */
 export const i18n = new I18nManager();
-/** Convenience translation function bound to the shared i18n manager. */
 export const t = (key: string, params?: Record<string, string>) => i18n.t(key, params);

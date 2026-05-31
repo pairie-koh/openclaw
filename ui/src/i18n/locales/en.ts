@@ -1,6 +1,5 @@
 import type { TranslationMap } from "../lib/types.ts";
 
-/** Built-in English translations used as the UI fallback locale. */
 export const en: TranslationMap = {
   common: {
     health: "Health",
