@@ -206,7 +206,6 @@ export class BranchSummaryError extends Error {
   }
 }
 
-/** Harness contract for Session Error Code. */
 export type SessionErrorCode =
   | "not_found"
   | "invalid_session"
@@ -227,7 +226,6 @@ export class SessionError extends Error {
   }
 }
 
-/** Harness contract for Agent Harness Error Code. */
 export type AgentHarnessErrorCode =
   | "busy"
   | "invalid_state"
@@ -363,7 +361,6 @@ export interface Shell {
 /** Filesystem and process execution environment used by the harness. */
 export interface ExecutionEnv extends FileSystem, Shell {}
 
-/** Harness contract for Session Tree Entry Base. */
 export interface SessionTreeEntryBase {
   type: string;
   id: string;
@@ -371,26 +368,22 @@ export interface SessionTreeEntryBase {
   timestamp: string;
 }
 
-/** Harness contract for Message Entry. */
 export interface MessageEntry extends SessionTreeEntryBase {
   type: "message";
   message: AgentMessage;
 }
 
-/** Harness contract for Thinking Level Change Entry. */
 export interface ThinkingLevelChangeEntry extends SessionTreeEntryBase {
   type: "thinking_level_change";
   thinkingLevel: string;
 }
 
-/** Harness contract for Model Change Entry. */
 export interface ModelChangeEntry extends SessionTreeEntryBase {
   type: "model_change";
   provider: string;
   modelId: string;
 }
 
-/** Harness contract for Compaction Entry. */
 export interface CompactionEntry<T = unknown> extends SessionTreeEntryBase {
   type: "compaction";
   summary: string;
@@ -400,7 +393,6 @@ export interface CompactionEntry<T = unknown> extends SessionTreeEntryBase {
   fromHook?: boolean;
 }
 
-/** Harness contract for Branch Summary Entry. */
 export interface BranchSummaryEntry<T = unknown> extends SessionTreeEntryBase {
   type: "branch_summary";
   fromId: string;
@@ -409,14 +401,12 @@ export interface BranchSummaryEntry<T = unknown> extends SessionTreeEntryBase {
   fromHook?: boolean;
 }
 
-/** Harness contract for Custom Entry. */
 export interface CustomEntry<T = unknown> extends SessionTreeEntryBase {
   type: "custom";
   customType: string;
   data?: T;
 }
 
-/** Harness contract for Custom Message Entry. */
 export interface CustomMessageEntry<T = unknown> extends SessionTreeEntryBase {
   type: "custom_message";
   customType: string;
@@ -425,26 +415,22 @@ export interface CustomMessageEntry<T = unknown> extends SessionTreeEntryBase {
   display: boolean;
 }
 
-/** Harness contract for Label Entry. */
 export interface LabelEntry extends SessionTreeEntryBase {
   type: "label";
   targetId: string;
   label: string | undefined;
 }
 
-/** Harness contract for Session Info Entry. */
 export interface SessionInfoEntry extends SessionTreeEntryBase {
   type: "session_info"; // legacy name, kept for backwards compatibility
   name?: string;
 }
 
-/** Harness contract for Leaf Entry. */
 export interface LeafEntry extends SessionTreeEntryBase {
   type: "leaf";
   targetId: string | null;
 }
 
-/** Harness contract for Session Tree Entry. */
 export type SessionTreeEntry =
   | MessageEntry
   | ThinkingLevelChangeEntry
@@ -457,27 +443,23 @@ export type SessionTreeEntry =
   | SessionInfoEntry
   | LeafEntry;
 
-/** Harness contract for Session Context. */
 export interface SessionContext {
   messages: AgentMessage[];
   thinkingLevel: string;
   model: { provider: string; modelId: string } | null;
 }
 
-/** Harness contract for Session Metadata. */
 export interface SessionMetadata {
   id: string;
   createdAt: string;
 }
 
-/** Harness contract for Jsonl Session Metadata. */
 export interface JsonlSessionMetadata extends SessionMetadata {
   cwd: string;
   path: string;
   parentSessionPath?: string;
 }
 
-/** Harness contract for Session Storage. */
 export interface SessionStorage<TMetadata extends SessionMetadata = SessionMetadata> {
   getMetadata(): Promise<TMetadata>;
   getLeafId(): Promise<string | null>;
@@ -496,19 +478,16 @@ export interface SessionStorage<TMetadata extends SessionMetadata = SessionMetad
 
 export type { Session } from "./session/session.js";
 
-/** Harness contract for Session Create Options. */
 export interface SessionCreateOptions {
   id?: string;
 }
 
-/** Harness contract for Session Fork Options. */
 export interface SessionForkOptions {
   entryId?: string;
   position?: "before" | "at";
   id?: string;
 }
 
-/** Harness contract for Session Repo. */
 export interface SessionRepo<
   TMetadata extends SessionMetadata = SessionMetadata,
   TCreateOptions extends SessionCreateOptions = SessionCreateOptions,
@@ -524,35 +503,29 @@ export interface SessionRepo<
   ): Promise<Session<TMetadata>>;
 }
 
-/** Harness contract for Jsonl Session Create Options. */
 export interface JsonlSessionCreateOptions extends SessionCreateOptions {
   cwd: string;
   parentSessionPath?: string;
 }
 
-/** Harness contract for Jsonl Session List Options. */
 export interface JsonlSessionListOptions {
   cwd?: string;
 }
 
-/** Harness contract for Jsonl Session Repo Api. */
 export interface JsonlSessionRepoApi extends SessionRepo<
   JsonlSessionMetadata,
   JsonlSessionCreateOptions,
   JsonlSessionListOptions
 > {}
 
-/** Harness contract for Agent Harness Phase. */
 export type AgentHarnessPhase = "idle" | "turn" | "compaction" | "branch_summary" | "retry";
 
-/** Harness contract for Pending Session Write. */
 export type PendingSessionWrite = SessionTreeEntry extends infer TEntry
   ? TEntry extends SessionTreeEntry
     ? Omit<TEntry, "id" | "parentId" | "timestamp">
     : never
   : never;
 
-/** Harness contract for Queue Update Event. */
 export interface QueueUpdateEvent {
   type: "queue_update";
   steer: AgentMessage[];
@@ -560,26 +533,22 @@ export interface QueueUpdateEvent {
   nextTurn: AgentMessage[];
 }
 
-/** Harness contract for Save Point Event. */
 export interface SavePointEvent {
   type: "save_point";
   hadPendingMutations: boolean;
 }
 
-/** Harness contract for Abort Event. */
 export interface AbortEvent {
   type: "abort";
   clearedSteer: AgentMessage[];
   clearedFollowUp: AgentMessage[];
 }
 
-/** Harness contract for Settled Event. */
 export interface SettledEvent {
   type: "settled";
   nextTurnCount: number;
 }
 
-/** Harness contract for Before Agent Start Event. */
 export interface BeforeAgentStartEvent<
   TSkill extends Skill = Skill,
   TPromptTemplate extends PromptTemplate = PromptTemplate,
@@ -591,13 +560,11 @@ export interface BeforeAgentStartEvent<
   resources: AgentHarnessResources<TSkill, TPromptTemplate>;
 }
 
-/** Harness contract for Context Event. */
 export interface ContextEvent {
   type: "context";
   messages: AgentMessage[];
 }
 
-/** Harness contract for Before Provider Request Event. */
 export interface BeforeProviderRequestEvent {
   type: "before_provider_request";
   model: Model;
@@ -605,21 +572,18 @@ export interface BeforeProviderRequestEvent {
   streamOptions: AgentHarnessStreamOptions;
 }
 
-/** Harness contract for Before Provider Payload Event. */
 export interface BeforeProviderPayloadEvent {
   type: "before_provider_payload";
   model: Model;
   payload: unknown;
 }
 
-/** Harness contract for After Provider Response Event. */
 export interface AfterProviderResponseEvent {
   type: "after_provider_response";
   status: number;
   headers: Record<string, string>;
 }
 
-/** Harness contract for Tool Call Event. */
 export interface ToolCallEvent {
   type: "tool_call";
   toolCallId: string;
@@ -627,7 +591,6 @@ export interface ToolCallEvent {
   input: Record<string, unknown>;
 }
 
-/** Harness contract for Tool Result Event. */
 export interface ToolResultEvent {
   type: "tool_result";
   toolCallId: string;
@@ -638,7 +601,6 @@ export interface ToolResultEvent {
   isError: boolean;
 }
 
-/** Harness contract for Session Before Compact Event. */
 export interface SessionBeforeCompactEvent {
   type: "session_before_compact";
   preparation: CompactionPreparation;
@@ -647,21 +609,18 @@ export interface SessionBeforeCompactEvent {
   signal: AbortSignal;
 }
 
-/** Harness contract for Session Compact Event. */
 export interface SessionCompactEvent {
   type: "session_compact";
   compactionEntry: CompactionEntry;
   fromHook: boolean;
 }
 
-/** Harness contract for Session Before Tree Event. */
 export interface SessionBeforeTreeEvent {
   type: "session_before_tree";
   preparation: TreePreparation;
   signal: AbortSignal;
 }
 
-/** Harness contract for Session Tree Event. */
 export interface SessionTreeEvent {
   type: "session_tree";
   newLeafId: string | null;
@@ -670,7 +629,6 @@ export interface SessionTreeEvent {
   fromHook?: boolean;
 }
 
-/** Harness contract for Model Select Event. */
 export interface ModelSelectEvent {
   type: "model_select";
   model: Model;
@@ -678,14 +636,12 @@ export interface ModelSelectEvent {
   source: "set" | "restore";
 }
 
-/** Harness contract for Thinking Level Select Event. */
 export interface ThinkingLevelSelectEvent {
   type: "thinking_level_select";
   level: ThinkingLevel;
   previousLevel: ThinkingLevel;
 }
 
-/** Harness contract for Resources Update Event. */
 export interface ResourcesUpdateEvent<
   TSkill extends Skill = Skill,
   TPromptTemplate extends PromptTemplate = PromptTemplate,
@@ -695,7 +651,6 @@ export interface ResourcesUpdateEvent<
   previousResources: AgentHarnessResources<TSkill, TPromptTemplate>;
 }
 
-/** Harness contract for Agent Harness Own Event. */
 export type AgentHarnessOwnEvent<
   TSkill extends Skill = Skill,
   TPromptTemplate extends PromptTemplate = PromptTemplate,
@@ -719,40 +674,33 @@ export type AgentHarnessOwnEvent<
   | ThinkingLevelSelectEvent
   | ResourcesUpdateEvent<TSkill, TPromptTemplate>;
 
-/** Harness contract for Agent Harness Event. */
 export type AgentHarnessEvent<
   TSkill extends Skill = Skill,
   TPromptTemplate extends PromptTemplate = PromptTemplate,
 > = AgentEvent | AgentHarnessOwnEvent<TSkill, TPromptTemplate>;
 
-/** Harness contract for Before Agent Start Result. */
 export interface BeforeAgentStartResult {
   messages?: AgentMessage[];
   systemPrompt?: string;
 }
 
-/** Harness contract for Context Result. */
 export interface ContextResult {
   messages: AgentMessage[];
 }
 
-/** Harness contract for Before Provider Request Result. */
 export interface BeforeProviderRequestResult {
   streamOptions?: AgentHarnessStreamOptionsPatch;
 }
 
-/** Harness contract for Before Provider Payload Result. */
 export interface BeforeProviderPayloadResult {
   payload: unknown;
 }
 
-/** Harness contract for Tool Call Result. */
 export interface ToolCallResult {
   block?: boolean;
   reason?: string;
 }
 
-/** Harness contract for Tool Result Patch. */
 export interface ToolResultPatch {
   content?: Array<TextContent | ImageContent>;
   details?: unknown;
@@ -760,13 +708,11 @@ export interface ToolResultPatch {
   terminate?: boolean;
 }
 
-/** Harness contract for Session Before Compact Result. */
 export interface SessionBeforeCompactResult {
   cancel?: boolean;
   compaction?: CompactResult;
 }
 
-/** Harness contract for Session Before Tree Result. */
 export interface SessionBeforeTreeResult {
   cancel?: boolean;
   summary?: { summary: string; details?: unknown };
@@ -775,7 +721,6 @@ export interface SessionBeforeTreeResult {
   label?: string;
 }
 
-/** Harness contract for Agent Harness Event Result Map. */
 export type AgentHarnessEventResultMap = {
   before_agent_start: BeforeAgentStartResult | undefined;
   context: ContextResult | undefined;
@@ -797,18 +742,15 @@ export type AgentHarnessEventResultMap = {
   settled: undefined;
 };
 
-/** Harness contract for Agent Harness Prompt Options. */
 export interface AgentHarnessPromptOptions {
   images?: ImageContent[];
 }
 
-/** Harness contract for Abort Result. */
 export interface AbortResult {
   clearedSteer: AgentMessage[];
   clearedFollowUp: AgentMessage[];
 }
 
-/** Harness contract for Compact Result. */
 export interface CompactResult {
   summary: string;
   firstKeptEntryId: string;
@@ -816,21 +758,18 @@ export interface CompactResult {
   details?: unknown;
 }
 
-/** Harness contract for Navigate Tree Result. */
 export interface NavigateTreeResult {
   cancelled: boolean;
   editorText?: string;
   summaryEntry?: BranchSummaryEntry;
 }
 
-/** Harness contract for Compaction Settings. */
 export interface CompactionSettings {
   enabled: boolean;
   reserveTokens: number;
   keepRecentTokens: number;
 }
 
-/** Harness contract for Compaction Preparation. */
 export interface CompactionPreparation {
   firstKeptEntryId: string;
   messagesToSummarize: AgentMessage[];
@@ -842,14 +781,12 @@ export interface CompactionPreparation {
   settings: CompactionSettings;
 }
 
-/** Harness contract for File Operations. */
 export interface FileOperations {
   read: Set<string>;
   written: Set<string>;
   edited: Set<string>;
 }
 
-/** Harness contract for Tree Preparation. */
 export interface TreePreparation {
   targetId: string;
   oldLeafId: string | null;
@@ -861,7 +798,6 @@ export interface TreePreparation {
   label?: string;
 }
 
-/** Harness contract for Generate Branch Summary Options. */
 export interface GenerateBranchSummaryOptions {
   model: Model;
   apiKey: string;
@@ -874,14 +810,12 @@ export interface GenerateBranchSummaryOptions {
   reserveTokens?: number;
 }
 
-/** Harness contract for Branch Summary Result. */
 export interface BranchSummaryResult {
   summary: string;
   readFiles: string[];
   modifiedFiles: string[];
 }
 
-/** Harness contract for Agent Harness Options. */
 export interface AgentHarnessOptions<
   TSkill extends Skill = Skill,
   TPromptTemplate extends PromptTemplate = PromptTemplate,
