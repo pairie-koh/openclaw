@@ -319,10 +319,6 @@ async function runScanToCreate(
   return null;
 }
 
-// ---------------------------------------------------------------------------
-// New app configuration flow
-// ---------------------------------------------------------------------------
-
 async function runNewAppFlow(params: {
   cfg: OpenClawConfig;
   prompter: WizardPrompter;
@@ -429,10 +425,6 @@ async function runNewAppFlow(params: {
   return { cfg: next };
 }
 
-// ---------------------------------------------------------------------------
-// Edit configuration flow
-// ---------------------------------------------------------------------------
-
 async function runEditFlow(params: {
   cfg: OpenClawConfig;
   prompter: WizardPrompter;
@@ -492,10 +484,6 @@ async function runEditFlow(params: {
   return { cfg: next };
 }
 
-// ---------------------------------------------------------------------------
-// Standalone login entry point (for `channels login --channel feishu`)
-// ---------------------------------------------------------------------------
-
 export async function runFeishuLogin(params: {
   cfg: OpenClawConfig;
   prompter: WizardPrompter;
@@ -515,10 +503,6 @@ export async function runFeishuLogin(params: {
   const result = await runNewAppFlow({ cfg, prompter, options });
   return result.cfg;
 }
-
-// ---------------------------------------------------------------------------
-// Exported wizard
-// ---------------------------------------------------------------------------
 
 export const feishuSetupWizard: ChannelSetupWizard = {
   channel,
@@ -560,9 +544,6 @@ export const feishuSetupWizard: ChannelSetupWizard = {
     },
   },
 
-  // -------------------------------------------------------------------------
-  // prepare: determine flow based on existing configuration
-  // -------------------------------------------------------------------------
   prepare: async ({ cfg, credentialValues }) => {
     const alreadyConfigured = isFeishuConfigured(cfg);
 
@@ -579,9 +560,6 @@ export const feishuSetupWizard: ChannelSetupWizard = {
 
   credentials: [],
 
-  // -------------------------------------------------------------------------
-  // finalize: run the appropriate flow
-  // -------------------------------------------------------------------------
   finalize: async ({ cfg, prompter, options, credentialValues }) => {
     const flow = credentialValues[FEISHU_SETUP_FLOW_KEY] ?? "new";
 
