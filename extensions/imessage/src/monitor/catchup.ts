@@ -139,18 +139,16 @@ export function normalizeIMessageCatchupCursor(value: unknown): IMessageCatchupC
   };
 }
 
-export async function loadIMessageCatchupCursor(
-  accountId: string,
-): Promise<IMessageCatchupCursor | null> {
+function loadIMessageCatchupCursorSync(accountId: string): IMessageCatchupCursor | null {
   return normalizeIMessageCatchupCursor(
     CATCHUP_CURSOR_STORE.lookup(iMessageCatchupCursorKey(accountId)),
   );
 }
 
-export async function saveIMessageCatchupCursor(
+function saveIMessageCatchupCursorSync(
   accountId: string,
   next: { lastSeenMs: number; lastSeenRowid: number; failureRetries?: Record<string, number> },
-): Promise<void> {
+): void {
   const sanitized = sanitizeFailureRetriesInput(next.failureRetries);
   const hasRetries = Object.keys(sanitized).length > 0;
   const cursor: IMessageCatchupCursor = {
@@ -160,6 +158,19 @@ export async function saveIMessageCatchupCursor(
     ...(hasRetries ? { failureRetries: sanitized } : {}),
   };
   CATCHUP_CURSOR_STORE.register(iMessageCatchupCursorKey(accountId), cursor);
+}
+
+export async function loadIMessageCatchupCursor(
+  accountId: string,
+): Promise<IMessageCatchupCursor | null> {
+  return loadIMessageCatchupCursorSync(accountId);
+}
+
+export async function saveIMessageCatchupCursor(
+  accountId: string,
+  next: { lastSeenMs: number; lastSeenRowid: number; failureRetries?: Record<string, number> },
+): Promise<void> {
+  saveIMessageCatchupCursorSync(accountId, next);
 }
 
 /**
@@ -273,7 +284,7 @@ export async function advanceIMessageCatchupCursor(
     return false;
   }
 
-  const cursor = await loadIMessageCatchupCursor(accountId);
+  const cursor = loadIMessageCatchupCursorSync(accountId);
   if (cursor && next.lastSeenRowid <= cursor.lastSeenRowid) {
     return false;
   }
@@ -285,7 +296,7 @@ export async function advanceIMessageCatchupCursor(
     return false;
   }
 
-  await saveIMessageCatchupCursor(accountId, {
+  saveIMessageCatchupCursorSync(accountId, {
     lastSeenMs: Math.max(cursor?.lastSeenMs ?? next.lastSeenMs, next.lastSeenMs),
     lastSeenRowid: next.lastSeenRowid,
     failureRetries: cursor?.failureRetries,

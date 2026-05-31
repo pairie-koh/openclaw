@@ -475,19 +475,6 @@ export async function monitorIMessageProvider(opts: MonitorIMessageOpts = {}): P
         ? [{ path: attachmentPath, contentType: a.mime_type ?? undefined }]
         : [];
     });
-    const stagedMediaAttachments = await stageIMessageAttachments(validAttachments, {
-      maxBytes: mediaMaxBytes,
-      allowedRoots: effectiveAttachmentRoots,
-      deps: {
-        logVerbose,
-      },
-    });
-    const mediaAttachments =
-      stagedMediaAttachments.length > 0 ? stagedMediaAttachments : rawMediaAttachments;
-    const mediaPath = mediaAttachments[0]?.path;
-    const mediaType = mediaAttachments[0]?.contentType;
-    const mediaPaths = mediaAttachments.map((entry) => entry.path);
-    const mediaTypes = mediaAttachments.map((entry) => entry.contentType ?? "");
     const placeholderMediaType = rawMediaAttachments[0]?.contentType;
     const kind = kindFromMime(placeholderMediaType ?? undefined);
     const placeholder = kind
@@ -630,6 +617,21 @@ export async function monitorIMessageProvider(opts: MonitorIMessageOpts = {}): P
 
     const dispatchDecision = decision;
 
+    const stagedMediaAttachments = remoteHost
+      ? []
+      : await stageIMessageAttachments(validAttachments, {
+          maxBytes: mediaMaxBytes,
+          allowedRoots: effectiveAttachmentRoots,
+          deps: {
+            logVerbose,
+          },
+        });
+    const mediaAttachments =
+      stagedMediaAttachments.length > 0 ? stagedMediaAttachments : rawMediaAttachments;
+    const mediaPath = mediaAttachments[0]?.path;
+    const mediaType = mediaAttachments[0]?.contentType;
+    const mediaPaths = mediaAttachments.map((entry) => entry.path);
+    const mediaTypes = mediaAttachments.map((entry) => entry.contentType ?? "");
     const previousTimestamp = readSessionUpdatedAt({
       agentId: dispatchDecision.route.agentId,
       sessionKey: dispatchDecision.route.sessionKey,
