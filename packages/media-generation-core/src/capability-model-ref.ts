@@ -1,6 +1,5 @@
 import { normalizeOptionalString } from "./string.js";
 
-/** Minimal provider shape needed for capability model-ref resolution. */
 export type CapabilityModelProviderCandidate = {
   id: string;
   aliases?: readonly string[];
@@ -8,7 +7,6 @@ export type CapabilityModelProviderCandidate = {
   models?: readonly string[];
 };
 
-/** Normalized provider/model pair for a media capability. */
 export type CapabilityModelRef = {
   provider: string;
   model: string;
@@ -24,7 +22,6 @@ function normalizeProviderForMatch(
   return normalized && normalizeProviderId ? normalizeProviderId(normalized) : normalized;
 }
 
-/** Find a provider by id or alias using an optional provider-id normalizer. */
 export function findCapabilityProviderById<T extends CapabilityModelProviderCandidate>(params: {
   providers: readonly T[];
   providerId?: string;
@@ -46,7 +43,6 @@ export function findCapabilityProviderById<T extends CapabilityModelProviderCand
   });
 }
 
-/** Resolve bare model ids to the provider that declares the model. */
 export function resolveCapabilityProviderModelOnlyRef(params: {
   providers: readonly CapabilityModelProviderCandidate[];
   raw?: string;
@@ -62,7 +58,6 @@ export function resolveCapabilityProviderModelOnlyRef(params: {
   return provider ? { provider: provider.id, model } : null;
 }
 
-/** Resolve full or bare model refs while preserving parsed refs for unknown providers. */
 export function resolveCapabilityModelRefForProviders(params: {
   providers: readonly CapabilityModelProviderCandidate[];
   raw?: string;

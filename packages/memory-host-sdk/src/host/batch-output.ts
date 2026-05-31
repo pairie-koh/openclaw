@@ -14,7 +14,6 @@ export type EmbeddingBatchOutputLine = {
   };
 };
 
-/** Applies one batch output line into success/error maps by custom id. */
 export function applyEmbeddingBatchOutputLine(params: {
   line: EmbeddingBatchOutputLine;
   remaining: Set<string>;

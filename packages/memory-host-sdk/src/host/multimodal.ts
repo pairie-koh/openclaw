@@ -11,16 +11,12 @@ const MEMORY_MULTIMODAL_SPECS = {
   },
 } as const;
 
-/** Multimodal file families supported by memory indexing. */
 export type MemoryMultimodalModality = keyof typeof MEMORY_MULTIMODAL_SPECS;
-/** Ordered list of supported multimodal memory file families. */
 export const MEMORY_MULTIMODAL_MODALITIES = Object.keys(
   MEMORY_MULTIMODAL_SPECS,
 ) as MemoryMultimodalModality[];
-/** Config selection for one modality or all supported modalities. */
 export type MemoryMultimodalSelection = MemoryMultimodalModality | "all";
 
-/** Normalized multimodal memory indexing settings. */
 export type MemoryMultimodalSettings = {
   enabled: boolean;
   modalities: MemoryMultimodalModality[];
@@ -29,7 +25,6 @@ export type MemoryMultimodalSettings = {
 
 export const DEFAULT_MEMORY_MULTIMODAL_MAX_FILE_BYTES = 10 * 1024 * 1024;
 
-/** Normalizes raw modality selection, expanding "all" to every supported modality. */
 export function normalizeMemoryMultimodalModalities(
   raw: MemoryMultimodalSelection[] | undefined,
 ): MemoryMultimodalModality[] {
@@ -45,7 +40,6 @@ export function normalizeMemoryMultimodalModalities(
   return Array.from(normalized);
 }
 
-/** Normalizes enablement, modalities, and max file size for multimodal indexing. */
 export function normalizeMemoryMultimodalSettings(raw: {
   enabled?: boolean;
   modalities?: MemoryMultimodalSelection[];
@@ -63,19 +57,16 @@ export function normalizeMemoryMultimodalSettings(raw: {
   };
 }
 
-/** Returns true when multimodal indexing is enabled with at least one modality. */
 export function isMemoryMultimodalEnabled(settings: MemoryMultimodalSettings): boolean {
   return settings.enabled && settings.modalities.length > 0;
 }
 
-/** Lists file extensions associated with a multimodal modality. */
 export function getMemoryMultimodalExtensions(
   modality: MemoryMultimodalModality,
 ): readonly string[] {
   return MEMORY_MULTIMODAL_SPECS[modality].extensions;
 }
 
-/** Builds the text label stored for a multimodal memory file. */
 export function buildMemoryMultimodalLabel(
   modality: MemoryMultimodalModality,
   normalizedPath: string,

@@ -5,7 +5,6 @@ import type { EmbeddingProvider } from "./embeddings.js";
 import { hashText } from "./hash.js";
 import type { MemoryChunk } from "./internal.js";
 
-/** Splits text-only chunks to fit provider/hard max token budgets; leaves multimodal chunks intact. */
 export function enforceEmbeddingMaxInputTokens(
   provider: EmbeddingProvider,
   chunks: MemoryChunk[],
