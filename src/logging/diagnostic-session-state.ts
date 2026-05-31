@@ -1,6 +1,5 @@
 export type SessionStateValue = "idle" | "processing" | "waiting";
 
-/** Mutable diagnostic state tracked per session key/id. */
 export type SessionState = {
   sessionId?: string;
   sessionKey?: string;
@@ -17,7 +16,6 @@ export type SessionState = {
   commandPollCounts?: Map<string, { count: number; lastPollAt: number }>;
 };
 
-/** Compact tool-call fingerprint used for loop detection diagnostics. */
 export type ToolCallRecord = {
   toolName: string;
   argsHash: string;
@@ -28,14 +26,12 @@ export type ToolCallRecord = {
   timestamp: number;
 };
 
-/** Session identity fields accepted by diagnostic state lookup helpers. */
 export type SessionRef = {
   sessionId?: string;
   sessionKey?: string;
   sessionFile?: string;
 };
 
-/** Process-local diagnostic session state map keyed by session key or id. */
 export const diagnosticSessionStates = new Map<string, SessionState>();
 
 const SESSION_STATE_TTL_MS = 30 * 60 * 1000;
@@ -44,7 +40,6 @@ const SESSION_STATE_MAX_ENTRIES = 2000;
 
 let lastSessionPruneAt = 0;
 
-/** Prunes idle stale session state and enforces the maximum diagnostic state entry count. */
 export function pruneDiagnosticSessionStates(now = Date.now(), force = false): void {
   const shouldPruneForSize = diagnosticSessionStates.size > SESSION_STATE_MAX_ENTRIES;
   if (!force && !shouldPruneForSize && now - lastSessionPruneAt < SESSION_STATE_PRUNE_INTERVAL_MS) {
@@ -144,7 +139,6 @@ function mergeSessionState(target: SessionState, source: SessionState): void {
   }
 }
 
-/** Gets or creates diagnostic state for a session, merging id/key aliases when they collide. */
 export function getDiagnosticSessionState(ref: SessionRef): SessionState {
   pruneDiagnosticSessionStates();
   const key = resolveSessionKey(ref);
@@ -184,7 +178,6 @@ export function getDiagnosticSessionState(ref: SessionRef): SessionState {
   return created;
 }
 
-/** Reads existing diagnostic state without creating a new entry. */
 export function peekDiagnosticSessionState(ref: SessionRef): SessionState | undefined {
   const key = resolveSessionKey(ref);
   return (
@@ -197,13 +190,11 @@ export function getDiagnosticSessionStateCountForTest(): number {
   return diagnosticSessionStates.size;
 }
 
-/** Clears diagnostic session state for tests. */
 export function resetDiagnosticSessionStateForTest(): void {
   diagnosticSessionStates.clear();
   lastSessionPruneAt = 0;
 }
 
-/** Checks whether the current diagnostic state still matches an expected generation/state. */
 export function isDiagnosticSessionStateCurrent(params: {
   sessionId?: string;
   sessionKey?: string;

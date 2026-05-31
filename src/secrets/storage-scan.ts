@@ -8,17 +8,14 @@ import { resolveUserPath } from "../utils.js";
 import { listAuthProfileStorePaths as listAuthProfileStorePathsFromAuthStorePaths } from "./auth-store-paths.js";
 import { parseEnvValue } from "./shared.js";
 
-/** Parses shell-style environment assignment values using the shared secret parser. */
 export function parseEnvAssignmentValue(raw: string): string {
   return parseEnvValue(raw);
 }
 
-/** Lists configured auth-profile stores that may contain secret references. */
 export function listAuthProfileStorePaths(config: OpenClawConfig, stateDir: string): string[] {
   return listAuthProfileStorePathsFromAuthStorePaths(config, stateDir);
 }
 
-/** Lists legacy per-agent `auth.json` files so migration can scrub old secrets. */
 export function listLegacyAuthJsonPaths(stateDir: string): string[] {
   const out: string[] = [];
   const agentsRoot = path.join(resolveUserPath(stateDir), "agents");
@@ -45,7 +42,6 @@ function resolveActiveAgentDir(stateDir: string, env: NodeJS.ProcessEnv = proces
   return path.join(resolveUserPath(stateDir), "agents", "main", "agent");
 }
 
-/** Lists known `models.json` locations from defaults, active env overrides, and agents. */
 export function listAgentModelsJsonPaths(
   config: OpenClawConfig,
   stateDir: string,
@@ -78,18 +74,15 @@ export function listAgentModelsJsonPaths(
   return [...paths];
 }
 
-/** Safety controls for optional JSON object reads during secret storage scans. */
 export type ReadJsonObjectOptions = {
   maxBytes?: number;
   requireRegularFile?: boolean;
 };
 
-/** Reads a JSON object when present, returning null for missing or non-object content. */
 export function readJsonObjectIfExists(filePath: string): {
   value: Record<string, unknown> | null;
   error?: string;
 };
-/** Reads a JSON object with size and regular-file safeguards. */
 export function readJsonObjectIfExists(
   filePath: string,
   options: ReadJsonObjectOptions,
