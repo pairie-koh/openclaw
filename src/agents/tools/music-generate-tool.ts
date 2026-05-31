@@ -568,7 +568,6 @@ async function executeMusicGenerationJob(params: {
   };
 }
 
-/** Creates the music generation AgentTool. */
 export function createMusicGenerateTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;

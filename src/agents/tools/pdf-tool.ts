@@ -275,7 +275,6 @@ async function runPdfPrompt(params: {
 // PDF tool factory
 // ---------------------------------------------------------------------------
 
-/** Creates the PDF understanding AgentTool. */
 export function createPdfTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;

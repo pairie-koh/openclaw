@@ -244,7 +244,6 @@ function resolveAcpUnavailableMessage(opts?: { sandboxed?: boolean; config?: Ope
   return 'runtime="acp" is unavailable in this session because no ACP runtime backend is loaded. Enable the acpx plugin or use runtime="subagent".';
 }
 
-/** Creates the sessions spawn AgentTool. */
 export function createSessionsSpawnTool(
   opts?: {
     agentSessionKey?: string;

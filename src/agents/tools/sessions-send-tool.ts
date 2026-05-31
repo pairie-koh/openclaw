@@ -291,7 +291,6 @@ async function startAgentRun(params: {
   }
 }
 
-/** Creates the sessions send AgentTool. */
 export function createSessionsSendTool(opts?: {
   agentSessionKey?: string;
   agentChannel?: GatewayMessageChannel;

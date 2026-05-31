@@ -697,7 +697,6 @@ async function runImagePrompt(params: {
   };
 }
 
-/** Creates the image understanding AgentTool. */
 export function createImageTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;

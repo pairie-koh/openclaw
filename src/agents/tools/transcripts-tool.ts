@@ -393,7 +393,6 @@ async function statusTranscripts(ctx: TranscriptsRuntimeContext) {
   );
 }
 
-/** Creates the transcripts AgentTool. */
 export function createTranscriptsTool(options?: {
   config?: OpenClawConfig;
   stateDir?: string;

@@ -918,7 +918,6 @@ async function executeVideoGenerationJob(params: {
   };
 }
 
-/** Creates the video generation AgentTool. */
 export function createVideoGenerateTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;

@@ -38,7 +38,6 @@ function sanitizeTranscriptForToolContent(text: string): string {
     });
 }
 
-/** Creates the text-to-speech AgentTool. */
 export function createTtsTool(opts?: {
   config?: OpenClawConfig;
   agentChannel?: GatewayMessageChannel;

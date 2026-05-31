@@ -19,7 +19,6 @@ const SubagentsToolSchema = Type.Object({
   recentMinutes: optionalPositiveIntegerSchema(),
 });
 
-/** Creates the subagents compatibility AgentTool. */
 export function createSubagentsTool(opts?: { agentSessionKey?: string }): AnyAgentTool {
   return {
     label: "Subagents",

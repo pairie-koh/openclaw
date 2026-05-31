@@ -837,7 +837,6 @@ async function executeImageGenerationJob(params: {
   } satisfies ExecutedImageGeneration;
 }
 
-/** Creates the image generation AgentTool. */
 export function createImageGenerateTool(options?: {
   config?: OpenClawConfig;
   agentDir?: string;

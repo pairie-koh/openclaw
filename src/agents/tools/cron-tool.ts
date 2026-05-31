@@ -499,7 +499,6 @@ async function buildReminderContextLines(params: {
   }
 }
 
-/** Creates the cron management AgentTool. */
 export function createCronTool(opts?: CronToolOptions, deps?: CronToolDeps): AnyAgentTool {
   const callGateway = deps?.callGatewayTool ?? callGatewayTool;
   return {
