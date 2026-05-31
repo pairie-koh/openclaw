@@ -1,9 +1,16 @@
+import { resolveDefaultAgentId } from "../../agents/agent-scope.js";
 import {
   canonicalizeSpawnedByForAgent,
   resolveStoredSessionRowKeyForAgent,
 } from "../../gateway/session-row-key.js";
-import { normalizeAgentId } from "../../routing/session-key.js";
+import {
+  DEFAULT_AGENT_ID,
+  normalizeAgentId,
+  normalizeMainKey,
+  parseAgentSessionKey,
+} from "../../routing/session-key.js";
 import type { OpenClawConfig } from "../types.openclaw.js";
+import { resolveAgentMainSessionKey } from "./main-session.js";
 import { listSessionEntries } from "./store.js";
 import {
   listConfiguredSessionStoreAgentIds,
@@ -11,6 +18,26 @@ import {
   resolveAllAgentSessionDatabaseTargetsSync,
 } from "./targets.js";
 import type { SessionEntry } from "./types.js";
+
+function resolveCombinedSessionEntryKey(params: {
+  cfg: OpenClawConfig;
+  agentId: string;
+  sessionKey: string;
+}): string {
+  const storageAgentId = normalizeAgentId(params.agentId);
+  const defaultAgentId = normalizeAgentId(resolveDefaultAgentId(params.cfg));
+  const parsed = parseAgentSessionKey(params.sessionKey);
+  if (
+    storageAgentId === defaultAgentId &&
+    parsed &&
+    normalizeAgentId(parsed.agentId) === DEFAULT_AGENT_ID &&
+    normalizeMainKey(parsed.rest) === normalizeMainKey(params.cfg.session?.mainKey)
+  ) {
+    return resolveAgentMainSessionKey({ cfg: params.cfg, agentId: storageAgentId });
+  }
+
+  return resolveStoredSessionRowKeyForAgent(params);
+}
 
 function mergeSessionEntryIntoCombined(params: {
   cfg: OpenClawConfig;
@@ -86,7 +113,7 @@ export function loadCombinedSessionEntriesForGateway(
       agentId,
       path: target.databasePath,
     })) {
-      const canonicalKey = resolveStoredSessionRowKeyForAgent({
+      const canonicalKey = resolveCombinedSessionEntryKey({
         cfg,
         agentId,
         sessionKey: key,

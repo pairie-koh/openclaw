@@ -32,7 +32,7 @@ describe("runBootOnce", () => {
   ) => {
     const sessionKey = resolveMainSessionKey(cfg);
     const agentId = resolveAgentIdFromSessionKey(sessionKey);
-    return { agentId, sessionKey };
+    return { agentId, bootSessionKey: `agent:${agentId}:boot`, sessionKey };
   };
 
   beforeEach(async () => {
@@ -77,10 +77,11 @@ describe("runBootOnce", () => {
     }
   };
 
-  const mockAgentUpdatesMainSession = (agentId: string, sessionKey: string) => {
-    agentCommand.mockImplementation(async (opts: { sessionId?: string }) => {
+  const mockAgentUpdatesRequestedSession = () => {
+    agentCommand.mockImplementation(async (opts: { sessionId?: string; sessionKey?: string }) => {
+      const sessionKey = String(opts.sessionKey);
       upsertSessionEntry({
-        agentId,
+        agentId: resolveAgentIdFromSessionKey(sessionKey),
         sessionKey,
         entry: {
           sessionId: String(opts.sessionId),
@@ -268,7 +269,7 @@ describe("runBootOnce", () => {
     const content = "Check if the system is healthy.";
     await withBootWorkspace({ bootContent: content }, async (workspaceDir) => {
       const cfg = {};
-      const { agentId, sessionKey } = resolveMainStore(cfg);
+      const { agentId, bootSessionKey, sessionKey } = resolveMainStore(cfg);
       const existingSessionId = "main-session-xyz789";
 
       upsertSessionEntry({
@@ -280,28 +281,30 @@ describe("runBootOnce", () => {
         },
       });
 
-      mockAgentUpdatesMainSession(agentId, sessionKey);
+      mockAgentUpdatesRequestedSession();
       await expect(runBootOnce({ cfg, deps: makeDeps(), workspaceDir })).resolves.toEqual({
         status: "ran",
       });
 
       expectMainSessionRestored({ agentId, sessionKey, expectedSessionId: existingSessionId });
+      expectMainSessionRestored({ agentId, sessionKey: bootSessionKey });
     });
   });
 
   it("removes a boot-created boot-session mapping when none existed before", async () => {
     await withBootWorkspace({ bootContent: "health check" }, async (workspaceDir) => {
       const cfg = {};
-      const { agentId, sessionKey } = resolveMainStore(cfg);
+      const { agentId, bootSessionKey, sessionKey } = resolveMainStore(cfg);
 
       deleteSessionEntry({ agentId, sessionKey });
-      mockAgentUpdatesMainSession(agentId, sessionKey);
+      mockAgentUpdatesRequestedSession();
 
       await expect(runBootOnce({ cfg, deps: makeDeps(), workspaceDir })).resolves.toEqual({
         status: "ran",
       });
 
       expectMainSessionRestored({ agentId, sessionKey });
+      expectMainSessionRestored({ agentId, sessionKey: bootSessionKey });
     });
   });
 });
