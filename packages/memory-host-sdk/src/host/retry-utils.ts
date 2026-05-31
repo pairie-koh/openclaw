@@ -1,5 +1,6 @@
 import { resolveSafeTimeoutDelayMs } from "../../../gateway-client/src/timeouts.js";
 
+/** Retry timing knobs shared by remote memory provider helpers. */
 export type RetryConfig = {
   attempts?: number;
   minDelayMs?: number;
@@ -7,6 +8,7 @@ export type RetryConfig = {
   jitter?: number;
 };
 
+/** Metadata emitted before a retry delay is awaited. */
 export type RetryInfo = {
   attempt: number;
   maxAttempts: number;
@@ -15,6 +17,7 @@ export type RetryInfo = {
   label?: string;
 };
 
+/** Retry policy plus hooks for deciding, labeling, and observing retry attempts. */
 export type RetryOptions = RetryConfig & {
   label?: string;
   shouldRetry?: (err: unknown, attempt: number) => boolean;
@@ -57,6 +60,7 @@ function resolveAttempts(value: unknown, fallback: number): number {
   return Math.max(1, value);
 }
 
+/** Resolve retry config defaults, clamping attempts, delays, and jitter to safe ranges. */
 export function resolveRetryConfig(
   defaults: Required<RetryConfig> = DEFAULT_RETRY_CONFIG,
   overrides?: RetryConfig,
@@ -85,6 +89,7 @@ function applyJitter(delayMs: number, jitter: number): number {
   return Math.max(0, Math.round(delayMs * (1 + offset)));
 }
 
+/** Run an async operation with exponential backoff, optional retry-after, and jitter. */
 export async function retryAsync<T>(
   fn: () => Promise<T>,
   attemptsOrOptions: number | RetryOptions = 3,
