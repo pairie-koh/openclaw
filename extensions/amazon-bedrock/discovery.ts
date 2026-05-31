@@ -27,10 +27,6 @@ const DEFAULT_REFRESH_INTERVAL_SECONDS = 3600;
 const DEFAULT_CONTEXT_WINDOW = 32_000;
 const DEFAULT_MAX_TOKENS = 4096;
 
-// ---------------------------------------------------------------------------
-// Known model context windows (Bedrock API does not expose token limits)
-// ---------------------------------------------------------------------------
-
 /**
  * Bedrock's ListFoundationModels and GetFoundationModel APIs return no token
  * limit information — only model ID, name, modalities, and lifecycle status.
@@ -213,10 +209,6 @@ type BedrockDiscoveryCacheEntry = {
 const discoveryCache = new Map<string, BedrockDiscoveryCacheEntry>();
 let hasLoggedBedrockError = false;
 
-// ---------------------------------------------------------------------------
-// Helper utilities
-// ---------------------------------------------------------------------------
-
 function normalizeProviderFilter(filter?: string[]): string[] {
   if (!filter || filter.length === 0) {
     return [];
@@ -286,10 +278,6 @@ function resolveDefaultMaxTokens(config?: BedrockDiscoveryConfig): number {
   return value > 0 ? value : DEFAULT_MAX_TOKENS;
 }
 
-// ---------------------------------------------------------------------------
-// Foundation model helpers
-// ---------------------------------------------------------------------------
-
 function matchesProviderFilter(summary: BedrockModelSummary, filter: string[]): boolean {
   if (filter.length === 0) {
     return true;
@@ -340,10 +328,6 @@ function toModelDefinition(
     ...(thinkingLevelMap ? { thinkingLevelMap } : {}),
   };
 }
-
-// ---------------------------------------------------------------------------
-// Inference profile helpers
-// ---------------------------------------------------------------------------
 
 /**
  * Resolve the base foundation model ID from an inference profile.
@@ -473,10 +457,6 @@ function resolveInferenceProfiles(
   }
   return discovered;
 }
-
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
 
 export function resetBedrockDiscoveryCacheForTest(): void {
   discoveryCache.clear();
