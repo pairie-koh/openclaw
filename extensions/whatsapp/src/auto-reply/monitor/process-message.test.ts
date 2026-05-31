@@ -148,10 +148,6 @@ vi.mock("./runtime-api.js", async (importOriginal) => {
 import { clearInternalHooks, registerInternalHook } from "openclaw/plugin-sdk/hook-runtime";
 import { processMessage } from "./process-message.js";
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 function makeAccount(groups: Record<string, { systemPrompt?: string }> = {}): {
   accountId: string;
   authDir: string;
@@ -233,10 +229,6 @@ function mockCallArg(mockFn: ReturnType<typeof vi.fn>, label: string, callIndex 
   }
   return call[argIndex];
 }
-
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
 
 describe("processMessage group system prompt wiring", () => {
   beforeEach(() => {

@@ -7,10 +7,6 @@ import { resolvePreferredOpenClawTmpDir } from "../infra/tmp-openclaw-dir.js";
 import { createSafeAudioFixtureBuffer } from "./runner.test-utils.js";
 import type { MediaUnderstandingProvider } from "./types.js";
 
-// ---------------------------------------------------------------------------
-// Module mocks
-// ---------------------------------------------------------------------------
-
 type ResolveApiKeyForProvider = typeof import("../agents/model-auth.js").resolveApiKeyForProvider;
 
 const resolveApiKeyForProviderMock = vi.hoisted(() =>
@@ -45,10 +41,6 @@ const { MediaFetchErrorMock } = vi.hoisted(() => {
   }
   return { MediaFetchErrorMock };
 });
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 
 let applyMediaUnderstanding: typeof import("./apply.js").applyMediaUnderstanding;
 
@@ -149,10 +141,6 @@ function createRegistryMediaProviders(): Record<string, MediaUnderstandingProvid
     deepgram: createAudioProvider("deepgram"),
   };
 }
-
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
 
 describe("applyMediaUnderstanding – echo transcript", () => {
   beforeAll(async () => {
