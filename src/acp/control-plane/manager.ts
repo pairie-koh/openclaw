@@ -15,7 +15,6 @@ export type {
 
 let ACP_SESSION_MANAGER_SINGLETON: AcpSessionManager | null = null;
 
-/** Return the process singleton ACP session manager. */
 export function getAcpSessionManager(): AcpSessionManager {
   if (!ACP_SESSION_MANAGER_SINGLETON) {
     ACP_SESSION_MANAGER_SINGLETON = new AcpSessionManager();

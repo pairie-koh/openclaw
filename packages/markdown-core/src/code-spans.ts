@@ -6,7 +6,6 @@ export type InlineCodeState = {
   ticks: number;
 };
 
-/** Creates the initial inline-code scanner state. */
 export function createInlineCodeState(): InlineCodeState {
   return { open: false, ticks: 0 };
 }

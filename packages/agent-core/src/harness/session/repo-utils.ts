@@ -13,7 +13,6 @@ export function createSessionId(): string {
   return uuidv7();
 }
 
-/** Create the ISO timestamp format stored in session metadata and entries. */
 export function createTimestamp(): string {
   return new Date().toISOString();
 }

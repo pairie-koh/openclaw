@@ -28,7 +28,6 @@ export function resolveMemoryFtsState(fts: { enabled: boolean; available: boolea
   return fts.available ? { tone: "ok", state: "ready" } : { tone: "warn", state: "unavailable" };
 }
 
-/** Builds a compact cache status label with optional entry count. */
 export function resolveMemoryCacheSummary(cache: { enabled: boolean; entries?: number }): {
   tone: Tone;
   text: string;
