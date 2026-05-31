@@ -10,8 +10,6 @@
 import type * as Lark from "@larksuiteoapi/node-sdk";
 import type { FeishuBlockTable, FeishuDocxBlock } from "./docx-types.js";
 
-// ============ Table Utilities ============
-
 // Feishu table constraints
 const MIN_COLUMN_WIDTH = 50; // Feishu API minimum
 const MAX_COLUMN_WIDTH = 400; // Reasonable maximum for readability
@@ -215,8 +213,6 @@ export function cleanBlocksForDescendant(blocks: FeishuDocxBlock[]): FeishuDocxB
     return cleanBlock;
   });
 }
-
-// ============ Table Row/Column Operations ============
 
 export async function insertTableRow(
   client: Lark.Client,

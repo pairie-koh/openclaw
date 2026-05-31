@@ -28,8 +28,6 @@ import {
   resolveFeishuToolAccount,
 } from "./tool-account.js";
 
-// ============ Helpers ============
-
 function json(data: unknown) {
   return {
     content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }],
@@ -117,8 +115,6 @@ function cleanBlocksForInsert(blocks: FeishuDocxBlock[]): {
     });
   return { cleaned, skipped };
 }
-
-// ============ Core Functions ============
 
 /** Max blocks per documentBlockChildren.create request */
 const MAX_CONVERT_RETRY_DEPTH = 8;
@@ -841,8 +837,6 @@ async function uploadFileBlock(
   };
 }
 
-// ============ Actions ============
-
 const STRUCTURED_BLOCK_TYPES = new Set([14, 18, 21, 23, 27, 30, 31, 32]);
 
 async function readDoc(client: Lark.Client, docToken: string) {
@@ -1362,8 +1356,6 @@ async function listAppScopes(client: Lark.Client) {
     summary: `${granted.length} granted, ${pending.length} pending`,
   };
 }
-
-// ============ Tool Registration ============
 
 export function registerFeishuDocTools(api: OpenClawPluginApi) {
   if (!api.config) {

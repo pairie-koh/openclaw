@@ -11,8 +11,6 @@ import { FeishuWikiSchema, type FeishuWikiParams } from "./wiki-schema.js";
 
 type ObjType = "doc" | "sheet" | "mindnote" | "bitable" | "file" | "docx" | "slides";
 
-// ============ Actions ============
-
 const WIKI_ACCESS_HINT =
   "To grant wiki access: Open wiki space → Settings → Members → Add the bot. " +
   "See: https://open.feishu.cn/document/server-docs/docs/wiki-v2/wiki-qa#a40ad4ca";
@@ -170,8 +168,6 @@ async function renameNode(client: Lark.Client, spaceId: string, nodeToken: strin
     title,
   };
 }
-
-// ============ Tool Registration ============
 
 export function registerFeishuWikiTools(api: OpenClawPluginApi) {
   if (!api.config) {

@@ -10,10 +10,6 @@ import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
 import { renderQrTerminal } from "./qr-terminal.js";
 import type { FeishuDomain } from "./types.js";
 
-// ---------------------------------------------------------------------------
-// Constants
-// ---------------------------------------------------------------------------
-
 const FEISHU_ACCOUNTS_URL = "https://accounts.feishu.cn";
 const LARK_ACCOUNTS_URL = "https://accounts.larksuite.com";
 
@@ -22,10 +18,6 @@ const REGISTRATION_PATH = "/oauth/v1/app/registration";
 const REQUEST_TIMEOUT_MS = 10_000;
 const DEFAULT_REGISTRATION_POLL_INTERVAL_SECONDS = 5;
 const DEFAULT_REGISTRATION_EXPIRE_SECONDS = 600;
-
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
 
 export interface AppRegistrationResult {
   appId: string;
@@ -74,10 +66,6 @@ export type PollOutcome =
   | { status: "timeout" }
   | { status: "error"; message: string };
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 function accountsBaseUrl(domain: FeishuDomain): string {
   return domain === "lark" ? LARK_ACCOUNTS_URL : FEISHU_ACCOUNTS_URL;
 }
@@ -113,10 +101,6 @@ async function fetchFeishuJson<T>(params: {
     await release();
   }
 }
-
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
 
 /**
  * Step 1: Initialize registration and verify the environment supports

@@ -41,8 +41,6 @@ type MemberType =
   | "wikispaceid";
 type PermType = "view" | "edit" | "full_access";
 
-// ============ Actions ============
-
 async function listMembers(client: Lark.Client, token: string, type: string) {
   const res = await client.drive.permissionMember.list({
     path: { token },
@@ -109,8 +107,6 @@ async function removeMember(
     success: true,
   };
 }
-
-// ============ Tool Registration ============
 
 export function registerFeishuPermTools(api: OpenClawPluginApi) {
   if (!api.config) {

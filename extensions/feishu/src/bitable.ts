@@ -7,8 +7,6 @@ import type { OpenClawPluginApi } from "../runtime-api.js";
 import { listEnabledFeishuAccounts } from "./accounts.js";
 import { createFeishuToolClient } from "./tool-account.js";
 
-// ============ Helpers ============
-
 function json(data: unknown) {
   return {
     content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }],
@@ -75,8 +73,6 @@ const FIELD_TYPE_NAMES: Record<number, string> = {
   1004: "ModifiedUser",
   1005: "AutoNumber",
 };
-
-// ============ Core Functions ============
 
 /** Parse bitable URL and extract tokens */
 function parseBitableUrl(url: string): { token: string; tableId?: string; isWiki: boolean } | null {
@@ -485,8 +481,6 @@ async function updateRecord(
   };
 }
 
-// ============ Schemas ============
-
 const GetMetaSchema = Type.Object({
   url: Type.String({
     description: "Bitable URL. Supports both formats: /base/XXX?table=YYY or /wiki/XXX?table=YYY",
@@ -573,8 +567,6 @@ const UpdateRecordSchema = Type.Object({
     description: "Field values to update (same format as create_record)",
   }),
 });
-
-// ============ Tool Registration ============
 
 export function registerFeishuBitableTools(api: OpenClawPluginApi) {
   if (!api.config) {
