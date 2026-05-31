@@ -41,7 +41,6 @@ export const TaskSummarySchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for filtering and paginating task ledger entries. */
 export const TasksListParamsSchema = Type.Object(
   {
     status: Type.Optional(Type.Union([TaskLedgerStatusSchema, Type.Array(TaskLedgerStatusSchema)])),
@@ -53,7 +52,6 @@ export const TasksListParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for paginated task ledger listings. */
 export const TasksListResultSchema = Type.Object(
   {
     tasks: Type.Array(TaskSummarySchema),
@@ -62,7 +60,6 @@ export const TasksListResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for fetching one task ledger entry by id. */
 export const TasksGetParamsSchema = Type.Object(
   {
     taskId: NonEmptyString,
@@ -70,7 +67,6 @@ export const TasksGetParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for a single task ledger lookup. */
 export const TasksGetResultSchema = Type.Object(
   {
     task: TaskSummarySchema,
@@ -78,7 +74,6 @@ export const TasksGetResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for requesting cancellation of a task ledger entry. */
 export const TasksCancelParamsSchema = Type.Object(
   {
     taskId: NonEmptyString,
