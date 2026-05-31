@@ -245,7 +245,6 @@ export async function discoverMantleModels(params: {
 }): Promise<ModelDefinitionConfig[]> {
   const { region, bearerToken, fetchFn = fetch, now = Date.now } = params;
 
-  // Check cache
   const cacheKey = region;
   const cached = discoveryCache.get(cacheKey);
   if (cached && now() - cached.fetchedAt < DEFAULT_REFRESH_INTERVAL_SECONDS * 1000) {

@@ -217,7 +217,6 @@ export const memoryConfigSchema = {
               throw new Error("dreaming config must be an object");
             })();
 
-    // Parse storageOptions (object with string values)
     let storageOptions: Record<string, string> | undefined;
     const storageOpts = cfg.storageOptions as Record<string, unknown> | undefined;
     if (storageOpts !== undefined && storageOpts !== null) {
@@ -225,7 +224,6 @@ export const memoryConfigSchema = {
         throw new Error("storageOptions must be an object");
       }
       storageOptions = {};
-      // Validate all values are strings
       for (const [key, value] of Object.entries(storageOpts)) {
         if (typeof value !== "string") {
           throw new Error(`storageOptions.${key} must be a string`);

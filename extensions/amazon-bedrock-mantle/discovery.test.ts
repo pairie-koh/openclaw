@@ -195,10 +195,8 @@ describe("bedrock mantle discovery", () => {
     const tokenProvider = vi.fn(async () => "bedrock-cached-token"); // pragma: allowlist secret
     const tokenProviderFactory = createTokenProviderFactory(tokenProvider);
 
-    // Generate a token to populate the cache
     await generateBearerTokenFromIam({ region: "us-east-1", tokenProviderFactory });
 
-    // Sync read should return the cached token
     expect(getCachedIamToken("us-east-1")).toBe("bedrock-cached-token");
   });
 
@@ -210,7 +208,6 @@ describe("bedrock mantle discovery", () => {
     const tokenProvider = vi.fn(async () => "bedrock-expired-token"); // pragma: allowlist secret
     const tokenProviderFactory = createTokenProviderFactory(tokenProvider);
 
-    // Generate with a time far in the past so it's already expired
     await generateBearerTokenFromIam({
       region: "us-east-1",
       now: () => 1000,

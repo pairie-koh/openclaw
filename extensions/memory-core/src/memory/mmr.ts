@@ -158,10 +158,8 @@ export function applyMMRToHybridResults<
     return results;
   }
 
-  // Create a map from ID to original item for type-safe retrieval
   const itemById = new Map<string, T>();
 
-  // Create MMR items with unique IDs
   const mmrItems: MMRItem[] = results.map((r, index) => {
     const id = `${r.path}:${r.startLine}:${index}`;
     itemById.set(id, r);
@@ -174,6 +172,5 @@ export function applyMMRToHybridResults<
 
   const reranked = mmrRerank(mmrItems, config);
 
-  // Map back to original items using the ID
   return reranked.map((item) => itemById.get(item.id)!);
 }

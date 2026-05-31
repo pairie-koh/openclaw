@@ -800,7 +800,6 @@ export default definePluginEntry({
 
           const vector = await embeddings.embed(text);
 
-          // Check for duplicates
           const existing = await db.search(vector, 1, 0.95);
           if (existing.length > 0) {
             return {
@@ -1112,7 +1111,6 @@ export default definePluginEntry({
               const category = detectCategory(text);
               const vector = await embeddings.embed(text);
 
-              // Check for duplicates (high similarity threshold)
               const existing = await db.search(vector, 1, 0.95);
               if (existing.length > 0) {
                 continue;
