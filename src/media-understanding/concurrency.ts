@@ -1,7 +1,6 @@
 import { logVerbose, shouldLogVerbose } from "../globals.js";
 import { runTasksWithConcurrency } from "../utils/run-with-concurrency.js";
 
-/** Run media-understanding tasks with a concurrency limit and best-effort logging. */
 export async function runWithConcurrency<T>(
   tasks: Array<() => Promise<T>>,
   limit: number,

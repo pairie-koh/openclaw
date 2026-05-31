@@ -8,7 +8,6 @@ import type {
   StructuredExtractionInput,
 } from "./types.js";
 
-/** Generic file-based media-understanding request. */
 export type RunMediaUnderstandingFileParams = {
   capability: "image" | "audio" | "video";
   filePath: string;
@@ -29,7 +28,6 @@ export type MediaUnderstandingScopeContext = {
   chatType?: string;
 };
 
-/** Generic media-understanding result returned by runtime helpers. */
 export type RunMediaUnderstandingFileResult = {
   text: string | undefined;
   provider?: string;
@@ -38,7 +36,6 @@ export type RunMediaUnderstandingFileResult = {
   decision?: MediaUnderstandingDecision;
 };
 
-/** Image description request with optional active-model fallback. */
 export type DescribeImageFileParams = {
   filePath: string;
   mediaUrl?: string;
@@ -52,7 +49,6 @@ export type DescribeImageFileParams = {
   scopeContext?: MediaUnderstandingScopeContext;
 };
 
-/** Image description request pinned to a specific provider/model. */
 export type DescribeImageFileWithModelParams = {
   filePath: string;
   mediaUrl?: string;
@@ -71,7 +67,6 @@ type DescribeImageFileWithModelResult = Awaited<
   ReturnType<NonNullable<MediaUnderstandingProvider["describeImage"]>>
 >;
 
-/** Structured extraction request pinned to a provider/model and schema settings. */
 export type ExtractStructuredWithModelParams = {
   /** At least one image input is required; text inputs provide supplemental context. */
   input: StructuredExtractionInput[];
@@ -93,7 +88,6 @@ type ExtractStructuredWithModelResult = Awaited<
   ReturnType<NonNullable<MediaUnderstandingProvider["extractStructured"]>>
 >;
 
-/** Video description request with optional active-model fallback. */
 export type DescribeVideoFileParams = {
   filePath: string;
   cfg: OpenClawConfig;
@@ -103,7 +97,6 @@ export type DescribeVideoFileParams = {
   activeModel?: ActiveMediaModel;
 };
 
-/** Audio transcription request with optional active-model fallback. */
 export type TranscribeAudioFileParams = {
   filePath: string;
   cfg: OpenClawConfig;
@@ -115,7 +108,6 @@ export type TranscribeAudioFileParams = {
   prompt?: string;
 };
 
-/** Runtime facade for media-understanding file/model operations. */
 export type MediaUnderstandingRuntime = {
   runMediaUnderstandingFile: (
     params: RunMediaUnderstandingFileParams,

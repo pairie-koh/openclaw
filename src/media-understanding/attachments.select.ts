@@ -55,7 +55,6 @@ function isAttachmentRecord(value: unknown): value is MediaAttachment {
   return true;
 }
 
-/** Select capability-matching attachments according to configured ordering and limits. */
 export function selectAttachments(params: {
   capability: MediaUnderstandingCapability;
   attachments: MediaAttachment[];

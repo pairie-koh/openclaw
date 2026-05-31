@@ -70,7 +70,6 @@ type HasAvailableAuthForProvider =
 type ModelCatalogApi = typeof import("../agents/model-catalog.js");
 type ModelCatalog = Awaited<ReturnType<ModelCatalogApi["loadModelCatalog"]>>;
 
-/** Outputs and decision record produced by one media-understanding capability run. */
 export type RunCapabilityResult = {
   outputs: MediaUnderstandingOutput[];
   decision: MediaUnderstandingDecision;
@@ -291,7 +290,6 @@ async function resolveAutoImageModelId(params: {
   });
 }
 
-/** Build the hydrated provider registry used by runner operations. */
 export function buildProviderRegistry(
   overrides?: Record<string, MediaUnderstandingProvider>,
   cfg?: OpenClawConfig,
@@ -299,7 +297,6 @@ export function buildProviderRegistry(
   return buildMediaUnderstandingRegistry(overrides, cfg);
 }
 
-/** Resolve host roots allowed for inbound media attachment loading. */
 export function resolveMediaAttachmentLocalRoots(params: {
   cfg: OpenClawConfig;
   ctx: MsgContext;
@@ -321,7 +318,6 @@ export function resolveMediaAttachmentLocalRoots(params: {
 const binaryCache = new Map<string, Promise<string | null>>();
 const antigravityCliCache = new Map<string, Promise<string | null>>();
 
-/** Clear cached CLI binary probes used by media-understanding tests. */
 export function clearMediaUnderstandingBinaryCacheForTests(): void {
   binaryCache.clear();
   antigravityCliCache.clear();
@@ -760,7 +756,6 @@ async function resolveAutoEntries(params: {
   return [];
 }
 
-/** Resolve the image-capable active model fallback for automatic media understanding. */
 export async function resolveAutoImageModel(params: {
   cfg: OpenClawConfig;
   agentId?: string;
@@ -973,7 +968,6 @@ function hasFailedMediaAttempt(attachments: MediaUnderstandingDecision["attachme
   );
 }
 
-/** Run media understanding for selected attachments for one capability. */
 export async function runCapability(params: {
   capability: MediaUnderstandingCapability;
   cfg: OpenClawConfig;
