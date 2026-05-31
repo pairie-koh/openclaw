@@ -54,13 +54,11 @@ export type {
   ExecResult,
   Extension,
   ExtensionActions,
-  // API
   ExtensionAPI,
   ExtensionCommandContext,
   ExtensionCommandContextActions,
   ExtensionContext,
   ExtensionContextActions,
-  // Errors
   ExtensionError,
   ExtensionEvent,
   ExtensionFactory,

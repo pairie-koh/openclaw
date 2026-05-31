@@ -354,12 +354,10 @@ async function downloadTool(tool: "fd" | "rg"): Promise<string> {
       );
     }
 
-    // Make executable (Unix only)
     if (plat !== "win32") {
       chmodSync(binaryPath, 0o755);
     }
   } finally {
-    // Cleanup
     rmSync(archivePath, { force: true });
     rmSync(extractDir, { recursive: true, force: true });
   }
