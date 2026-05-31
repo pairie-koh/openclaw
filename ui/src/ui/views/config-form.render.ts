@@ -273,7 +273,6 @@ const sectionIcons = {
   `,
 };
 
-// Section metadata
 /** Labels and descriptions for known top-level config sections. */
 export const SECTION_META: Record<string, { label: string; description: string }> = {
   env: {

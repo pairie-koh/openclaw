@@ -10,7 +10,6 @@ const CACHE_VERSION =
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const CONTROL_CACHE_LIMIT = 3;
 
-// Minimal app-shell files to precache.
 const PRECACHE_URLS = ["./"];
 
 self.addEventListener("install", (event) => {

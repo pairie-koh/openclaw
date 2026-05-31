@@ -13,7 +13,6 @@ import type {
   UsageSessionEntry,
 } from "./usageTypes.ts";
 
-// Chart constants
 const CHART_BAR_WIDTH_RATIO = 0.75; // Fraction of slot used for bar (rest is gap)
 const CHART_MAX_BAR_WIDTH = 8; // Max bar width in SVG viewBox units
 const CHART_SELECTION_OPACITY = 0.06; // Opacity of range selection overlay
