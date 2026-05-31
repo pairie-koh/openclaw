@@ -4,7 +4,6 @@ import { assertNoWindowsNetworkPath, safeFileURLToPath } from "../infra/local-fi
 import { getFileExtension, isAudioFileName, kindFromMime } from "../media/mime.js";
 import type { MediaAttachment } from "./types.js";
 
-/** Normalize a local attachment path or file URL, rejecting unsafe network paths. */
 export function normalizeAttachmentPath(raw?: string | null): string | undefined {
   const value = normalizeOptionalString(raw);
   if (!value) {
@@ -25,7 +24,6 @@ export function normalizeAttachmentPath(raw?: string | null): string | undefined
   return value;
 }
 
-/** Convert message context media arrays/singletons into ordered media attachment records. */
 export function normalizeAttachments(ctx: MsgContext): MediaAttachment[] {
   const pathsFromArray = Array.isArray(ctx.MediaPaths) ? ctx.MediaPaths : undefined;
   const urlsFromArray = Array.isArray(ctx.MediaUrls) ? ctx.MediaUrls : undefined;
@@ -86,7 +84,6 @@ export function normalizeAttachments(ctx: MsgContext): MediaAttachment[] {
   ];
 }
 
-/** Infer attachment kind from MIME type first, then filename/URL extension. */
 export function resolveAttachmentKind(
   attachment: MediaAttachment,
 ): "image" | "audio" | "video" | "document" | "unknown" {
@@ -111,17 +108,14 @@ export function resolveAttachmentKind(
   return "unknown";
 }
 
-/** Check whether an attachment should route to video understanding. */
 export function isVideoAttachment(attachment: MediaAttachment): boolean {
   return resolveAttachmentKind(attachment) === "video";
 }
 
-/** Check whether an attachment should route to audio understanding/transcription. */
 export function isAudioAttachment(attachment: MediaAttachment): boolean {
   return resolveAttachmentKind(attachment) === "audio";
 }
 
-/** Check whether an attachment should route to image understanding. */
 export function isImageAttachment(attachment: MediaAttachment): boolean {
   return resolveAttachmentKind(attachment) === "image";
 }

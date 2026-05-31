@@ -67,7 +67,6 @@ function getDefaultLocalPathRoots(): readonly string[] {
   return defaultLocalPathRoots;
 }
 
-/** Controls which attachment paths and URLs the cache may resolve for a run. */
 export type MediaAttachmentCacheOptions = {
   localPathRoots?: readonly string[];
   includeDefaultLocalPathRoots?: boolean;
