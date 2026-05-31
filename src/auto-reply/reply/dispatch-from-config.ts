@@ -1648,7 +1648,7 @@ export async function dispatchReplyFromConfig(
       ctx.InboundEventKind !== "room_event" &&
       !sendPolicyDenied &&
       shouldEmitVerboseProgress() &&
-      shouldSendVerboseProgressMessages;
+      shouldSendVerboseProgressMessages();
     let finalDeliveryStarted = false;
     const sendFinalPayload = async (
       payload: ReplyPayload,
@@ -1985,6 +1985,42 @@ export async function dispatchReplyFromConfig(
     const onPatchSummaryFromReplyOptions = params.replyOptions?.onPatchSummary;
     const allowSuppressedSourceProgressCallbacks =
       params.replyOptions?.allowProgressCallbacksWhenSourceDeliverySuppressed === true;
+    let suppressToolErrorWarningsAfterVisibleFailureProgress = false;
+    const markVisibleFailureProgress = () => {
+      suppressToolErrorWarningsAfterVisibleFailureProgress = true;
+    };
+    const shouldSuppressToolErrorWarnings = (): boolean | undefined => {
+      if (params.replyOptions?.suppressToolErrorWarnings !== undefined) {
+        return params.replyOptions.suppressToolErrorWarnings;
+      }
+      if (!shouldEmitVerboseProgress()) {
+        return false;
+      }
+      if (shouldEmitFullVerboseProgress()) {
+        return undefined;
+      }
+      return suppressToolErrorWarningsAfterVisibleFailureProgress ? true : undefined;
+    };
+    const isFailureStatus = (status: unknown): boolean =>
+      typeof status === "string" && /^(failed|error)$/iu.test(status);
+    const maybeMarkCommandFailureProgress = (payload: unknown) => {
+      if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+        return;
+      }
+      const status = (payload as { status?: unknown }).status;
+      if (isFailureStatus(status)) {
+        markVisibleFailureProgress();
+      }
+    };
+    const maybeMarkItemFailureProgress = (payload: unknown) => {
+      if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+        return;
+      }
+      const item = payload as { kind?: unknown; status?: unknown };
+      if (item.kind === "tool" && isFailureStatus(item.status)) {
+        markVisibleFailureProgress();
+      }
+    };
     const shouldAllowQuietChannelOwnedProgressCallbacks = (options?: {
       requiresToolSummaryVisibility?: boolean;
     }) =>
@@ -2062,9 +2098,8 @@ export async function dispatchReplyFromConfig(
           {
             ...getReplyOptions(),
             sourceReplyDeliveryMode,
-            suppressToolErrorWarnings:
-              params.replyOptions?.suppressToolErrorWarnings ??
-              (shouldEmitVerboseProgress() && !shouldEmitFullVerboseProgress() ? true : undefined),
+            suppressToolErrorWarnings: params.replyOptions?.suppressToolErrorWarnings,
+            shouldSuppressToolErrorWarnings,
             typingPolicy: typing.typingPolicy,
             suppressTyping: typing.suppressTyping,
             onPartialReply: wrapProgressCallback(params.replyOptions?.onPartialReply),
@@ -2076,24 +2111,31 @@ export async function dispatchReplyFromConfig(
             onBlockReplyQueued: wrapProgressCallback(params.replyOptions?.onBlockReplyQueued),
             onToolStart: wrapProgressCallback(params.replyOptions?.onToolStart, {
               forwardWhenSourceDeliverySuppressed: true,
+              waitForDirectBlockReplyDelivery: true,
             }),
             onItemEvent: wrapProgressCallback(params.replyOptions?.onItemEvent, {
               forwardWhenSourceDeliverySuppressed: true,
+              onForward: maybeMarkItemFailureProgress,
+              waitForDirectBlockReplyDelivery: true,
             }),
             onCommandOutput: wrapProgressCallback(params.replyOptions?.onCommandOutput, {
               forwardWhenSourceDeliverySuppressed: true,
+              onForward: maybeMarkCommandFailureProgress,
+              waitForDirectBlockReplyDelivery: true,
             }),
             onCompactionStart: wrapProgressCallback(params.replyOptions?.onCompactionStart, {
               forwardWhenSourceDeliverySuppressed: true,
+              waitForDirectBlockReplyDelivery: true,
             }),
             onCompactionEnd: wrapProgressCallback(params.replyOptions?.onCompactionEnd, {
               forwardWhenSourceDeliverySuppressed: true,
+              waitForDirectBlockReplyDelivery: true,
             }),
             onToolResult: (payload: ReplyPayload) => {
               markProgress();
               const run = async () => {
                 markInboundDedupeReplayUnsafe();
-                if (!suppressAutomaticSourceDelivery) {
+                if (!suppressAutomaticSourceDelivery && shouldSendToolSummaries()) {
                   await onToolResultFromReplyOptions?.(payload);
                 }
                 const payloadParts = resolveSendableOutboundReplyParts(payload);
@@ -2103,8 +2145,16 @@ export async function dispatchReplyFromConfig(
                 if (shouldSuppressProgressDelivery()) {
                   return;
                 }
+                const initialDeliveryPayload = resolveToolDeliveryPayload(payload);
+                if (!initialDeliveryPayload) {
+                  return;
+                }
+                await waitForPendingDirectBlockReplyDelivery(dispatchAbortOperation?.abortSignal);
+                if (isDispatchOperationAborted()) {
+                  return;
+                }
                 const ttsPayload = await maybeApplyTtsToReplyPayload({
-                  payload,
+                  payload: initialDeliveryPayload,
                   cfg,
                   channel: deliveryChannel,
                   kind: "tool",
@@ -2275,7 +2325,7 @@ export async function dispatchReplyFromConfig(
                 } else {
                   markInboundDedupeReplayUnsafe();
                   dispatcher.sendBlockReply(normalizedPayload);
-                  await dispatcher.waitForIdle();
+                  hasPendingDirectBlockReplyDelivery = true;
                 }
               };
               return run();

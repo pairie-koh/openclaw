@@ -235,7 +235,7 @@ describe("slack native approval adapter", () => {
     });
 
     const target = await slackNativeApprovalAdapter.native?.resolveOriginTarget?.({
-      cfg: buildConfig(),
+      cfg: buildConfig({ allowFrom: ["U123APPROVER"] }),
       accountId: "default",
       approvalKind: "plugin",
       request: {
@@ -258,7 +258,7 @@ describe("slack native approval adapter", () => {
 
   it("falls back to the session-key origin target for plugin approvals when the store is missing", async () => {
     const target = await slackNativeApprovalAdapter.native?.resolveOriginTarget?.({
-      cfg: buildConfig(),
+      cfg: buildConfig({ allowFrom: ["U123APPROVER"] }),
       accountId: "default",
       approvalKind: "plugin",
       request: {

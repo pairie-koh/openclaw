@@ -2739,6 +2739,9 @@ describe("dispatchReplyFromConfig", () => {
       _cfg?: OpenClawConfig,
     ) => {
       sessionStoreMocks.getSessionEntry.mockClear();
+      sessionStoreMocks.currentEntry = {
+        verboseLevel: "on",
+      };
       await opts?.onPlanUpdate?.({
         phase: "update",
         explanation: "Inspect code, patch it, run tests.",
