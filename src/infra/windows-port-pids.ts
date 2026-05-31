@@ -16,10 +16,6 @@ export type WindowsProcessArgsResult =
   | { ok: true; args: string[] | null }
   | { ok: false; permanent: boolean };
 
-// ---------------------------------------------------------------------------
-// Windows listening-PID discovery (PowerShell → netstat fallback)
-// ---------------------------------------------------------------------------
-
 function readListeningPidsViaPowerShell(port: number, timeoutMs: number): number[] | null {
   const ps = spawnSync(
     "powershell",
@@ -88,10 +84,6 @@ export function readWindowsListeningPidsResultSync(
   }
   return { ok: true, pids: parseListeningPidsFromNetstat(netstat.stdout, port) };
 }
-
-// ---------------------------------------------------------------------------
-// Windows process-args reading (PowerShell → WMIC fallback)
-// ---------------------------------------------------------------------------
 
 function extractWindowsCommandLine(raw: string): string | null {
   const lines = normalizeStringEntries(raw.split(/\r?\n/));
