@@ -12,7 +12,6 @@ import { resolveHomeDir } from "./paths.js";
 import { execSchtasks } from "./schtasks-exec.js";
 import { parseSystemdExecStart } from "./systemd-unit.js";
 
-/** Gateway-looking service discovered outside the expected managed service slot. */
 export type ExtraGatewayService = {
   platform: "darwin" | "linux" | "win32";
   label: string;
@@ -22,7 +21,6 @@ export type ExtraGatewayService = {
   legacy?: boolean;
 };
 
-/** Options for shallow or deep daemon service inspection. */
 export type FindExtraGatewayServicesOptions = {
   deep?: boolean;
 };
@@ -42,7 +40,6 @@ const SYSTEMD_REFERENCE_ONLY_KEYS = new Set([
   "wants",
 ]);
 
-/** Render platform-specific commands for removing the expected managed gateway service. */
 export function renderGatewayServiceCleanupHints(
   env: Record<string, string | undefined> = process.env as Record<string, string | undefined>,
 ): string[] {
@@ -77,7 +74,6 @@ function hasGatewaySubcommandArg(args: string[]): boolean {
   });
 }
 
-/** Detect OpenClaw/clawdbot markers only on lines that actually launch gateway. */
 export function detectMarkerLineWithGateway(contents: string): Marker | null {
   // Join line continuations (trailing backslash) into single lines
   const lower = normalizeLowercaseStringOrEmpty(contents.replace(/\\\r?\n\s*/g, " "));
@@ -358,7 +354,6 @@ async function scanSystemdDir(params: {
   return results;
 }
 
-/** Find system-scope Linux gateway services that may conflict with user-managed gateway. */
 export async function findSystemGatewayServices(): Promise<ExtraGatewayService[]> {
   if (process.platform !== "linux") {
     return [];
@@ -430,7 +425,6 @@ function parseSchtasksList(output: string): ScheduledTaskInfo[] {
   return tasks;
 }
 
-/** Find extra gateway services for the current platform, de-duplicated for diagnostics. */
 export async function findExtraGatewayServices(
   env: Record<string, string | undefined>,
   opts: FindExtraGatewayServicesOptions = {},

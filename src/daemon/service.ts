@@ -70,7 +70,6 @@ function ignoreServiceWriteResult<TArgs extends GatewayServiceInstallArgs>(
   };
 }
 
-/** Platform-specific service adapter used by daemon lifecycle commands. */
 export type GatewayService = {
   label: string;
   loadedText: string;
@@ -165,14 +164,12 @@ function collectGatewayServiceStartRepairIssues(
   return issues;
 }
 
-/** Formats service start repair issues into one operator-facing sentence. */
 export function formatGatewayServiceStartRepairIssues(
   issues: GatewayServiceStartRepairIssue[],
 ): string {
   return issues.map((issue) => issue.message).join("; ");
 }
 
-/** Reads installed/loaded/running service state plus command/runtime metadata. */
 export async function readGatewayServiceState(
   service: GatewayService,
   args: GatewayServiceEnvArgs = {},
@@ -194,7 +191,6 @@ export async function readGatewayServiceState(
   };
 }
 
-/** Starts or restarts an installed gateway service and reports repair blockers. */
 export async function startGatewayService(
   service: GatewayService,
   args: GatewayServiceControlArgs,
@@ -235,7 +231,6 @@ export async function startGatewayService(
   }
 }
 
-/** Formats restart results for daemon action responses and progress output. */
 export function describeGatewayServiceRestart(
   serviceNoun: string,
   result: GatewayServiceRestartResult,
@@ -337,7 +332,6 @@ function isSupportedGatewayServicePlatform(
   return Object.hasOwn(GATEWAY_SERVICE_REGISTRY, platform);
 }
 
-/** Resolves the platform-specific gateway service adapter with safety guards. */
 export function resolveGatewayService(): GatewayService {
   if (isSupportedGatewayServicePlatform(process.platform)) {
     return withFutureConfigGuard(GATEWAY_SERVICE_REGISTRY[process.platform]);

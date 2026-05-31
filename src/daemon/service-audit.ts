@@ -28,7 +28,6 @@ import { isNonMinimalServicePathEntry, normalizeServicePathEntry } from "./servi
 import type { GatewayServiceEnvironmentValueSource } from "./service-types.js";
 import { resolveSystemdUserUnitPath } from "./systemd.js";
 
-/** Parsed gateway service command and environment read from launchd/systemd. */
 export type GatewayServiceCommand = {
   programArguments: string[];
   workingDirectory?: string;
@@ -37,7 +36,6 @@ export type GatewayServiceCommand = {
   sourcePath?: string;
 } | null;
 
-/** One service audit finding, optionally marked as recommended or aggressive. */
 export type ServiceConfigIssue = {
   code: string;
   message: string;
@@ -45,13 +43,11 @@ export type ServiceConfigIssue = {
   level?: "recommended" | "aggressive";
 };
 
-/** Aggregate gateway service audit result. */
 export type ServiceConfigAudit = {
   ok: boolean;
   issues: ServiceConfigIssue[];
 };
 
-/** Stable service audit issue codes used by doctor and repair flows. */
 export const SERVICE_AUDIT_CODES = {
   gatewayCommandMissing: "gateway-command-missing",
   gatewayEntrypointMismatch: "gateway-entrypoint-mismatch",
@@ -75,7 +71,6 @@ export const SERVICE_AUDIT_CODES = {
   systemdKillModeProcessOrNone: "systemd-kill-mode-process-or-none",
 } as const;
 
-/** Check whether audit findings require migrating the service runtime to system Node. */
 export function needsNodeRuntimeMigration(issues: ServiceConfigIssue[]): boolean {
   return issues.some(
     (issue) =>
@@ -289,7 +284,6 @@ function readGatewayServiceCommandPortState(
   return { kind: "missing" };
 }
 
-/** Read the configured --port value from gateway service arguments. */
 export function readGatewayServiceCommandPort(programArguments?: string[]): number | undefined {
   const servicePort = readGatewayServiceCommandPortState(programArguments);
   return servicePort.kind === "valid" ? servicePort.port : undefined;
@@ -432,7 +426,6 @@ function auditProxyServiceEnvironment(
   });
 }
 
-/** Read an inline gateway token from service environment when it is not file-backed. */
 export function readEmbeddedGatewayToken(command: GatewayServiceCommand): string | undefined {
   if (!command) {
     return undefined;
@@ -609,7 +602,6 @@ export function checkTokenDrift(params: {
   return null;
 }
 
-/** Audit gateway service command/config against expected runtime and security policy. */
 export async function auditGatewayServiceConfig(params: {
   env: Record<string, string | undefined>;
   command: GatewayServiceCommand;

@@ -110,7 +110,6 @@ async function isVersionManagedRealNodePath(
   }
 }
 
-/** Detects Node executable paths managed by nvm/fnm/volta/asdf-like tools. */
 export function isVersionManagedNodePath(
   nodePath: string,
   platform: NodeJS.Platform = process.platform,
@@ -119,7 +118,6 @@ export function isVersionManagedNodePath(
   return VERSION_MANAGER_MARKERS.some((marker) => normalized.includes(marker));
 }
 
-/** Checks whether a Node path matches known system install locations. */
 export function isSystemNodePath(
   nodePath: string,
   env: Record<string, string | undefined> = process.env,
@@ -132,7 +130,6 @@ export function isSystemNodePath(
   });
 }
 
-/** Returns the first accessible system Node executable for the platform. */
 export async function resolveSystemNodePath(
   env: Record<string, string | undefined> = process.env,
   platform: NodeJS.Platform = process.platform,
@@ -149,7 +146,6 @@ export async function resolveSystemNodePath(
   return null;
 }
 
-/** Resolves system Node path, version, and support status. */
 export async function resolveSystemNodeInfo(params: {
   env?: Record<string, string | undefined>;
   platform?: NodeJS.Platform;
@@ -182,7 +178,6 @@ export async function resolveSystemNodeInfo(params: {
   return firstAvailable;
 }
 
-/** Renders an operator warning when system Node is present but unsupported. */
 export function renderSystemNodeWarning(
   systemNode: SystemNodeInfo | null,
   selectedNodePath?: string,
@@ -196,7 +191,6 @@ export function renderSystemNodeWarning(
 }
 export { resolveStableNodePath };
 
-/** Chooses the preferred supported Node executable for daemon runtime use. */
 export async function resolvePreferredNodePath(params: {
   env?: Record<string, string | undefined>;
   runtime?: string;
@@ -230,7 +224,6 @@ export async function resolvePreferredNodePath(params: {
     }
   }
 
-  // Fall back to system node.
   const systemNode = await resolveSystemNodeInfo(params);
   if (!systemNode?.supported) {
     return undefined;
