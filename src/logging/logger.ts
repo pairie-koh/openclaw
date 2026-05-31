@@ -700,7 +700,6 @@ export function getResolvedLoggerSettings(): LoggerResolvedSettings {
   return resolveSettings();
 }
 
-// Test helpers
 /** Overrides logger settings for tests and clears all cached logger settings. */
 export function setLoggerOverride(settings: LoggerSettings | null) {
   loggingState.overrideSettings = settings;

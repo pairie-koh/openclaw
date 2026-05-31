@@ -20,7 +20,6 @@ export type ResponsePrefixContext = {
   identityName?: string;
 };
 
-// Regex pattern for template variables: {variableName} or {variable.name}
 const TEMPLATE_VAR_PATTERN = /\{([a-zA-Z][a-zA-Z0-9.]*)\}/g;
 
 /**

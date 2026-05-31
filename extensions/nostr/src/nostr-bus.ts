@@ -29,11 +29,9 @@ const MAX_PERSISTED_EVENT_IDS = 5000;
 const STATE_PERSIST_DEBOUNCE_MS = 5000; // Debounce state writes
 const DEFAULT_INBOUND_GUARD_POLICY = createDirectDmPreCryptoGuardPolicy();
 
-// Circuit breaker configuration
 const CIRCUIT_BREAKER_THRESHOLD = 5; // failures before opening
 const CIRCUIT_BREAKER_RESET_MS = 30000; // 30 seconds before half-open
 
-// Health tracker configuration
 const HEALTH_WINDOW_MS = 60000; // 1 minute window for health stats
 
 interface NostrBusOptions {

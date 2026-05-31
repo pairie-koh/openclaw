@@ -92,19 +92,16 @@ async function withPublishLock<T>(accountId: string, fn: () => Promise<T>): Prom
   }
 }
 
-// NIP-05 format: user@domain.com
 const nip05FormatSchema = z
   .string()
   .regex(/^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/i, "Invalid NIP-05 format (user@domain.com)")
   .optional();
 
-// LUD-16 Lightning address format: user@domain.com
 const lud16FormatSchema = z
   .string()
   .regex(/^[a-z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,}$/i, "Invalid Lightning address format")
   .optional();
 
-// Extended profile schema with additional format validation
 const ProfileUpdateSchema = NostrProfileSchema.extend({
   nip05: nip05FormatSchema,
   lud16: lud16FormatSchema,

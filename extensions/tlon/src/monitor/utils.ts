@@ -215,7 +215,6 @@ function readStringField(
   return typeof value === "string" ? value : undefined;
 }
 
-// Helper to recursively extract text from inline content
 function renderInlineItem(
   item: unknown,
   options?: {

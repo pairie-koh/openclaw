@@ -5,7 +5,6 @@ import type { RuntimeEnv } from "../runtime.js";
 import type { WizardPrompter } from "../wizard/prompts.js";
 import { setupInternalHooks } from "./onboard-hooks.js";
 
-// Mock hook discovery modules
 vi.mock("../hooks/hooks-status.js", () => ({
   buildWorkspaceHookStatus: vi.fn(),
 }));
