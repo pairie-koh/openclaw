@@ -1,15 +1,12 @@
 import type { MarkdownIR, MarkdownLinkSpan, MarkdownStyle, MarkdownStyleSpan } from "./ir.js";
 
-/** Opening/closing marker pair for a Markdown style span. */
 export type RenderStyleMarker = {
   open: string | ((span: MarkdownStyleSpan) => string);
   close: string;
 };
 
-/** Marker map keyed by Markdown IR style. */
 export type RenderStyleMap = Partial<Record<MarkdownStyle, RenderStyleMarker>>;
 
-/** Rendered link marker boundaries and strings. */
 export type RenderLink = {
   start: number;
   end: number;
@@ -17,7 +14,6 @@ export type RenderLink = {
   close: string;
 };
 
-/** Renderer callbacks for escaping text and converting links/styles. */
 export type RenderOptions = {
   styleMarkers: RenderStyleMap;
   escapeText: (text: string) => string;
@@ -50,7 +46,6 @@ function sortStyleSpans(spans: MarkdownStyleSpan[]): MarkdownStyleSpan[] {
   });
 }
 
-/** Render Markdown IR text with style/link markers inserted at span boundaries. */
 export function renderMarkdownWithMarkers(ir: MarkdownIR, options: RenderOptions): string {
   const text = ir.text ?? "";
   if (!text) {

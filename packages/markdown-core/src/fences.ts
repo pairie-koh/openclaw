@@ -6,7 +6,6 @@ export type FenceSpan = {
   indent: string;
 };
 
-/** Incremental scanner state for detecting fences across streamed chunks. */
 export type FenceScanState = {
   atLineStart?: boolean;
   open?: {
@@ -18,7 +17,6 @@ export type FenceScanState = {
   };
 };
 
-/** Scan Markdown text for fenced-code spans and return resumable state. */
 export function scanFenceSpans(
   buffer: string,
   state?: FenceScanState,
@@ -104,12 +102,10 @@ export function scanFenceSpans(
   return { spans, state: nextState };
 }
 
-/** Parse all fenced-code spans in a complete Markdown buffer. */
 export function parseFenceSpans(buffer: string): FenceSpan[] {
   return scanFenceSpans(buffer).spans;
 }
 
-/** Find the fenced-code span containing a source index, if any. */
 export function findFenceSpanAt(spans: FenceSpan[], index: number): FenceSpan | undefined {
   let low = 0;
   let high = spans.length - 1;
@@ -134,7 +130,6 @@ export function findFenceSpanAt(spans: FenceSpan[], index: number): FenceSpan | 
   return undefined;
 }
 
-/** Return true when a source index is outside fenced-code spans. */
 export function isSafeFenceBreak(spans: FenceSpan[], index: number): boolean {
   return !findFenceSpanAt(spans, index);
 }
