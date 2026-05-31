@@ -68,43 +68,35 @@ export function listKnownNonSecretApiKeyMarkers(): string[] {
   return [...knownNonSecretApiKeyMarkersCache];
 }
 
-/** Return whether a marker indicates AWS SDK environment auth. */
 export function isAwsSdkAuthMarker(value: string): boolean {
   return AWS_SDK_ENV_MARKERS.has(value.trim());
 }
 
-/** Return whether a marker names a known env API key. */
 export function isKnownEnvApiKeyMarker(value: string): boolean {
   const trimmed = value.trim();
   return listKnownEnvApiKeyMarkers().has(trimmed) && !isAwsSdkAuthMarker(trimmed);
 }
 
-/** Build an OAuth auth marker for a provider id. */
 export function resolveOAuthApiKeyMarker(providerId: string): string {
   return `${OAUTH_API_KEY_MARKER_PREFIX}${providerId.trim()}`;
 }
 
-/** Return whether a marker is OAuth-backed. */
 export function isOAuthApiKeyMarker(value: string): boolean {
   return value.trim().startsWith(OAUTH_API_KEY_MARKER_PREFIX);
 }
 
-/** Build the auth marker for non-env secret refs. */
 export function resolveNonEnvSecretRefApiKeyMarker(_source: SecretRefSource): string {
   return NON_ENV_SECRETREF_MARKER;
 }
 
-/** Build the header marker for non-env secret refs. */
 export function resolveNonEnvSecretRefHeaderValueMarker(_source: SecretRefSource): string {
   return NON_ENV_SECRETREF_MARKER;
 }
 
-/** Build the header marker for env-backed secret refs. */
 export function resolveEnvSecretRefHeaderValueMarker(envVarName: string): string {
   return `${SECRETREF_ENV_HEADER_MARKER_PREFIX}${envVarName.trim()}`;
 }
 
-/** Return whether a value is a secret-ref header marker. */
 export function isSecretRefHeaderValueMarker(value: string): boolean {
   const trimmed = value.trim();
   return (
@@ -112,7 +104,6 @@ export function isSecretRefHeaderValueMarker(value: string): boolean {
   );
 }
 
-/** Return whether an API key value is a known non-secret marker. */
 export function isNonSecretApiKeyMarker(
   value: string,
   opts?: { includeEnvVarName?: boolean },
