@@ -77,10 +77,6 @@ export const PdfToolSchema = Type.Object({
   maxBytesMb: optionalFiniteNumberSchema({ exclusiveMinimum: 0 }),
 });
 
-// ---------------------------------------------------------------------------
-// Model resolution (mirrors image tool pattern)
-// ---------------------------------------------------------------------------
-
 export { resolvePdfModelConfigForTool } from "./pdf-tool.model-config.js";
 
 function hasExplicitPdfToolModelConfig(config?: OpenClawConfig): boolean {
@@ -89,10 +85,6 @@ function hasExplicitPdfToolModelConfig(config?: OpenClawConfig): boolean {
     hasToolModelConfig(coerceImageModelConfig(config))
   );
 }
-
-// ---------------------------------------------------------------------------
-// Build context for extraction fallback path
-// ---------------------------------------------------------------------------
 
 const CODEX_PDF_INSTRUCTIONS =
   "Analyze the provided PDF content and answer the user's request accurately.";
@@ -106,7 +98,6 @@ function buildPdfExtractionContext(
     { type: "text"; text: string } | { type: "image"; data: string; mimeType: string }
   > = [];
 
-  // Add extracted text and images
   for (let i = 0; i < extractions.length; i++) {
     const extraction = extractions[i];
     if (extraction.text.trim()) {
@@ -118,7 +109,6 @@ function buildPdfExtractionContext(
     }
   }
 
-  // Add the user prompt
   content.push({ type: "text", text: prompt });
 
   const systemPrompt =
@@ -129,10 +119,6 @@ function buildPdfExtractionContext(
     messages: [{ role: "user", content, timestamp: Date.now() }],
   };
 }
-
-// ---------------------------------------------------------------------------
-// Run PDF prompt with model fallback
-// ---------------------------------------------------------------------------
 
 type PdfSandboxConfig = {
   root: string;
@@ -269,10 +255,6 @@ async function runPdfPrompt(params: {
     })),
   };
 }
-
-// ---------------------------------------------------------------------------
-// PDF tool factory
-// ---------------------------------------------------------------------------
 
 export function createPdfTool(options?: {
   config?: OpenClawConfig;
