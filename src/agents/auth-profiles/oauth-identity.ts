@@ -1,13 +1,11 @@
 import { asDateTimestampMs } from "@openclaw/normalization-core/number-coercion";
 import type { AuthProfileCredential, OAuthCredential } from "./types.js";
 
-/** Normalizes stable OAuth subject/account identity tokens. */
 export function normalizeAuthIdentityToken(value: string | undefined): string | undefined {
   const trimmed = value?.trim();
   return trimmed ? trimmed : undefined;
 }
 
-/** Normalizes OAuth email tokens for case-insensitive comparison. */
 export function normalizeAuthEmailToken(value: string | undefined): string | undefined {
   return normalizeAuthIdentityToken(value)?.toLowerCase();
 }
@@ -73,7 +71,6 @@ export function isSafeToCopyOAuthIdentity(
   return true;
 }
 
-/** Reason a refreshed OAuth credential should or should not mirror. */
 export type OAuthMirrorDecisionReason =
   | "no-existing-credential"
   | "incoming-fresher"
@@ -82,7 +79,6 @@ export type OAuthMirrorDecisionReason =
   | "identity-mismatch-or-regression"
   | "incoming-not-fresher";
 
-/** Decision for copying refreshed OAuth credentials into another store. */
 export type OAuthMirrorDecision =
   | {
       shouldMirror: true;
