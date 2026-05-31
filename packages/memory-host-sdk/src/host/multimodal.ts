@@ -84,7 +84,6 @@ export function buildCaseInsensitiveExtensionGlob(extension: string): string {
   return `*.${parts.join("")}`;
 }
 
-/** Classifies a file path into a supported modality under normalized settings. */
 export function classifyMemoryMultimodalPath(
   filePath: string,
   settings: MemoryMultimodalSettings,

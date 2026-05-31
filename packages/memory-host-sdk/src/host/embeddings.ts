@@ -25,7 +25,6 @@ export type {
 
 export { DEFAULT_LOCAL_MODEL } from "./embedding-defaults.js";
 
-/** Runtime-only knobs for tests and packaged worker script resolution. */
 export type LocalEmbeddingProviderRuntimeOptions = {
   workerScriptPath?: string;
 };
@@ -46,14 +45,12 @@ async function disposeResources(
   }
 }
 
-/** Creates the default local provider in an isolated worker process. */
 export async function createLocalEmbeddingProvider(
   options: EmbeddingProviderOptions,
 ): Promise<EmbeddingProvider> {
   return await createLocalEmbeddingWorkerProvider(options);
 }
 
-/** Creates an in-process node-llama provider for the worker child runtime. */
 export async function createLocalEmbeddingProviderInProcess(
   options: EmbeddingProviderOptions,
 ): Promise<EmbeddingProvider> {
