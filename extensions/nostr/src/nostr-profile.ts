@@ -17,10 +17,6 @@ export {
   type ProfileContent,
 } from "./nostr-profile-core.js";
 
-// ============================================================================
-// Types
-// ============================================================================
-
 /** Result of a profile publish attempt */
 export interface ProfilePublishResult {
   /** Event ID of the published profile */
@@ -32,10 +28,6 @@ export interface ProfilePublishResult {
   /** Unix timestamp when the event was created */
   createdAt: number;
 }
-
-// ============================================================================
-// Event Creation
-// ============================================================================
 
 /**
  * Create a signed kind:0 profile event.
@@ -69,10 +61,6 @@ export function createProfileEvent(
 
   return event;
 }
-
-// ============================================================================
-// Profile Publishing
-// ============================================================================
 
 /** Per-relay publish timeout (ms) */
 const RELAY_PUBLISH_TIMEOUT_MS = 5000;

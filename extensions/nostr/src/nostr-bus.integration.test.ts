@@ -33,10 +33,6 @@ function createPlainMetrics() {
   return createMetrics();
 }
 
-// ============================================================================
-// Seen Tracker Integration Tests
-// ============================================================================
-
 describe("SeenTracker", () => {
   describe("basic operations", () => {
     it("tracks seen IDs", () => {
@@ -234,10 +230,6 @@ describe("SeenTracker", () => {
   });
 });
 
-// ============================================================================
-// Metrics Integration Tests
-// ============================================================================
-
 describe("Metrics", () => {
   describe("createMetrics", () => {
     it("emits metric events to callback", () => {
@@ -416,10 +408,6 @@ describe("Metrics", () => {
   });
 });
 
-// ============================================================================
-// Circuit Breaker Behavior Tests
-// ============================================================================
-
 describe("Circuit Breaker Behavior", () => {
   // Test the circuit breaker logic through metrics emissions
   it("emits circuit breaker metrics in correct sequence", () => {
@@ -443,10 +431,6 @@ describe("Circuit Breaker Behavior", () => {
   });
 });
 
-// ============================================================================
-// Health Scoring Behavior Tests
-// ============================================================================
-
 describe("Health Scoring", () => {
   it("metrics track relay errors for health scoring", () => {
     const metrics = createPlainMetrics();
@@ -464,10 +448,6 @@ describe("Health Scoring", () => {
     expect(snapshot.relays[TEST_RELAY_URL_BAD].errors).toBe(3);
   });
 });
-
-// ============================================================================
-// Reconnect Backoff Tests
-// ============================================================================
 
 describe("Reconnect Backoff", () => {
   it("computes delays within expected bounds", () => {

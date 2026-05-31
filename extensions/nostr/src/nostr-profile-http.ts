@@ -25,10 +25,6 @@ import {
 import { importProfileFromRelays, mergeProfiles } from "./nostr-profile-import.js";
 import { validateUrlSafety } from "./nostr-profile-url-safety.js";
 
-// ============================================================================
-// Types
-// ============================================================================
-
 export interface NostrProfileHttpContext {
   /** Get current profile from config */
   getConfigProfile: (accountId: string) => NostrProfile | undefined;
@@ -43,10 +39,6 @@ export interface NostrProfileHttpContext {
     error: (msg: string) => void;
   };
 }
-
-// ============================================================================
-// Rate Limiting
-// ============================================================================
 
 const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
 const RATE_LIMIT_MAX_REQUESTS = 5; // 5 requests per minute
@@ -72,10 +64,6 @@ export function isNostrProfileRateLimitedForTest(accountId: string, nowMs: numbe
 function checkRateLimit(accountId: string): boolean {
   return !profileRateLimiter.isRateLimited(accountId);
 }
-
-// ============================================================================
-// Mutex for Concurrent Publish Prevention
-// ============================================================================
 
 const publishLocks = new Map<string, Promise<void>>();
 
@@ -104,10 +92,6 @@ async function withPublishLock<T>(accountId: string, fn: () => Promise<T>): Prom
   }
 }
 
-// ============================================================================
-// Validation Schemas
-// ============================================================================
-
 // NIP-05 format: user@domain.com
 const nip05FormatSchema = z
   .string()
@@ -127,10 +111,6 @@ const ProfileUpdateSchema = NostrProfileSchema.extend({
 });
 
 const PROFILE_MUTATION_SCOPE = "operator.admin";
-
-// ============================================================================
-// Request Helpers
-// ============================================================================
 
 function sendJson(res: ServerResponse, status: number, body: unknown): void {
   res.statusCode = status;
@@ -313,10 +293,6 @@ function enforceGatewayMutationScope(
   return false;
 }
 
-// ============================================================================
-// HTTP Handler
-// ============================================================================
-
 export function createNostrProfileHttpHandler(
   ctx: NostrProfileHttpContext,
 ): (req: IncomingMessage, res: ServerResponse) => Promise<boolean> {
@@ -365,10 +341,6 @@ export function createNostrProfileHttpHandler(
   };
 }
 
-// ============================================================================
-// GET /api/channels/nostr/:accountId/profile
-// ============================================================================
-
 async function handleGetProfile(
   accountId: string,
   ctx: NostrProfileHttpContext,
@@ -384,10 +356,6 @@ async function handleGetProfile(
   });
   return true;
 }
-
-// ============================================================================
-// PUT /api/channels/nostr/:accountId/profile
-// ============================================================================
 
 async function handleUpdateProfile(
   accountId: string,
@@ -490,10 +458,6 @@ async function handleUpdateProfile(
 
   return true;
 }
-
-// ============================================================================
-// POST /api/channels/nostr/:accountId/profile/import
-// ============================================================================
 
 async function handleImportProfile(
   accountId: string,

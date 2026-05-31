@@ -30,10 +30,6 @@ function expectThrowsError(run: () => unknown): void {
   expect(error).toBeInstanceOf(Error);
 }
 
-// ============================================================================
-// Fuzz Tests for validatePrivateKey
-// ============================================================================
-
 describe("validatePrivateKey fuzz", () => {
   describe("validatePrivateKey type confusion", () => {
     it("rejects non-string input", () => {
@@ -99,10 +95,6 @@ describe("validatePrivateKey fuzz", () => {
   });
 });
 
-// ============================================================================
-// Fuzz Tests for isValidPubkey
-// ============================================================================
-
 describe("isValidPubkey fuzz", () => {
   describe("isValidPubkey type confusion", () => {
     it("handles non-string input gracefully", () => {
@@ -120,10 +112,6 @@ describe("isValidPubkey fuzz", () => {
     });
   });
 });
-
-// ============================================================================
-// Fuzz Tests for normalizePubkey
-// ============================================================================
 
 describe("normalizePubkey fuzz", () => {
   describe("prototype pollution attempts", () => {
@@ -146,10 +134,6 @@ describe("normalizePubkey fuzz", () => {
     });
   });
 });
-
-// ============================================================================
-// Fuzz Tests for SeenTracker
-// ============================================================================
 
 describe("SeenTracker fuzz", () => {
   describe("malformed IDs", () => {
@@ -262,10 +246,6 @@ describe("SeenTracker fuzz", () => {
     });
   });
 });
-
-// ============================================================================
-// Fuzz Tests for Metrics
-// ============================================================================
 
 describe("Metrics fuzz", () => {
   describe("invalid metric names", () => {

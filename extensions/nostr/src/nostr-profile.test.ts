@@ -17,10 +17,6 @@ function createTestProfileEvent(profile: NostrProfile, lastPublishedAt?: number)
   return createProfileEvent(TEST_HEX_PRIVATE_KEY_BYTES, profile, lastPublishedAt);
 }
 
-// ============================================================================
-// Profile Content Conversion Tests
-// ============================================================================
-
 describe("profileToContent", () => {
   it("converts full profile to NIP-01 content format", () => {
     const profile: NostrProfile = {
@@ -109,10 +105,6 @@ describe("contentToProfile", () => {
   });
 });
 
-// ============================================================================
-// Event Creation Tests
-// ============================================================================
-
 describe("createProfileEvent", () => {
   beforeEach(() => {
     vi.useFakeTimers();
@@ -188,10 +180,6 @@ describe("createProfileEvent", () => {
     expect(event.created_at).toBe(expectedTimestamp);
   });
 });
-
-// ============================================================================
-// Profile Validation Tests
-// ============================================================================
 
 describe("validateProfile", () => {
   it("validates a correct profile", () => {
@@ -282,10 +270,6 @@ describe("validateProfile", () => {
   });
 });
 
-// ============================================================================
-// Sanitization Tests
-// ============================================================================
-
 describe("sanitizeProfileForDisplay", () => {
   it("escapes HTML in name field", () => {
     const profile: NostrProfile = {
@@ -353,10 +337,6 @@ describe("sanitizeProfileForDisplay", () => {
     expect(sanitized.about).toBe("Say &quot;hello&quot; to everyone");
   });
 });
-
-// ============================================================================
-// Edge Cases
-// ============================================================================
 
 describe("edge cases", () => {
   it("handles emoji in profile fields", () => {

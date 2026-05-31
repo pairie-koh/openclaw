@@ -24,10 +24,6 @@ import {
 } from "./nostr-state-store.js";
 import { createSeenTracker, type SeenTracker } from "./seen-tracker.js";
 
-// ============================================================================
-// Constants
-// ============================================================================
-
 const STARTUP_LOOKBACK_SEC = 120; // tolerate relay lag / clock skew
 const MAX_PERSISTED_EVENT_IDS = 5000;
 const STATE_PERSIST_DEBOUNCE_MS = 5000; // Debounce state writes
@@ -39,10 +35,6 @@ const CIRCUIT_BREAKER_RESET_MS = 30000; // 30 seconds before half-open
 
 // Health tracker configuration
 const HEALTH_WINDOW_MS = 60000; // 1 minute window for health stats
-
-// ============================================================================
-// Types
-// ============================================================================
 
 interface NostrBusOptions {
   /** Private key in hex or nsec format */
@@ -156,10 +148,6 @@ export interface NostrBusHandle {
   }>;
 }
 
-// ============================================================================
-// Circuit Breaker
-// ============================================================================
-
 interface CircuitBreakerState {
   state: "closed" | "open" | "half_open";
   failures: number;
@@ -240,10 +228,6 @@ function createCircuitBreaker(
     },
   };
 }
-
-// ============================================================================
-// Relay Health Tracker
-// ============================================================================
 
 interface RelayHealthStats {
   successCount: number;
@@ -332,10 +316,6 @@ function createRelayHealthTracker(): RelayHealthTracker {
     },
   };
 }
-
-// ============================================================================
-// Main Bus
-// ============================================================================
 
 /**
  * Start the Nostr DM bus - subscribes to NIP-04 encrypted DMs
@@ -721,10 +701,6 @@ export async function startNostrBus(options: NostrBusOptions): Promise<NostrBusH
     getProfileState,
   };
 }
-
-// ============================================================================
-// Send DM with Circuit Breaker + Health Scoring
-// ============================================================================
 
 /**
  * Send an encrypted DM to a pubkey

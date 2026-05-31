@@ -160,10 +160,6 @@ export function computeSinceTimestamp(
   return Math.max(...candidates);
 }
 
-// ============================================================================
-// Profile State Management
-// ============================================================================
-
 function safeParseProfileState(raw: string): NostrProfileState | null {
   return safeParseJsonWithSchema(NostrProfileStateSchema, raw);
 }

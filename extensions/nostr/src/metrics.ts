@@ -3,10 +3,6 @@
  * Provides clear insight into what's happening with events, relays, and operations.
  */
 
-// ============================================================================
-// Metric Types
-// ============================================================================
-
 type EventMetricName =
   | "event.received"
   | "event.processed"
@@ -68,10 +64,6 @@ type RelayMetrics = {
   circuitBreakerCloses: number;
 };
 
-// ============================================================================
-// Metric Event
-// ============================================================================
-
 export interface MetricEvent {
   /** Metric name (e.g., "event.received", "relay.connect") */
   name: MetricName;
@@ -84,10 +76,6 @@ export interface MetricEvent {
 }
 
 type OnMetricCallback = (event: MetricEvent) => void;
-
-// ============================================================================
-// Metrics Snapshot (for getMetrics())
-// ============================================================================
 
 export interface MetricsSnapshot {
   /** Total events received (before any filtering) */
@@ -134,10 +122,6 @@ export interface MetricsSnapshot {
   /** Snapshot timestamp */
   snapshotAt: number;
 }
-
-// ============================================================================
-// Metrics Collector
-// ============================================================================
 
 export interface NostrMetrics {
   /** Emit a metric event */
