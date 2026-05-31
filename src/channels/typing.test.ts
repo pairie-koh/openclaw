@@ -299,19 +299,15 @@ describe("createTypingCallbacks", () => {
 
         await callbacks.onReplyStart();
 
-        // Stop before TTL
         await vi.advanceTimersByTimeAsync(5_000);
         callbacks.onIdle?.();
         await flushMicrotasks();
 
         expect(stop).toHaveBeenCalledTimes(1);
 
-        // Advance past original TTL
         await vi.advanceTimersByTimeAsync(10_000);
 
-        // Should not have triggered TTL warning
         expect(consoleWarn).not.toHaveBeenCalled();
-        // Stop should still be called only once
         expect(stop).toHaveBeenCalledTimes(1);
 
         consoleWarn.mockRestore();
@@ -324,11 +320,9 @@ describe("createTypingCallbacks", () => {
 
         await callbacks.onReplyStart();
 
-        // Should not stop at 59s
         await vi.advanceTimersByTimeAsync(59_000);
         expect(stop).not.toHaveBeenCalled();
 
-        // Should stop at 60s
         await vi.advanceTimersByTimeAsync(1_000);
         expect(stop).toHaveBeenCalledTimes(1);
       });
@@ -354,7 +348,6 @@ describe("createTypingCallbacks", () => {
 
         await callbacks.onReplyStart();
 
-        // Should not auto-stop even after long time
         await vi.advanceTimersByTimeAsync(300_000);
         expect(stop).not.toHaveBeenCalled();
       });
@@ -379,23 +372,19 @@ describe("createTypingCallbacks", () => {
       await withFakeTimers(async () => {
         const { stop, callbacks } = createTypingHarness({ maxDurationMs: 10_000 });
 
-        // First start
         await callbacks.onReplyStart();
         await vi.advanceTimersByTimeAsync(5_000);
 
-        // Idle and restart
         callbacks.onIdle?.();
         await flushMicrotasks();
         expect(stop).toHaveBeenCalledTimes(1);
 
-        // Reset mock to track second start
         stop.mockClear();
 
         // After stop, callbacks are closed, so new onReplyStart should be no-op
         await callbacks.onReplyStart();
         await vi.advanceTimersByTimeAsync(15_000);
 
-        // Should not trigger stop again since it's closed
         expect(stop).not.toHaveBeenCalled();
       });
     });
