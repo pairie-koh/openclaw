@@ -61,7 +61,6 @@ function isAgentScopedHostMediaReadAllowed(
   return true;
 }
 
-/** Create a readFile hook for agent-scoped host media paths when policy allows it. */
 export function createAgentScopedHostMediaReadFile(
   params: {
     cfg: OpenClawConfig;
@@ -99,7 +98,6 @@ function appendWorkspaceDirToLocalRoots(
   return [...roots, resolvedWorkspaceDir];
 }
 
-/** Resolve outbound media roots/read hooks for an agent, existing access object, and sources. */
 export function resolveAgentScopedOutboundMediaAccess(
   params: {
     cfg: OpenClawConfig;

@@ -24,18 +24,14 @@ type FetchMediaResult = {
   fileName?: string;
 };
 
-/** Saved media record with the best-effort remote filename preserved. */
 export type SavedRemoteMedia = SavedMedia & {
   fileName?: string;
 };
 
-/** Stable error categories for remote media download failures. */
 export type MediaFetchErrorCode = "max_bytes" | "http_error" | "fetch_failed";
 
-/** Retry policy applied around the guarded fetch and full body read/save operation. */
 export type MediaFetchRetryOptions = RetryOptions;
 
-/** Error type that preserves media fetch category and HTTP status for callers. */
 export class MediaFetchError extends Error {
   readonly code: MediaFetchErrorCode;
   readonly status?: number;
@@ -52,10 +48,8 @@ export class MediaFetchError extends Error {
   }
 }
 
-/** Fetch-compatible function used by tests and guarded network callers. */
 export type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
 
-/** Optional pinned DNS/dispatcher attempt used for guarded media fetch retries. */
 export type FetchDispatcherAttempt = {
   dispatcherPolicy?: PinnedDispatcherPolicy;
   lookupFn?: LookupFn;
@@ -89,7 +83,6 @@ type FetchMediaOptions = {
   trustExplicitProxyDns?: boolean;
 };
 
-/** Options for saving an already-fetched response into the media store. */
 export type SaveResponseMediaOptions = {
   sourceUrl?: string;
   filePathHint?: string;
@@ -100,7 +93,6 @@ export type SaveResponseMediaOptions = {
   originalFilename?: string;
 };
 
-/** Options for fetching remote media and storing the response body. */
 export type SaveRemoteMediaOptions = FetchMediaOptions & {
   fallbackContentType?: string;
   subdir?: string;

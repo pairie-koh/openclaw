@@ -6,10 +6,8 @@ import { isValidExecSecretRefId, isValidSecretProviderAlias } from "./ref-contra
 import { parseDotPath, toDotPath } from "./shared.js";
 import { resolvePlanTargetAgainstRegistry, type ResolvedPlanTarget } from "./target-registry.js";
 
-/** Registry target identifier used by secrets apply plans. */
 export type SecretsPlanTargetType = string;
 
-/** One config location that should receive a secret reference during plan apply. */
 export type SecretsPlanTarget = {
   type: SecretsPlanTargetType;
   /**
@@ -43,7 +41,6 @@ export type SecretsPlanTarget = {
   authProfileProvider?: string;
 };
 
-/** Versioned document consumed by `openclaw secrets configure --apply-plan`. */
 export type SecretsApplyPlan = {
   version: 1;
   protocolVersion: 1;
@@ -69,7 +66,6 @@ function hasForbiddenPathSegment(segments: string[]): boolean {
   return segments.some((segment) => FORBIDDEN_PATH_SEGMENTS.has(segment));
 }
 
-/** Resolves and validates a plan target against the canonical secret target registry. */
 export function resolveValidatedPlanTarget(candidate: {
   type?: SecretsPlanTargetType;
   path?: string;
@@ -101,7 +97,6 @@ export function resolveValidatedPlanTarget(candidate: {
   });
 }
 
-/** Type guard for secret apply plans, including provider upserts and target refs. */
 export function isSecretsApplyPlan(value: unknown): value is SecretsApplyPlan {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return false;
