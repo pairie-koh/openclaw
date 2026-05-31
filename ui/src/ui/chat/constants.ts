@@ -1,7 +1,3 @@
-/**
- * Chat-related constants for the UI layer.
- */
-
 /** Character threshold for showing tool output inline vs collapsed */
 export const TOOL_INLINE_THRESHOLD = 80;
 

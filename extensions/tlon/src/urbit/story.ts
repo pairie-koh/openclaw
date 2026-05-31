@@ -1,10 +1,3 @@
-/**
- * Tlon Story Format - Rich text converter
- *
- * Converts markdown-like text to Tlon's story format.
- */
-
-// Inline content types
 type StoryInline =
   | string
   | { bold: StoryInline[] }
@@ -18,7 +11,6 @@ type StoryInline =
   | { break: null }
   | { tag: string };
 
-// Block content types
 type StoryBlock =
   | { header: { tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"; content: StoryInline[] } }
   | { code: { code: string; lang: string } }
@@ -36,10 +28,8 @@ type StoryListing =
     }
   | { item: StoryInline[] };
 
-// A verse is either a block or inline content
 type StoryVerse = { block: StoryBlock } | { inline: StoryInline[] };
 
-// A story is a list of verses
 export type Story = StoryVerse[];
 
 /**
