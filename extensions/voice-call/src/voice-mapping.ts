@@ -12,9 +12,6 @@ export function escapeXml(text: string): string {
     .replace(/'/g, "&apos;");
 }
 
-/**
- * Map of OpenAI voice names to similar Twilio Polly voices.
- */
 const OPENAI_TO_POLLY_MAP: Record<string, string> = {
   alloy: "Polly.Joanna", // neutral, warm
   echo: "Polly.Matthew", // male, warm
@@ -41,12 +38,10 @@ export function mapVoiceToPolly(voice: string | undefined): string {
     return DEFAULT_POLLY_VOICE;
   }
 
-  // Already a Polly/Google voice - pass through
   if (voice.startsWith("Polly.") || voice.startsWith("Google.")) {
     return voice;
   }
 
-  // Map OpenAI voices to Polly equivalents
   return OPENAI_TO_POLLY_MAP[normalizeLowercaseStringOrEmpty(voice)] || DEFAULT_POLLY_VOICE;
 }
 
