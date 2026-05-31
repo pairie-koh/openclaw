@@ -175,9 +175,7 @@ describe("isSameOAuthIdentity", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
 // Fuzz tests. Seeded Mulberry32 so the run is reproducible.
-// ---------------------------------------------------------------------------
 
 describe("isSafeToCopyOAuthIdentity (unified copy gate, used for mirror and adopt)", () => {
   describe("positive matches", () => {

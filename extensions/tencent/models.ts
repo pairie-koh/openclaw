@@ -2,8 +2,6 @@ import { buildManifestModelProviderConfig } from "openclaw/plugin-sdk/provider-c
 import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
 import manifest from "./openclaw.plugin.json" with { type: "json" };
 
-// ---------- TokenHub provider ----------
-
 export const TOKENHUB_PROVIDER_ID = "tencent-tokenhub";
 
 const TOKENHUB_MANIFEST_PROVIDER = buildManifestModelProviderConfig({

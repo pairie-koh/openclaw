@@ -109,9 +109,7 @@ describe("agent tool definition adapter", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
 // toClientToolDefinitions – streaming tool-call argument coercion (#57009)
-// ---------------------------------------------------------------------------
 
 function makeClientTool(name: string): ClientToolDefinition {
   return {

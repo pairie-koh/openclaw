@@ -10,8 +10,6 @@ import {
   TOKENHUB_PROVIDER_ID,
 } from "./api.js";
 
-// ---------- TokenHub ----------
-
 export const TOKENHUB_DEFAULT_MODEL_REF = `${TOKENHUB_PROVIDER_ID}/hy3-preview`;
 
 function applyTokenHubProviderConfig(cfg: OpenClawConfig): OpenClawConfig {

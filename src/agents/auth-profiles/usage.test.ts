@@ -107,10 +107,6 @@ describe("resolveProfileUnusableUntilForDisplay", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// isProfileInCooldown
-// ---------------------------------------------------------------------------
-
 describe("isProfileInCooldown", () => {
   it("returns false when profile has no usage stats", () => {
     const store = makeStore(undefined);
@@ -359,10 +355,6 @@ describe("resolveProfilesUnavailableReason", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// clearExpiredCooldowns
-// ---------------------------------------------------------------------------
-
 describe("clearExpiredCooldowns", () => {
   it("returns false on empty usageStats", () => {
     const store = makeStore(undefined);
@@ -599,10 +591,6 @@ describe("clearExpiredCooldowns", () => {
     expect(clearExpiredCooldowns(store)).toBe(false);
   });
 });
-
-// ---------------------------------------------------------------------------
-// clearAuthProfileCooldown
-// ---------------------------------------------------------------------------
 
 describe("clearAuthProfileCooldown", () => {
   it("clears all error state fields including disabledUntil and failureCounts", async () => {
