@@ -267,7 +267,6 @@ export function buildEmbeddedRunContexts(params: {
   };
 }
 
-/** Builds the full execution parameter bundle for embedded reply runtime calls. */
 export function buildEmbeddedRunExecutionParams(params: {
   run: FollowupRun["run"];
   sessionCtx: TemplateContext;

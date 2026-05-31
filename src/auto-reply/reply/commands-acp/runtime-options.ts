@@ -402,7 +402,6 @@ export async function handleAcpModelAction(
   });
 }
 
-/** Reset ACP runtime options for the selected target session. */
 export async function handleAcpResetOptionsAction(
   params: HandleCommandsParams,
   restTokens: string[],

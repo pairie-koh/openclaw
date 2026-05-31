@@ -40,7 +40,6 @@ const FOLLOWUP_QUEUES_KEY = Symbol.for("openclaw.followupQueues");
 /** Shared process-wide follow-up queue registry keyed by session. */
 export const FOLLOWUP_QUEUES = resolveGlobalMap<string, FollowupQueueState>(FOLLOWUP_QUEUES_KEY);
 
-/** Return an existing follow-up queue without creating one. */
 export function getExistingFollowupQueue(key: string): FollowupQueueState | undefined {
   const cleaned = key.trim();
   if (!cleaned) {
@@ -49,7 +48,6 @@ export function getExistingFollowupQueue(key: string): FollowupQueueState | unde
   return FOLLOWUP_QUEUES.get(cleaned);
 }
 
-/** Return or create a follow-up queue and apply current runtime settings. */
 export function getFollowupQueue(key: string, settings: QueueSettings): FollowupQueueState {
   const existing = FOLLOWUP_QUEUES.get(key);
   if (existing) {

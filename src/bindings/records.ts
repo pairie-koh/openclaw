@@ -7,14 +7,12 @@ import {
   type SessionBindingUnbindInput,
 } from "../infra/outbound/session-binding-service.js";
 
-/** Create a conversation binding record shared by configured and runtime plugin bindings. */
 export async function createConversationBindingRecord(
   input: SessionBindingBindInput,
 ): Promise<SessionBindingRecord> {
   return await getSessionBindingService().bind(input);
 }
 
-/** Return binding capabilities for a channel/account pair. */
 export function getConversationBindingCapabilities(params: {
   channel: string;
   accountId: string;
@@ -22,12 +20,10 @@ export function getConversationBindingCapabilities(params: {
   return getSessionBindingService().getCapabilities(params);
 }
 
-/** List all binding records that currently target a session key. */
 export function listSessionBindingRecords(targetSessionKey: string): SessionBindingRecord[] {
   return getSessionBindingService().listBySession(targetSessionKey);
 }
 
-/** Resolve a binding record by its canonical conversation reference. */
 export function resolveConversationBindingRecord(
   conversation: ConversationRef,
 ): SessionBindingRecord | null {
