@@ -1,6 +1,9 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resolveTimerTimeoutMs } from "../shared/number-coercion.js";
 import { MAX_SAFE_TIMEOUT_DELAY_MS } from "../utils/timer-delay.js";
 import { resolveRetryConfig, retryAsync } from "./retry.js";
+
+const MAX_SLEEP_TIMEOUT_DELAY_MS = resolveTimerTimeoutMs(MAX_SAFE_TIMEOUT_DELAY_MS, 0, 0);
 
 const randomMocks = vi.hoisted(() => ({
   generateSecureFraction: vi.fn(),
@@ -207,9 +210,9 @@ describe("retryAsync", () => {
     const fn = vi.fn().mockRejectedValueOnce(new Error("boom")).mockResolvedValueOnce("ok");
     try {
       const promise = retryAsync(fn, 2, 3_000_000_000);
-      await vi.advanceTimersByTimeAsync(MAX_SAFE_TIMEOUT_DELAY_MS);
+      await vi.advanceTimersByTimeAsync(MAX_SLEEP_TIMEOUT_DELAY_MS);
       await expect(promise).resolves.toBe("ok");
-      expect(timeoutSpy).toHaveBeenCalledWith(expect.any(Function), MAX_SAFE_TIMEOUT_DELAY_MS);
+      expect(timeoutSpy).toHaveBeenCalledWith(expect.any(Function), MAX_SLEEP_TIMEOUT_DELAY_MS);
     } finally {
       timeoutSpy.mockRestore();
       vi.clearAllTimers();
@@ -228,18 +231,18 @@ describe("retryAsync", () => {
       .mockResolvedValueOnce("ok");
     try {
       const promise = retryAsync(fn, 3, Number.MAX_VALUE);
-      await vi.advanceTimersByTimeAsync(MAX_SAFE_TIMEOUT_DELAY_MS);
-      await vi.advanceTimersByTimeAsync(MAX_SAFE_TIMEOUT_DELAY_MS);
+      await vi.advanceTimersByTimeAsync(MAX_SLEEP_TIMEOUT_DELAY_MS);
+      await vi.advanceTimersByTimeAsync(MAX_SLEEP_TIMEOUT_DELAY_MS);
       await expect(promise).resolves.toBe("ok");
       expect(timeoutSpy).toHaveBeenNthCalledWith(
         1,
         expect.any(Function),
-        MAX_SAFE_TIMEOUT_DELAY_MS,
+        MAX_SLEEP_TIMEOUT_DELAY_MS,
       );
       expect(timeoutSpy).toHaveBeenNthCalledWith(
         2,
         expect.any(Function),
-        MAX_SAFE_TIMEOUT_DELAY_MS,
+        MAX_SLEEP_TIMEOUT_DELAY_MS,
       );
     } finally {
       timeoutSpy.mockRestore();
