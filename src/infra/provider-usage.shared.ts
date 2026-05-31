@@ -2,7 +2,6 @@ import { normalizeProviderId } from "@openclaw/model-catalog-core/provider-id";
 import { resolveTimerTimeoutMs } from "../shared/number-coercion.js";
 import type { UsageProviderId } from "./provider-usage.types.js";
 
-/** Default timeout for provider usage fetch probes. */
 export const DEFAULT_TIMEOUT_MS = 5000;
 
 /** Human-readable labels for supported provider usage summaries. */

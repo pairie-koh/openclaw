@@ -1,9 +1,7 @@
 import type { DatabaseSync } from "node:sqlite";
 import { MAX_TIMER_TIMEOUT_MS } from "../shared/number-coercion.js";
 
-/** Default page threshold for SQLite automatic WAL checkpoints. */
 export const DEFAULT_SQLITE_WAL_AUTOCHECKPOINT_PAGES = 1000;
-/** Default interval for explicit WAL truncate checkpoints. */
 export const DEFAULT_SQLITE_WAL_TRUNCATE_INTERVAL_MS = 30 * 60 * 1000;
 
 type IntervalHandle = ReturnType<typeof setInterval> & {

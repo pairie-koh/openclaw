@@ -12,9 +12,7 @@ function derivePort(base: number, offset: number, fallback: number): number {
   return clampPort(base + offset, fallback);
 }
 
-/** Default first port reserved for browser CDP endpoints. */
 export const DEFAULT_BROWSER_CDP_PORT_RANGE_START = 18800;
-/** Default last port reserved for browser CDP endpoints. */
 export const DEFAULT_BROWSER_CDP_PORT_RANGE_END = 18899;
 const DEFAULT_BROWSER_CDP_PORT_RANGE_SPAN =
   DEFAULT_BROWSER_CDP_PORT_RANGE_END - DEFAULT_BROWSER_CDP_PORT_RANGE_START;

@@ -11,9 +11,7 @@ export type UpdateChannelSource =
   | "installed-version"
   | "default";
 
-/** Default update channel for npm/package installs. */
 export const DEFAULT_PACKAGE_CHANNEL: UpdateChannel = "stable";
-/** Default update channel for source checkouts. */
 export const DEFAULT_GIT_CHANNEL: UpdateChannel = "dev";
 /** Canonical development branch used by git update logic. */
 export const DEV_BRANCH = "main";

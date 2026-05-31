@@ -4,9 +4,7 @@ import { resolveTimerTimeoutMs } from "@openclaw/normalization-core/number-coerc
 import { formatErrorMessage } from "./errors.js";
 import { parseStrictNonNegativeInteger } from "./parse-finite-number.js";
 
-/** Default maximum webhook request body size. */
 export const DEFAULT_WEBHOOK_MAX_BODY_BYTES = 1024 * 1024;
-/** Default timeout for reading webhook request bodies. */
 export const DEFAULT_WEBHOOK_BODY_TIMEOUT_MS = 30_000;
 
 /** Stable error codes produced by request body limit guards. */

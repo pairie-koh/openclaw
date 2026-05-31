@@ -5,7 +5,6 @@ import { type RetryConfig, resolveRetryConfig, retryAsync } from "./retry.js";
 /** Function wrapper that retries async work according to a resolved retry policy. */
 export type RetryRunner = <T>(fn: () => Promise<T>, label?: string) => Promise<T>;
 
-/** Default retry policy for idempotent channel API requests. */
 export const CHANNEL_API_RETRY_DEFAULTS = {
   attempts: 3,
   minDelayMs: 400,

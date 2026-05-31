@@ -21,7 +21,6 @@ const SPAWN_TIMEOUT_MS = 2000;
 const SIGUSR1_AUTH_GRACE_MS = 5000;
 const DEFAULT_DEFERRAL_POLL_MS = 500;
 const DEFAULT_DEFERRAL_STILL_PENDING_WARN_MS = 30_000;
-/** Default maximum wait for pending work before forcing a deferred restart. */
 export const DEFAULT_RESTART_DEFERRAL_TIMEOUT_MS = 300_000;
 const RESTART_COOLDOWN_MS = 30_000;
 const LAUNCHCTL_ALREADY_LOADED_EXIT_CODE = 37;
