@@ -53,10 +53,6 @@ import {
 } from "./openai-responses-shared.js";
 import { buildBaseOptions } from "./simple-options.js";
 
-// ============================================================================
-// Configuration
-// ============================================================================
-
 const DEFAULT_CODEX_BASE_URL = "https://chatgpt.com/backend-api";
 const MAX_RETRIES = 3;
 const BASE_DELAY_MS = 1000;
@@ -73,10 +69,6 @@ const CODEX_RESPONSE_STATUSES = new Set<CodexResponseStatus>([
   "queued",
   "in_progress",
 ]);
-
-// ============================================================================
-// Types
-// ============================================================================
 
 /** Stream options accepted by the OpenAI Codex Responses provider transport. */
 export interface OpenAICodexResponsesOptions extends StreamOptions {
@@ -112,10 +104,6 @@ interface RequestBody {
   prompt_cache_key?: string;
   [key: string]: unknown;
 }
-
-// ============================================================================
-// Retry Helpers
-// ============================================================================
 
 function isRetryableError(status: number, errorText: string): boolean {
   if (status === 429 || status === 500 || status === 502 || status === 503 || status === 504) {
@@ -185,10 +173,6 @@ function formatRequestTimeoutError(timeoutMs: number, cause: unknown): Error {
     cause: cause instanceof Error ? cause : undefined,
   });
 }
-
-// ============================================================================
-// Main Stream Function
-// ============================================================================
 
 /** Stream OpenAI Codex Responses via WebSocket when possible, falling back to SSE. */
 export const streamOpenAICodexResponses: StreamFunction<
@@ -472,10 +456,6 @@ export const streamSimpleOpenAICodexResponses: StreamFunction<
   } satisfies OpenAICodexResponsesOptions);
 };
 
-// ============================================================================
-// Request Building
-// ============================================================================
-
 function buildRequestBody(
   model: Model<"openai-chatgpt-responses">,
   context: Context,
@@ -597,10 +577,6 @@ function resolveCodexWebSocketUrl(baseUrl?: string): string {
   return url.toString();
 }
 
-// ============================================================================
-// Response Processing
-// ============================================================================
-
 async function processStream(
   response: Response,
   output: AssistantMessage,
@@ -703,10 +679,6 @@ function normalizeCodexStatus(status: unknown): CodexResponseStatus | undefined 
     : undefined;
 }
 
-// ============================================================================
-// SSE Parsing
-// ============================================================================
-
 async function* parseSSE(response: Response): AsyncGenerator<Record<string, unknown>> {
   if (!response.body) {
     return;
@@ -758,10 +730,6 @@ async function* parseSSE(response: Response): AsyncGenerator<Record<string, unkn
     } catch {}
   }
 }
-
-// ============================================================================
-// WebSocket Parsing
-// ============================================================================
 
 const OPENAI_BETA_RESPONSES_WEBSOCKETS = "responses_websockets=2026-02-06";
 const SESSION_WEBSOCKET_CACHE_TTL_MS = 5 * 60 * 1000;
@@ -1518,10 +1486,6 @@ async function processWebSocketStream(
   }
 }
 
-// ============================================================================
-// Error Handling
-// ============================================================================
-
 async function parseErrorResponse(
   response: Response,
 ): Promise<{ message: string; friendlyMessage?: string }> {
@@ -1559,10 +1523,6 @@ async function parseErrorResponse(
 
   return { message, friendlyMessage };
 }
-
-// ============================================================================
-// Auth & Headers
-// ============================================================================
 
 /** Extract the ChatGPT account id claim required by Codex backend headers. */
 export function extractOpenAICodexAccountId(token: string): string {
