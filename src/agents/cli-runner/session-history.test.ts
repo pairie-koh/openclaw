@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { replaceSqliteSessionTranscriptEvents } from "../../config/sessions/transcript-store.sqlite.js";
+import { closeOpenClawAgentDatabasesForTest } from "../../state/openclaw-agent-db.js";
 import { closeOpenClawStateDatabaseForTest } from "../../state/openclaw-state-db.js";
 import { CURRENT_SESSION_VERSION } from "../transcript/session-transcript-contract.js";
 import {
@@ -20,6 +21,7 @@ function createSessionTranscript(params: {
   rootDir: string;
   sessionId: string;
   agentId?: string;
+  databasePath?: string;
   messages?: string[];
 }): void {
   const events: unknown[] = [
@@ -46,6 +48,7 @@ function createSessionTranscript(params: {
   }
   replaceSqliteSessionTranscriptEvents({
     agentId: params.agentId ?? "main",
+    ...(params.databasePath ? { path: params.databasePath } : {}),
     sessionId: params.sessionId,
     events,
     now: () => 1_770_000_000_000,
@@ -115,6 +118,7 @@ function createSessionTranscriptEvents(params: {
 
 describe("loadCliSessionHistoryMessages", () => {
   afterEach(() => {
+    closeOpenClawAgentDatabasesForTest();
     closeOpenClawStateDatabaseForTest();
     vi.unstubAllEnvs();
   });
@@ -236,6 +240,58 @@ describe("loadCliSessionHistoryMessages", () => {
           },
         }),
       ).toMatchObject([{ role: "user", content: "custom store history" }]);
+    } finally {
+      fs.rmSync(stateDir, { recursive: true, force: true });
+    }
+  });
+
+  it("ignores the legacy session file path when reading SQLite transcript rows", async () => {
+    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cli-state-"));
+    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    createSessionTranscript({
+      rootDir: stateDir,
+      sessionId: "session-with-legacy-file",
+      messages: ["sqlite history"],
+    });
+
+    try {
+      expect(
+        await loadCliSessionHistoryMessages({
+          sessionId: "session-with-legacy-file",
+          sessionFile: path.join(stateDir, "legacy-session.jsonl"),
+          sessionKey: "agent:main:main",
+          agentId: "main",
+        }),
+      ).toMatchObject([{ role: "user", content: "sqlite history" }]);
+    } finally {
+      fs.rmSync(stateDir, { recursive: true, force: true });
+    }
+  });
+
+  it("reads transcript rows from an explicit SQLite session store path", async () => {
+    const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cli-state-"));
+    const databasePath = path.join(stateDir, "custom-agent.sqlite");
+    vi.stubEnv("OPENCLAW_STATE_DIR", stateDir);
+    createSessionTranscript({
+      rootDir: stateDir,
+      sessionId: "session-explicit-store",
+      databasePath,
+      messages: ["explicit store history"],
+    });
+
+    try {
+      expect(
+        await loadCliSessionHistoryMessages({
+          sessionId: "session-explicit-store",
+          sessionKey: "agent:main:main",
+          agentId: "main",
+          config: {
+            session: {
+              store: databasePath,
+            },
+          },
+        }),
+      ).toMatchObject([{ role: "user", content: "explicit store history" }]);
     } finally {
       fs.rmSync(stateDir, { recursive: true, force: true });
     }

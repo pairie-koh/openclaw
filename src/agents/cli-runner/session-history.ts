@@ -1,8 +1,11 @@
+import nodePath from "node:path";
 import {
   loadSqliteSessionTranscriptEvents,
   resolveSqliteSessionTranscriptScope,
 } from "../../config/sessions/transcript-store.sqlite.js";
 import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import { normalizeAgentId } from "../../routing/session-key.js";
+import { resolveOpenClawAgentSqlitePath } from "../../state/openclaw-agent-db.js";
 import { resolveSessionAgentIds } from "../agent-scope.js";
 import {
   limitAgentHookHistoryMessages,
@@ -257,17 +260,76 @@ function resolveSafeCliTranscriptScope(params: {
   sessionKey?: string;
   agentId?: string;
   config?: OpenClawConfig;
-}): { agentId: string; sessionId: string } {
+}): { agentId: string; path?: string; sessionId: string } {
   const { defaultAgentId, sessionAgentId } = resolveSessionAgentIds({
     sessionKey: params.sessionKey,
     config: params.config,
     agentId: params.agentId,
   });
+  const agentId = sessionAgentId ?? defaultAgentId;
+  const storeTarget = resolveCliTranscriptStoreTarget({
+    agentId,
+    storePath: params.config?.session?.store,
+  });
   return {
-    agentId: sessionAgentId ?? defaultAgentId,
-    ...(params.sessionFile ? { path: params.sessionFile } : {}),
+    agentId: storeTarget.agentId,
+    ...(storeTarget.databasePath ? { path: storeTarget.databasePath } : {}),
     sessionId: params.sessionId,
   };
+}
+
+function parseCanonicalSessionStorePath(
+  storePath: string,
+): { agentId: string; stateDir: string } | undefined {
+  const resolved = nodePath.resolve(storePath);
+  if (nodePath.basename(resolved) !== "sessions.json") {
+    return undefined;
+  }
+  const sessionsDir = nodePath.dirname(resolved);
+  if (nodePath.basename(sessionsDir) !== "sessions") {
+    return undefined;
+  }
+  const agentDir = nodePath.dirname(sessionsDir);
+  const agentsDir = nodePath.dirname(agentDir);
+  if (nodePath.basename(agentsDir) !== "agents") {
+    return undefined;
+  }
+  const agentId = nodePath.basename(agentDir);
+  if (!agentId) {
+    return undefined;
+  }
+  return {
+    agentId: normalizeAgentId(agentId),
+    stateDir: nodePath.dirname(agentsDir),
+  };
+}
+
+function resolveCliTranscriptStoreTarget(params: { agentId: string; storePath?: string }): {
+  agentId: string;
+  databasePath?: string;
+} {
+  const agentId = normalizeAgentId(params.agentId);
+  const storePath = params.storePath?.trim();
+  if (!storePath || storePath === "(sqlite)") {
+    return { agentId };
+  }
+  const parsed = parseCanonicalSessionStorePath(storePath);
+  if (parsed) {
+    return {
+      agentId: parsed.agentId,
+      databasePath: resolveOpenClawAgentSqlitePath({
+        agentId: parsed.agentId,
+        env: {
+          ...process.env,
+          OPENCLAW_STATE_DIR: parsed.stateDir,
+        },
+      }),
+    };
+  }
+  if (nodePath.extname(storePath) === ".json") {
+    return { agentId };
+  }
+  return { agentId, databasePath: storePath };
 }
 
 async function loadCliSessionEntries(params: {

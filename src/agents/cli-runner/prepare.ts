@@ -56,6 +56,7 @@ import { resolveHeartbeatPromptForSystemPrompt } from "../heartbeat-system-promp
 import { applyPluginTextReplacements } from "../plugin-text-transforms.js";
 import { resolveSkillsPromptForRun } from "../skills.js";
 import { buildSystemPromptReport } from "../system-prompt-report.js";
+import { appendModelIdentitySystemPrompt } from "../system-prompt.js";
 import { redactRunIdentifier, resolveRunWorkspaceDir } from "../workspace-run.js";
 import { prepareCliBundleMcpConfig } from "./bundle-mcp.js";
 import { prepareClaudeCliSkillsPlugin } from "./claude-skills-plugin.js";
@@ -498,11 +499,21 @@ export async function prepareCliRunContext(
   } catch (error) {
     cliBackendLog.warn(`cli prompt-build hook preparation failed: ${String(error)}`);
   }
-  preparedPrompt = buildCurrentInboundPrompt({
+  const fullCurrentInboundPrompt = buildCurrentInboundPrompt({
     context: params.currentInboundContext,
     prompt: preparedPrompt,
   });
-  preparedPrompt = annotateInterSessionPromptText(preparedPrompt, params.inputProvenance);
+  const runCurrentInboundPrompt = buildCurrentInboundPrompt({
+    context: params.currentInboundContext,
+    prompt: preparedPrompt,
+    preferResumableText:
+      params.currentInboundEventKind === "room_event" && Boolean(reusableCliSession.sessionId),
+  });
+  const historyPromptCurrentTurn = annotateInterSessionPromptText(
+    fullCurrentInboundPrompt,
+    params.inputProvenance,
+  );
+  preparedPrompt = annotateInterSessionPromptText(runCurrentInboundPrompt, params.inputProvenance);
   const allowRawTranscriptReseed =
     backendResolved.config.reseedFromRawTranscriptWhenUncompacted === true;
   const rawTranscriptReseedReason = reusableCliSession.sessionId
@@ -521,11 +532,14 @@ export async function prepareCliRunContext(
           allowRawTranscriptReseed,
           rawTranscriptReseedReason,
         }),
-        prompt: preparedPrompt,
+        prompt: historyPromptCurrentTurn,
         maxHistoryChars: autoReseedHistoryChars,
       })
     : undefined;
-  systemPrompt = applyPluginTextReplacements(systemPrompt, backendResolved.textTransforms?.input);
+  systemPrompt = appendModelIdentitySystemPrompt({
+    systemPrompt: applyPluginTextReplacements(systemPrompt, backendResolved.textTransforms?.input),
+    model: modelDisplay,
+  });
   const systemPromptReport = buildSystemPromptReport({
     source: "run",
     generatedAt: Date.now(),
