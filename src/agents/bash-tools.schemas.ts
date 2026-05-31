@@ -3,7 +3,6 @@ import { optionalStringEnum } from "./schema/typebox.js";
 
 const EXEC_TOOL_HOST_VALUES = ["auto", "sandbox", "gateway", "node"] as const;
 
-/** TypeBox schema for exec tool requests. */
 export const execSchema = Type.Object({
   command: Type.String({ description: "Shell command to execute" }),
   workdir: Type.Optional(Type.String({ description: "Working directory (defaults to cwd)" })),
@@ -51,7 +50,6 @@ export const execSchema = Type.Object({
   ),
 });
 
-/** TypeBox schema for process tool session actions. */
 export const processSchema = Type.Object({
   action: Type.String({
     description: "Process action (list|poll|log|write|send-keys|submit|paste|kill|clear|remove)",
