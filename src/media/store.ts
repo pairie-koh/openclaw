@@ -144,12 +144,10 @@ export function extractOriginalFilename(filePath: string): string {
   return basename; // Fallback: use as-is
 }
 
-/** Returns the configured media store directory. */
 export function getMediaDir() {
   return resolveMediaDir();
 }
 
-/** Creates and returns the media store directory with private directory permissions. */
 export async function ensureMediaDir() {
   const mediaDir = resolveMediaDir();
   await fs.mkdir(mediaDir, { recursive: true, mode: 0o700 });
@@ -188,7 +186,6 @@ async function retryAfterRecreatingDir<T>(dir: string, run: () => Promise<T>): P
   }
 }
 
-/** Prunes expired media files and optionally empty scoped directories. */
 export async function cleanOldMedia(ttlMs = DEFAULT_TTL_MS, options: CleanOldMediaOptions = {}) {
   await openMediaStore().pruneExpired({
     maxDepth: options.recursive ? undefined : 1,
@@ -299,7 +296,6 @@ async function downloadToFile(
   });
 }
 
-/** Opaque media-store record returned after saving bytes to disk. */
 export type SavedMedia = {
   id: string;
   path: string;
@@ -465,7 +461,6 @@ async function writeMediaStreamToFile(params: {
   }
 }
 
-/** Stable local media-source failure categories surfaced to callers. */
 export type SaveMediaSourceErrorCode =
   | "invalid-path"
   | "not-found"
@@ -473,7 +468,6 @@ export type SaveMediaSourceErrorCode =
   | "path-mismatch"
   | "too-large";
 
-/** Error type for unsafe, missing, mismatched, or oversized local media sources. */
 export class SaveMediaSourceError extends Error {
   code: SaveMediaSourceErrorCode;
 
@@ -516,7 +510,6 @@ function toSaveMediaSourceError(err: FsSafeLikeError, maxBytes = MAX_BYTES): Sav
   }
 }
 
-/** Saves a URL or safe local file path into the media store. */
 export async function saveMediaSource(
   source: string,
   headers?: Record<string, string>,
@@ -565,7 +558,6 @@ export async function saveMediaSource(
   }
 }
 
-/** Saves an in-memory attachment buffer with MIME sniffing and stable file mode. */
 export async function saveMediaBuffer(
   buffer: Buffer,
   contentType?: string,
@@ -597,7 +589,6 @@ export async function saveMediaBuffer(
   return buildSavedMediaResult({ dir, id, size: buffer.byteLength, contentType: mime });
 }
 
-/** Streams attachment bytes to a sibling temp file before atomically publishing. */
 export async function saveMediaStream(
   stream: AsyncIterable<unknown>,
   contentType?: string,
@@ -677,7 +668,6 @@ export async function resolveMediaBufferPath(id: string, subdir = "inbound"): Pr
   }
 }
 
-/** Read result containing media bytes plus the resolved physical store path. */
 export type ReadMediaBufferResult = {
   id: string;
   path: string;
@@ -685,7 +675,6 @@ export type ReadMediaBufferResult = {
   size: number;
 };
 
-/** Reads a saved media id from the scoped store with path and size validation. */
 export async function readMediaBuffer(
   id: string,
   subdir = "inbound",

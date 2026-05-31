@@ -11,29 +11,21 @@ import { isPlainObject } from "./infra/plain-object.js";
 import { resolveTimerTimeoutMs } from "./shared/number-coercion.js";
 export { escapeRegExp } from "./shared/regexp.js";
 
-/** Creates a directory tree if it does not already exist. */
 export async function ensureDir(dir: string) {
   await fs.promises.mkdir(dir, { recursive: true });
 }
 
-/** Clamps a numeric value to an inclusive min/max range. */
 export function clampNumber(value: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, value));
 }
 
-/** Floors a number, then clamps it to an inclusive integer range. */
 export function clampInt(value: number, min: number, max: number): number {
   return clampNumber(Math.floor(value), min, max);
 }
 
-/** Alias for clampNumber (shorter, more common name) */
 export const clamp = clampNumber;
 
-/**
- * Safely parse JSON, returning null on error instead of throwing.
- */
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- JSON parsing helper lets callers ascribe the expected payload type.
-/** Parses JSON and returns null instead of throwing on malformed input. */
 export function safeParseJson<T>(raw: string): T | null {
   try {
     return JSON.parse(raw) as T;
@@ -44,15 +36,10 @@ export function safeParseJson<T>(raw: string): T | null {
 
 export { isPlainObject };
 
-/**
- * Type guard for Record<string, unknown> (less strict than isPlainObject).
- * Accepts any non-null object that isn't an array.
- */
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-/** Normalizes a phone-like value into a best-effort E.164 string. */
 export function normalizeE164(number: string): string {
   const withoutPrefix = number.replace(/^[a-z][a-z0-9-]*:/i, "").trim();
   const digits = withoutPrefix.replace(/[^\d+]/g, "");
@@ -62,7 +49,6 @@ export function normalizeE164(number: string): string {
   return `+${digits}`;
 }
 
-/** Resolves after the requested timeout in milliseconds. */
 export function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, resolveTimerTimeoutMs(ms, 0, 0)));
 }
@@ -75,7 +61,6 @@ function isLowSurrogate(codeUnit: number): boolean {
   return codeUnit >= 0xdc00 && codeUnit <= 0xdfff;
 }
 
-/** Slices a string without returning half of a UTF-16 surrogate pair. */
 export function sliceUtf16Safe(input: string, start: number, end?: number): string {
   const len = input.length;
 
@@ -105,7 +90,6 @@ export function sliceUtf16Safe(input: string, start: number, end?: number): stri
   return input.slice(from, to);
 }
 
-/** Truncates a string to maxLen without splitting a UTF-16 surrogate pair. */
 export function truncateUtf16Safe(input: string, maxLen: number): string {
   const limit = Math.max(0, Math.floor(maxLen));
   if (input.length <= limit) {
@@ -114,7 +98,6 @@ export function truncateUtf16Safe(input: string, maxLen: number): string {
   return sliceUtf16Safe(input, 0, limit);
 }
 
-/** Resolves user-facing home-relative paths against the effective home dir. */
 export function resolveUserPath(
   input: string,
   env: NodeJS.ProcessEnv = process.env,
@@ -126,7 +109,6 @@ export function resolveUserPath(
   return resolveHomeRelativePath(input, { env, homedir });
 }
 
-/** Resolves the OpenClaw config/state directory from env and home defaults. */
 export function resolveConfigDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
@@ -151,7 +133,6 @@ export function resolveConfigDir(
   return newDir;
 }
 
-/** Returns the effective home directory used by OpenClaw path helpers. */
 export function resolveHomeDir(): string | undefined {
   return resolveEffectiveHomeDir(process.env, os.homedir);
 }
@@ -168,7 +149,6 @@ function resolveHomeDisplayPrefix(): { home: string; prefix: string } | undefine
   return { home, prefix: "~" };
 }
 
-/** Replaces a leading home directory with ~ or $OPENCLAW_HOME for display. */
 export function shortenHomePath(input: string): string {
   if (!input) {
     return input;
@@ -187,7 +167,6 @@ export function shortenHomePath(input: string): string {
   return input;
 }
 
-/** Replaces all home-directory occurrences in a display string. */
 export function shortenHomeInString(input: string): string {
   if (!input) {
     return input;
@@ -199,22 +178,15 @@ export function shortenHomeInString(input: string): string {
   return input.split(display.home).join(display.prefix);
 }
 
-/** Formats a single path for display in CLI/UI output. */
 export function displayPath(input: string): string {
   return shortenHomePath(input);
 }
 
-/** Formats a string that may contain home-directory paths. */
 export function displayString(input: string): string {
   return shortenHomeInString(input);
 }
 
-// Configuration root; can be overridden via OPENCLAW_STATE_DIR.
-/** Process-default OpenClaw config directory resolved at module load. */
 export const CONFIG_DIR = resolveConfigDir();
-/**
- * Check if a file or directory exists at the given path.
- */
 export async function pathExists(targetPath: string): Promise<boolean> {
   return await fsSafePathExists(targetPath);
 }
