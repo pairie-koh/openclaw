@@ -368,10 +368,6 @@ function wrapResolvedContextEngine(
   return wrapped;
 }
 
-// ---------------------------------------------------------------------------
-// Registry (module-level singleton)
-// ---------------------------------------------------------------------------
-
 const CONTEXT_ENGINE_REGISTRY_STATE = Symbol.for("openclaw.contextEngineRegistryState");
 const CORE_CONTEXT_ENGINE_OWNER = "core";
 const PUBLIC_CONTEXT_ENGINE_OWNER = "public-sdk";
@@ -855,10 +851,6 @@ function wrapContextEngineWithRuntimeQuarantine(params: {
   });
   return proxy;
 }
-// ---------------------------------------------------------------------------
-// Resolution
-// ---------------------------------------------------------------------------
-
 /**
  * Options for {@link resolveContextEngine}.
  */

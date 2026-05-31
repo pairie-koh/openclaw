@@ -3,7 +3,6 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { MemoryCitationsMode } from "../config/types.memory.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 import { clearMemoryPluginState, registerMemoryPromptSection } from "../plugins/memory-state.js";
-// ---------------------------------------------------------------------------
 // We dynamically import the registry so we can get a fresh module per test
 // group when needed.  For most groups we use the shared singleton directly.
 import { buildMemorySystemPromptAddition, delegateCompactionToRuntime } from "./delegate.js";
@@ -65,10 +64,6 @@ function requireCompactRuntimeParams(callIndex: number): Record<string, unknown>
   }
   return params;
 }
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
 
 /** Build a config object with a contextEngine slot for testing. */
 function configWithSlot(engineId: string): OpenClawConfig {
