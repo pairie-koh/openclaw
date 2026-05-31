@@ -1151,8 +1151,9 @@ export async function connectWebchatClient(params: {
   return ws;
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Gateway test RPC helper lets callers ascribe response payload shape.
 /** Sends a gateway RPC request and waits for the matching response id. */
+// Gateway test RPC helper lets callers ascribe response payload shape.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export async function rpcReq<T extends Record<string, unknown>>(
   ws: WebSocket,
   method: string,

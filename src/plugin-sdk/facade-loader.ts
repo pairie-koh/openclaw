@@ -185,8 +185,9 @@ export function loadFacadeModuleAtLocationSync<T extends object>(params: {
   return sentinel;
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Dynamic facade loaders use caller-supplied module surface types.
 /** Resolve and load a bundled plugin public surface module synchronously. */
+// Dynamic facade loaders use caller-supplied module surface types.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function loadBundledPluginPublicSurfaceModuleSync<T extends object>(params: {
   dirName: string;
   artifactBasename: string;

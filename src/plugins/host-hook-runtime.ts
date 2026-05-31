@@ -209,8 +209,9 @@ export function setPluginRunContext(params: {
   return true;
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Run-context JSON reads are caller-typed by namespace.
 /** Reads a cloned namespaced JSON run-context value for one plugin and run. */
+// Run-context JSON reads are caller-typed by namespace.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function getPluginRunContext<T extends PluginJsonValue = PluginJsonValue>(params: {
   pluginId: string;
   get: PluginRunContextGetParams;
@@ -309,7 +310,8 @@ export function dispatchPluginAgentEventSubscriptions(params: {
     const runId = params.event.runId;
     let handlerActive = true;
     const ctx = {
-      // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Run-context JSON reads are caller-typed by namespace.
+      // Run-context JSON reads are caller-typed by namespace.
+      // oxlint-disable-next-line typescript/no-unnecessary-type-parameters
       getRunContext: <T extends PluginJsonValue = PluginJsonValue>(namespace: string) =>
         getPluginRunContext<T>({ pluginId, get: { runId, namespace } }),
       setRunContext: (namespace: string, value: PluginJsonValue) => {

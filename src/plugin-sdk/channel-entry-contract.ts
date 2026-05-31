@@ -467,8 +467,9 @@ function loadBundledEntryModuleSync(
   return loaded;
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Dynamic entry export loaders use caller-supplied export types.
 /** Load one export from a bundled channel entry module while enforcing plugin-root boundaries. */
+// Dynamic entry export loaders use caller-supplied export types.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function loadBundledEntryExportSync<T>(
   importMetaUrl: string,
   reference: BundledEntryModuleRef,

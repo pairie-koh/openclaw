@@ -188,8 +188,9 @@ function buildFacadeActivationCheckParams(
   };
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Dynamic facade loaders use caller-supplied module surface types.
 /** Loads a bundled plugin facade from the active registry/install location. */
+// Dynamic facade loaders use caller-supplied module surface types.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function loadBundledPluginPublicSurfaceModuleSync<T extends object>(
   params: BundledPluginPublicSurfaceParams,
 ): T {
@@ -225,8 +226,9 @@ export function canLoadActivatedBundledPluginPublicSurface(params: {
   ).allowed;
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Dynamic facade loaders use caller-supplied module surface types.
 /** Load a bundled plugin facade only after activation policy allows it. */
+// Dynamic facade loaders use caller-supplied module surface types.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function loadActivatedBundledPluginPublicSurfaceModuleSync<T extends object>(params: {
   dirName: string;
   artifactBasename: string;
@@ -238,8 +240,9 @@ export function loadActivatedBundledPluginPublicSurfaceModuleSync<T extends obje
   return loadBundledPluginPublicSurfaceModuleSync<T>(params);
 }
 
-// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Dynamic facade loaders use caller-supplied module surface types.
 /** Try to load an activated bundled plugin facade, returning null instead of throwing on denial. */
+// Dynamic facade loaders use caller-supplied module surface types.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function tryLoadActivatedBundledPluginPublicSurfaceModuleSync<T extends object>(params: {
   dirName: string;
   artifactBasename: string;

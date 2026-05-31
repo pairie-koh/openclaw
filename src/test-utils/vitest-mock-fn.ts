@@ -1,7 +1,7 @@
 // Using an explicit named type avoids exporting inferred `vi.fn()` types that can trip TS2742.
 // Keep the callable bound permissive so explicit callback signatures remain assignable.
 // Vitest's mock generic is itself anchored to an `any`-based Procedure type.
-// oxlint-disable-next-line typescript/no-explicit-any
 /** Named Vitest mock function type that avoids leaking inferred vi.fn module paths. */
+// oxlint-disable-next-line typescript/no-explicit-any
 export type MockFn<T extends (...args: any[]) => any = (...args: any[]) => any> =
   import("vitest").Mock<T>;

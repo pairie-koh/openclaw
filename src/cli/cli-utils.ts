@@ -54,11 +54,12 @@ export async function runCommandWithRuntime(
 }
 
 /** Resolve an option from the command or its parents, matching Commander global lookup. */
+// Commander option values are typed by the caller.
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters
 export function resolveOptionFromCommand<T>(
   command: Command | undefined,
   key: string,
 ): T | undefined {
-  // oxlint-disable-line typescript/no-unnecessary-type-parameters -- Commander option values are typed by the caller.
   let current: Command | null | undefined = command;
   while (current) {
     const opts = current.opts?.() ?? {};
