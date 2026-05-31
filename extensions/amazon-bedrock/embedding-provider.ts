@@ -10,10 +10,6 @@ import {
 } from "openclaw/plugin-sdk/string-coerce-runtime";
 import { refreshAwsSharedConfigCacheForBedrock } from "./aws-credential-refresh.js";
 
-// ---------------------------------------------------------------------------
-// Types & constants
-// ---------------------------------------------------------------------------
-
 type BedrockEmbeddingClient = {
   region: string;
   model: string;
@@ -31,10 +27,6 @@ interface ModelSpec {
   validDims?: number[];
   family: Family;
 }
-
-// ---------------------------------------------------------------------------
-// Model catalog
-// ---------------------------------------------------------------------------
 
 const MODELS: Record<string, ModelSpec> = {
   "amazon.titan-embed-text-v2:0": {
@@ -103,10 +95,6 @@ function inferFamily(modelId: string): Family {
   return "titan-v1"; // safest default — simplest request format
 }
 
-// ---------------------------------------------------------------------------
-// AWS SDK lazy loader
-// ---------------------------------------------------------------------------
-
 type SdkClient = import("@aws-sdk/client-bedrock-runtime").BedrockRuntimeClient;
 type SdkCommand = import("@aws-sdk/client-bedrock-runtime").InvokeModelCommand;
 
@@ -159,10 +147,6 @@ async function loadCredentialProviderSdk(): Promise<AwsCredentialProviderSdk | n
   return credentialProviderSdkCache;
 }
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 const MODEL_PREFIX_RE = /^(?:bedrock|amazon-bedrock|aws)\//;
 const REGION_RE = /bedrock-runtime\.([a-z0-9-]+)\./;
 
@@ -174,10 +158,6 @@ function normalizeBedrockEmbeddingModel(model: string): string {
 function regionFromUrl(url: string | undefined): string | undefined {
   return url?.trim() ? REGION_RE.exec(url)?.[1] : undefined;
 }
-
-// ---------------------------------------------------------------------------
-// Request builders
-// ---------------------------------------------------------------------------
 
 function buildBody(family: Family, text: string, dims?: number): string {
   switch (family) {
@@ -222,10 +202,6 @@ function buildCohereBody(
   }
   return JSON.stringify(body);
 }
-
-// ---------------------------------------------------------------------------
-// Response parsers
-// ---------------------------------------------------------------------------
 
 type BedrockEmbeddingResponseJson = {
   embedding?: unknown;
@@ -308,10 +284,6 @@ export const testing = {
   parseCohereBatch,
   parseSingle,
 };
-
-// ---------------------------------------------------------------------------
-// Provider
-// ---------------------------------------------------------------------------
 
 export async function createBedrockEmbeddingProvider(
   options: MemoryEmbeddingProviderCreateOptions,
@@ -403,10 +375,6 @@ export async function createBedrockEmbeddingProvider(
   };
 }
 
-// ---------------------------------------------------------------------------
-// Client resolution
-// ---------------------------------------------------------------------------
-
 function resolveBedrockEmbeddingClient(
   options: MemoryEmbeddingProviderCreateOptions,
 ): BedrockEmbeddingClient {
@@ -435,10 +403,6 @@ function resolveBedrockEmbeddingClient(
 
   return { region, model, dimensions };
 }
-
-// ---------------------------------------------------------------------------
-// Credential detection
-// ---------------------------------------------------------------------------
 
 export async function hasAwsCredentials(
   env: NodeJS.ProcessEnv = process.env,
