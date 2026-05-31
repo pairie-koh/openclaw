@@ -169,7 +169,6 @@ function isUnsupportedCuratedProviderLiveModelRef(provider: string, id: string):
   return !(HIGH_SIGNAL_LIVE_MODEL_IDS_BY_PROVIDER.get(provider)?.has(id) ?? false);
 }
 
-/** Return whether a model ref looks modern enough for live sweeps. */
 export function isModernModelRef(ref: ModelRef): boolean {
   const provider = normalizeProviderId(ref.provider ?? "");
   const id = normalizeLowercaseStringOrEmpty(ref.id);
@@ -190,7 +189,6 @@ export function isModernModelRef(ref: ModelRef): boolean {
   return false;
 }
 
-/** Return whether a model ref is eligible for high-signal live sweeps. */
 export function isHighSignalLiveModelRef(ref: ModelRef): boolean {
   const provider = normalizeProviderId(ref.provider ?? "");
   const id = normalizeLowercaseStringOrEmpty(ref.id);
@@ -218,17 +216,14 @@ export function isHighSignalLiveModelRef(ref: ModelRef): boolean {
   return isHighSignalClaudeModelId(id);
 }
 
-/** Return whether a model ref is explicitly prioritized for high-signal sweeps. */
 export function isPrioritizedHighSignalLiveModelRef(ref: ModelRef): boolean {
   return hasPrioritizedLiveModelRef(HIGH_SIGNAL_LIVE_MODEL_PRIORITY_INDEX, ref);
 }
 
-/** Return whether a model ref is eligible for small-model live sweeps. */
 export function isSmallLiveModelRef(ref: ModelRef): boolean {
   return hasPrioritizedLiveModelRef(SMALL_LIVE_MODEL_PRIORITY_INDEX, ref);
 }
 
-/** Return whether a model ref is explicitly prioritized for small-model sweeps. */
 export function isPrioritizedSmallLiveModelRef(ref: ModelRef): boolean {
   return isSmallLiveModelRef(ref);
 }
@@ -255,7 +250,6 @@ function listPrioritizedLiveModelRefs(
   });
 }
 
-/** Return whether a provider should be excluded from default high-signal sweeps. */
 export function shouldExcludeProviderFromDefaultHighSignalLiveSweep(params: {
   provider?: string | null;
   useExplicitModels: boolean;
@@ -435,7 +429,6 @@ export function resolveHighSignalLiveModelLimit(params: {
   return params.defaultLimit ?? DEFAULT_HIGH_SIGNAL_LIVE_MODEL_LIMIT;
 }
 
-/** Return explicit high-signal priority index for a model ref. */
 export function getHighSignalLiveModelPriorityIndex(ref: ModelRef): number | null {
   const key = toCanonicalLiveModelKey(ref);
   if (!key) {
