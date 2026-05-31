@@ -15,7 +15,6 @@ import {
  * Uses shared MIME detection for consistency with core handling.
  */
 export async function getMimeType(url: string): Promise<string> {
-  // Handle data URLs: data:image/png;base64,...
   if (url.startsWith("data:")) {
     const match = url.match(/^data:([^;,]+)/);
     if (match?.[1]) {
@@ -23,7 +22,6 @@ export async function getMimeType(url: string): Promise<string> {
     }
   }
 
-  // Use shared MIME detection (extension-based for URLs)
   const detected = await detectMime({ filePath: url });
   return detected ?? "application/octet-stream";
 }
@@ -34,7 +32,6 @@ export async function getMimeType(url: string): Promise<string> {
  * Falls back to deriving the extension from MIME type when no extension present.
  */
 export async function extractFilename(url: string): Promise<string> {
-  // Handle data URLs: derive extension from MIME
   if (url.startsWith("data:")) {
     const mime = await getMimeType(url);
     const ext = extensionForMime(mime) ?? ".bin";

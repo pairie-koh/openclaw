@@ -282,7 +282,6 @@ export async function sendMessageMSTeams(
           shareUrl: uploaded.shareUrl,
         });
 
-        // Get driveItem properties needed for native file card
         const driveItem = await getDriveItemProperties({
           siteId: sharePointSiteId,
           itemId: uploaded.itemId,
@@ -294,7 +293,6 @@ export async function sendMessageMSTeams(
           webDavUrl: driveItem.webDavUrl,
         });
 
-        // Build native Teams file card attachment and send via Bot Framework
         const fileCardAttachment = buildTeamsFileInfoCard(driveItem);
         const activity = {
           type: "message",
