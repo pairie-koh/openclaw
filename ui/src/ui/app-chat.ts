@@ -106,7 +106,6 @@ type SessionDefaultsSnapshot = {
 // Chat pickers need recency-free session rows so older channel chats remain selectable.
 /** Active-session recency window used when refreshing chat session rows. */
 export const CHAT_SESSIONS_ACTIVE_MINUTES = 0;
-/** Default number of session rows loaded alongside chat state. */
 export const CHAT_SESSIONS_REFRESH_LIMIT = 50;
 
 /** Builds session-list overrides needed by chat refresh and reset flows. */

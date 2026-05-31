@@ -5,7 +5,6 @@ export const GATEWAY_STARTUP_PENDING_CLOSE_CAUSE = "startup-sidecars-pending";
 export const GATEWAY_STARTUP_CLOSE_CODE = 1013;
 /** Human-readable close reason paired with the temporary startup close code. */
 export const GATEWAY_STARTUP_CLOSE_REASON = "gateway starting";
-/** Default retry delay when a startup-unavailable error omits a bounded retry hint. */
 export const GATEWAY_STARTUP_RETRY_AFTER_MS = 500;
 const GATEWAY_STARTUP_RETRY_MIN_MS = 100;
 const GATEWAY_STARTUP_RETRY_MAX_MS = 2_000;

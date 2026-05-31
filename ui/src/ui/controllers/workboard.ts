@@ -76,7 +76,6 @@ export const WORKBOARD_TEMPLATE_IDS = ["bugfix", "docs", "release", "pr_review",
 /** Diagnostic severities surfaced in Workboard card metadata. */
 export const WORKBOARD_DIAGNOSTIC_SEVERITIES = ["warning", "error", "critical"] as const;
 
-/** Default model ref used when launching a card with each engine. */
 export const WORKBOARD_ENGINE_MODELS = {
   codex: "openai/gpt-5.5",
   claude: "anthropic/claude-sonnet-4-6",

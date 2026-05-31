@@ -23,7 +23,6 @@ const ExecApprovalsPolicyFields = {
   autoAllowSkills: Type.Optional(Type.Boolean()),
 };
 
-/** Default exec approval policy applied before agent-specific overrides. */
 export const ExecApprovalsDefaultsSchema = Type.Object(ExecApprovalsPolicyFields, {
   additionalProperties: false,
 });

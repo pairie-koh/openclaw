@@ -1,7 +1,6 @@
 import type { GatewayBrowserClient } from "../gateway.ts";
 import type { HealthSummary } from "../types.ts";
 
-/** Default fallback returned when the gateway is unreachable or returns null. */
 const HEALTH_FALLBACK: HealthSummary = {
   ok: false,
   ts: 0,

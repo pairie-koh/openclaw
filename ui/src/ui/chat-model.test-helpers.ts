@@ -26,7 +26,6 @@ export const DEEPSEEK_CHAT_MODEL: ModelCatalogEntry = {
   provider: "deepseek",
 };
 
-/** Default compact catalog used by chat model tests. */
 export const DEFAULT_CHAT_MODEL_CATALOG = [
   OPENAI_GPT5_MODEL,
   OPENAI_GPT5_MINI_MODEL,

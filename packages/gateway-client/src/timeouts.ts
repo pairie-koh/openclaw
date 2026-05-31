@@ -9,11 +9,9 @@ function parseStrictPositiveInteger(value: string): number | undefined {
 
 /** Largest delay Node timers can schedule without overflowing signed 32-bit range. */
 export const MAX_SAFE_TIMEOUT_DELAY_MS = 2_147_483_647;
-/** Default server-side preauth handshake watchdog. */
 export const DEFAULT_PREAUTH_HANDSHAKE_TIMEOUT_MS = 15_000;
 /** Minimum client challenge watchdog accepted after normalization. */
 export const MIN_CONNECT_CHALLENGE_TIMEOUT_MS = 250;
-/** Default upper bound for the connect challenge watchdog. */
 export const MAX_CONNECT_CHALLENGE_TIMEOUT_MS = DEFAULT_PREAUTH_HANDSHAKE_TIMEOUT_MS;
 
 /** Clamp timeout delays into the safe Node timer range and optional minimum. */

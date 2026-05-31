@@ -50,9 +50,7 @@ function isManagedAccount(snapshot: ChannelHealthSnapshot): boolean {
 const BUSY_ACTIVITY_STALE_THRESHOLD_MS = 25 * 60_000;
 // Keep these shared between the background health monitor and on-demand readiness
 // probes so both surfaces evaluate channel lifecycle windows consistently.
-/** Default max socket-transport silence before a connected channel is considered stale. */
 export const DEFAULT_CHANNEL_STALE_EVENT_THRESHOLD_MS = 30 * 60_000;
-/** Default startup grace period before disconnected channels are considered unhealthy. */
 export const DEFAULT_CHANNEL_CONNECT_GRACE_MS = 120_000;
 
 /** Classify channel health from lifecycle, connection, busy, and transport activity fields. */

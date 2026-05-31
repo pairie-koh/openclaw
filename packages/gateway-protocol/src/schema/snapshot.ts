@@ -27,7 +27,6 @@ export const PresenceEntrySchema = Type.Object(
 /** Gateway health payload is intentionally open-ended for producer-owned fields. */
 export const HealthSnapshotSchema = Type.Any();
 
-/** Default session identifiers and scope advertised by the gateway. */
 export const SessionDefaultsSchema = Type.Object(
   {
     defaultAgentId: NonEmptyString,
