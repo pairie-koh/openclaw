@@ -1,5 +1,7 @@
+/** Display tone used by memory status renderers. */
 export type Tone = "ok" | "warn" | "muted";
 
+/** Resolve vector-search status into a compact state/tone pair for UI and CLI output. */
 export function resolveMemoryVectorState(vector: { enabled: boolean; available?: boolean }): {
   tone: Tone;
   state: "ready" | "unavailable" | "disabled" | "unknown";
@@ -16,6 +18,7 @@ export function resolveMemoryVectorState(vector: { enabled: boolean; available?:
   return { tone: "muted", state: "unknown" };
 }
 
+/** Resolve full-text-search status into a compact state/tone pair for UI and CLI output. */
 export function resolveMemoryFtsState(fts: { enabled: boolean; available: boolean }): {
   tone: Tone;
   state: "ready" | "unavailable" | "disabled";
@@ -26,6 +29,7 @@ export function resolveMemoryFtsState(fts: { enabled: boolean; available: boolea
   return fts.available ? { tone: "ok", state: "ready" } : { tone: "warn", state: "unavailable" };
 }
 
+/** Build a short cache summary label, including entry count when known. */
 export function resolveMemoryCacheSummary(cache: { enabled: boolean; entries?: number }): {
   tone: Tone;
   text: string;
@@ -37,6 +41,7 @@ export function resolveMemoryCacheSummary(cache: { enabled: boolean; entries?: n
   return { tone: "ok", text: `cache on${suffix}` };
 }
 
+/** Resolve cache enabled state into the same tone vocabulary as other memory status fields. */
 export function resolveMemoryCacheState(cache: { enabled: boolean }): {
   tone: Tone;
   state: "enabled" | "disabled";

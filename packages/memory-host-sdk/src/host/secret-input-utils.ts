@@ -1,5 +1,7 @@
+/** Supported secret reference backends accepted by memory host config. */
 export type SecretRefSource = "env" | "file" | "exec";
 
+/** Structured secret reference resolved by the gateway runtime before provider use. */
 export type SecretRef = {
   source: SecretRefSource;
   provider: string;
@@ -104,6 +106,7 @@ function coerceSecretRef(value: unknown): SecretRef | null {
   return parseEnvTemplateSecretRef(value) ?? parseLegacySecretRefEnvMarker(value);
 }
 
+/** Return true for either an inline secret string or a supported SecretRef shape. */
 export function hasConfiguredSecretInput(value: unknown): boolean {
   if (normalizeSecretInputString(value)) {
     return true;
@@ -121,10 +124,12 @@ function createUnresolvedSecretInputError(params: { path: string; ref: SecretRef
   );
 }
 
+/** Normalize supported SecretRef inputs, including legacy env markers and missing-provider refs. */
 export function resolveSecretInputRef(value: unknown): SecretRef | null {
   return coerceSecretRef(value);
 }
 
+/** Return an inline secret string, or throw when a SecretRef was not resolved by the runtime. */
 export function normalizeResolvedSecretInputString(params: {
   value: unknown;
   path: string;
@@ -140,6 +145,7 @@ export function normalizeResolvedSecretInputString(params: {
   throw createUnresolvedSecretInputError({ path: params.path, ref });
 }
 
+/** Normalize only inline environment secret values; SecretRef objects are ignored here. */
 export function normalizeEnvSecretInputString(value: unknown): string | undefined {
   return normalizeSecretInputString(value);
 }
