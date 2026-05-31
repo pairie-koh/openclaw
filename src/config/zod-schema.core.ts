@@ -76,14 +76,12 @@ const ExecSecretRefSchema = z
   })
   .strict();
 
-/** Schema for typed secret references backed by env, file, or exec providers. */
 export const SecretRefSchema = z.discriminatedUnion("source", [
   EnvSecretRefSchema,
   FileSecretRefSchema,
   ExecSecretRefSchema,
 ]);
 
-/** Schema for config values that may be plaintext or a typed secret reference. */
 export const SecretInputSchema = z.union([z.string(), SecretRefSchema]);
 
 const SecretsEnvProviderSchema = z
@@ -169,7 +167,6 @@ export const SecretProviderSchema = z.union([
   SecretsExecProviderSchema,
 ]);
 
-/** Schema for the top-level secrets provider and resolution config. */
 export const SecretsConfigSchema = z
   .object({
     providers: z
@@ -531,7 +528,6 @@ const ModelPricingConfigSchema = z
   .strict()
   .optional();
 
-/** Schema for model provider overlays, custom providers, and pricing config. */
 export const ModelsConfigSchema = z
   .object({
     mode: z.union([z.literal("merge"), z.literal("replace")]).optional(),
@@ -544,7 +540,6 @@ export const ModelsConfigSchema = z
 const VisibleRepliesValueSchema = z.enum(["automatic", "message_tool"]);
 const AmbientGroupInboundSchema = z.enum(["user_request", "room_event"]);
 
-/** Schema for visible reply mode with legacy boolean normalization. */
 export const VisibleRepliesSchema = z
   .union([VisibleRepliesValueSchema, z.boolean()])
   .overwrite((value) => {
@@ -557,7 +552,6 @@ export const VisibleRepliesSchema = z
     return value;
   });
 
-/** Schema for group-chat history, mention, ambient inbound, and visible reply policy. */
 export const GroupChatSchema = z
   .object({
     mentionPatterns: z.array(z.string()).optional(),
@@ -568,14 +562,12 @@ export const GroupChatSchema = z
   .strict()
   .optional();
 
-/** Schema for per-DM history retention overrides. */
 export const DmConfigSchema = z
   .object({
     historyLimit: z.number().int().min(0).optional(),
   })
   .strict();
 
-/** Schema for bot display identity fields. */
 export const IdentitySchema = z
   .object({
     name: z.string().optional(),
@@ -593,14 +585,12 @@ const QueueModeSchema = z.union([
   z.literal("interrupt"),
 ]);
 const QueueDropSchema = z.union([z.literal("old"), z.literal("new"), z.literal("summarize")]);
-/** Schema for how outgoing replies bind to incoming messages. */
 export const ReplyToModeSchema = z.union([
   z.literal("off"),
   z.literal("first"),
   z.literal("all"),
   z.literal("batched"),
 ]);
-/** Schema for typing indicator behavior during reply generation. */
 export const TypingModeSchema = z.union([
   z.literal("never"),
   z.literal("instant"),
@@ -612,15 +602,11 @@ export const TypingModeSchema = z.union([
 // Used with .default("allowlist").optional() pattern:
 //   - .optional() allows field omission in input config
 //   - .default("allowlist") ensures runtime always resolves to "allowlist" if not provided
-/** Schema for group message admission policy. */
 export const GroupPolicySchema = z.enum(["open", "disabled", "allowlist"]);
 
-/** Schema for direct-message admission policy. */
 export const DmPolicySchema = z.enum(["pairing", "allowlist", "open", "disabled"]);
-/** Schema for transcript context visibility in generated replies. */
 export const ContextVisibilityModeSchema = z.enum(["all", "allowlist", "allowlist_quote"]);
 
-/** Schema for coalescing streamed block updates before sending them. */
 export const BlockStreamingCoalesceSchema = z
   .object({
     minChars: z.number().int().positive().optional(),
@@ -643,7 +629,6 @@ export const ReplyRuntimeConfigSchemaShape = {
   mediaMaxMb: z.number().positive().optional(),
 };
 
-/** Schema for block-streaming chunk size and break preferences. */
 export const BlockStreamingChunkSchema = z
   .object({
     minChars: z.number().int().positive().optional(),
@@ -654,10 +639,8 @@ export const BlockStreamingChunkSchema = z
   })
   .strict();
 
-/** Schema for markdown table rendering mode in outbound messages. */
 export const MarkdownTableModeSchema = z.enum(["off", "bullets", "code", "block"]);
 
-/** Schema for markdown rendering configuration. */
 export const MarkdownConfigSchema = z
   .object({
     tables: MarkdownTableModeSchema.optional(),
@@ -665,11 +648,8 @@ export const MarkdownConfigSchema = z
   .strict()
   .optional();
 
-/** Schema for a configured TTS provider id. */
 export const TtsProviderSchema = z.string().min(1);
-/** Schema for which assistant messages should be spoken. */
 export const TtsModeSchema = z.enum(["final", "all"]);
-/** Schema for automatic TTS trigger policy. */
 export const TtsAutoSchema = z.enum(["off", "always", "inbound", "tagged"]);
 const TtsProviderConfigSchema = z
   .object({
@@ -708,7 +688,6 @@ const TtsPersonaSchema = z
     providers: z.record(z.string(), TtsProviderConfigSchema).optional(),
   })
   .strict();
-/** Schema for TTS provider, persona, model override, and runtime limits. */
 export const TtsConfigSchema = z
   .object({
     auto: TtsAutoSchema.optional(),
@@ -739,7 +718,6 @@ export const TtsConfigSchema = z
   .strict()
   .optional();
 
-/** Schema for human-like outbound message delay settings. */
 export const HumanDelaySchema = z
   .object({
     mode: z.union([z.literal("off"), z.literal("natural"), z.literal("custom")]).optional(),
@@ -771,7 +749,6 @@ const CliBackendOutputLimitsSchema = z
   .strict()
   .optional();
 
-/** Schema for CLI backend command, IO, session, media, prompt, and reliability settings. */
 export const CliBackendSchema = z
   .object({
     command: z.string(),
@@ -874,10 +851,8 @@ export const requireAllowlistAllowFrom = (params: {
   });
 };
 
-/** Schema for Microsoft Teams reply placement style. */
 export const MSTeamsReplyStyleSchema = z.enum(["thread", "top-level"]);
 
-/** Schema for generic retry attempts, delay bounds, and jitter. */
 export const RetryConfigSchema = z
   .object({
     attempts: z.number().int().min(1).optional(),
@@ -908,7 +883,6 @@ const QueueModeBySurfaceSchema = z
 
 const DebounceMsBySurfaceSchema = z.record(z.string(), z.number().int().nonnegative()).optional();
 
-/** Schema for inbound queue mode, debounce, cap, and drop policy. */
 export const QueueSchema = z
   .object({
     mode: QueueModeSchema.optional(),
@@ -921,7 +895,6 @@ export const QueueSchema = z
   .strict()
   .optional();
 
-/** Schema for inbound debounce timing globally and per channel. */
 export const InboundDebounceSchema = z
   .object({
     debounceMs: z.number().int().nonnegative().optional(),
@@ -930,7 +903,6 @@ export const InboundDebounceSchema = z
   .strict()
   .optional();
 
-/** Schema for external audio transcription command settings. */
 export const TranscribeAudioSchema = z
   .object({
     command: z.array(z.string()).superRefine((value, ctx) => {
@@ -948,10 +920,8 @@ export const TranscribeAudioSchema = z
   .strict()
   .optional();
 
-/** Schema for six-digit RGB hex color values. */
 export const HexColorSchema = z.string().regex(/^#?[0-9a-fA-F]{6}$/, "expected hex color (RRGGBB)");
 
-/** Schema for command executable tokens accepted by config. */
 export const ExecutableTokenSchema = z
   .string()
   .refine(isSafeExecutableValue, "expected safe executable name or path");
@@ -1030,7 +1000,6 @@ const ToolsMediaUnderstandingSchema = z
   .strict()
   .optional();
 
-/** Schema for media understanding tools across image, audio, and video. */
 export const ToolsMediaSchema = z
   .object({
     models: z.array(MediaUnderstandingModelSchema).optional(),
@@ -1069,7 +1038,6 @@ const LinkModelSchema = z
   })
   .strict();
 
-/** Schema for link extraction and summarization tool settings. */
 export const ToolsLinksSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -1081,10 +1049,8 @@ export const ToolsLinksSchema = z
   .strict()
   .optional();
 
-/** Schema for native command enablement flags. */
 export const NativeCommandsSettingSchema = z.union([z.boolean(), z.literal("auto")]);
 
-/** Schema for provider-exposed native command settings. */
 export const ProviderCommandsSchema = z
   .object({
     native: NativeCommandsSettingSchema.optional(),

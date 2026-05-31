@@ -151,7 +151,6 @@ const TelegramCustomCommandConfig = {
   pattern: TelegramCommandNamePattern,
   patternDescription: "use a-z, 0-9, underscore; max 32 chars",
 } as const;
-/** Schema for Telegram forum topic-specific overrides. */
 export const TelegramTopicSchema = z
   .object({
     requireMention: z.boolean().optional(),
@@ -168,7 +167,6 @@ export const TelegramTopicSchema = z
   })
   .strict();
 
-/** Schema for Telegram group chat policy, tools, topics, and error handling. */
 export const TelegramGroupSchema = z
   .object({
     requireMention: z.boolean().optional(),
@@ -199,7 +197,6 @@ const AutoTopicLabelSchema = z
   ])
   .optional();
 
-/** Schema for Telegram direct-chat policy, tools, topic routing, and error handling. */
 export const TelegramDirectSchema = z
   .object({
     dmPolicy: DmPolicySchema.optional(),
@@ -485,7 +482,6 @@ export const TelegramConfigSchema = TelegramAccountSchemaBase.extend({
   validateTelegramWebhookSecretRequirements(value, ctx);
 });
 
-/** Schema for Discord DM admission and group-channel routing policy. */
 export const DiscordDmSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -496,14 +492,12 @@ export const DiscordDmSchema = z
   })
   .strict();
 
-/** Schema for Discord thread inheritance behavior. */
 export const DiscordThreadSchema = z
   .object({
     inheritParent: z.boolean().optional(),
   })
   .strict();
 
-/** Schema for Discord guild-channel authorization, tools, and auto-thread settings. */
 export const DiscordGuildChannelSchema = z
   .object({
     requireMention: z.boolean().optional(),
@@ -532,7 +526,6 @@ export const DiscordGuildChannelSchema = z
   })
   .strict();
 
-/** Schema for Discord guild-level user, role, channel, and reaction policy. */
 export const DiscordGuildSchema = z
   .object({
     slug: z.string().optional(),
@@ -910,7 +903,6 @@ export const DiscordConfigSchema = DiscordAccountSchema.extend({
   }
 });
 
-/** Schema for Slack DM admission, group-channel routing, and reply mode policy. */
 export const SlackDmSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -922,7 +914,6 @@ export const SlackDmSchema = z
   })
   .strict();
 
-/** Schema for Slack channel authorization, tools, and bot loop protection. */
 export const SlackChannelSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -937,7 +928,6 @@ export const SlackChannelSchema = z
   })
   .strict();
 
-/** Schema for Slack thread history and mention inheritance behavior. */
 export const SlackThreadSchema = z
   .object({
     historyScope: z.enum(["thread", "channel"]).optional(),
@@ -955,7 +945,6 @@ const SlackReplyToModeByChatTypeSchema = z
   })
   .strict();
 
-/** Schema for Slack Socket Mode ping timeout and logging settings. */
 export const SlackSocketModeSchema = z
   .object({
     clientPingTimeout: z.number().int().positive().optional(),
@@ -1240,7 +1229,6 @@ export const SignalConfigSchema = SignalAccountSchemaBase.extend({
   }
 });
 
-/** Schema for IRC group/channel authorization and tool policy. */
 export const IrcGroupSchema = z
   .object({
     requireMention: z.boolean().optional(),
@@ -1253,7 +1241,6 @@ export const IrcGroupSchema = z
   })
   .strict();
 
-/** Schema for IRC NickServ authentication and registration settings. */
 export const IrcNickServSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -1526,7 +1513,6 @@ export const IMessageConfigSchema = IMessageAccountSchemaBase.extend({
   }
 });
 
-/** Schema for Microsoft Teams channel mention, tool, and reply style policy. */
 export const MSTeamsChannelSchema = z
   .object({
     requireMention: z.boolean().optional(),
@@ -1536,7 +1522,6 @@ export const MSTeamsChannelSchema = z
   })
   .strict();
 
-/** Schema for Microsoft Teams team-level defaults and channel overrides. */
 export const MSTeamsTeamSchema = z
   .object({
     requireMention: z.boolean().optional(),

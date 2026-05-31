@@ -55,7 +55,6 @@ function validateSandboxBindEntries(
   }
 }
 
-/** Schema for agent run retry count bounds. */
 export const AgentRunRetriesConfigSchema = z
   .object({
     base: z.number().int().positive().optional(),
@@ -80,7 +79,6 @@ const AgentEntryEmbeddedAgentConfigSchema = z
   })
   .strict();
 
-/** Schema for scheduled heartbeat prompt delivery settings. */
 export const HeartbeatSchema = z
   .object({
     every: z.string().optional(),
@@ -294,7 +292,6 @@ const SandboxPruneSchema = z
   .strict()
   .optional();
 
-/** Schema for per-agent context and tool-result size limits. */
 export const AgentContextLimitsSchema = z
   .object({
     memoryGetMaxChars: z.number().int().min(1).max(250_000).optional(),
@@ -320,7 +317,6 @@ const ToolPolicyBaseSchema = z
   })
   .strict();
 
-/** Schema for allow/alsoAllow/deny tool policy blocks. */
 export const ToolPolicySchema = ToolPolicyBaseSchema.superRefine((value, ctx) => {
   if (value.allow && value.allow.length > 0 && value.alsoAllow && value.alsoAllow.length > 0) {
     ctx.addIssue({
@@ -533,7 +529,6 @@ const ToolPolicyWithProfileSchema = z
   });
 
 // Provider docking: allowlists keyed by provider id (no schema updates when adding providers).
-/** Schema for elevated tool sender allowlists keyed by provider id. */
 export const ElevatedAllowFromSchema = z
   .record(z.string(), z.array(z.union([z.string(), z.number()])))
   .optional();
@@ -728,7 +723,6 @@ const SandboxSshSchema = z
   .strict()
   .optional();
 
-/** Schema for agent sandbox mode, backend, browser, Docker, SSH, and pruning settings. */
 export const AgentSandboxSchema = z
   .object({
     mode: z.union([z.literal("off"), z.literal("non-main"), z.literal("all")]).optional(),
@@ -835,7 +829,6 @@ const AgentToolsSchema = z
   })
   .optional();
 
-/** Schema for memory search providers, stores, sync, query, and cache settings. */
 export const MemorySearchSchema = z
   .object({
     enabled: z.boolean().optional(),
@@ -1021,7 +1014,6 @@ const AgentRuntimeSchema = z
   ])
   .optional();
 
-/** Schema for embedded harness runtime selection. */
 export const AgentEmbeddedHarnessSchema = z
   .object({
     runtime: z.string().optional(),
@@ -1029,7 +1021,6 @@ export const AgentEmbeddedHarnessSchema = z
   .strict()
   .optional();
 
-/** Schema for an agent runtime policy reference. */
 export const AgentRuntimePolicySchema = z
   .object({
     id: z.string().optional(),
@@ -1037,7 +1028,6 @@ export const AgentRuntimePolicySchema = z
   .strict()
   .optional();
 
-/** Schema for a named model alias plus optional runtime policy. */
 export const AgentModelRuntimeEntrySchema = z
   .object({
     alias: z.string().optional(),
@@ -1047,7 +1037,6 @@ export const AgentModelRuntimeEntrySchema = z
   })
   .strict();
 
-/** Schema for one configured agent entry. */
 export const AgentEntrySchema = z
   .object({
     id: z.string(),
@@ -1105,7 +1094,6 @@ export const AgentEntrySchema = z
   })
   .strict();
 
-/** Schema for global tool policy and feature configuration. */
 export const ToolsSchema = z
   .object({
     ...CommonToolPolicyFields,
