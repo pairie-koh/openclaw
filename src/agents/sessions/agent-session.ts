@@ -1134,7 +1134,6 @@ export class AgentSession {
       // Flush any pending bash messages before the new prompt
       this.flushPendingBashMessages();
 
-      // Validate model
       if (!this.model) {
         throw new Error(formatNoModelSelectedMessage());
       }
@@ -1164,10 +1163,8 @@ export class AgentSession {
         }
       }
 
-      // Build messages array (custom message if any, then user message)
       messages = [];
 
-      // Add user message
       const userContent: (TextContent | ImageContent)[] = [{ type: "text", text: expandedText }];
       if (currentImages) {
         userContent.push(...currentImages);
@@ -1191,7 +1188,6 @@ export class AgentSession {
         this.baseSystemPrompt,
         this.baseSystemPromptOptions,
       );
-      // Add all custom messages from extensions
       if (result?.messages) {
         for (const msg of result.messages) {
           messages.push({
@@ -1228,7 +1224,6 @@ export class AgentSession {
    * Try to execute an extension command. Returns true if command was found and executed.
    */
   private async tryExecuteExtensionCommand(text: string): Promise<boolean> {
-    // Parse command name and args
     const spaceIndex = text.indexOf(" ");
     const commandName = spaceIndex === -1 ? text.slice(1) : text.slice(1, spaceIndex);
     const args = spaceIndex === -1 ? "" : text.slice(spaceIndex + 1);
@@ -1238,14 +1233,12 @@ export class AgentSession {
       return false;
     }
 
-    // Get command context from extension runner (includes session control methods)
     const ctx = this.currentExtensionRunner.createCommandContext();
 
     try {
       await command.handler(args, ctx);
       return true;
     } catch (err) {
-      // Emit error via extension runner
       this.currentExtensionRunner.emitError({
         extensionPath: `command:${commandName}`,
         event: "command",
@@ -1299,7 +1292,6 @@ export class AgentSession {
    * @throws Error if text is an extension command
    */
   async steer(text: string, images?: ImageContent[]): Promise<void> {
-    // Check for extension commands (cannot be queued)
     if (text.startsWith("/")) {
       this.throwIfExtensionCommand(text);
     }
@@ -1319,7 +1311,6 @@ export class AgentSession {
    * @throws Error if text is an extension command
    */
   async followUp(text: string, images?: ImageContent[]): Promise<void> {
-    // Check for extension commands (cannot be queued)
     if (text.startsWith("/")) {
       this.throwIfExtensionCommand(text);
     }
@@ -2682,10 +2673,8 @@ export class AgentSession {
       // Queue for later - will be flushed on agent_end
       this.pendingBashMessages.push(bashMessage);
     } else {
-      // Add to agent state immediately
       this.agent.state.messages.push(bashMessage);
 
-      // Save to session
       this.sessionManager.appendMessage(bashMessage);
     }
   }
@@ -2717,10 +2706,8 @@ export class AgentSession {
     }
 
     for (const bashMessage of this.pendingBashMessages) {
-      // Add to agent state
       this.agent.state.messages.push(bashMessage);
 
-      // Save to session
       this.sessionManager.appendMessage(bashMessage);
     }
 
