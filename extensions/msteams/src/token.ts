@@ -139,10 +139,6 @@ export function resolveMSTeamsCredentials(cfg?: MSTeamsConfig): MSTeamsCredentia
   return { type: "secret", appId, appPassword, tenantId };
 }
 
-// ---------------------------------------------------------------------------
-// Delegated token storage / resolution
-// ---------------------------------------------------------------------------
-
 const DELEGATED_TOKEN_FILENAME = "msteams-delegated.json";
 
 function resolveDelegatedTokenPath(): string {

@@ -9,10 +9,6 @@ import {
   resolveGraphToken,
 } from "./graph.js";
 
-// ---------------------------------------------------------------------------
-// Add Participant
-// ---------------------------------------------------------------------------
-
 type AddParticipantMSTeamsParams = {
   cfg: OpenClawConfig;
   to: string;
@@ -61,10 +57,6 @@ export async function addParticipantMSTeams(
 
   return { added: { userId: params.userId, chatId: conversationId } };
 }
-
-// ---------------------------------------------------------------------------
-// Remove Participant
-// ---------------------------------------------------------------------------
 
 type RemoveParticipantMSTeamsParams = {
   cfg: OpenClawConfig;
@@ -131,10 +123,6 @@ export async function removeParticipantMSTeams(
 
   return { removed: { userId: params.userId, chatId: conversationId } };
 }
-
-// ---------------------------------------------------------------------------
-// Rename Group
-// ---------------------------------------------------------------------------
 
 type RenameGroupMSTeamsParams = {
   cfg: OpenClawConfig;

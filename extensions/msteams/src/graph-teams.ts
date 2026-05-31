@@ -1,10 +1,6 @@
 import type { OpenClawConfig } from "../runtime-api.js";
 import { type GraphResponse, fetchGraphJson, resolveGraphToken } from "./graph.js";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 type GraphTeamsChannel = {
   id?: string;
   displayName?: string;
@@ -46,10 +42,6 @@ type GetChannelInfoMSTeamsResult = {
   };
 };
 
-// ---------------------------------------------------------------------------
-// List channels for a team
-// ---------------------------------------------------------------------------
-
 /**
  * List channels in a team via Graph API.
  * Returns id, displayName, description, and membershipType for each channel.
@@ -86,10 +78,6 @@ export async function listChannelsMSTeams(
   }));
   return { channels, truncated: !!nextPath };
 }
-
-// ---------------------------------------------------------------------------
-// Get channel info
-// ---------------------------------------------------------------------------
 
 /**
  * Get detailed information about a single channel in a team via Graph API.
