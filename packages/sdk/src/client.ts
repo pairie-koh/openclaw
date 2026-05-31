@@ -342,6 +342,7 @@ export class OpenClaw {
     this.environments = new EnvironmentsNamespace(this);
   }
 
+  /** Connect the underlying transport and start normalizing gateway events for replay. */
   async connect(): Promise<void> {
     if (this.connected) {
       await this.startEventPump();
@@ -354,6 +355,7 @@ export class OpenClaw {
     await this.startEventPump();
   }
 
+  /** Close the transport and stop all SDK event streams. */
   async close(): Promise<void> {
     await this.transport.close?.();
     await this.eventPumpPromise?.catch(() => {});
@@ -363,6 +365,7 @@ export class OpenClaw {
     this.connected = false;
   }
 
+  /** Send a raw gateway RPC request, connecting first when needed. */
   async request<T = unknown>(
     method: string,
     params?: unknown,
@@ -372,10 +375,12 @@ export class OpenClaw {
     return await this.transport.request<T>(method, params, options);
   }
 
+  /** Stream normalized SDK events across all runs, sessions, and gateway surfaces. */
   events(filter?: (event: OpenClawEvent) => boolean): AsyncIterable<OpenClawEvent> {
     return this.iterateEvents(filter);
   }
 
+  /** Stream normalized events for one run, including bounded replay captured before iteration. */
   runEvents(
     runId: string,
     filter?: (event: OpenClawEvent) => boolean,
@@ -383,6 +388,7 @@ export class OpenClaw {
     return this.iterateRunEvents(runId, filter);
   }
 
+  /** Stream raw gateway events before SDK event-name and payload normalization. */
   rawEvents(filter?: (event: GatewayEvent) => boolean): AsyncIterable<GatewayEvent> {
     return this.transport.events(filter);
   }
@@ -550,12 +556,14 @@ export class Agent {
     readonly id: string,
   ) {}
 
+  /** Start a run for this agent using either a prompt string or full run parameters. */
   async run(input: string | Omit<AgentRunParams, "agentId">): Promise<Run> {
     const params: AgentRunParams =
       typeof input === "string" ? { input, agentId: this.id } : { ...input, agentId: this.id };
     return await this.client.runs.create(params);
   }
 
+  /** Read the gateway identity payload for this agent in an optional session scope. */
   async identity(params?: { sessionKey?: string }): Promise<unknown> {
     return await this.client.request("agent.identity.get", {
       agentId: this.id,
@@ -572,10 +580,12 @@ export class Run {
     readonly sessionKey?: string,
   ) {}
 
+  /** Stream normalized events for this run until the client or transport closes. */
   events(filter?: (event: OpenClawEvent) => boolean): AsyncIterable<OpenClawEvent> {
     return this.client.runEvents(this.id, filter);
   }
 
+  /** Wait for the run to finish, normalizing gateway wait payloads into SDK statuses. */
   async wait(options?: { timeoutMs?: number }): Promise<RunResult> {
     const timeoutMs = normalizeTimeoutMs(options?.timeoutMs);
     const raw = await this.client.request(
@@ -603,6 +613,7 @@ export class Run {
     };
   }
 
+  /** Request cancellation for this run, scoped by session key when available. */
   async cancel(): Promise<unknown> {
     return await this.client.request("sessions.abort", {
       runId: this.id,
@@ -619,6 +630,7 @@ export class Session {
     readonly info?: unknown,
   ) {}
 
+  /** Send a message in this session and return the created run handle. */
   async send(input: string | Omit<SessionSendParams, "key">): Promise<Run> {
     const params: SessionSendParams =
       typeof input === "string" ? { key: this.key, message: input } : { ...input, key: this.key };
@@ -631,6 +643,7 @@ export class Session {
     return new Run(this.client, runId, this.key);
   }
 
+  /** Abort the whole session or a specific run in this session. */
   async abort(runId?: string): Promise<unknown> {
     return await this.client.request("sessions.abort", {
       key: this.key,
@@ -638,10 +651,12 @@ export class Session {
     });
   }
 
+  /** Patch session metadata/state through the gateway session API. */
   async patch(params: Record<string, unknown>): Promise<unknown> {
     return await this.client.request("sessions.patch", { ...params, key: this.key });
   }
 
+  /** Request gateway-side session compaction with optional transcript line limits. */
   async compact(params?: { maxLines?: number }): Promise<unknown> {
     return await this.client.request("sessions.compact", { key: this.key, ...params });
   }

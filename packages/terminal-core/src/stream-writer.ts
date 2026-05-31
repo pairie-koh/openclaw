@@ -1,12 +1,20 @@
+/** Hooks for safe terminal writes that may encounter closed pipes. */
 export type SafeStreamWriterOptions = {
+  /** Called immediately before each attempted write. */
   beforeWrite?: () => void;
+  /** Called once when stdout/stderr reports EPIPE or EIO. */
   onBrokenPipe?: (err: NodeJS.ErrnoException, stream: NodeJS.WriteStream) => void;
 };
 
+/** Stateful writer that suppresses repeated writes after a terminal pipe closes. */
 export type SafeStreamWriter = {
+  /** Write text and return false when the stream is already closed or just broke. */
   write: (stream: NodeJS.WriteStream, text: string) => boolean;
+  /** Write one line and return the same success flag as `write`. */
   writeLine: (stream: NodeJS.WriteStream, text: string) => boolean;
+  /** Reopen the writer state for tests or process handoff after a prior pipe break. */
   reset: () => void;
+  /** Report whether a previous EPIPE/EIO has closed this writer. */
   isClosed: () => boolean;
 };
 
