@@ -1,6 +1,8 @@
 import type { MemoryReadResult } from "./types.js";
 
+/** Default number of source lines returned by memory read helpers. */
 export const DEFAULT_MEMORY_READ_LINES = 120;
+/** Default character budget for one memory read response before continuation metadata is added. */
 export const DEFAULT_MEMORY_READ_MAX_CHARS = 12_000;
 
 export type { MemoryReadResult } from "./types.js";

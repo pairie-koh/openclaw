@@ -106,6 +106,8 @@ function normalizeQmdSessionKey(key?: string): string | undefined {
   const parsed = parseAgentSessionKey(trimmed);
   const normalized = normalizeLowercaseStringOrEmpty(parsed?.rest ?? trimmed);
   if (normalized.startsWith("subagent:")) {
+    // Subagent transcripts are indexed through their parent session path; matching
+    // them here would double-count private implementation turns in QMD scope rules.
     return undefined;
   }
   return normalized;
