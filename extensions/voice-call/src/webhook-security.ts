@@ -623,7 +623,6 @@ export function verifyTwilioWebhook(
     remoteIP: options?.remoteIP,
   });
 
-  // Parse the body as URL-encoded params
   const params = new URLSearchParams(ctx.rawBody);
 
   const isValid = validateTwilioSignature(authToken, signature, verificationUrl, params);
