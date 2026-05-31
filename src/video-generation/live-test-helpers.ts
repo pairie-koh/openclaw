@@ -10,7 +10,6 @@ import {
 
 export { parseProviderModelMap, redactLiveApiKey };
 
-/** Default provider/model refs used when live video tests are enabled without explicit overrides. */
 export const DEFAULT_LIVE_VIDEO_MODELS: Record<string, string> = {
   alibaba: "alibaba/wan2.6-t2v",
   byteplus: "byteplus/seedance-1-0-lite-t2v-250428",

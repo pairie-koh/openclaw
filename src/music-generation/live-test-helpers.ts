@@ -9,7 +9,6 @@ import {
 
 export { parseProviderModelMap, redactLiveApiKey };
 
-/** Default provider/model refs used when live music tests are enabled without explicit overrides. */
 export const DEFAULT_LIVE_MUSIC_MODELS: Record<string, string> = {
   fal: "fal/fal-ai/minimax-music/v2.6",
   google: "google/lyria-3-clip-preview",

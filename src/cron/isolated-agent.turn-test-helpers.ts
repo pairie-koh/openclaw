@@ -70,10 +70,8 @@ export async function readSessionEntry(storePath: string, key: string) {
   return store[key];
 }
 
-/** Default agent-turn message used by cron turn fixtures. */
 export const DEFAULT_MESSAGE = "do it";
 const DEFAULT_SESSION_KEY = "cron:job-1";
-/** Default agentTurn payload used by cron turn fixtures. */
 export const DEFAULT_AGENT_TURN_PAYLOAD: CronJob["payload"] = {
   kind: "agentTurn",
   message: DEFAULT_MESSAGE,

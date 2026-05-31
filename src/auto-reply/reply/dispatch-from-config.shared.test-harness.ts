@@ -358,7 +358,6 @@ vi.mock("../../tts/tts-config.js", () => ({
   shouldAttemptTtsPayload: () => true,
 }));
 
-/** Default abort mock result for dispatch-from-config tests. */
 export const noAbortResult = { handled: false, aborted: false } as const;
 /** Minimal config fixture for dispatch-from-config harness callers. */
 export const emptyConfig = {} as OpenClawConfig;
