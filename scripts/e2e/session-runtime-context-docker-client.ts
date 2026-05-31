@@ -1,4 +1,3 @@
-// Session runtime-context Docker harness.
 // Imports packaged dist modules so transcript behavior is verified against the
 // npm tarball installed in the functional image.
 import { spawnSync } from "node:child_process";

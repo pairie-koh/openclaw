@@ -1,4 +1,3 @@
-// Telegram package Docker harness.
 // Runs QA live transport code against the package candidate installed in Docker.
 
 import fs from "node:fs/promises";

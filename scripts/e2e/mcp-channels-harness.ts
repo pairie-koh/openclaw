@@ -1,4 +1,3 @@
-// Shared MCP-channel Docker E2E harness helpers.
 // The mounted test harness imports packaged dist modules so bridge assertions run
 // against the OpenClaw npm tarball installed in the functional image.
 import { randomUUID } from "node:crypto";

@@ -1,4 +1,3 @@
-// Commitments safety Docker harness.
 // Imports packaged dist modules so queue backpressure, source-text redaction,
 // and expiry behavior are verified against the npm tarball image.
 import fs from "node:fs/promises";
