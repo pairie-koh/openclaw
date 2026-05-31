@@ -10,7 +10,7 @@ function historyLimit(
 }
 
 describe("getHistoryLimitForSessionRouting", () => {
-  it("matches channel history limits across canonical provider aliases", () => {
+  it("does not match channel history limits across provider id variants", () => {
     expect(
       historyLimit(
         { channel: "z-ai", chatType: "channel", conversationPeerId: "general" },
@@ -22,7 +22,7 @@ describe("getHistoryLimitForSessionRouting", () => {
           },
         },
       ),
-    ).toBe(17);
+    ).toBeUndefined();
   });
 
   it("returns undefined when routing or config is undefined", () => {

@@ -906,8 +906,8 @@ export async function resolveApiKeyForProvider(params: {
     }
   }
 
-  const authStoreLocation = resolveAuthProfileStoreLocationForDisplay(params.agentDir);
-  const resolvedAgentDir = resolveAuthProfileStoreAgentDir(params.agentDir);
+  const authStoreLocation = resolveAuthProfileStoreLocationForDisplay(agentDir);
+  const resolvedAgentDir = resolveAuthProfileStoreAgentDir(agentDir);
   throw new Error(
     [
       `No API key found for provider "${provider}".`,
