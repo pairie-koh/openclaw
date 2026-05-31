@@ -1,6 +1,5 @@
 import { CommandLane } from "../process/lanes.js";
 
-/** Default lane for nested agent work. */
 export const AGENT_LANE_NESTED = CommandLane.Nested;
 /** Lane for nested work spawned from cron jobs. */
 export const AGENT_LANE_CRON_NESTED = CommandLane.CronNested;

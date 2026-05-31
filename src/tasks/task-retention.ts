@@ -1,6 +1,5 @@
 import type { TaskRecord, TaskStatus } from "./task-registry.types.js";
 
-/** Default retention window for completed task records. */
 export const DEFAULT_TASK_RETENTION_MS = 7 * 24 * 60 * 60_000;
 /** Shorter retention window for lost tasks, which can be noisy after crashes. */
 export const LOST_TASK_RETENTION_MS = 24 * 60 * 60_000;

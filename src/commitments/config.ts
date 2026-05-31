@@ -3,14 +3,11 @@ import type { OpenClawConfig } from "../config/config.js";
 
 const DEFAULT_COMMITMENT_EXTRACTION_DEBOUNCE_MS = 15_000;
 const DEFAULT_COMMITMENT_BATCH_MAX_ITEMS = 8;
-/** Default maximum queued hidden extraction items before new items are dropped. */
 export const DEFAULT_COMMITMENT_EXTRACTION_QUEUE_MAX_ITEMS = 64;
 const DEFAULT_COMMITMENT_CONFIDENCE_THRESHOLD = 0.72;
 const DEFAULT_COMMITMENT_CARE_CONFIDENCE_THRESHOLD = 0.86;
 const DEFAULT_COMMITMENT_EXTRACTION_TIMEOUT_SECONDS = 45;
-/** Default maximum commitments delivered in one heartbeat pass. */
 export const DEFAULT_COMMITMENT_MAX_PER_HEARTBEAT = 3;
-/** Default grace period after a due window before active commitments expire. */
 export const DEFAULT_COMMITMENT_EXPIRE_AFTER_HOURS = 72;
 const DEFAULT_COMMITMENT_MAX_PER_DAY = 3;
 

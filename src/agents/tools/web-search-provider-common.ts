@@ -51,7 +51,6 @@ type UnsupportedWebSearchFilterName =
   | "date_after"
   | "date_before";
 
-/** Default number of search results requested from providers. */
 export const DEFAULT_SEARCH_COUNT = 5;
 /** Hard cap on search result count across providers. */
 export const MAX_SEARCH_COUNT = 10;

@@ -13,9 +13,7 @@ export type CacheEntry<T> = {
   insertedAt: number;
 };
 
-/** Default web tool request timeout in seconds. */
 export const DEFAULT_TIMEOUT_SECONDS = 30;
-/** Default web tool response cache TTL in minutes. */
 export const DEFAULT_CACHE_TTL_MINUTES = 15;
 const DEFAULT_CACHE_MAX_ENTRIES = 100;
 
