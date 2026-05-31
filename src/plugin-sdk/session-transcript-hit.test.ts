@@ -17,6 +17,7 @@ describe("extractTranscriptIdentityFromSessionsMemoryHit", () => {
     expect(extractTranscriptIdentityFromSessionsMemoryHit("transcript:main:abc-uuid")).toEqual({
       stem: "abc-uuid",
       ownerAgentId: "main",
+      archived: false,
     });
   });
 
@@ -26,6 +27,7 @@ describe("extractTranscriptIdentityFromSessionsMemoryHit", () => {
     ).toEqual({
       stem: "agent:main:abc",
       ownerAgentId: "main",
+      archived: false,
     });
   });
 });

@@ -700,7 +700,7 @@ describe("memory cli", () => {
       const log = spyRuntimeLogs(defaultRuntime);
       await runMemoryCli(["status", "--fix"]);
 
-      expectLogged(log, "Repair: no changes");
+      expectLogged(log, "Repair: rewrote store");
       const entries = await readShortTermRecallEntries({ workspaceDir });
       expect(entries[0]?.conceptTags).toContain("router");
       expect(close).toHaveBeenCalled();
@@ -900,7 +900,7 @@ describe("memory cli", () => {
     expectCliSync(sync);
     expect(probeVectorAvailability).toHaveBeenCalledTimes(1);
     expect(error).toHaveBeenCalledWith(
-      "Memory index WARNING (main): chunks_vec not updated — semantic vector embeddings unavailable — no vector dimensions resolved. Vector recall degraded.",
+      "Memory index WARNING (main): memory_index_chunks_vec not updated — semantic vector embeddings unavailable — no vector dimensions resolved. Vector recall degraded.",
     );
     expect(close).toHaveBeenCalled();
     expect(process.exitCode).toBeUndefined();

@@ -781,6 +781,16 @@ export async function generateAndAppendDreamNarrative(params: {
             error: result.error,
           })} for ${params.data.phase} phase.`,
         );
+        if (result.status === "timeout") {
+          await appendFallbackNarrativeEntry({
+            workspaceDir: params.workspaceDir,
+            data: params.data,
+            nowMs,
+            timezone: params.timezone,
+            logger: params.logger,
+            reason: formatNarrativeTerminalStatus(result),
+          });
+        }
         return;
       } catch (err) {
         if (attemptModel && isConfiguredModelUnavailableNarrativeError(formatErrorMessage(err))) {

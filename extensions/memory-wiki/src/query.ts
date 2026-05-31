@@ -1303,6 +1303,7 @@ async function createSessionMemoryPathVisibilityChecker(params: {
     if (!identity) {
       return false;
     }
+    const isQmdSessionPath = relPath.replace(/\\/g, "/").startsWith("qmd/");
     const normalizedScopedAgentId = normalizeLowercaseStringOrEmpty(scopedAgentId);
     const normalizedOwnerAgentId = normalizeLowercaseStringOrEmpty(identity.ownerAgentId);
     if (
@@ -1312,13 +1313,34 @@ async function createSessionMemoryPathVisibilityChecker(params: {
     ) {
       return false;
     }
+    const archivedOwnerMatchesScope = Boolean(
+      identity.archived &&
+      ((identity.ownerAgentId &&
+        (!normalizedScopedAgentId || normalizedOwnerAgentId === normalizedScopedAgentId)) ||
+        (isQmdSessionPath && scopedAgentId)),
+    );
+    const archivedOwnerAgentId = archivedOwnerMatchesScope
+      ? (identity.ownerAgentId ?? scopedAgentId)
+      : undefined;
+    const liveKeys = identity.liveStem
+      ? resolveTranscriptStemToSessionKeys({
+          entries: combinedSessionEntries,
+          stem: identity.liveStem,
+          allowQmdSlugFallback: false,
+        })
+      : [];
     const keys = filterSessionKeysByScopedAgent({
       cfg: params.cfg,
       scopedAgentId,
-      keys: resolveTranscriptStemToSessionKeys({
-        entries: combinedSessionEntries,
-        stem: identity.stem,
-      }),
+      keys:
+        liveKeys.length > 0
+          ? liveKeys
+          : resolveTranscriptStemToSessionKeys({
+              entries: combinedSessionEntries,
+              stem: identity.stem,
+              allowQmdSlugFallback: isQmdSessionPath && !identity.archived,
+              ...(archivedOwnerAgentId ? { archivedOwnerAgentId } : {}),
+            }),
     });
     if (!guard) {
       return Boolean(scopedAgentId && keys.length > 0);
