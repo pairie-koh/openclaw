@@ -13,21 +13,18 @@ function normalizeServiceEnvKey(key: string): string | null {
   return normalizeEnvVarKey(key, { portable: true })?.toUpperCase() ?? null;
 }
 
-/** Checks whether a service env value is present inline in the service command. */
 export function hasInlineEnvironmentSource(
   source: GatewayServiceEnvironmentValueSource | undefined,
 ): boolean {
   return source === undefined || source === "inline" || source === "inline-and-file";
 }
 
-/** Checks whether a service env value is sourced only from an env file. */
 export function isEnvironmentFileOnlySource(
   source: GatewayServiceEnvironmentValueSource | undefined,
 ): boolean {
   return source === "file";
 }
 
-/** Checks whether a service env value is sourced from an env file. */
 export function hasEnvironmentFileSource(
   source: GatewayServiceEnvironmentValueSource | undefined,
 ): boolean {
@@ -45,7 +42,6 @@ function parseManagedServiceEnvKeys(value: string | undefined): Set<string> {
   return keys;
 }
 
-/** Formats managed service env keys into the tracking env var value. */
 export function formatManagedServiceEnvKeys(
   managedEnvironment: Record<string, string | undefined>,
   options?: { omitKeys?: Iterable<string> },
@@ -68,7 +64,6 @@ export function formatManagedServiceEnvKeys(
   return keys.length > 0 ? keys.join(",") : undefined;
 }
 
-/** Reads the managed service env key set from a service environment map. */
 export function readManagedServiceEnvKeysFromEnvironment(
   environment: Record<string, string | undefined> | undefined,
 ): Set<string> {
@@ -104,7 +99,6 @@ function deleteManagedServiceEnvKeys(
   }
 }
 
-/** Writes the managed service env tracking key after removing stale variants. */
 export function writeManagedServiceEnvKeysToEnvironment(
   environment: Record<string, string | undefined>,
   value: string | undefined,
@@ -128,7 +122,6 @@ function readEnvironmentValueSource(
   return undefined;
 }
 
-/** Lists managed env keys that are still stored inline in a service command. */
 export function collectInlineManagedServiceEnvKeys(
   command: ServiceEnvCommand,
   expectedManagedKeys?: Iterable<string>,

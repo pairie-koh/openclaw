@@ -1,6 +1,5 @@
 import { runFfprobe } from "./ffmpeg-exec.js";
 
-/** Pixel dimensions for the first video stream. */
 export type VideoDimensions = {
   width: number;
   height: number;
@@ -13,7 +12,6 @@ function parsePositiveDimension(value: unknown): number | undefined {
   return value;
 }
 
-/** Parses ffprobe JSON and returns valid positive dimensions for stream zero. */
 export function parseFfprobeVideoDimensions(stdout: string): VideoDimensions | undefined {
   const parsed = JSON.parse(stdout) as { streams?: Array<{ width?: unknown; height?: unknown }> };
   const stream = parsed.streams?.[0];
@@ -22,7 +20,6 @@ export function parseFfprobeVideoDimensions(stdout: string): VideoDimensions | u
   return width && height ? { width, height } : undefined;
 }
 
-/** Probes a video buffer with ffprobe, returning undefined when probing fails or dimensions are absent. */
 export async function probeVideoDimensions(buffer: Buffer): Promise<VideoDimensions | undefined> {
   try {
     const stdout = await runFfprobe(
