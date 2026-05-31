@@ -3,10 +3,6 @@ import { homedir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// =============================================================================
-// Package Detection
-// =============================================================================
-
 const currentFile = fileURLToPath(import.meta.url);
 const currentDir = dirname(currentFile);
 
@@ -18,10 +14,6 @@ export const isBunBinary =
   import.meta.url.includes("$bunfs") ||
   import.meta.url.includes("~BUN") ||
   import.meta.url.includes("%7EBUN");
-
-// =============================================================================
-// Package Asset Paths (shipped with executable)
-// =============================================================================
 
 /**
  * Get the base directory for resolving package assets (themes, package.json, README.md, CHANGELOG.md).
@@ -97,10 +89,6 @@ export function getExamplesPath(): string {
   return resolve(join(getPackageDir(), "examples"));
 }
 
-// =============================================================================
-// App Config (from package.json openclawConfig)
-// =============================================================================
-
 interface PackageJson {
   name?: string;
   version?: string;
@@ -128,10 +116,6 @@ export function expandTildePath(path: string): string {
   }
   return path;
 }
-
-// =============================================================================
-// User Config Paths (~/.openclaw/agent/*)
-// =============================================================================
 
 /** Get the agent config directory (e.g., ~/.openclaw/agent/) */
 export function getAgentDir(): string {
