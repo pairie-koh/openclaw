@@ -1,19 +1,9 @@
-/**
- * OpenResponses API Zod Schemas
- *
- * Zod schemas for the OpenResponses `/v1/responses` endpoint.
- * This module is isolated from gateway imports to enable future codegen and prevent drift.
- *
- * @see https://www.open-responses.com/
- */
-
 import { z } from "zod";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Content Parts
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Schema for user/developer/system text content parts in request input. */
 export const InputTextContentPartSchema = z
   .object({
     type: z.literal("input_text"),
@@ -21,7 +11,6 @@ export const InputTextContentPartSchema = z
   })
   .strict();
 
-/** Schema for assistant text content parts in responses and stream events. */
 export const OutputTextContentPartSchema = z
   .object({
     type: z.literal("output_text"),
@@ -30,7 +19,6 @@ export const OutputTextContentPartSchema = z
   .strict();
 
 // OpenResponses Image Content: Supports URL or base64 sources
-/** Schema for image sources accepted by OpenResponses input content. */
 export const InputImageSourceSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("url"),
@@ -50,7 +38,6 @@ export const InputImageSourceSchema = z.discriminatedUnion("type", [
   }),
 ]);
 
-/** Schema for image content parts embedded in request input. */
 export const InputImageContentPartSchema = z
   .object({
     type: z.literal("input_image"),
@@ -59,7 +46,6 @@ export const InputImageContentPartSchema = z
   .strict();
 
 // OpenResponses File Content: Supports URL or base64 sources
-/** Schema for file sources accepted by OpenResponses input content. */
 export const InputFileSourceSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("url"),
@@ -73,7 +59,6 @@ export const InputFileSourceSchema = z.discriminatedUnion("type", [
   }),
 ]);
 
-/** Schema for file content parts embedded in request input. */
 export const InputFileContentPartSchema = z
   .object({
     type: z.literal("input_file"),
@@ -81,7 +66,6 @@ export const InputFileContentPartSchema = z
   })
   .strict();
 
-/** Discriminated union of supported input/output content parts. */
 export const ContentPartSchema = z.discriminatedUnion("type", [
   InputTextContentPartSchema,
   OutputTextContentPartSchema,
@@ -89,24 +73,18 @@ export const ContentPartSchema = z.discriminatedUnion("type", [
   InputFileContentPartSchema,
 ]);
 
-/** Inferred content part accepted by OpenResponses messages. */
 export type ContentPart = z.infer<typeof ContentPartSchema>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Item Types (ItemParam)
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Schema for message roles accepted by OpenResponses input items. */
 export const MessageItemRoleSchema = z.enum(["system", "developer", "user", "assistant"]);
 
-/** Message role accepted by OpenResponses input items. */
 export type MessageItemRole = z.infer<typeof MessageItemRoleSchema>;
-/** Schema for assistant phase labels used by OpenClaw streaming. */
 export const AssistantPhaseSchema = z.enum(["commentary", "final_answer"]);
-/** Assistant phase label used to separate commentary from final answers. */
 export type AssistantPhase = z.infer<typeof AssistantPhaseSchema>;
 
-/** Schema for message input items, including assistant-only phase metadata. */
 export const MessageItemSchema = z
   .object({
     type: z.literal("message"),
@@ -125,7 +103,6 @@ export const MessageItemSchema = z
     }
   });
 
-/** Schema for model-emitted function call input/output items. */
 export const FunctionCallItemSchema = z
   .object({
     type: z.literal("function_call"),
@@ -136,7 +113,6 @@ export const FunctionCallItemSchema = z
   })
   .strict();
 
-/** Schema for tool/function outputs returned to a response. */
 export const FunctionCallOutputItemSchema = z
   .object({
     type: z.literal("function_call_output"),
@@ -145,7 +121,6 @@ export const FunctionCallOutputItemSchema = z
   })
   .strict();
 
-/** Schema for reasoning items preserved across response turns. */
 export const ReasoningItemSchema = z
   .object({
     type: z.literal("reasoning"),
@@ -155,7 +130,6 @@ export const ReasoningItemSchema = z
   })
   .strict();
 
-/** Schema for references to previous response items. */
 export const ItemReferenceItemSchema = z
   .object({
     type: z.literal("item_reference"),
@@ -163,7 +137,6 @@ export const ItemReferenceItemSchema = z
   })
   .strict();
 
-/** Discriminated union of all accepted OpenResponses input item params. */
 export const ItemParamSchema = z.discriminatedUnion("type", [
   MessageItemSchema,
   FunctionCallItemSchema,
@@ -172,7 +145,6 @@ export const ItemParamSchema = z.discriminatedUnion("type", [
   ItemReferenceItemSchema,
 ]);
 
-/** Inferred input item param accepted by create-response requests. */
 export type ItemParam = z.infer<typeof ItemParamSchema>;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -181,7 +153,6 @@ export type ItemParam = z.infer<typeof ItemParamSchema>;
 
 // Responses API tool definition uses a flat format (not the Chat Completions
 // wrapped-function format). Fields are at the top level alongside `type`.
-/** Schema for flat OpenResponses function tool definitions. */
 export const FunctionToolDefinitionSchema = z
   .object({
     type: z.literal("function"),
@@ -192,17 +163,14 @@ export const FunctionToolDefinitionSchema = z
   })
   .strict();
 
-/** Schema for tools currently supported by this OpenResponses endpoint. */
 export const ToolDefinitionSchema = FunctionToolDefinitionSchema;
 
-/** Inferred tool definition accepted by create-response requests. */
 export type ToolDefinition = z.infer<typeof ToolDefinitionSchema>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Request Body
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Schema for tool choice directives in create-response requests. */
 export const ToolChoiceSchema = z.union([
   z.literal("auto"),
   z.literal("none"),
@@ -213,7 +181,6 @@ export const ToolChoiceSchema = z.union([
   }),
 ]);
 
-/** Schema for the OpenResponses create-response request body. */
 export const CreateResponseBodySchema = z
   .object({
     model: z.string(),
@@ -242,14 +209,12 @@ export const CreateResponseBodySchema = z
   })
   .strict();
 
-/** Inferred create-response request body. */
 export type CreateResponseBody = z.infer<typeof CreateResponseBodySchema>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Response Resource
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Schema for OpenResponses response lifecycle status. */
 export const ResponseStatusSchema = z.enum([
   "in_progress",
   "completed",
@@ -258,10 +223,8 @@ export const ResponseStatusSchema = z.enum([
   "incomplete",
 ]);
 
-/** OpenResponses response lifecycle status. */
 export type ResponseStatus = z.infer<typeof ResponseStatusSchema>;
 
-/** Union schema for response output message, function call, and reasoning items. */
 export const OutputItemSchema = z.discriminatedUnion("type", [
   z
     .object({
@@ -293,20 +256,16 @@ export const OutputItemSchema = z.discriminatedUnion("type", [
     .strict(),
 ]);
 
-/** Output item returned by OpenResponses response resources and events. */
 export type OutputItem = z.infer<typeof OutputItemSchema>;
 
-/** Schema for token usage counters. */
 export const UsageSchema = z.object({
   input_tokens: z.number().int().nonnegative(),
   output_tokens: z.number().int().nonnegative(),
   total_tokens: z.number().int().nonnegative(),
 });
 
-/** Token usage counters returned with response resources. */
 export type Usage = z.infer<typeof UsageSchema>;
 
-/** Schema for OpenResponses response resources. */
 export const ResponseResourceSchema = z.object({
   id: z.string(),
   object: z.literal("response"),
@@ -324,52 +283,44 @@ export const ResponseResourceSchema = z.object({
     .optional(),
 });
 
-/** OpenResponses response resource returned by create and stream events. */
 export type ResponseResource = z.infer<typeof ResponseResourceSchema>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Streaming Event Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** Schema for response.created streaming events. */
 export const ResponseCreatedEventSchema = z.object({
   type: z.literal("response.created"),
   response: ResponseResourceSchema,
 });
 
-/** Schema for response.in_progress streaming events. */
 export const ResponseInProgressEventSchema = z.object({
   type: z.literal("response.in_progress"),
   response: ResponseResourceSchema,
 });
 
-/** Schema for response.completed streaming events. */
 export const ResponseCompletedEventSchema = z.object({
   type: z.literal("response.completed"),
   response: ResponseResourceSchema,
 });
 
-/** Schema for response.failed streaming events. */
 export const ResponseFailedEventSchema = z.object({
   type: z.literal("response.failed"),
   response: ResponseResourceSchema,
 });
 
-/** Schema for response.output_item.added streaming events. */
 export const OutputItemAddedEventSchema = z.object({
   type: z.literal("response.output_item.added"),
   output_index: z.number().int().nonnegative(),
   item: OutputItemSchema,
 });
 
-/** Schema for response.output_item.done streaming events. */
 export const OutputItemDoneEventSchema = z.object({
   type: z.literal("response.output_item.done"),
   output_index: z.number().int().nonnegative(),
   item: OutputItemSchema,
 });
 
-/** Schema for response.content_part.added streaming events. */
 export const ContentPartAddedEventSchema = z.object({
   type: z.literal("response.content_part.added"),
   item_id: z.string(),
@@ -378,7 +329,6 @@ export const ContentPartAddedEventSchema = z.object({
   part: OutputTextContentPartSchema,
 });
 
-/** Schema for response.content_part.done streaming events. */
 export const ContentPartDoneEventSchema = z.object({
   type: z.literal("response.content_part.done"),
   item_id: z.string(),
@@ -387,7 +337,6 @@ export const ContentPartDoneEventSchema = z.object({
   part: OutputTextContentPartSchema,
 });
 
-/** Schema for response.output_text.delta streaming events. */
 export const OutputTextDeltaEventSchema = z.object({
   type: z.literal("response.output_text.delta"),
   item_id: z.string(),
@@ -396,7 +345,6 @@ export const OutputTextDeltaEventSchema = z.object({
   delta: z.string(),
 });
 
-/** Schema for response.output_text.done streaming events. */
 export const OutputTextDoneEventSchema = z.object({
   type: z.literal("response.output_text.done"),
   item_id: z.string(),
@@ -405,7 +353,6 @@ export const OutputTextDoneEventSchema = z.object({
   text: z.string(),
 });
 
-/** OpenResponses streaming event union emitted by the Gateway. */
 export type StreamingEvent =
   | z.infer<typeof ResponseCreatedEventSchema>
   | z.infer<typeof ResponseInProgressEventSchema>
