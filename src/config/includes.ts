@@ -28,10 +28,6 @@ export const MAX_INCLUDE_FILE_BYTES = 2 * 1024 * 1024;
 /** Maximum length for $include path and resolved path (CWE-22 hardening). */
 export const MAX_INCLUDE_PATH_LENGTH = 4096;
 
-// ============================================================================
-// Types
-// ============================================================================
-
 /** Pluggable filesystem/parser interface used by config include processing. */
 export type IncludeResolver = {
   readFile: (path: string) => string;
@@ -62,10 +58,6 @@ type IncludeRoot = {
   rootRealDir: string;
 };
 
-// ============================================================================
-// Errors
-// ============================================================================
-
 /** Error thrown when include resolution, parsing, or boundary checks fail. */
 export class ConfigIncludeError extends Error {
   constructor(
@@ -86,10 +78,6 @@ export class CircularIncludeError extends ConfigIncludeError {
   }
 }
 
-// ============================================================================
-// Utilities
-// ============================================================================
-
 /** Deep merge: arrays concatenate, objects merge recursively, primitives: source wins */
 export function deepMerge(target: unknown, source: unknown): unknown {
   if (Array.isArray(target) && Array.isArray(source)) {
@@ -107,10 +95,6 @@ export function deepMerge(target: unknown, source: unknown): unknown {
   }
   return source;
 }
-
-// ============================================================================
-// Include Resolver Class
-// ============================================================================
 
 class IncludeProcessor {
   private visited = new Set<string>();
@@ -419,10 +403,6 @@ export function readConfigIncludeFileWithGuards(params: IncludeFileReadParams): 
     ioFs.closeSync(opened.fd);
   }
 }
-
-// ============================================================================
-// Public API
-// ============================================================================
 
 const defaultResolver: IncludeResolver = {
   readFile: (p) => fs.readFileSync(p, "utf-8"),
