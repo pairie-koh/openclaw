@@ -31,6 +31,7 @@ const linkChannelModuleLoader = createLazyImportLoader(() => import("./status.li
 const taskRegistryMaintenanceModuleLoader = createLazyImportLoader(
   () => import("../tasks/task-registry.maintenance.js"),
 );
+const RECENT_SESSION_LIMIT = 10;
 
 function loadChannelSummaryModule() {
   return channelSummaryModuleLoader.load();
@@ -316,26 +317,34 @@ export async function getStatusSummary(
       })
       .sort((a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0));
 
+  const listVisibleSessionRows = (rows: Array<{ sessionKey: string; entry: SessionEntry }>) =>
+    rows
+      .filter((row) => row.sessionKey !== "global" && row.sessionKey !== "unknown")
+      .toSorted((a, b) => (b.entry.updatedAt ?? 0) - (a.entry.updatedAt ?? 0));
+
   const databasePaths = new Set<string>();
-  const allSessionsByAgent: SessionStatus[] = [];
+  const allRowsByAgent: Array<{ sessionKey: string; entry: SessionEntry }> = [];
   const byAgent = agentList.agents.map((agent) => {
     const databasePath = resolveOpenClawAgentSqlitePath({ agentId: agent.id });
     databasePaths.add(databasePath);
-    const sessions = buildSessionRows(loadSessionRows(agent.id), { agentIdOverride: agent.id });
-    allSessionsByAgent.push(...sessions);
+    const rows = listVisibleSessionRows(loadSessionRows(agent.id));
+    const sessions = buildSessionRows(rows.slice(0, RECENT_SESSION_LIMIT), {
+      agentIdOverride: agent.id,
+    });
+    allRowsByAgent.push(...rows);
     return {
       agentId: agent.id,
       databasePath,
-      count: sessions.length,
-      recent: sessions.slice(0, 10),
+      count: rows.length,
+      recent: sessions,
     };
   });
 
-  const allSessions = allSessionsByAgent.toSorted(
-    (a, b) => (b.updatedAt ?? 0) - (a.updatedAt ?? 0),
+  const allRows = allRowsByAgent.toSorted(
+    (a, b) => (b.entry.updatedAt ?? 0) - (a.entry.updatedAt ?? 0),
   );
-  const recent = allSessions.slice(0, 10);
-  const totalSessions = allSessions.length;
+  const recent = buildSessionRows(allRows.slice(0, RECENT_SESSION_LIMIT));
+  const totalSessions = allRows.length;
 
   const summary: StatusSummary = {
     runtimeVersion: resolveRuntimeServiceVersion(process.env),

@@ -272,6 +272,9 @@ export function isNonProviderRuntimeCoordinationError(err: unknown): boolean {
   if (isFailoverError(err)) {
     return false;
   }
+  if (isEmbeddedAttemptSessionTakeover(err)) {
+    return true;
+  }
   return resolveFailoverClassificationFromError(err) === null;
 }
 

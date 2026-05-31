@@ -288,19 +288,18 @@ describe("getStatusSummary", () => {
   });
 
   it("hydrates only recent session rows while preserving total counts", async () => {
-    const store = Object.fromEntries(
+    statusSummaryMocks.listSessionEntries.mockReturnValue(
       Array.from({ length: 12 }, (_, index) => {
         const number = index + 1;
-        return [
-          `agent:main:session-${number}`,
-          {
+        return {
+          sessionKey: `agent:main:session-${number}`,
+          entry: {
             sessionId: `session-${number}`,
             updatedAt: number,
           },
-        ];
+        };
       }),
     );
-    statusSummaryMocks.readSessionStoreReadOnly.mockReturnValue(store);
 
     const summary = await getStatusSummary();
 
