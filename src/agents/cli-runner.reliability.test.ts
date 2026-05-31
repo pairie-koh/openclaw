@@ -18,6 +18,7 @@ import {
   createUserTurnTranscriptRecorder,
   type UserTurnTranscriptRecorder,
 } from "../sessions/user-turn-transcript.js";
+import { resolveOpenClawAgentSqlitePath } from "../state/openclaw-agent-db.js";
 import { runPreparedCliAgent } from "./cli-runner.js";
 import {
   createManagedRun,
@@ -69,8 +70,8 @@ function createTranscriptStateFixture(params?: {
   history?: Array<{ role: "user"; content: string }>;
 }) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-cli-hooks-"));
-  const sessionFile = path.join(dir, `${TEST_SESSION_ID}.jsonl`);
   vi.stubEnv("OPENCLAW_STATE_DIR", dir);
+  const sessionFile = resolveOpenClawAgentSqlitePath({ agentId: "main" });
   upsertSessionEntry({
     agentId: "main",
     sessionKey: TEST_SESSION_KEY,
