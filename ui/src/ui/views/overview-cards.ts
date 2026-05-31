@@ -222,7 +222,6 @@ export function renderOverviewCards(props: OverviewCardsProps) {
             >`
           : t("overview.cards.modelAuthOk", { count: String(monitoredProviders.length) });
 
-    // Format a window reset time compactly (e.g. "2:43 PM", "Apr 16").
     // Hidden for windows with plenty of headroom to keep the hint readable;
     // shown when a window is below 25% to signal urgency.
     const formatReset = (resetAt: number | undefined, pctLeft: number): string | null => {

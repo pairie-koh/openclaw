@@ -389,7 +389,6 @@ function renderTimeSeriesCompact(
     `;
   }
 
-  // Filter and recalculate (same logic as main function)
   let points = timeSeries.points;
   if (startDate || endDate || (selectedDays && selectedDays.length > 0)) {
     const startTs = startDate ? new Date(startDate + "T00:00:00").getTime() : 0;
@@ -429,12 +428,10 @@ function renderTimeSeriesCompact(
     return { ...p, cumulativeTokens: cumTokens, cumulativeCost: cumCost };
   });
 
-  // Compute range-filtered sums for "Tokens by Type"
   const hasSelection = cursorStart != null && cursorEnd != null;
   const rangeStartTs = hasSelection ? Math.min(cursorStart, cursorEnd) : 0;
   const rangeEndTs = hasSelection ? Math.max(cursorStart, cursorEnd) : Infinity;
 
-  // Find start/end indices for dimming
   let rangeStartIdx = 0;
   let rangeEndIdx = points.length;
   if (hasSelection) {
@@ -480,7 +477,6 @@ function renderTimeSeriesCompact(
   const barWidth = Math.min(CHART_MAX_BAR_WIDTH, Math.max(1, slotWidth * CHART_BAR_WIDTH_RATIO));
   const barGap = slotWidth - barWidth;
 
-  // Pre-compute handle X positions in SVG viewBox coordinates
   const leftHandleX = padding.left + rangeStartIdx * (barWidth + barGap);
   const rightHandleX =
     rangeEndIdx >= points.length

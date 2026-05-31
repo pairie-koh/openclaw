@@ -329,7 +329,6 @@ export function normalizeMessage(message: unknown): NormalizedMessage {
   }
   const isAssistantMessage = role === "assistant";
 
-  // Extract content
   let content: MessageContentItem[] = [];
   let audioAsVoice = false;
   let replyTarget: NormalizedMessage["replyTarget"] = null;

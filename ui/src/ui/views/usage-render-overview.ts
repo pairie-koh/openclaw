@@ -394,7 +394,6 @@ function renderDailyChartCompact(
     return Math.max(minBarPx, ratio * chartAreaPx);
   });
 
-  // Calculate bar width based on number of days
   const barMaxWidth = daily.length > 30 ? 12 : daily.length > 20 ? 18 : daily.length > 14 ? 24 : 32;
   const showTotals = daily.length <= 14;
 
