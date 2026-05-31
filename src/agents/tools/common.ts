@@ -82,7 +82,6 @@ export class ToolAuthorizationError extends ToolInputError {
   }
 }
 
-/** Builds a small action gate from feature-flag-style booleans. */
 export function createActionGate<T extends Record<string, boolean | undefined>>(
   actions: T | undefined,
 ): ActionGate<T> {
@@ -395,7 +394,6 @@ export function stringifyToolPayload(payload: unknown): string {
   return String(payload);
 }
 
-/** Builds a text-only successful tool result. */
 export function textResult<TDetails>(text: string, details: TDetails): AgentToolResult<TDetails> {
   return {
     content: [
@@ -408,7 +406,6 @@ export function textResult<TDetails>(text: string, details: TDetails): AgentTool
   };
 }
 
-/** Builds a failed text-only tool result with typed failure details. */
 export function failedTextResult<TDetails extends { status: "failed" }>(
   text: string,
   details: TDetails,
@@ -491,7 +488,6 @@ export function scheduleToolProgress(
   return clear;
 }
 
-/** Builds an image tool result from base64 data and metadata. */
 export async function imageResult(params: {
   label: string;
   path: string;
@@ -529,7 +525,6 @@ export async function imageResult(params: {
   return await sanitizeToolResultImages(result, params.label, params.imageSanitization);
 }
 
-/** Builds an image tool result from a local file path. */
 export async function imageResultFromFile(params: {
   label: string;
   path: string;

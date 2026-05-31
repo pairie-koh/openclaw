@@ -66,7 +66,6 @@ export function summarizeImageGenerationCapabilities(provider: ImageGenerationPr
   return caps.join("; ");
 }
 
-/** Builds the image provider/model listing action result. */
 export function createImageGenerateListActionResult(params: {
   cfg?: OpenClawConfig;
   workspaceDir?: string;
@@ -95,7 +94,6 @@ const imageGenerateTaskStatusActions = createMediaGenerateTaskStatusActions({
   buildStatusDetails: buildImageGenerationTaskStatusDetails,
 });
 
-/** Builds the image task status action result. */
 export function createImageGenerateStatusActionResult(
   sessionKey?: string,
 ): ImageGenerateActionResult {
@@ -112,7 +110,6 @@ export function createImageGenerateStatusActionResult(
   return imageGenerateTaskStatusActions.createStatusActionResult(sessionKey);
 }
 
-/** Builds the duplicate-task guard result for image generation. */
 export function createImageGenerateDuplicateGuardResult(
   sessionKey?: string,
   params?: { prompt?: string; requestKey?: string },
