@@ -22,14 +22,12 @@ const REALTIME_VOICE_CONSULT_TRAILING_FRAGMENT_WORDS = new Set([
   "with",
 ]);
 
-/** Reason a transcript fragment should not trigger a realtime voice consult. */
 export type SkippableRealtimeVoiceConsultTranscriptReason =
   | "empty"
   | "incomplete-transcript"
   | "trailing-fragment"
   | "non-actionable-closing";
 
-/** Classifies transcript text that is empty, incomplete, trailing, or just a closing. */
 export function classifySkippableRealtimeVoiceConsultTranscript(
   text: string,
 ): SkippableRealtimeVoiceConsultTranscriptReason | undefined {

@@ -2,14 +2,12 @@ export type RealtimeVoiceOutputActivityTrackerOptions = {
   now?: () => number;
 };
 
-/** Incremental output chunk metrics recorded by the playback tracker. */
 export type RealtimeVoiceOutputActivityDelta = {
   audioMs?: number;
   sourceAudioBytes?: number;
   sinkAudioBytes?: number;
 };
 
-/** Snapshot of output playback state used by diagnostics and interrupt checks. */
 export type RealtimeVoiceOutputActivitySnapshot = {
   audioMs: number;
   chunks: number;
@@ -21,7 +19,6 @@ export type RealtimeVoiceOutputActivitySnapshot = {
   playbackStartedAt?: number;
 };
 
-/** Mutable tracker for output stream lifecycle, audio chunks, and playback timing. */
 export type RealtimeVoiceOutputActivityTracker = {
   markStreamOpened(): void;
   markStreamEnding(): void;
@@ -35,7 +32,6 @@ export type RealtimeVoiceOutputActivityTracker = {
   snapshot(): RealtimeVoiceOutputActivitySnapshot;
 };
 
-/** Creates an isolated output activity tracker for one realtime voice session. */
 export function createRealtimeVoiceOutputActivityTracker(
   options: RealtimeVoiceOutputActivityTrackerOptions = {},
 ): RealtimeVoiceOutputActivityTracker {
