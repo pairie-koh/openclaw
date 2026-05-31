@@ -3,10 +3,6 @@ import path from "node:path";
 import { hasErrnoCode } from "../../infra/errors.js";
 import { isPathInside } from "../../security/scan-paths.js";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 /** Severity assigned to a skill scan finding. */
 export type SkillScanSeverity = "info" | "warn" | "critical";
 
@@ -41,10 +37,6 @@ export type SkillScanOptions = {
   maxFiles?: number;
   maxFileBytes?: number;
 };
-
-// ---------------------------------------------------------------------------
-// Scannable extensions
-// ---------------------------------------------------------------------------
 
 const SCANNABLE_EXTENSIONS = new Set([
   ".js",
@@ -138,10 +130,6 @@ export function clearSkillScanCacheForTest(): void {
   FILE_SCAN_CACHE.clear();
   DIR_ENTRY_CACHE.clear();
 }
-
-// ---------------------------------------------------------------------------
-// Rule definitions
-// ---------------------------------------------------------------------------
 
 type LineRule = {
   ruleId: string;
@@ -271,10 +259,6 @@ const SKILL_CONTENT_RULES: SourceRule[] = [
     pattern: /\bchmod\s+(-R\s+)?777\b/i,
   },
 ];
-
-// ---------------------------------------------------------------------------
-// Core scanner
-// ---------------------------------------------------------------------------
 
 function truncateEvidence(evidence: string, maxLen = 120): string {
   if (evidence.length <= maxLen) {
@@ -509,10 +493,6 @@ export function scanSkillContent(content: string, filePath: string): SkillScanFi
 
   return findings;
 }
-
-// ---------------------------------------------------------------------------
-// Directory scanner
-// ---------------------------------------------------------------------------
 
 function normalizeScanOptions(opts?: SkillScanOptions): Required<SkillScanOptions> {
   return {
