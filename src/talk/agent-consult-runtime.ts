@@ -21,11 +21,8 @@ import {
   type RealtimeVoiceAgentConsultTranscriptEntry,
 } from "./agent-consult-tool.js";
 
-/** Agent runtime surface required to run delegated realtime voice consults. */
 export type RealtimeVoiceAgentConsultRuntime = PluginRuntimeCore["agent"];
-/** Speakable result returned from a delegated realtime voice consult. */
 export type RealtimeVoiceAgentConsultResult = { text: string };
-/** Whether consults use an isolated session or fork context from the caller session. */
 export type RealtimeVoiceAgentConsultContextMode = "isolated" | "fork";
 export {
   resolveRealtimeVoiceAgentConsultTools,
@@ -46,7 +43,6 @@ const defaultRealtimeVoiceAgentConsultDeps: RealtimeVoiceAgentConsultDeps = {
 
 let realtimeVoiceAgentConsultDeps = defaultRealtimeVoiceAgentConsultDeps;
 
-/** Overrides fork/session dependencies for deterministic consult runtime tests. */
 export function setRealtimeVoiceAgentConsultDepsForTest(
   deps: Partial<RealtimeVoiceAgentConsultDeps> | null,
 ): void {
@@ -194,7 +190,6 @@ async function resolveRealtimeVoiceAgentConsultSessionEntry(params: {
   throw new Error("realtime voice agent consult session could not be initialized");
 }
 
-/** Runs the configured embedded agent for one realtime voice consult request. */
 export async function consultRealtimeVoiceAgent(params: {
   cfg: OpenClawConfig;
   agentRuntime: RealtimeVoiceAgentConsultRuntime;

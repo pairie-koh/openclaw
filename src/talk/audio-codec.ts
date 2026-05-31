@@ -145,7 +145,6 @@ function sampleBandlimited(
   return weighted / weightSum;
 }
 
-/** Resamples little-endian PCM16 audio with a bounded low-pass filter. */
 export function resamplePcm(
   input: Buffer,
   inputSampleRate: number,
@@ -191,12 +190,10 @@ export function resamplePcm(
   return output;
 }
 
-/** Resamples PCM16 audio to the 8 kHz telephony rate. */
 export function resamplePcmTo8k(input: Buffer, inputSampleRate: number): Buffer {
   return resamplePcm(input, inputSampleRate, TELEPHONY_SAMPLE_RATE);
 }
 
-/** Encodes little-endian PCM16 samples as G.711 mu-law bytes. */
 export function pcmToMulaw(pcm: Buffer): Buffer {
   const pcmView = readInt16Samples(pcm);
   const mulaw = Buffer.alloc(pcmView.length);
@@ -208,7 +205,6 @@ export function pcmToMulaw(pcm: Buffer): Buffer {
   return mulaw;
 }
 
-/** Decodes G.711 mu-law bytes into little-endian PCM16 samples. */
 export function mulawToPcm(mulaw: Buffer): Buffer {
   const pcm = Buffer.alloc(mulaw.length * 2);
   const pcmView = canUseInt16View(pcm) ? int16View(pcm) : undefined;
@@ -225,7 +221,6 @@ export function mulawToPcm(mulaw: Buffer): Buffer {
   return pcm;
 }
 
-/** Converts arbitrary-rate PCM16 audio into 8 kHz mu-law telephony audio. */
 export function convertPcmToMulaw8k(pcm: Buffer, inputSampleRate: number): Buffer {
   return pcmToMulaw(resamplePcmTo8k(pcm, inputSampleRate));
 }
