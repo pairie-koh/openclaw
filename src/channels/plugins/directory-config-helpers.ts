@@ -15,7 +15,6 @@ function resolveDirectoryLimit(limit?: number | null): number | undefined {
   return typeof limit === "number" && limit > 0 ? limit : undefined;
 }
 
-/** Filters directory ids by query and applies an optional positive limit. */
 export function applyDirectoryQueryAndLimit(
   ids: string[],
   params: { query?: string | null; limit?: number | null },
@@ -35,7 +34,6 @@ export function applyDirectoryQueryAndLimit(
   return filtered;
 }
 
-/** Converts ids into typed channel directory entries. */
 export function toDirectoryEntries(kind: "user" | "group", ids: string[]): ChannelDirectoryEntry[] {
   const entries: ChannelDirectoryEntry[] = [];
   for (const id of ids) {
@@ -81,7 +79,6 @@ function dedupeDirectoryIds(ids: string[]): string[] {
   return uniqueStrings(ids);
 }
 
-/** Collects unique normalized ids from multiple directory config sources. */
 export function collectNormalizedDirectoryIds(params: {
   sources: Iterable<unknown>[];
   normalizeId: (entry: string) => string | null | undefined;
@@ -103,7 +100,6 @@ export function collectNormalizedDirectoryIds(params: {
   return Array.from(ids);
 }
 
-/** Lists directory entries from raw sources with normalization, query, and limit handling. */
 export function listDirectoryEntriesFromSources(params: {
   kind: "user" | "group";
   sources: Iterable<unknown>[];
@@ -118,7 +114,6 @@ export function listDirectoryEntriesFromSources(params: {
   return toDirectoryEntries(params.kind, applyDirectoryQueryAndLimit(ids, params));
 }
 
-/** Lists directory entries after optionally inspecting an account from config. */
 export function listInspectedDirectoryEntriesFromSources<InspectedAccount>(
   params: DirectoryConfigParams & {
     kind: "user" | "group";
@@ -143,7 +138,6 @@ export function listInspectedDirectoryEntriesFromSources<InspectedAccount>(
   });
 }
 
-/** Creates an async directory lister backed by account inspection. */
 export function createInspectedDirectoryEntriesLister<InspectedAccount>(params: {
   kind: "user" | "group";
   inspectAccount: (
@@ -160,7 +154,6 @@ export function createInspectedDirectoryEntriesLister<InspectedAccount>(params: 
     });
 }
 
-/** Lists directory entries from a required resolved account. */
 export function listResolvedDirectoryEntriesFromSources<ResolvedAccount>(
   params: DirectoryConfigParams & {
     kind: "user" | "group";

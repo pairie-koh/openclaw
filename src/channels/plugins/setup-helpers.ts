@@ -51,7 +51,6 @@ function shouldStoreNameInAccounts(params: {
   return channelHasAccounts(params.cfg, params.channelKey);
 }
 
-/** Applies a display name either at channel root or under the selected account. */
 export function applyAccountNameToChannelSection(params: {
   cfg: OpenClawConfig;
   channelKey: string;
@@ -111,7 +110,6 @@ export function applyAccountNameToChannelSection(params: {
   } as OpenClawConfig;
 }
 
-/** Moves a legacy root channel name into the default account when accounts are used. */
 export function migrateBaseNameToDefaultAccount(params: {
   cfg: OpenClawConfig;
   channelKey: string;
@@ -146,7 +144,6 @@ export function migrateBaseNameToDefaultAccount(params: {
   } as OpenClawConfig;
 }
 
-/** Prepares setup config with account naming and optional legacy-name migration. */
 export function prepareScopedSetupConfig(params: {
   cfg: OpenClawConfig;
   channelKey: string;
@@ -172,7 +169,6 @@ export function prepareScopedSetupConfig(params: {
   });
 }
 
-/** Applies an account-scoped config patch for a setup adapter. */
 export function applySetupAccountConfigPatch(params: {
   cfg: OpenClawConfig;
   channelKey: string;
@@ -187,7 +183,6 @@ export function applySetupAccountConfigPatch(params: {
   });
 }
 
-/** Creates a setup adapter that writes account-scoped config patches. */
 export function createPatchedAccountSetupAdapter(params: {
   channelKey: string;
   alwaysUseAccounts?: boolean;

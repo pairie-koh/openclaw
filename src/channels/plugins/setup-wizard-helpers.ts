@@ -32,7 +32,6 @@ function loadProviderAuthInput() {
   return providerAuthInputPromise;
 }
 
-/** Prompt for an existing or new normalized account id during channel setup. */
 export const promptAccountId: PromptAccountId = async (params: PromptAccountIdParams) => {
   const existingIds = params.listAccountIds(params.cfg);
   const initial = params.currentId?.trim() || params.defaultAccountId || DEFAULT_ACCOUNT_ID;
@@ -66,7 +65,6 @@ export const promptAccountId: PromptAccountId = async (params: PromptAccountIdPa
   return normalized;
 };
 
-/** Add wildcard access to a normalized allow-from list. */
 export function addWildcardAllowFrom(allowFrom?: ReadonlyArray<string | number> | null): string[] {
   const next = normalizeStringEntries(allowFrom ?? []);
   if (!next.includes("*")) {
@@ -75,7 +73,6 @@ export function addWildcardAllowFrom(allowFrom?: ReadonlyArray<string | number> 
   return next;
 }
 
-/** Merge allow-from entries while preserving only unique normalized values. */
 export function mergeAllowFromEntries(
   current: Array<string | number> | null | undefined,
   additions: Array<string | number>,
@@ -84,14 +81,12 @@ export function mergeAllowFromEntries(
   return uniqueStrings(merged);
 }
 
-/** Split comma, semicolon, or newline separated setup entries. */
 export function splitSetupEntries(raw: string): string[] {
   return normalizeStringEntries(raw.split(/[\n,;]+/g));
 }
 
 type ParsedSetupEntry = { value: string } | { error: string };
 
-/** Parse setup entries with a channel-specific parser and stop on first error. */
 export function parseSetupEntriesWithParser(
   raw: string,
   parseEntry: (entry: string) => ParsedSetupEntry,
@@ -108,7 +103,6 @@ export function parseSetupEntriesWithParser(
   return { entries: normalizeAllowFromEntries(entries) };
 }
 
-/** Parse setup entries while accepting `*` as an allowlist wildcard. */
 export function parseSetupEntriesAllowingWildcard(
   raw: string,
   parseEntry: (entry: string) => ParsedSetupEntry,
@@ -121,7 +115,6 @@ export function parseSetupEntriesAllowingWildcard(
   });
 }
 
-/** Parse channel mentions, prefixed ids, or bare ids into a normalized id. */
 export function parseMentionOrPrefixedId(params: {
   value: string;
   mentionPattern: RegExp;
