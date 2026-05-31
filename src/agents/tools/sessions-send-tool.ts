@@ -161,6 +161,12 @@ function isTerminalAgentWaitTimeout(result: AgentWaitResult): boolean {
   return result.endedAt !== undefined || Boolean(result.stopReason || result.livenessState);
 }
 
+function isPendingErrorAgentWaitTimeout(result: AgentWaitResult): boolean {
+  return (
+    result.pendingError === true && typeof result.error === "string" && result.error.trim() !== ""
+  );
+}
+
 function isTypedThreadSessionTarget(sessionKey: string): boolean {
   try {
     const routingInfo = readSqliteSessionRoutingInfo({
@@ -629,6 +635,16 @@ export function createSessionsSendTool(opts?: {
       });
 
       if (result.status === "timeout") {
+        if (isPendingErrorAgentWaitTimeout(result)) {
+          startA2AFlow(undefined, runId);
+          return jsonResult({
+            runId,
+            status: "timeout",
+            error: result.error,
+            sessionKey: displayKey,
+            delivery,
+          });
+        }
         if (!isTerminalAgentWaitTimeout(result)) {
           startA2AFlow(undefined, runId);
           return jsonResult({

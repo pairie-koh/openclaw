@@ -12,6 +12,7 @@ import {
 import { formatErrorMessage } from "../infra/errors.js";
 import { pathExists } from "../infra/fs-safe.js";
 import { withExtractedArchiveRoot } from "../infra/install-flow.js";
+import { tryReadJson, writeJson } from "../infra/json-files.js";
 import {
   createCorePluginStateKeyedStore,
   createCorePluginStateSyncKeyedStore,
@@ -27,6 +28,8 @@ import {
 const CLAWHUB_SKILL_STATE_OWNER_ID = "core:clawhub-skills";
 const CLAWHUB_SKILL_STATE_NAMESPACE = "skill-installs";
 const CLAWHUB_SKILL_STATE_MAX_ENTRIES = 10_000;
+const CLAWHUB_DOT_DIR = ".clawhub";
+const LEGACY_CLAWHUB_DOT_DIR = ".clawdhub";
 const LOCAL_SKILL_CARD_FILENAME = "skill-card.md";
 const LOCAL_SKILL_CARD_MAX_BYTES = 256 * 1024;
 
@@ -269,6 +272,26 @@ async function writeTrackedClawHubSkills(
       targetDir,
       updatedAt: Date.now(),
     });
+  }
+}
+
+async function untrackLegacyClawHubSkillLock(workspaceDir: string, slug: string): Promise<void> {
+  for (const dotDir of [CLAWHUB_DOT_DIR, LEGACY_CLAWHUB_DOT_DIR]) {
+    const lockPath = path.join(workspaceDir, dotDir, "lock.json");
+    let lock: Partial<TrackedClawHubSkills> | null = null;
+    try {
+      lock = await tryReadJson<Partial<TrackedClawHubSkills>>(lockPath);
+    } catch {
+      continue;
+    }
+    if (lock?.version !== 1 || !lock.skills || typeof lock.skills !== "object") {
+      continue;
+    }
+    if (!lock.skills[slug]) {
+      continue;
+    }
+    delete lock.skills[slug];
+    await writeJson(lockPath, { version: 1, skills: lock.skills }, { trailingNewline: true });
   }
 }
 
@@ -861,10 +884,6 @@ export async function readTrackedClawHubSkillSlugs(workspaceDir: string): Promis
 
 export async function untrackClawHubSkill(workspaceDir: string, slug: string): Promise<void> {
   const trackedSlug = normalizeTrackedSkillSlug(slug);
-  const tracked = await readTrackedClawHubSkills(workspaceDir);
-  if (!tracked.skills[trackedSlug]) {
-    return;
-  }
-  delete tracked.skills[trackedSlug];
-  await writeTrackedClawHubSkills(workspaceDir, tracked);
+  await clawHubSkillInstallStore.delete(clawHubSkillInstallKey(workspaceDir, trackedSlug));
+  await untrackLegacyClawHubSkillLock(workspaceDir, trackedSlug);
 }
