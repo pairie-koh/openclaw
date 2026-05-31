@@ -54,7 +54,6 @@ export const SessionCompactionCheckpointSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for filtering and decorating session list results. */
 export const SessionsListParamsSchema = Type.Object(
   {
     /**
@@ -89,7 +88,6 @@ export const SessionsListParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for repairing stale or malformed session bindings. */
 export const SessionsCleanupParamsSchema = Type.Object(
   {
     agent: Type.Optional(NonEmptyString),
@@ -102,7 +100,6 @@ export const SessionsCleanupParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for reading bounded transcript previews for selected sessions. */
 export const SessionsPreviewParamsSchema = Type.Object(
   {
     keys: Type.Array(NonEmptyString, { minItems: 1 }),
@@ -112,7 +109,6 @@ export const SessionsPreviewParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for describing one session and optional derived display fields. */
 export const SessionsDescribeParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -122,7 +118,6 @@ export const SessionsDescribeParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for resolving a session by key, id, label, or ownership metadata. */
 export const SessionsResolveParamsSchema = Type.Object(
   {
     key: Type.Optional(NonEmptyString),
@@ -136,7 +131,6 @@ export const SessionsResolveParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for creating or adopting a session with optional seed message. */
 export const SessionsCreateParamsSchema = Type.Object(
   {
     key: Type.Optional(NonEmptyString),
@@ -151,7 +145,6 @@ export const SessionsCreateParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for sending a user message into an existing session. */
 export const SessionsSendParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -165,7 +158,6 @@ export const SessionsSendParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for subscribing to live message events for one session. */
 export const SessionsMessagesSubscribeParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -174,7 +166,6 @@ export const SessionsMessagesSubscribeParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for unsubscribing from live message events for one session. */
 export const SessionsMessagesUnsubscribeParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -183,7 +174,6 @@ export const SessionsMessagesUnsubscribeParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for aborting active work by session, run, or agent scope. */
 export const SessionsAbortParamsSchema = Type.Object(
   {
     key: Type.Optional(NonEmptyString),
@@ -193,7 +183,6 @@ export const SessionsAbortParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for updating persisted session settings and ownership metadata. */
 export const SessionsPatchParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -242,7 +231,6 @@ export const SessionsPatchParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for setting or unsetting plugin-owned session state. */
 export const SessionsPluginPatchParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -254,7 +242,6 @@ export const SessionsPluginPatchParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for plugin-owned session state updates. */
 export const SessionsPluginPatchResultSchema = Type.Object(
   {
     ok: Type.Literal(true),
