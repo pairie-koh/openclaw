@@ -251,7 +251,6 @@ export const SessionsPluginPatchResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for resetting a session transcript binding. */
 export const SessionsResetParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -261,7 +260,6 @@ export const SessionsResetParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for deleting session metadata and optionally transcript data. */
 export const SessionsDeleteParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -273,7 +271,6 @@ export const SessionsDeleteParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for manually compacting a session transcript. */
 export const SessionsCompactParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -283,7 +280,6 @@ export const SessionsCompactParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for listing compaction checkpoints for a session. */
 export const SessionsCompactionListParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -292,7 +288,6 @@ export const SessionsCompactionListParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for fetching one compaction checkpoint. */
 export const SessionsCompactionGetParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -302,7 +297,6 @@ export const SessionsCompactionGetParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for branching a session from a compaction checkpoint. */
 export const SessionsCompactionBranchParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -312,7 +306,6 @@ export const SessionsCompactionBranchParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for restoring a session to a compaction checkpoint. */
 export const SessionsCompactionRestoreParamsSchema = Type.Object(
   {
     key: NonEmptyString,
@@ -322,7 +315,6 @@ export const SessionsCompactionRestoreParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for listing compaction checkpoints. */
 export const SessionsCompactionListResultSchema = Type.Object(
   {
     ok: Type.Literal(true),
@@ -332,7 +324,6 @@ export const SessionsCompactionListResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for fetching one compaction checkpoint. */
 export const SessionsCompactionGetResultSchema = Type.Object(
   {
     ok: Type.Literal(true),
@@ -342,7 +333,6 @@ export const SessionsCompactionGetResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for creating a new branch from a compaction checkpoint. */
 export const SessionsCompactionBranchResultSchema = Type.Object(
   {
     ok: Type.Literal(true),
@@ -361,7 +351,6 @@ export const SessionsCompactionBranchResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Result schema for restoring a session from a compaction checkpoint. */
 export const SessionsCompactionRestoreResultSchema = Type.Object(
   {
     ok: Type.Literal(true),
@@ -379,7 +368,6 @@ export const SessionsCompactionRestoreResultSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for session token/cost usage reports. */
 export const SessionsUsageParamsSchema = Type.Object(
   {
     /** Specific session key to analyze; if omitted returns sessions for the effective agent. */
