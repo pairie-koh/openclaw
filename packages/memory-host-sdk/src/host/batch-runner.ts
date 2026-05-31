@@ -2,6 +2,7 @@ import { resolveSafeTimeoutDelayMs } from "../../../gateway-client/src/timeouts.
 import { splitBatchRequests } from "./batch-utils.js";
 import { runWithConcurrency } from "./internal.js";
 
+/** Execution controls shared by embedding batch providers. */
 export type EmbeddingBatchExecutionParams = {
   wait: boolean;
   pollIntervalMs: number;
@@ -72,6 +73,7 @@ export async function runEmbeddingBatchGroups<TRequest>(params: {
   return byCustomId;
 }
 
+/** Convert public batch execution params into the group-runner option shape. */
 export function buildEmbeddingBatchGroupOptions<TRequest>(
   params: { requests: TRequest[] } & EmbeddingBatchExecutionParams,
   options: { maxRequests: number; debugLabel: string },

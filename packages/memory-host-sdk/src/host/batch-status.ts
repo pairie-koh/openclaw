@@ -7,11 +7,13 @@ type BatchStatusLike = {
   error_file_id?: string | null;
 };
 
+/** Provider batch completion metadata required to download output and optional errors. */
 export type BatchCompletionResult = {
   outputFileId: string;
   errorFileId?: string;
 };
 
+/** Extract output/error file ids from a completed provider batch status. */
 export function resolveBatchCompletionFromStatus(params: {
   provider: string;
   batchId: string;
@@ -26,6 +28,7 @@ export function resolveBatchCompletionFromStatus(params: {
   };
 }
 
+/** Throw with provider error-file detail when a batch status is terminal failure. */
 export async function throwIfBatchTerminalFailure(params: {
   provider: string;
   status: BatchStatusLike;
@@ -42,6 +45,7 @@ export async function throwIfBatchTerminalFailure(params: {
   throw new Error(`${params.provider} batch ${params.status.id ?? "<unknown>"} ${state}${suffix}`);
 }
 
+/** Resolve a completed batch result or enforce the caller's explicit wait policy. */
 export async function resolveCompletedBatchResult(params: {
   provider: string;
   status: BatchStatusLike;
