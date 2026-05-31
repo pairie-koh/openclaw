@@ -6,10 +6,6 @@
  * registry before falling back to the built-in `summarizeInStages()`.
  */
 
-// ---------------------------------------------------------------------------
-// Provider interface
-// ---------------------------------------------------------------------------
-
 /**
  * A pluggable compaction provider that can replace the built-in
  * summarizeInStages pipeline.
@@ -33,19 +29,11 @@ export interface CompactionProvider {
   }): Promise<string>;
 }
 
-// ---------------------------------------------------------------------------
-// Registered entry (mirrors RegisteredMemoryEmbeddingProvider pattern)
-// ---------------------------------------------------------------------------
-
 /** A compaction provider with its owning plugin id for lifecycle tracking. */
 export type RegisteredCompactionProvider = {
   provider: CompactionProvider;
   ownerPluginId?: string;
 };
-
-// ---------------------------------------------------------------------------
-// Registry (process-global singleton)
-// ---------------------------------------------------------------------------
 
 const COMPACTION_PROVIDER_REGISTRY_STATE = Symbol.for("openclaw.compactionProviderRegistryState");
 
@@ -67,10 +55,6 @@ function getCompactionProviderRegistryState(): CompactionProviderRegistryState {
   return globalState[COMPACTION_PROVIDER_REGISTRY_STATE];
 }
 
-// ---------------------------------------------------------------------------
-// Registration
-// ---------------------------------------------------------------------------
-
 /**
  * Register a compaction provider implementation.
  * Pass `ownerPluginId` so the loader can snapshot/restore correctly.
@@ -84,10 +68,6 @@ export function registerCompactionProvider(
     ownerPluginId: options?.ownerPluginId,
   });
 }
-
-// ---------------------------------------------------------------------------
-// Lookup
-// ---------------------------------------------------------------------------
 
 /** Return the provider for the given id, or undefined. */
 export function getCompactionProvider(id: string): CompactionProvider | undefined {
@@ -110,10 +90,6 @@ export function listCompactionProviderIds(): string[] {
 export function listRegisteredCompactionProviders(): RegisteredCompactionProvider[] {
   return Array.from(getCompactionProviderRegistryState().providers.values());
 }
-
-// ---------------------------------------------------------------------------
-// Lifecycle (clear / restore) — mirrors memory-embedding-providers.ts
-// ---------------------------------------------------------------------------
 
 /** Clear all compaction providers. Used by clearPluginLoaderCache() and reload. */
 export function clearCompactionProviders(): void {
