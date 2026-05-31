@@ -253,7 +253,6 @@ export type ExecApprovalResolved = {
   request?: ExecApprovalRequest["request"];
 };
 
-/** Default policy fields stored in the exec approvals file. */
 export type ExecApprovalsDefaults = {
   security?: ExecSecurity;
   ask?: ExecAsk;
@@ -303,7 +302,6 @@ export type ExecApprovalsResolved = {
 };
 
 // Keep CLI + gateway defaults in sync.
-/** Default lifetime for pending exec approval requests. */
 export const DEFAULT_EXEC_APPROVAL_TIMEOUT_MS = 1_800_000;
 
 const DEFAULT_SECURITY: ExecSecurity = "full";
@@ -1510,7 +1508,6 @@ export function maxAsk(a: ExecAsk, b: ExecAsk): ExecAsk {
 
 /** Decisions an approval channel can return for an exec request. */
 export type ExecApprovalDecision = "allow-once" | "allow-always" | "deny";
-/** Default decisions shown for on-miss approval prompts. */
 export const DEFAULT_EXEC_APPROVAL_DECISIONS = [
   "allow-once",
   "allow-always",

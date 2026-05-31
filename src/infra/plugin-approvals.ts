@@ -44,7 +44,6 @@ export type PluginApprovalResolved = {
   request?: PluginApprovalRequestPayload;
 };
 
-/** Default plugin approval expiry window. */
 export const DEFAULT_PLUGIN_APPROVAL_TIMEOUT_MS = 120_000;
 /** Maximum plugin approval expiry window accepted by callers. */
 export const MAX_PLUGIN_APPROVAL_TIMEOUT_MS = 600_000;
@@ -52,7 +51,6 @@ export const MAX_PLUGIN_APPROVAL_TIMEOUT_MS = 600_000;
 export const PLUGIN_APPROVAL_TITLE_MAX_LENGTH = 80;
 /** Maximum normalized plugin approval description length. */
 export const PLUGIN_APPROVAL_DESCRIPTION_MAX_LENGTH = 256;
-/** Default decision set offered for plugin approval requests. */
 export const DEFAULT_PLUGIN_APPROVAL_DECISIONS = [
   "allow-once",
   "allow-always",

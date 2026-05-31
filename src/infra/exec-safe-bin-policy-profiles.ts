@@ -26,7 +26,6 @@ export type SafeBinProfileFixtures = Readonly<Record<string, SafeBinProfileFixtu
 
 const NO_FLAGS: ReadonlySet<string> = new Set();
 
-/** Default stdin-oriented tools that can be considered for safe-bin auto-allow. */
 export const DEFAULT_SAFE_BINS = ["cut", "uniq", "head", "tail", "tr", "wc"] as const;
 
 const toFlagSet = (flags?: readonly string[]): ReadonlySet<string> => {

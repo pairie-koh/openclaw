@@ -10,9 +10,7 @@ import {
   type ManagedProxyTlsOptions,
 } from "./proxy-tls.js";
 
-/** Default public URL used to prove allowed proxy egress. */
 export const DEFAULT_PROXY_VALIDATION_ALLOWED_URLS = ["https://example.com/"] as const;
-/** Default APNs authority used for HTTP/2 tunnel reachability checks. */
 export const DEFAULT_PROXY_VALIDATION_APNS_AUTHORITY = "https://api.sandbox.push.apple.com";
 
 const DEFAULT_PROXY_VALIDATION_TIMEOUT_MS = 5000;
