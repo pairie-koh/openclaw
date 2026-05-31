@@ -265,7 +265,6 @@ export function resolveCliRuntimeModelBackendBinding(params: {
   }).find((binding) => binding.provider === provider && binding.runtime === runtime);
 }
 
-/** Return whether a provider/model is handled by a CLI runtime backend. */
 export function isCliRuntimeModelBackendForProvider(params: {
   provider: string | undefined;
   runtime: string | undefined;

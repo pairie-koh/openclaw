@@ -24,7 +24,6 @@ function resolveLocalModelLeanAgentId(params: {
   return params.config ? resolveDefaultAgentId(params.config) : undefined;
 }
 
-/** Return whether local-model lean mode is enabled for a model. */
 export function isLocalModelLeanEnabled(params: {
   config?: OpenClawConfig;
   agentId?: string;

@@ -687,7 +687,6 @@ export async function loadModelCatalog(params?: {
 /**
  * Check if a model supports image input based on its catalog entry.
  */
-/** Return whether a model catalog entry supports image input. */
 export function modelSupportsVision(entry: ModelCatalogEntry | undefined): boolean {
   return modelCatalogEntrySupportsInput(entry, "image");
 }
@@ -695,7 +694,6 @@ export function modelSupportsVision(entry: ModelCatalogEntry | undefined): boole
 /**
  * Check if a model supports native document/PDF input based on its catalog entry.
  */
-/** Return whether a model catalog entry supports document input. */
 export function modelSupportsDocument(entry: ModelCatalogEntry | undefined): boolean {
   return modelCatalogEntrySupportsInput(entry, "document");
 }
