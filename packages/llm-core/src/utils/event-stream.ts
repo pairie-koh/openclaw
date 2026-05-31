@@ -4,7 +4,6 @@ import type {
   AssistantMessageEventStreamContract,
 } from "../types.js";
 
-// Generic event stream class for async iteration
 export class EventStream<T, R = T> implements AsyncIterable<T> {
   private queue: T[] = [];
   private waiting: ((value: IteratorResult<T>) => void)[] = [];
@@ -95,7 +94,6 @@ export class AssistantMessageEventStream
   }
 }
 
-/** Factory function for AssistantMessageEventStream (for use in extensions) */
 export function createAssistantMessageEventStream(): AssistantMessageEventStream {
   return new AssistantMessageEventStream();
 }

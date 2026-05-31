@@ -37,7 +37,6 @@ export interface ThinkingBudgets {
   max?: number;
 }
 
-// Base options all providers share
 export type CacheRetention = "none" | "short" | "long";
 
 export type Transport = "sse" | "websocket" | "websocket-cached" | "auto";
@@ -167,15 +166,12 @@ export interface ImagesOptions {
 
 export type ProviderImagesOptions = ImagesOptions & Record<string, unknown>;
 
-// Unified options with reasoning passed to streamSimple() and completeSimple()
 export interface SimpleStreamOptions extends StreamOptions {
   reasoning?: ThinkingLevel;
   /** Custom token budgets for thinking levels (token-based providers only) */
   thinkingBudgets?: ThinkingBudgets;
 }
 
-// Generic StreamFunction with typed options.
-//
 // Contract:
 // - Must return an AssistantMessageEventStream.
 // - Once invoked, request/model/runtime failures should be encoded in the
@@ -531,7 +527,6 @@ export interface VercelGatewayRouting {
   order?: string[];
 }
 
-// Model interface for the unified model system
 export interface Model<TApi extends Api = Api> {
   id: string;
   name: string;
