@@ -294,9 +294,9 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
         execute: async () => ({ text: "ok" }),
       },
       {
-        name: "dofbot_move_angles",
-        label: "Dofbot Move Angles",
-        description: "Move robot joints.",
+        name: "fuzzplugin_move_delta",
+        label: "Fuzz Move Delta",
+        description: "Move synthetic joints.",
         parameters: {
           type: "object",
           properties: {
@@ -305,6 +305,62 @@ describe("runEmbeddedAttempt context engine sessionKey forwarding", () => {
         },
         execute: async () => ({ text: "bad" }),
       },
+    ]);
+
+    const activeToolNames: string[][] = [];
+    await createContextEngineAttemptRunner({
+      contextEngine: createContextEngineBootstrapAndAssemble(),
+      sessionKey,
+      tempPaths,
+      attemptOverrides: {
+        disableTools: false,
+        config: {
+          tools: {
+            codeMode: { enabled: false },
+            toolSearch: false,
+          },
+        } as OpenClawConfig,
+      },
+      createSession: () => {
+        const session = createDefaultEmbeddedSession();
+        session.setActiveToolsByName = (toolNames) => {
+          activeToolNames.push([...toolNames]);
+        };
+        return session;
+      },
+    });
+
+    const sessionOptions = mockParams(
+      hoisted.createAgentSessionMock,
+      0,
+      "createAgentSession options",
+    );
+    const customTools = requireRecords(sessionOptions.customTools, "customTools");
+    expect(customTools.map((tool) => tool.name)).toEqual(["healthy_lookup"]);
+    expect(activeToolNames).toEqual([["healthy_lookup"]]);
+  });
+
+  it("quarantines non-serializable tool schemas before creating the session", async () => {
+    const circularSchema = {
+      type: "object",
+    } as { self?: unknown; type: string };
+    circularSchema.self = circularSchema;
+    const nonSerializableTool = {
+      name: "fuzzplugin_move_delta",
+      label: "Fuzz Move Delta",
+      description: "Move synthetic joints.",
+      parameters: circularSchema,
+      execute: async () => ({ text: "bad" }),
+    };
+    hoisted.createOpenClawCodingToolsMock.mockReturnValue([
+      {
+        name: "healthy_lookup",
+        label: "Healthy Lookup",
+        description: "Look up safe data.",
+        parameters: { type: "object", properties: {} },
+        execute: async () => ({ text: "ok" }),
+      },
+      nonSerializableTool,
     ]);
 
     const activeToolNames: string[][] = [];
