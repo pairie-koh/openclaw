@@ -1,21 +1,9 @@
-/**
- * Bash command execution with streaming support and cancellation.
- *
- * This module provides a unified bash execution implementation used by:
- * - AgentSession.executeBash() for interactive and RPC modes
- * - Direct calls from modes that need bash execution
- */
-
 import type { WriteStream } from "node:fs";
 import { stripAnsi } from "../utils/ansi.js";
 import { sanitizeBinaryOutput } from "../utils/shell.js";
 import type { BashOperations } from "./tools/bash-operations.js";
 import { createPrivateTempWriteStream } from "./tools/private-temp-file.js";
 import { DEFAULT_MAX_BYTES, truncateTail } from "./tools/truncate.js";
-
-// ============================================================================
-// Types
-// ============================================================================
 
 /** Streaming and cancellation options for session bash execution. */
 export interface BashExecutorOptions {
@@ -38,10 +26,6 @@ export interface BashResult {
   /** Path to temp file containing full output (if output exceeded truncation threshold) */
   fullOutputPath?: string;
 }
-
-// ============================================================================
-// Implementation
-// ============================================================================
 
 /**
  * Execute a bash command using custom BashOperations.
