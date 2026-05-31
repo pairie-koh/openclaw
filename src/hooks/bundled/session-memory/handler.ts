@@ -204,7 +204,6 @@ async function saveSessionMemoryNow(event: Parameters<HookHandler>[0]): Promise<
 
     const sessionFile = currentSessionFile || undefined;
 
-    // Read message count from hook config (default: 15)
     const hookConfig = resolveHookConfig(cfg, "session-memory");
     const messageCount =
       typeof hookConfig?.messages === "number" && hookConfig.messages > 0
@@ -232,19 +231,16 @@ async function saveSessionMemoryNow(event: Parameters<HookHandler>[0]): Promise<
 
       if (sessionContent && cfg && allowLlmSlug) {
         log.debug("Calling generateSlugViaLLM...");
-        // Use LLM to generate a descriptive slug
         slug = await generateSlugViaLLM({ sessionContent, cfg });
         log.debug("Generated slug", { slug });
       }
     }
 
-    // If no slug, use timestamp
     if (!slug) {
       slug = localTimestamp.timeSlug;
       log.debug("Using fallback timestamp slug", { slug });
     }
 
-    // Create filename with date and slug
     const filename = await resolveAvailableMemoryFilename({ memoryDir, dateStr, slug });
     const memoryFilePath = path.join(memoryDir, filename);
     log.debug("Memory file path resolved", {
@@ -255,11 +251,9 @@ async function saveSessionMemoryNow(event: Parameters<HookHandler>[0]): Promise<
     const timeStr = localTimestamp.time;
     const timeZoneSuffix = localTimestamp.timeZoneName ? ` ${localTimestamp.timeZoneName}` : "";
 
-    // Extract context details
     const sessionId = (sessionEntry.sessionId as string) || "unknown";
     const source = (context.commandSource as string) || "unknown";
 
-    // Build Markdown entry
     const entryParts = [
       `# Session: ${dateStr} ${timeStr}${timeZoneSuffix}`,
       "",
@@ -269,7 +263,6 @@ async function saveSessionMemoryNow(event: Parameters<HookHandler>[0]): Promise<
       "",
     ];
 
-    // Include conversation content if available
     if (sessionContent) {
       entryParts.push("## Conversation Summary", "", sessionContent, "");
     }
@@ -281,7 +274,6 @@ async function saveSessionMemoryNow(event: Parameters<HookHandler>[0]): Promise<
     await memoryRoot.write(filename, entry, { encoding: "utf-8" });
     log.debug("Memory file written successfully");
 
-    // Log completion (but don't send user-visible confirmation - it's internal housekeeping)
     const relPath = memoryFilePath.replace(os.homedir(), "~");
     log.info(`Session context saved to ${relPath}`);
   } catch (err) {

@@ -256,7 +256,6 @@ export async function startGmailWatcher(
   cfg: OpenClawConfig,
   options: GmailWatcherStartOptions = {},
 ): Promise<GmailWatcherStartResult> {
-  // Check if gmail hooks are configured
   if (!cfg.hooks?.enabled) {
     return { started: false, reason: "hooks not enabled" };
   }
@@ -265,7 +264,6 @@ export async function startGmailWatcher(
     return { started: false, reason: "no gmail account configured" };
   }
 
-  // Check if gog is available
   const gogAvailable = isGogAvailable();
   if (!gogAvailable) {
     return { started: false, reason: "gog binary not found" };
@@ -340,7 +338,6 @@ export async function startGmailWatcher(
     }
   }
 
-  // Start the Gmail watch (register with Gmail API)
   const cancellation = createGmailWatcherCancellation(options);
   const watchStarted = await startGmailWatch(runtimeConfig, { signal: cancellation.signal });
   cancellation.dispose();

@@ -38,18 +38,15 @@ const log = createSubsystemLogger("command-logger");
  * Log all command events to a file
  */
 const logCommand: HookHandler = async (event) => {
-  // Only trigger on command events
   if (event.type !== "command") {
     return;
   }
 
   try {
-    // Create log directory
     const stateDir = resolveStateDir(process.env, os.homedir);
     const logDir = path.join(stateDir, "logs");
     await fs.mkdir(logDir, { recursive: true });
 
-    // Append to command log file
     const logFile = path.join(logDir, "commands.log");
     const logLine =
       JSON.stringify({

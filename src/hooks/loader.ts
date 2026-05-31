@@ -111,7 +111,6 @@ export async function loadInternalHooks(
       bundledHooksDir: opts?.bundledHooksDir,
     });
 
-    // Filter by eligibility
     const eligible = hookEntries.filter((entry) => {
       if (configuredNames && !configuredNames.has(entry.hook.name)) {
         return false;
@@ -147,7 +146,6 @@ export async function loadInternalHooks(
         const importUrl = buildImportUrl(safeHandlerPath, entry.hook.source);
         const mod = (await import(importUrl)) as Record<string, unknown>;
 
-        // Get handler function (default or named export)
         const exportName = entry.metadata?.export ?? "default";
         const handler = resolveFunctionModuleExport<InternalHookHandler>({
           mod,
