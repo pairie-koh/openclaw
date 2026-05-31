@@ -38,7 +38,6 @@ vi.mock("@mariozechner/clipboard", () => ({
   callThreadsafeFunction: () => {},
 }));
 
-// Ensure Vitest environment is properly set.
 process.env.VITEST = "true";
 // Tests frequently point bundled plugin discovery at temp fixture roots. Production still rejects
 // arbitrary OPENCLAW_BUNDLED_PLUGINS_DIR overrides unless this Vitest-only opt-in is present.

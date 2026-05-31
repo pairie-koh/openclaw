@@ -26,11 +26,8 @@ const ANTHROPIC_API_KEY =
   process.env.ANTHROPIC_API_KEY ||
   (process.env.ANTHROPIC_BASE_URL ? process.env.OPENAI_API_KEY : undefined);
 
-// ============================================================================
-// Section 1: Patched Code Path Proof
 // Exercises createAnthropicMessagesTransportStreamFn directly.
 // No real API key required — uses mocked fetch with crafted SSE response.
-// ============================================================================
 
 async function runPatchedCodePathProof(): Promise<{ passed: number; failed: number }> {
   console.log("=== Patched Code Path Proof: createAnthropicMessagesTransportStreamFn ===\n");
@@ -224,11 +221,8 @@ async function runPatchedCodePathProof(): Promise<{ passed: number; failed: numb
   return { passed, failed };
 }
 
-// ============================================================================
-// Section 2: Live API Replay Proof
 // Validates signature integrity against a real Anthropic API endpoint.
 // Requires ANTHROPIC_API_KEY or OPENAI_API_KEY environment variable.
-// ============================================================================
 
 async function runProof(): Promise<{ passed: number; failed: number }> {
   console.log("=== Live API Replay Proof: Thinking Block Signature Integrity ===\n");
@@ -525,20 +519,16 @@ async function runProof(): Promise<{ passed: number; failed: number }> {
     }
   }
 
-  // Final summary
   console.log(`\n--- Live API Replay: ${passed} passed, ${failed} failed ---`);
 
   return { passed, failed };
 }
 
 async function main(): Promise<void> {
-  // Section 1: Patched code path proof (no API key needed)
   const patchedResult = await runPatchedCodePathProof();
 
-  // Section 2: Live API replay proof (requires API key)
   const liveResult = await runProof();
 
-  // Overall summary
   const totalPassed = patchedResult.passed + liveResult.passed;
   const totalFailed = patchedResult.failed + liveResult.failed;
 
