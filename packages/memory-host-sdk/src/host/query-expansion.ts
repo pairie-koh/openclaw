@@ -740,6 +740,8 @@ function tokenize(text: string, opts?: { ftsTokenizer?: "unicode61" | "trigram" 
 
 /**
  * Extract keywords from a conversational query for FTS search.
+ * `ftsTokenizer: "trigram"` keeps contiguous CJK blocks intact because SQLite
+ * trigram terms shorter than three characters do not match.
  *
  * Examples:
  * - "that thing we discussed about the API" → ["discussed", "API"]
@@ -779,7 +781,7 @@ export function extractKeywords(
  * Returns both the original query and extracted keywords for OR-matching.
  *
  * @param query - User's original query
- * @returns Object with original query and extracted keywords
+ * @returns Original query, extracted keywords, and the OR-expanded FTS expression.
  */
 export function expandQueryForFts(
   query: string,
@@ -801,13 +803,14 @@ export function expandQueryForFts(
 
 /**
  * Type for an optional LLM-based query expander.
- * Can be provided to enhance keyword extraction with semantic understanding.
+ * It returns replacement keywords; callers fall back to local extraction on
+ * empty results or thrown errors.
  */
 export type LlmQueryExpander = (query: string) => Promise<string[]>;
 
 /**
  * Expand query with optional LLM assistance.
- * Falls back to local extraction if LLM is unavailable or fails.
+ * Falls back to deterministic local extraction if LLM is unavailable, empty, or fails.
  */
 export async function expandQueryWithLlm(
   query: string,
