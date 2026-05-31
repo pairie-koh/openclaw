@@ -76,10 +76,6 @@ describe("bedrock mantle discovery", () => {
     process.env = originalEnv;
   });
 
-  // ---------------------------------------------------------------------------
-  // Bearer token resolution
-  // ---------------------------------------------------------------------------
-
   it("resolves bearer token from AWS_BEARER_TOKEN_BEDROCK", () => {
     expect(
       resolveMantleBearerToken({
@@ -99,10 +95,6 @@ describe("bedrock mantle discovery", () => {
       } as NodeJS.ProcessEnv),
     ).toBe("my-token");
   });
-
-  // ---------------------------------------------------------------------------
-  // IAM token generation
-  // ---------------------------------------------------------------------------
 
   it("generates token from IAM credentials when token generation succeeds", async () => {
     const tokenProvider = vi.fn(async () => "bedrock-api-key-generated"); // pragma: allowlist secret
@@ -256,10 +248,6 @@ describe("bedrock mantle discovery", () => {
     expect(tokenProvider).toHaveBeenCalledTimes(2);
   });
 
-  // ---------------------------------------------------------------------------
-  // Model discovery
-  // ---------------------------------------------------------------------------
-
   it("discovers models from Mantle /v1/models endpoint sorted by id", async () => {
     const mockFetch = vi.fn().mockResolvedValue({
       ok: true,
@@ -374,10 +362,6 @@ describe("bedrock mantle discovery", () => {
     expect(models[0]?.id).toBe("anthropic.claude-sonnet-4-6");
   });
 
-  // ---------------------------------------------------------------------------
-  // Discovery caching
-  // ---------------------------------------------------------------------------
-
   it("returns cached models on subsequent calls within refresh interval", async () => {
     let now = 1000000;
     const mockFetch = vi.fn().mockResolvedValue({
@@ -451,10 +435,6 @@ describe("bedrock mantle discovery", () => {
     expect(stale).toHaveLength(1);
     expect(stale[0]?.id).toBe("anthropic.claude-sonnet-4-6");
   });
-
-  // ---------------------------------------------------------------------------
-  // Implicit provider resolution
-  // ---------------------------------------------------------------------------
 
   it("resolves implicit provider when bearer token is set", async () => {
     const mockFetch = vi.fn().mockResolvedValue({
@@ -609,10 +589,6 @@ describe("bedrock mantle discovery", () => {
     expect(stringArgAt(mockFetch, 0, 0)).toBe("https://bedrock-mantle.us-east-1.api.aws/v1/models");
     objectArgAt(mockFetch, 0, 1);
   });
-
-  // ---------------------------------------------------------------------------
-  // Provider merging
-  // ---------------------------------------------------------------------------
 
   it("merges implicit models when existing provider has empty models", () => {
     const result = mergeImplicitMantleProvider({

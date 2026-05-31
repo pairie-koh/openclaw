@@ -24,10 +24,6 @@ const DEFAULT_MAX_TOKENS = 4096;
 const DEFAULT_REFRESH_INTERVAL_SECONDS = 3600; // 1 hour
 export const MANTLE_IAM_TOKEN_MARKER = "__amazon_bedrock_mantle_iam__";
 
-// ---------------------------------------------------------------------------
-// Mantle region & endpoint helpers
-// ---------------------------------------------------------------------------
-
 const MANTLE_SUPPORTED_REGIONS = [
   "us-east-1",
   "us-east-2",
@@ -50,10 +46,6 @@ function mantleEndpoint(region: string): string {
 function isSupportedRegion(region: string): boolean {
   return (MANTLE_SUPPORTED_REGIONS as readonly string[]).includes(region);
 }
-
-// ---------------------------------------------------------------------------
-// Bearer token resolution
-// ---------------------------------------------------------------------------
 
 type MantleBearerTokenProvider = () => Promise<string>;
 type MantleBearerTokenProviderFactory = (opts?: {
@@ -191,10 +183,6 @@ export function resetIamTokenCacheForTest(): void {
   iamTokenCache.clear();
 }
 
-// ---------------------------------------------------------------------------
-// OpenAI-format model list response
-// ---------------------------------------------------------------------------
-
 interface OpenAIModelEntry {
   id: string;
   object?: string;
@@ -206,10 +194,6 @@ interface OpenAIModelsResponse {
   data?: OpenAIModelEntry[];
   object?: string;
 }
-
-// ---------------------------------------------------------------------------
-// Reasoning heuristic
-// ---------------------------------------------------------------------------
 
 /** Model ID substrings that indicate reasoning/thinking support. */
 const REASONING_PATTERNS = [
@@ -226,10 +210,6 @@ function inferReasoningSupport(modelId: string): boolean {
   return REASONING_PATTERNS.some((p) => lower.includes(p));
 }
 
-// ---------------------------------------------------------------------------
-// Discovery cache
-// ---------------------------------------------------------------------------
-
 interface MantleCacheEntry {
   models: ModelDefinitionConfig[];
   fetchedAt: number;
@@ -245,10 +225,6 @@ const discoveryCache = new Map<string, MantleCacheEntry>();
 export function resetMantleDiscoveryCacheForTest(): void {
   discoveryCache.clear();
 }
-
-// ---------------------------------------------------------------------------
-// Model discovery
-// ---------------------------------------------------------------------------
 
 /**
  * Discover available models from the Mantle `/v1/models` endpoint.
@@ -320,10 +296,6 @@ export async function discoverMantleModels(params: {
     return cached?.models ?? [];
   }
 }
-
-// ---------------------------------------------------------------------------
-// Implicit provider resolution
-// ---------------------------------------------------------------------------
 
 /**
  * Resolve an implicit Bedrock Mantle provider if authentication is available.
