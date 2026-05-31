@@ -341,7 +341,9 @@ function resolveCustomPaths(
     const baseName =
       explicitName && !isPathInsideRoot(collectionPath, workspaceDir)
         ? explicitName
-        : scopeCollectionBase(explicitName || `custom-${index + 1}`, agentId);
+        : // Workspace-local collection names are agent-scoped so multiple agents
+          // can index the same project without colliding in a shared QMD store.
+          scopeCollectionBase(explicitName || `custom-${index + 1}`, agentId);
     const name = ensureUniqueName(baseName, existing);
     collections.push({
       name,
