@@ -2,14 +2,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { probeTwitch } from "./probe.js";
 import type { TwitchAccountConfig } from "./types.js";
 
-// Mock Twurple modules - Vitest v4 compatible mocking
 const mockUnbind = vi.fn();
 
-// Event handler storage
 let connectHandler: (() => void) | null = null;
 let disconnectHandler: ((manually: boolean, reason?: Error) => void) | null = null;
 
-// Event listener mocks that store handlers and return unbind function
 const mockOnConnect = vi.fn((handler: () => void) => {
   connectHandler = handler;
   return { unbind: mockUnbind };
@@ -24,7 +21,6 @@ const mockOnAuthenticationFailure = vi.fn((_handler: () => void) => {
   return { unbind: mockUnbind };
 });
 
-// Connect mock that triggers the registered handler
 const defaultConnectImpl = async () => {
   // Simulate successful connection by calling the handler immediately.
   if (connectHandler) {

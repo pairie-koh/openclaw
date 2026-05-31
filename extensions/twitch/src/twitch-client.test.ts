@@ -14,7 +14,6 @@ import { resolveTwitchToken } from "./token.js";
 import { TwitchClientManager } from "./twitch-client.js";
 import type { ChannelLogSink, TwitchAccountConfig, TwitchChatMessage } from "./types.js";
 
-// Mock @twurple dependencies
 const mockConnect = vi.fn(() => {
   for (const handler of authSuccessHandlers) {
     handler();
@@ -25,14 +24,12 @@ const mockSay = vi.fn().mockResolvedValue({ messageId: "test-msg-123" });
 const mockQuit = vi.fn();
 const mockUnbind = vi.fn();
 
-// Event handler storage for testing
 const messageHandlers: Array<(channel: string, user: string, message: string, msg: any) => void> =
   [];
 const authSuccessHandlers: Array<() => void> = [];
 const authFailureHandlers: Array<(text: string, retryCount: number) => void> = [];
 const disconnectHandlers: Array<(manual: boolean, reason?: Error) => void> = [];
 
-// Mock functions that track handlers and return unbind objects
 const mockOnMessage = vi.fn((handler: any) => {
   messageHandlers.push(handler);
   return { unbind: mockUnbind };

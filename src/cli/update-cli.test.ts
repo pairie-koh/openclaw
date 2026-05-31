@@ -71,7 +71,6 @@ vi.mock("@clack/prompts", () => ({
   spinner,
 }));
 
-// Mock the update-runner module
 vi.mock("../infra/update-runner.js", () => ({
   runGatewayUpdate: vi.fn(),
 }));
@@ -324,13 +323,11 @@ vi.mock("./completion-runtime.js", async (importOriginal) => {
     installCompletion: (...args: unknown[]) => installCompletion(...args),
   };
 });
-// Mock the daemon-cli module
 vi.mock("./daemon-cli.js", () => ({
   runDaemonInstall: mockedRunDaemonInstall,
   runDaemonRestart: vi.fn(),
 }));
 
-// Mock the runtime
 vi.mock("../runtime.js", () => ({
   defaultRuntime: runtimeCapture,
 }));
