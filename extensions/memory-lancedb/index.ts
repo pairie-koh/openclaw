@@ -40,10 +40,6 @@ import {
 } from "./config.js";
 import { loadLanceDbModule } from "./lancedb-runtime.js";
 
-// ============================================================================
-// Types
-// ============================================================================
-
 type MemoryEntry = {
   id: string;
   text: string;
@@ -188,10 +184,6 @@ function resolveAutoCaptureStartIndex(
   }
   return 0;
 }
-
-// ============================================================================
-// LanceDB Provider
-// ============================================================================
 
 const TABLE_NAME = "memories";
 const DEFAULT_AUTO_RECALL_TIMEOUT_MS = 15_000;
@@ -343,10 +335,6 @@ class MemoryDB {
     return this.table!;
   }
 }
-
-// ============================================================================
-// Embeddings
-// ============================================================================
 
 type Embeddings = {
   embed(text: string, options?: { timeoutMs?: number }): Promise<number[]>;
@@ -515,10 +503,6 @@ export function normalizeEmbeddingVector(value: unknown): number[] {
   throw new Error("Embedding response is missing a vector");
 }
 
-// ============================================================================
-// Rule-based capture filter
-// ============================================================================
-
 const MEMORY_TRIGGERS = [
   /zapamatuj si|pamatuj|remember/i,
   /preferuji|radši|nechci|prefer/i,
@@ -642,10 +626,6 @@ export function detectCategory(text: string): MemoryCategory {
   return "other";
 }
 
-// ============================================================================
-// Plugin Definition
-// ============================================================================
-
 export default definePluginEntry({
   id: "memory-lancedb",
   name: "Memory (LanceDB)",
@@ -718,10 +698,6 @@ export default definePluginEntry({
         },
       },
     });
-
-    // ========================================================================
-    // Tools
-    // ========================================================================
 
     api.registerTool(
       {
@@ -932,10 +908,6 @@ export default definePluginEntry({
       { name: "memory_forget" },
     );
 
-    // ========================================================================
-    // CLI Commands
-    // ========================================================================
-
     api.registerCli(
       ({ program }) => {
         const memory = program.command("ltm").description("LanceDB memory plugin commands");
@@ -1048,10 +1020,6 @@ export default definePluginEntry({
       },
       { commands: ["ltm"] },
     );
-
-    // ========================================================================
-    // Lifecycle Hooks
-    // ========================================================================
 
     // Auto-recall: inject relevant memories during prompt build
     api.on("before_prompt_build", async (event) => {
@@ -1185,10 +1153,6 @@ export default definePluginEntry({
         autoCaptureCursors.delete(nextCursorKey);
       }
     });
-
-    // ========================================================================
-    // Service
-    // ========================================================================
 
     api.registerService({
       id: "memory-lancedb",
