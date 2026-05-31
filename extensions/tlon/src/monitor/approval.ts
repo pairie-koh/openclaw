@@ -141,7 +141,6 @@ export function findPendingApproval(
   if (id) {
     return pendingApprovals.find((a) => a.id === id);
   }
-  // Return most recent
   return pendingApprovals[pendingApprovals.length - 1];
 }
 
@@ -214,10 +213,6 @@ export function formatApprovalConfirmation(
   }
   throw new Error("Unsupported approval type");
 }
-
-// ============================================================================
-// Admin Commands
-// ============================================================================
 
 export type AdminCommand =
   | { type: "unblock"; ship: string }
