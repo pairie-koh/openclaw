@@ -1,28 +1,23 @@
 import { Type } from "typebox";
 import { NonEmptyString } from "./primitives.js";
 
-/** Empty params schema for listing pending device-pair requests. */
 export const DevicePairListParamsSchema = Type.Object({}, { additionalProperties: false });
 
-/** Params schema for approving a pending device-pair request. */
 export const DevicePairApproveParamsSchema = Type.Object(
   { requestId: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params schema for rejecting a pending device-pair request. */
 export const DevicePairRejectParamsSchema = Type.Object(
   { requestId: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params schema for removing a paired device. */
 export const DevicePairRemoveParamsSchema = Type.Object(
   { deviceId: NonEmptyString },
   { additionalProperties: false },
 );
 
-/** Params schema for rotating a device token for a role and optional scopes. */
 export const DeviceTokenRotateParamsSchema = Type.Object(
   {
     deviceId: NonEmptyString,
@@ -32,7 +27,6 @@ export const DeviceTokenRotateParamsSchema = Type.Object(
   { additionalProperties: false },
 );
 
-/** Params schema for revoking one device token role. */
 export const DeviceTokenRevokeParamsSchema = Type.Object(
   {
     deviceId: NonEmptyString,
