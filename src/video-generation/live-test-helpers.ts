@@ -31,7 +31,6 @@ const REMOTE_URL_VIDEO_TO_VIDEO_PROVIDERS = new Set(["alibaba", "google", "opena
 const BUFFER_BACKED_IMAGE_TO_VIDEO_UNSUPPORTED_PROVIDERS = new Set(["vydra"]);
 const TOGETHER_BUFFER_BACKED_IMAGE_TO_VIDEO_MODEL = "Wan-AI/Wan2.2-I2V-A14B";
 
-/** Picks a conservative live-test resolution supported by the selected provider lane. */
 export function resolveLiveVideoResolution(params: {
   providerId: string;
   modelRef: string;
@@ -49,17 +48,14 @@ export function resolveLiveVideoResolution(params: {
   return "480P";
 }
 
-/** Parses comma-separated provider/model filters for live video tests. */
 export function parseCsvFilter(raw?: string): Set<string> | null {
   return parseLiveCsvFilter(raw);
 }
 
-/** Resolves live-test video model overrides from the OpenClaw config default. */
 export function resolveConfiguredLiveVideoModels(cfg: OpenClawConfig): Map<string, string> {
   return resolveConfiguredLiveProviderModels(cfg.agents?.defaults?.videoGenerationModel);
 }
 
-/** Checks whether the provider/model can run live video-to-video tests with in-memory buffers. */
 export function canRunBufferBackedVideoToVideoLiveLane(params: {
   providerId: string;
   modelRef: string;
@@ -82,7 +78,6 @@ export function canRunBufferBackedVideoToVideoLiveLane(params: {
   return model === "gen4_aleph";
 }
 
-/** Checks whether the provider/model can run live image-to-video tests with in-memory buffers. */
 export function canRunBufferBackedImageToVideoLiveLane(params: {
   providerId: string;
   modelRef: string;
@@ -97,7 +92,6 @@ export function canRunBufferBackedImageToVideoLiveLane(params: {
   return true;
 }
 
-/** Resolves whether live video tests should use profile-backed auth or direct env keys. */
 export function resolveLiveVideoAuthStore(params: {
   requireProfileKeys: boolean;
   hasLiveKeys: boolean;

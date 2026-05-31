@@ -10,7 +10,6 @@ import type {
   VideoGenerationSourceAsset,
 } from "./types.js";
 
-/** High-level runtime request before provider/model fallback and capability overlay resolution. */
 export type GenerateVideoParams = {
   cfg: OpenClawConfig;
   prompt: string;
@@ -33,7 +32,6 @@ export type GenerateVideoParams = {
   timeoutMs?: number;
 };
 
-/** Runtime response including selected provider/model, fallback trace, videos, and ignored overrides. */
 export type GenerateVideoRuntimeResult = {
   videos: GeneratedVideoAsset[];
   provider: string;

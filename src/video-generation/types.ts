@@ -2,7 +2,6 @@ import type { MediaNormalizationEntry } from "../../packages/media-generation-co
 import type { AuthProfileStore } from "../agents/auth-profiles/types.js";
 import type { OpenClawConfig } from "../config/types.openclaw.js";
 
-/** Generated video output returned by a provider. */
 export type GeneratedVideoAsset = {
   /** Raw video bytes. Required for local delivery; omit when url is provided instead. */
   buffer?: Buffer;
@@ -15,7 +14,6 @@ export type GeneratedVideoAsset = {
   metadata?: Record<string, unknown>;
 };
 
-/** Resolution labels accepted by video generation providers. */
 export type VideoGenerationResolution =
   | "360P"
   | "480P"
@@ -38,7 +36,6 @@ export type VideoGenerationAssetRole =
   | "reference_video"
   | "reference_audio";
 
-/** Input media asset passed to image/video/audio-to-video providers. */
 export type VideoGenerationSourceAsset = {
   url?: string;
   buffer?: Buffer;
@@ -56,13 +53,11 @@ export type VideoGenerationSourceAsset = {
   metadata?: Record<string, unknown>;
 };
 
-/** Context providers use to decide whether they are configured. */
 export type VideoGenerationProviderConfiguredContext = {
   cfg?: OpenClawConfig;
   agentDir?: string;
 };
 
-/** Normalized video generation request passed to provider implementations. */
 export type VideoGenerationRequest = {
   provider: string;
   model: string;
@@ -86,7 +81,6 @@ export type VideoGenerationRequest = {
   providerOptions?: Record<string, unknown>;
 };
 
-/** Context for resolving model-specific video generation capabilities. */
 export type VideoGenerationModelCapabilitiesContext = {
   provider: string;
   model: string;
@@ -96,20 +90,17 @@ export type VideoGenerationModelCapabilitiesContext = {
   timeoutMs?: number;
 };
 
-/** Provider result containing generated videos and optional metadata. */
 export type VideoGenerationResult = {
   videos: GeneratedVideoAsset[];
   model?: string;
   metadata?: Record<string, unknown>;
 };
 
-/** Request override ignored because the selected model cannot honor it. */
 export type VideoGenerationIgnoredOverride = {
   key: "size" | "aspectRatio" | "resolution" | "audio" | "watermark";
   value: string | boolean;
 };
 
-/** Video generation operation mode. */
 export type VideoGenerationMode = "generate" | "imageToVideo" | "videoToVideo";
 
 /**
@@ -158,14 +149,12 @@ export type VideoGenerationTransformCapabilities = VideoGenerationModeCapabiliti
   enabled: boolean;
 };
 
-/** Provider-level capabilities plus optional per-mode overrides. */
 export type VideoGenerationProviderCapabilities = VideoGenerationModeCapabilities & {
   generate?: VideoGenerationModeCapabilities;
   imageToVideo?: VideoGenerationTransformCapabilities;
   videoToVideo?: VideoGenerationTransformCapabilities;
 };
 
-/** Normalization maps for provider-specific video option aliases. */
 export type VideoGenerationNormalization = {
   size?: MediaNormalizationEntry<string>;
   aspectRatio?: MediaNormalizationEntry<string>;
@@ -173,7 +162,6 @@ export type VideoGenerationNormalization = {
   durationSeconds?: MediaNormalizationEntry<number>;
 };
 
-/** Runtime provider implementation registered for video generation. */
 export type VideoGenerationProvider = {
   id: string;
   aliases?: string[];
