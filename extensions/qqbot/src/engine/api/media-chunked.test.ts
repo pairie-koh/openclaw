@@ -26,8 +26,6 @@ vi.mock("openclaw/plugin-sdk/ssrf-runtime", () => ({
   fetchWithSsrFGuard: fetchWithSsrFGuardMock,
 }));
 
-// ============ Test doubles ============
-
 /** Build a minimal ApiClient stub whose `request` is fully mockable. */
 function mockApiClient(): ApiClient & { request: ReturnType<typeof vi.fn> } {
   return {
@@ -83,8 +81,6 @@ function makePrepareResponse(uploadId: string, parts: number): UploadPrepareResp
 /** Fixture: a 20-byte buffer that spans 3 parts at block_size=8. */
 const FIXTURE_BUFFER = Buffer.from("0123456789abcdefghij"); // 20 bytes
 
-// ============ fetch stub for COS PUT ============
-
 let originalFetch: typeof globalThis.fetch;
 
 function stubFetchOk(): ReturnType<typeof vi.fn> {
@@ -100,8 +96,6 @@ function stubFetchOk(): ReturnType<typeof vi.fn> {
   }));
   return fetchWithSsrFGuardMock;
 }
-
-// ============ Tests ============
 
 describe("media-chunked: UploadDailyLimitExceededError", () => {
   it("captures filePath / fileSize / message", () => {

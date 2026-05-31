@@ -42,8 +42,6 @@ type QQBotCommandAuthorizationResolver = (params: {
   commandsAllowFrom?: Array<string | number>;
 }) => boolean | Promise<boolean>;
 
-// ============ claw_cfg snapshot ============
-
 /**
  * Build the canonical `claw_cfg` snapshot returned in interaction ACKs.
  *
@@ -90,8 +88,6 @@ function buildClawCfgSnapshot(
     online_state: "online",
   };
 }
-
-// ============ Config update ============
 
 /** Apply a config-update interaction and return the updated claw_cfg. */
 async function applyConfigUpdate(
@@ -158,8 +154,6 @@ function applyRequireMentionUpdate(
   }
 }
 
-// ============ Public factory ============
-
 /**
  * Create the INTERACTION_CREATE event handler.
  *
@@ -216,8 +210,6 @@ export function createInteractionHandler(
     });
   };
 }
-
-// ============ Helpers ============
 
 async function handleApprovalButtonInteraction(params: {
   account: GatewayAccount;

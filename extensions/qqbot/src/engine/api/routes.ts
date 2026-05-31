@@ -81,8 +81,6 @@ export function interactionPath(interactionId: string): string {
   return `/interactions/${interactionId}`;
 }
 
-// ============ Shared Helpers ============
-
 /**
  * Generate a message sequence number in the 0..65535 range.
  *

@@ -203,8 +203,6 @@ export async function startGateway(ctx: CoreGatewayContext): Promise<void> {
   await connection.start();
 }
 
-// ============ Typing helper ============
-
 /**
  * Start typing indicator for a C2C event.
  * Returns the refIdx from InputNotify and a TypingKeepAlive handle.

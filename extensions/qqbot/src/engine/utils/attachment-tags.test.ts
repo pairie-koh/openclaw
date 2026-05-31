@@ -7,8 +7,6 @@ import {
 } from "./attachment-tags.js";
 
 describe("engine/utils/attachment-tags", () => {
-  // ────────────────────────── shared body (mode-agnostic) ──────────────────────────
-
   describe("shared tag body", () => {
     it("returns empty string for missing/empty input", () => {
       expect(formatAttachmentTags()).toBe("");
@@ -58,8 +56,6 @@ describe("engine/utils/attachment-tags", () => {
       ).toBe('[image: /tmp/a.png]\n[voice (transcript: "hi")]');
     });
   });
-
-  // ────────────────────────── ref mode = body + source suffix ──────────────────────────
 
   describe("ref mode consistency with inline", () => {
     it("produces the same body as inline for non-voice attachments", () => {
@@ -126,8 +122,6 @@ describe("engine/utils/attachment-tags", () => {
     });
   });
 
-  // ────────────────────────── Prompt-contract regression guards ──────────────────────────
-
   describe("prompt contract", () => {
     it("exposes the transcript-source labels table", () => {
       expect(TRANSCRIPT_SOURCE_LABELS.stt).toBe("local STT");
@@ -160,8 +154,6 @@ describe("engine/utils/attachment-tags", () => {
       }
     });
   });
-
-  // ────────────────────────── Options ──────────────────────────
 
   describe("options", () => {
     it("respects a custom separator", () => {

@@ -8,8 +8,6 @@
 
 import type { ChatScope, InlineKeyboard, KeyboardButton } from "../types.js";
 
-// ============ Types ============
-
 export interface ExecApprovalRequest {
   id: string;
   expiresAtMs: number;
@@ -54,8 +52,6 @@ interface ParsedApprovalAction {
   decision: ApprovalDecision;
 }
 
-// ============ Text Builders ============
-
 export function buildExecApprovalText(request: ExecApprovalRequest): string {
   const expiresIn = Math.max(0, Math.round((request.expiresAtMs - Date.now()) / 1000));
   const lines: string[] = ["\u{1f510} \u547d\u4ee4\u6267\u884c\u5ba1\u6279", ""];
@@ -99,8 +95,6 @@ export function buildPluginApprovalText(request: PluginApprovalRequest): string 
   lines.push("", `\u23f1\ufe0f \u8d85\u65f6: ${timeoutSec} \u79d2`);
   return lines.join("\n");
 }
-
-// ============ Keyboard Builder ============
 
 /**
  * Build the three-button inline keyboard for approval messages.
@@ -172,8 +166,6 @@ export function buildApprovalKeyboard(
   };
 }
 
-// ============ Target Resolver ============
-
 /**
  * Extract the delivery target from a sessionKey or turnSourceTo string.
  *
@@ -199,8 +191,6 @@ export function resolveApprovalTarget(
   const type: ChatScope = m[1].toLowerCase() === "group" ? "group" : "c2c";
   return { type, id: m[2] };
 }
-
-// ============ Interaction Parser ============
 
 /**
  * Parse the button_data string from an INTERACTION_CREATE event.

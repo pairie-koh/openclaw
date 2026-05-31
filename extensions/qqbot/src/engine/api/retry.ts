@@ -150,8 +150,6 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// ============ Pre-built Retry Policies ============
-
 /** Standard upload retry: exponential backoff, skip 400/401/timeout errors. */
 export const UPLOAD_RETRY_POLICY: RetryPolicy = {
   maxRetries: 2,

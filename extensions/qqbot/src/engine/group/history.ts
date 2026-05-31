@@ -26,8 +26,6 @@ import { stripMentionText, type RawMention } from "./mention.js";
 // Re-export so existing `from "group/history.js"` imports keep working.
 export { formatAttachmentTags } from "../utils/attachment-tags.js";
 
-// ───────────────────────────── Constants ─────────────────────────────
-
 /**
  * Tags wrapping history injected on the bot's current turn.
  *
@@ -49,8 +47,6 @@ const MERGED_CTX_END = "[CURRENT MESSAGE — reply using the context above]";
  * this limit is exceeded.
  */
 const MAX_HISTORY_KEYS = 1000;
-
-// ───────────────────────────── Types ─────────────────────────────
 
 /**
  * Attachment descriptor used inside history entries.
@@ -90,8 +86,6 @@ interface FormatMessageContentParams {
   mentions?: RawMention[];
   attachments?: RawAttachment[];
 }
-
-// ───────────────────────────── Content formatting ─────────────────────────────
 
 /** Map a raw QQ content-type string onto the normalized attachment type. */
 export function inferAttachmentType(contentType?: string): AttachmentSummary["type"] {
@@ -164,14 +158,11 @@ export function formatMessageContent(params: FormatMessageContentParams): string
   return msgContent;
 }
 
-// ───────────────────────────── Attachment tags ─────────────────────────────
 //
 // `formatAttachmentTags` lives in `utils/attachment-tags.ts` (the single
 // source of truth shared with the ref-index renderer). It is re-exported
 // from the top of this file so existing `from "group/history.js"` imports
 // continue to work.
-
-// ───────────────────────────── Internal LRU helpers ─────────────────────────────
 
 /**
  * LRU-evict the least-recently-inserted keys so the map never exceeds
@@ -224,8 +215,6 @@ function appendHistoryEntry(params: {
   evictOldHistoryKeys(historyMap);
   return history;
 }
-
-// ───────────────────────────── Public API ─────────────────────────────
 
 /**
  * Record a non-@ message so it can be replayed on the next @-activation.

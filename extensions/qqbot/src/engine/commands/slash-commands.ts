@@ -10,8 +10,6 @@
  * Zero external dependencies.
  */
 
-// ============ Types ============
-
 /** Slash command context (message metadata plus runtime state). */
 export interface SlashCommandContext {
   /** Message type. */
@@ -88,8 +86,6 @@ export interface QQBotFrameworkCommand {
   c2cOnly?: boolean;
   handler: (ctx: SlashCommandContext) => SlashCommandResult | Promise<SlashCommandResult>;
 }
-
-// ============ Command Registry ============
 
 /** Lowercase and trim a string. */
 function lc(s: string): string {

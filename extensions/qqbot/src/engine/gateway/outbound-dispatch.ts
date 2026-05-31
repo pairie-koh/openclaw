@@ -43,8 +43,6 @@ import type {
   OutboundResult,
 } from "./types.js";
 
-// ============ Config ============
-
 // Historical floor for the QQBot outbound response watchdog (5 min). The
 // effective wait budget is now derived from existing
 // `agents.defaults.timeoutSeconds` and `models.providers.<id>.timeoutSeconds`
@@ -54,8 +52,6 @@ import type {
 const TOOL_ONLY_TIMEOUT = 60_000;
 const MAX_TOOL_RENEWALS = 3;
 const TOOL_MEDIA_SEND_TIMEOUT = 45_000;
-
-// ============ Dependencies ============
 
 interface OutboundDispatchDeps {
   runtime: GatewayPluginRuntime;
@@ -96,8 +92,6 @@ function immediateToolProgressText(payload: ReplyDeliverPayload): string | undef
   }
   return text;
 }
-
-// ============ dispatchOutbound ============
 
 /**
  * Dispatch the AI reply for the given inbound context.
@@ -584,8 +578,6 @@ export async function dispatchOutbound(
     }
   }
 }
-
-// ============ ctxPayload builder ============
 
 function resolveCommandSource(
   inbound: InboundContext,

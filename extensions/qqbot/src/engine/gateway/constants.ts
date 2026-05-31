@@ -38,8 +38,6 @@ export const MAX_QUICK_DISCONNECT_COUNT = 3;
 /** A disconnect within this window (ms) counts as "quick". */
 export const QUICK_DISCONNECT_THRESHOLD = 5000;
 
-// ============ Opcode Constants ============
-
 /** Gateway opcodes used by the QQ Bot WebSocket protocol. */
 export const GatewayOp = {
   /** Server → Client: Dispatch event (type + data). */
@@ -59,8 +57,6 @@ export const GatewayOp = {
   /** Server → Client: Heartbeat ACK. */
   HEARTBEAT_ACK: 11,
 } as const;
-
-// ============ Close Codes ============
 
 /** WebSocket close codes used by the QQ Gateway. */
 export const GatewayCloseCode = {
@@ -86,8 +82,6 @@ export const GatewayCloseCode = {
   DISALLOWED_INTENTS: 4915,
 } as const;
 
-// ============ Dispatch Event Types ============
-
 /** Event type strings dispatched under opcode 0 (DISPATCH). */
 export const GatewayEvent = {
   READY: "READY",
@@ -105,8 +99,6 @@ export const GatewayEvent = {
   GROUP_MESSAGE_CREATE: "GROUP_MESSAGE_CREATE",
   INTERACTION_CREATE: "INTERACTION_CREATE",
 } as const;
-
-// ============ Interaction Type Constants ============
 
 /** Interaction sub-types carried in `InteractionEvent.data.type`. */
 export const InteractionType = {

@@ -6,8 +6,6 @@
  * untouched for backward compatibility.
  */
 
-// ============ Structured API Error ============
-
 /**
  * Structured API error with HTTP status, path, and optional business error code.
  *
@@ -32,8 +30,6 @@ export class ApiError extends Error {
   }
 }
 
-// ============ Logger ============
-
 /**
  * Unified logger interface used across all engine/ modules.
  *
@@ -50,12 +46,8 @@ export interface EngineLogger {
   debug?: (msg: string, meta?: Record<string, unknown>) => void;
 }
 
-// ============ Chat Scope ============
-
 /** Chat scope used to unify C2C/Group path construction. */
 export type ChatScope = "c2c" | "group";
-
-// ============ Message Response ============
 
 /** Standard message send response from the QQ Open Platform. */
 export interface MessageResponse {
@@ -66,8 +58,6 @@ export interface MessageResponse {
     ref_idx?: string;
   };
 }
-
-// ============ Media Types ============
 
 /** QQ Open Platform media file type codes. */
 export enum MediaFileType {
@@ -99,8 +89,6 @@ export interface OutboundMeta {
   ttsText?: string;
 }
 
-// ============ API Client Config ============
-
 /** Configuration for the core HTTP client. */
 export interface ApiClientConfig {
   /** Base URL for the QQ Open Platform REST API. */
@@ -114,8 +102,6 @@ export interface ApiClientConfig {
   /** User-Agent header value, or a getter function for dynamic resolution. */
   userAgent?: string | (() => string);
 }
-
-// ============ Chunked Upload Types ============
 
 /** Individual upload part metadata. */
 export interface UploadPart {
@@ -148,8 +134,6 @@ export interface UploadPrepareHashes {
   /** MD5 of the first 10,002,432 bytes (hex). */
   md5_10m: string;
 }
-
-// ============ Stream Message Types ============
 
 /** Stream message input mode (C2C stream_messages API). */
 export const StreamInputMode = {
@@ -184,8 +168,6 @@ export interface StreamMessageRequest {
   index: number;
 }
 
-// ============ Inline Keyboard Types ============
-
 /** Inline keyboard button for approval/interaction flows. */
 export interface KeyboardButton {
   id: string;
@@ -213,8 +195,6 @@ export interface InlineKeyboard {
     rows: Array<{ buttons: KeyboardButton[] }>;
   };
 }
-
-// ============ Interaction Event Types ============
 
 /** Button interaction event (INTERACTION_CREATE). */
 export interface InteractionEvent {
@@ -248,8 +228,6 @@ export interface InteractionEvent {
   };
 }
 
-// ============ Account Config View ============
-
 import type { QQBotDmPolicy, QQBotGroupPolicy } from "./access/types.js";
 
 /**
@@ -277,8 +255,6 @@ export interface QQBotAccountConfigView {
   };
   voiceDirectUploadFormats?: string[];
 }
-
-// ============ Gateway Account ============
 
 /**
  * Resolved account configuration — shared across gateway/ and messaging/ layers.

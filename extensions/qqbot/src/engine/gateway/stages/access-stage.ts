@@ -74,8 +74,6 @@ export async function runAccessStage(
   };
 }
 
-// ─────────────────────────── Internal helpers ───────────────────────────
-
 function resolvePeerId(event: QueuedMessage, isGroupChat: boolean): string {
   if (event.type === "guild") {
     return event.channelId ?? "unknown";

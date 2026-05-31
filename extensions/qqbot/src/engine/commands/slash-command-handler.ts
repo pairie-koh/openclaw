@@ -17,8 +17,6 @@ import { resolveQQBotCommandsAllowFrom, resolveSlashCommandAuth } from "./slash-
 import { matchSlashCommand } from "./slash-commands-impl.js";
 import type { SlashCommandContext, QueueSnapshot } from "./slash-commands.js";
 
-// ============ Types ============
-
 export interface SlashCommandHandlerContext {
   account: GatewayAccount;
   cfg?: unknown;
@@ -35,11 +33,7 @@ export interface SlashCommandHandlerContext {
   }) => boolean | Promise<boolean>;
 }
 
-// ============ Constants ============
-
 const URGENT_COMMANDS = ["/stop"];
-
-// ============ trySlashCommandOrEnqueue ============
 
 /**
  * Check if the message is a slash command and handle it.

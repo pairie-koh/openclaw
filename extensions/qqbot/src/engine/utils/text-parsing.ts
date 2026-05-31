@@ -6,8 +6,6 @@
 
 import type { RefAttachmentSummary } from "../ref/types.js";
 
-// ============ Internal markers ============
-
 const INTERNAL_MARKER_RE = /\[internal:?\s*[^\]]*\]|\[debug:?\s*[^\]]*\]|\[system:?\s*[^\]]*\]/gi;
 
 /** Remove internal markers like `[internal:...]`, `[debug:...]`, `[system:...]`. */
@@ -17,8 +15,6 @@ export function filterInternalMarkers(text: string | undefined | null): string {
   }
   return text.replace(INTERNAL_MARKER_RE, "").trim();
 }
-
-// ============ Ref indices ============
 
 /** QQ 引用（回复）消息类型常量。 */
 export const MSG_TYPE_QUOTE = 103;
@@ -74,8 +70,6 @@ export function parseRefIndices(
   return { refMsgIdx, msgIdx };
 }
 
-// ============ Face tags ============
-
 const MAX_FACE_EXT_BYTES = 64 * 1024;
 
 /** Estimate Base64 decoded byte size (replaces plugin-sdk estimateBase64DecodedBytes). */
@@ -105,8 +99,6 @@ export function parseFaceTags(text: string | undefined | null): string {
     }
   });
 }
-
-// ============ Attachment summaries ============
 
 /** Lowercase a string safely (replaces plugin-sdk normalizeLowercaseStringOrEmpty). */
 function lc(s: string | undefined | null): string {

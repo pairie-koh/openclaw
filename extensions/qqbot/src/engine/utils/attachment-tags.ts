@@ -30,8 +30,6 @@
 
 import type { RefAttachmentSummary } from "../ref/types.js";
 
-// ============ Types ============
-
 /** Canonical attachment shape shared by history entries and ref entries. */
 export type AttachmentSummary = RefAttachmentSummary;
 
@@ -65,8 +63,6 @@ interface RenderOptions {
   /** Returned when `attachments` is empty/undefined. Defaults to `""`. */
   emptyFallback?: string;
 }
-
-// ============ Public API ============
 
 /**
  * Render a list of attachments into an LLM-facing tag string.
@@ -112,8 +108,6 @@ export function renderAttachmentTags(
 export function formatAttachmentTags(attachments?: readonly AttachmentSummary[]): string {
   return renderAttachmentTags(attachments, { mode: "inline" });
 }
-
-// ============ Internal ============
 
 /**
  * Render a single attachment.

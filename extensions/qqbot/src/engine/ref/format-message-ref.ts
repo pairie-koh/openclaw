@@ -14,8 +14,6 @@ import { parseFaceTags, buildAttachmentSummaries } from "../utils/text-parsing.j
 import { formatRefEntryForAgent } from "./format-ref-entry.js";
 import type { RefAttachmentSummary } from "./types.js";
 
-// ============ Injected dependency ============
-
 /** Attachment download & voice transcription — injected from the outer layer. */
 export interface AttachmentProcessor {
   processAttachments(
@@ -41,8 +39,6 @@ export interface AttachmentProcessor {
 
   formatVoiceText(voiceTranscripts: string[]): string;
 }
-
-// ============ Public API ============
 
 /**
  * Format a quoted message reference into human-readable text for model context.

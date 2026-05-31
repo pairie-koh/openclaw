@@ -38,8 +38,6 @@ initSender({
   openclawVersion: resolveRuntimeServiceVersion(),
 });
 
-// ============ Public types ============
-
 export interface GatewayContext {
   account: ResolvedQQBotAccount;
   abortSignal: AbortSignal;
@@ -64,8 +62,6 @@ export interface GatewayContext {
     };
   };
 }
-
-// ============ Adapter factory ============
 
 /**
  * Create the full set of engine adapters from the bridge layer.
@@ -101,8 +97,6 @@ function createEngineAdapters(): EngineAdapters {
     },
   };
 }
-
-// ============ startGateway ============
 
 /**
  * Start the Gateway WebSocket connection.
@@ -150,8 +144,6 @@ export async function startGateway(ctx: GatewayContext): Promise<void> {
 
   return coreStartGateway(coreCtx);
 }
-
-// ============ Per-account logger factory ============
 
 function createAccountLogger(
   raw: GatewayContext["log"] | undefined,

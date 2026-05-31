@@ -22,8 +22,6 @@ function formatStreamSendErr(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
 }
 
-// ============ 类型定义 ============
-
 /** 发送队列项 */
 export interface SendQueueItem {
   type: "text" | "image" | "voice" | "video" | "file" | "media";
@@ -56,8 +54,6 @@ export interface MediaSendContext {
     debug?: (msg: string) => void;
   };
 }
-
-// ============ 路径编码修复 ============
 
 /**
  * 修复路径编码问题（双反斜杠、八进制转义、UTF-8 双重编码）
@@ -122,8 +118,6 @@ function fixPathEncoding(
   return result;
 }
 
-// ============ 代码块检测 ============
-
 /**
  * 判断文本中给定位置是否处于围栏代码块内（``` 块）。
  *
@@ -157,8 +151,6 @@ function isInsideCodeBlock(text: string, position: number): boolean {
 
   return false;
 }
-
-// ============ 媒体标签解析 ============
 
 /** findFirstClosedMediaTag 的返回值 */
 interface FirstClosedMediaTag {
@@ -229,8 +221,6 @@ export function findFirstClosedMediaTag(
 
   return null;
 }
-
-// ============ 发送队列执行 ============
 
 /**
  * 统一执行发送队列
@@ -442,7 +432,6 @@ export function stripIncompleteMediaTag(text: string): [safeText: string, hasInc
     const nameStr = isClosing ? after.slice(1) : after;
     const nameMatch = nameStr.match(/^(\w+)/);
 
-    // ======== 回溯模式：正在找对应的开标签 ========
     if (searchTag) {
       if (!nameMatch || isClosing) {
         continue;
@@ -467,9 +456,6 @@ export function stripIncompleteMediaTag(text: string): [safeText: string, hasInc
       continue;
     }
 
-    // ======== 正常扫描 ========
-
-    // --- 无标签名：孤立 < 或 </ ---
     if (!nameMatch) {
       if (!after) {
         // 孤立 <：可能是新开标签，往左找未闭合的媒体开标签

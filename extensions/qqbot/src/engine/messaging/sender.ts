@@ -48,11 +48,7 @@ import { sanitizeFileName } from "../utils/string-normalize.js";
 import { computeFileHash, getCachedFileInfo, setCachedFileInfo } from "../utils/upload-cache.js";
 import { normalizeSource, type MediaSource, type RawMediaSource } from "./media-source.js";
 
-// ============ Re-exported types ============
-
 export { UploadDailyLimitExceededError } from "../api/media-chunked.js";
-
-// ============ Plugin User-Agent ============
 
 let pluginVersion = "unknown";
 let openclawVersion = "unknown";
@@ -86,8 +82,6 @@ export function setOpenClawVersion(version: string): void {
     openclawVersion = version;
   }
 }
-
-// ============ Per-account resource management ============
 
 /** Complete resource context for a single account. */
 interface AccountContext {
@@ -213,14 +207,10 @@ function resolveAccount(appId: string): AccountContext {
   return ctx;
 }
 
-// ============ Instance getters (for advanced callers) ============
-
 /** Get the MessageApi instance for the given appId. */
 export function getMessageApi(appId: string): MessageApiClass {
   return resolveAccount(appId).messageApi;
 }
-
-// ============ Per-appId config ============
 
 type OnMessageSentCallback = (refIdx: string, meta: OutboundMeta) => void;
 
@@ -228,8 +218,6 @@ type OnMessageSentCallback = (refIdx: string, meta: OutboundMeta) => void;
 export function onMessageSent(appId: string, callback: OnMessageSentCallback): void {
   resolveAccount(appId).messageApi.onMessageSent(callback);
 }
-
-// ============ Token management ============
 
 export async function getAccessToken(appId: string, clientSecret: string): Promise<string> {
   return resolveAccount(appId).tokenMgr.getAccessToken(appId, clientSecret);
@@ -273,8 +261,6 @@ export function stopBackgroundTokenRefresh(appId?: string): void {
   }
 }
 
-// ============ Gateway URL ============
-
 export async function getGatewayUrl(accessToken: string, appId: string): Promise<string> {
   const data = await resolveAccount(appId).client.request<{ url: string }>(
     accessToken,
@@ -283,8 +269,6 @@ export async function getGatewayUrl(accessToken: string, appId: string): Promise
   );
   return data.url;
 }
-
-// ============ Interaction ============
 
 /** Acknowledge an INTERACTION_CREATE event via PUT /interactions/{id}. */
 export async function acknowledgeInteraction(
@@ -301,8 +285,6 @@ export async function acknowledgeInteraction(
   });
 }
 
-// ============ Types ============
-
 /** Delivery target resolved from event context. */
 export interface DeliveryTarget {
   type: "c2c" | "group" | "channel" | "dm";
@@ -314,8 +296,6 @@ interface AccountCreds {
   appId: string;
   clientSecret: string;
 }
-
-// ============ Token retry ============
 
 /**
  * Execute an API call with automatic token-retry on 401 errors.
@@ -359,8 +339,6 @@ export async function withTokenRetry<T>(
   }
 }
 
-// ============ Media hook helper ============
-
 /**
  * Notify the MessageApi onMessageSent hook after a media send.
  */
@@ -370,8 +348,6 @@ function notifyMediaHook(appId: string, result: MessageResponse, meta: OutboundM
     resolveAccount(appId).messageApi.notifyMessageSent(refIdx, meta);
   }
 }
-
-// ============ Text sending ============
 
 /**
  * Send a text message to any QQ target type.
@@ -408,8 +384,6 @@ export async function sendText(
 
   return api.sendChannelMessage({ channelId: target.id, content, creds: c, msgId: opts?.msgId });
 }
-
-// ============ Input notify ============
 
 /**
  * Send a typing indicator to a C2C user.
@@ -451,8 +425,6 @@ export function createRawInputNotifyFn(
     });
   };
 }
-
-// ============ Media sending (unified) ============
 
 /** Rich-media kind accepted by {@link sendMedia}. */
 type MediaKind = "image" | "voice" | "video" | "file";
@@ -724,8 +696,6 @@ async function dispatchUpload(
     }
   }
 }
-
-// ============ Helpers ============
 
 /** Build a DeliveryTarget from event context fields. */
 export function buildDeliveryTarget(event: {

@@ -87,8 +87,6 @@ function escapeRegex(str: string): string {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-// ============ Implicit mention (quoted bot message) ============
-
 /**
  * Decide whether a quoted-reply should count as an implicit @bot.
  *

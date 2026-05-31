@@ -18,16 +18,12 @@ import type {
   EngineLogger,
 } from "./types.js";
 
-// ============ Dispatch result ============
-
 type DispatchResult =
   | { action: "ready"; data: unknown; sessionId: string }
   | { action: "resumed"; data: unknown }
   | { action: "message"; msg: QueuedMessage }
   | { action: "interaction"; event: InteractionEvent }
   | { action: "ignore" };
-
-// ============ dispatchEvent ============
 
 /**
  * Map a raw op=0 event into a structured dispatch result.

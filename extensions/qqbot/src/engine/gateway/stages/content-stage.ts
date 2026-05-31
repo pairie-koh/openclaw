@@ -15,8 +15,6 @@ import { parseFaceTags } from "../../utils/text-parsing.js";
 import { formatVoiceText } from "../../utils/voice-text.js";
 import type { QueuedMention, QueuedMessage } from "../message-queue.js";
 
-// ─────────────────────────── Types ───────────────────────────
-
 /** Input for {@link buildUserContent}. */
 interface ContentStageInput {
   event: QueuedMessage;
@@ -33,8 +31,6 @@ interface ContentStageOutput {
   /** Full user-visible content (parsed + voice + attachments + mention cleanup). */
   userContent: string;
 }
-
-// ─────────────────────────── Stage ───────────────────────────
 
 /**
  * Build both the raw-parsed content and the fully composed user-visible
@@ -59,8 +55,6 @@ export function buildUserContent(input: ContentStageInput): ContentStageOutput {
 
   return { parsedContent, userContent };
 }
-
-// ─────────────────────────── Internal ───────────────────────────
 
 function replaceMentionsWithNicknames(text: string, mentions: QueuedMention[]): string {
   let out = text;

@@ -32,8 +32,6 @@ import type { FileHandle } from "node:fs/promises";
 import { FsSafeError, openLocalFileSafely } from "openclaw/plugin-sdk/security-runtime";
 import { MAX_UPLOAD_SIZE, formatFileSize, getMimeType } from "../utils/file-utils.js";
 
-// ============ Types ============
-
 /**
  * Fully normalized media source. Downstream uploaders switch on `kind`.
  *
@@ -62,8 +60,6 @@ export type RawMediaSource =
   | { localPath: string }
   | { buffer: Buffer; fileName?: string; mime?: string };
 
-// ============ data: URL ============
-
 const DATA_URL_RE = /^data:([^;,]+);base64,(.+)$/i;
 
 /**
@@ -83,8 +79,6 @@ function tryParseDataUrl(value: string): { mime: string; data: string } | null {
   }
   return { mime: m[1], data: m[2] };
 }
-
-// ============ Local file safe open ============
 
 /**
  * Opened handle to a local file, with metadata already validated against
@@ -143,8 +137,6 @@ export async function openLocalFile(
     throw err;
   }
 }
-
-// ============ Normalization ============
 
 /**
  * Normalize a {@link RawMediaSource} into a {@link MediaSource}.

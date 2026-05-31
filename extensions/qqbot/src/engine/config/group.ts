@@ -158,8 +158,6 @@ export function resolveGroupName(
   return name || groupOpenid.slice(0, 8);
 }
 
-// ============ GroupSettings (aggregate) ============
-
 /**
  * Per-inbound aggregate of everything the pipeline needs about a group.
  *

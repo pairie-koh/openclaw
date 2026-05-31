@@ -356,8 +356,6 @@ async function sendVoiceWithTimeout(
   }
 }
 
-// ============ Public API ============
-
 /**
  * Parse media tags from the reply text and send them in order.
  *

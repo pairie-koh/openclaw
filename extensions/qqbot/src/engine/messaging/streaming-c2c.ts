@@ -38,8 +38,6 @@ function formatStreamErr(e: unknown): string {
   return e instanceof Error ? e.message : String(e);
 }
 
-// ============ 常量 ============
-
 /** 流式消息节流常量（毫秒） */
 const THROTTLE_CONSTANTS = {
   /** 默认节流间隔 */
@@ -65,8 +63,6 @@ const PHASE_TRANSITIONS: Record<StreamingPhase, Set<StreamingPhase>> = {
   completed: new Set(),
   aborted: new Set(),
 };
-
-// ============ FlushController ============
 
 /**
  * 节流刷新控制器（纯调度原语，不含业务逻辑）
@@ -206,8 +202,6 @@ class FlushController {
     }
   }
 }
-
-// ============ StreamingController ============
 
 /** StreamingController 的依赖注入 */
 interface StreamingControllerDeps {
@@ -1100,10 +1094,6 @@ export class StreamingController {
   }
 }
 
-// ============ 辅助函数 ============
-
-// ============ 流式媒体发送 ============
-
 /** 流式媒体发送上下文（由 gateway 注入到 StreamingController） */
 interface StreamingMediaContext {
   /** 账户信息 */
@@ -1166,8 +1156,6 @@ async function sendMediaQueue(queue: SendQueueItem[], ctx: StreamingMediaContext
     skipInterTagText: true,
   });
 }
-
-// ============ 流式模式判断 ============
 
 /**
  * 是否对私聊走 QQ 官方 C2C `stream_messages` 流式 API。

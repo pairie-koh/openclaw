@@ -12,8 +12,6 @@ import type { ProcessedAttachments } from "../inbound-attachments.js";
 import type { InboundGroupInfo, InboundPipelineDeps, ReplyToInfo } from "../inbound-context.js";
 import type { QueuedMessage } from "../message-queue.js";
 
-// ─────────────────────────── Envelope body ───────────────────────────
-
 interface BuildBodyInput {
   event: QueuedMessage;
   deps: InboundPipelineDeps;
@@ -37,8 +35,6 @@ export function buildBody(input: BuildBodyInput): string {
     ...(imageUrls.length > 0 ? { imageUrls } : {}),
   });
 }
-
-// ─────────────────────────── Quote / dynamic ctx ───────────────────────────
 
 /** Render the `[Quoted message begins]...[ends]` block (empty if no reply-to). */
 export function buildQuotePart(replyTo?: ReplyToInfo): string {
@@ -72,8 +68,6 @@ export function buildDynamicCtx(input: BuildDynamicCtxInput): string {
   return lines.length > 0 ? lines.join("\n") + "\n\n" : "";
 }
 
-// ─────────────────────────── System prompt ───────────────────────────
-
 /** Combine account-level system prompt with group-specific prompts. */
 export function buildGroupSystemPrompt(
   accountSystemInstruction: string,
@@ -92,8 +86,6 @@ export function buildGroupSystemPrompt(
   const combined = parts.filter(Boolean).join("\n");
   return combined || undefined;
 }
-
-// ─────────────────────────── Media classification ───────────────────────────
 
 interface MediaClassification {
   localMediaPaths: string[];

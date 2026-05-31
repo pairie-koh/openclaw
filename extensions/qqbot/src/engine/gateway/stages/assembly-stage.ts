@@ -24,8 +24,6 @@ import {
 import type { InboundGroupInfo, InboundPipelineDeps } from "../inbound-context.js";
 import type { QueuedMessage } from "../message-queue.js";
 
-// ─────────────────────────── buildUserMessage ───────────────────────────
-
 interface BuildUserMessageInput {
   event: QueuedMessage;
   userContent: string;
@@ -66,8 +64,6 @@ export function buildUserMessage(input: BuildUserMessageInput): string {
     ? `${senderPrefix}${quotePart}${userContent}${isAtYouTag}`
     : `${quotePart}${userContent}`;
 }
-
-// ─────────────────────────── buildAgentBody ───────────────────────────
 
 interface BuildAgentBodyInput {
   event: QueuedMessage;
@@ -111,8 +107,6 @@ export function buildAgentBody(input: BuildAgentBodyInput): string {
     formatEntry: (entry) => formatHistoryEntry(entry as HistoryEntry, deps, envelopeOpts),
   });
 }
-
-// ─────────────────────────── Internal ───────────────────────────
 
 function formatSub(m: QueuedMessage): string {
   return formatMessageContent({
