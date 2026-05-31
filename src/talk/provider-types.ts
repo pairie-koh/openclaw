@@ -78,10 +78,8 @@ export type RealtimeVoiceBridgeCallbacks = {
   onClose?: (reason: RealtimeVoiceCloseReason) => void;
 };
 
-/** Provider-specific config payload after core config resolution. */
 export type RealtimeVoiceProviderConfig = Record<string, unknown>;
 
-/** Capability declaration used to choose transports, audio formats, and UI affordances. */
 export type RealtimeVoiceProviderCapabilities = {
   transports: TalkTransport[];
   inputAudioFormats: RealtimeVoiceAudioFormat[];
@@ -93,19 +91,16 @@ export type RealtimeVoiceProviderCapabilities = {
   supportsSessionResumption?: boolean;
 };
 
-/** Context passed to provider config resolvers. */
 export type RealtimeVoiceProviderResolveConfigContext = {
   cfg: OpenClawConfig;
   rawConfig: RealtimeVoiceProviderConfig;
 };
 
-/** Context passed to provider hooks after config has been resolved. */
 export type RealtimeVoiceProviderConfiguredContext = {
   cfg?: OpenClawConfig;
   providerConfig: RealtimeVoiceProviderConfig;
 };
 
-/** Request shape for creating a server-side realtime voice bridge. */
 export type RealtimeVoiceBridgeCreateRequest = RealtimeVoiceBridgeCallbacks & {
   cfg?: OpenClawConfig;
   providerConfig: RealtimeVoiceProviderConfig;
@@ -116,7 +111,6 @@ export type RealtimeVoiceBridgeCreateRequest = RealtimeVoiceBridgeCallbacks & {
   tools?: RealtimeVoiceTool[];
 };
 
-/** Request shape for creating a browser-facing realtime voice session. */
 export type RealtimeVoiceBrowserSessionCreateRequest = {
   cfg?: OpenClawConfig;
   providerConfig: RealtimeVoiceProviderConfig;
@@ -130,7 +124,6 @@ export type RealtimeVoiceBrowserSessionCreateRequest = {
   reasoningEffort?: string;
 };
 
-/** Audio encoding contract a browser client must honor for a realtime session. */
 export type RealtimeVoiceBrowserAudioContract = {
   inputEncoding: "pcm16" | "g711_ulaw";
   inputSampleRateHz: number;
@@ -138,7 +131,6 @@ export type RealtimeVoiceBrowserAudioContract = {
   outputSampleRateHz: number;
 };
 
-/** Browser session credentials for direct WebRTC SDP exchange with a provider. */
 export type RealtimeVoiceBrowserWebRtcSdpSession = {
   provider: RealtimeVoiceProviderId;
   transport: "webrtc";
@@ -150,7 +142,6 @@ export type RealtimeVoiceBrowserWebRtcSdpSession = {
   expiresAt?: number;
 };
 
-/** Browser session credentials for provider WebSocket JSON/PCM transport. */
 export type RealtimeVoiceBrowserJsonPcmWebSocketSession = {
   provider: RealtimeVoiceProviderId;
   transport: "provider-websocket";
@@ -164,7 +155,6 @@ export type RealtimeVoiceBrowserJsonPcmWebSocketSession = {
   expiresAt?: number;
 };
 
-/** Browser session descriptor for audio relayed through the OpenClaw gateway. */
 export type RealtimeVoiceBrowserGatewayRelaySession = {
   provider: RealtimeVoiceProviderId;
   transport: "gateway-relay";
@@ -175,7 +165,6 @@ export type RealtimeVoiceBrowserGatewayRelaySession = {
   expiresAt?: number;
 };
 
-/** Browser session descriptor for provider-managed room URLs. */
 export type RealtimeVoiceBrowserManagedRoomSession = {
   provider: RealtimeVoiceProviderId;
   transport: "managed-room";
@@ -186,14 +175,12 @@ export type RealtimeVoiceBrowserManagedRoomSession = {
   expiresAt?: number;
 };
 
-/** Discriminated browser realtime session descriptor returned by providers. */
 export type RealtimeVoiceBrowserSession =
   | RealtimeVoiceBrowserWebRtcSdpSession
   | RealtimeVoiceBrowserJsonPcmWebSocketSession
   | RealtimeVoiceBrowserGatewayRelaySession
   | RealtimeVoiceBrowserManagedRoomSession;
 
-/** Runtime bridge interface implemented by server-side realtime voice providers. */
 export type RealtimeVoiceBridge = {
   supportsToolResultContinuation?: boolean;
   connect(): Promise<void>;
@@ -208,7 +195,6 @@ export type RealtimeVoiceBridge = {
   isConnected(): boolean;
 };
 
-/** Options for interrupting current assistant output on caller speech. */
 export type RealtimeVoiceBargeInOptions = {
   /**
    * The caller has already confirmed assistant audio is still playing in its output sink.

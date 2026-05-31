@@ -1,7 +1,6 @@
 const DEFAULT_REALTIME_VOICE_TURN_CONTEXT_LIMIT = 32;
 const DEFAULT_REALTIME_VOICE_IGNORED_CONTEXT_TTL_MS = 10_000;
 
-/** Capacity, TTL, and clock options for realtime turn context tracking. */
 export type RealtimeVoiceTurnContextTrackerOptions = {
   limit?: number;
   ignoredContextTtlMs?: number;
@@ -9,7 +8,6 @@ export type RealtimeVoiceTurnContextTrackerOptions = {
   deferUntilAudio?: boolean;
 };
 
-/** Handle for one pending turn context plus caller-provided metadata. */
 export type RealtimeVoiceTurnContextHandle<
   TContext,
   TExtra extends object = Record<never, never>,
@@ -26,7 +24,6 @@ type RealtimeVoiceTurnContextOpenArgs<TExtra extends object> = keyof TExtra exte
   ? [extra?: TExtra]
   : [extra: TExtra];
 
-/** Bounded tracker for audio-backed and briefly ignored realtime turn contexts. */
 export type RealtimeVoiceTurnContextTracker<
   TContext,
   TExtra extends object = Record<never, never>,
@@ -58,7 +55,6 @@ function normalizeNonNegativeInteger(value: number | undefined, fallback: number
   return Math.max(0, Math.floor(value));
 }
 
-/** Creates a tracker that defers context consumption until matching audio arrives. */
 export function createRealtimeVoiceTurnContextTracker<
   TContext,
   TExtra extends object = Record<never, never>,

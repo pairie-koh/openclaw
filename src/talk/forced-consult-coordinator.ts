@@ -7,12 +7,10 @@ import {
 const DEFAULT_REALTIME_VOICE_FORCED_CONSULT_NATIVE_DEDUPE_MS = 2_000;
 const DEFAULT_REALTIME_VOICE_FORCED_CONSULT_LIMIT = 12;
 
-/** Timer handle abstraction used by production timers and deterministic tests. */
 export type RealtimeVoiceForcedConsultTimer = {
   clear(): void;
 };
 
-/** Limits, clock hooks, and matching strategy for forced consult coordination. */
 export type RealtimeVoiceForcedConsultCoordinatorOptions = {
   limit?: number;
   nativeDedupeMs?: number;
@@ -21,14 +19,12 @@ export type RealtimeVoiceForcedConsultCoordinatorOptions = {
   questionsMatch?: (left: string | undefined, right: string | undefined) => boolean;
 };
 
-/** Stable handle for one forced consult request and its optional caller context. */
 export type RealtimeVoiceForcedConsultHandle<TContext = unknown> = {
   id: string;
   question: string;
   context?: TContext;
 };
 
-/** Relationship between a provider-native consult call and queued forced consults. */
 export type RealtimeVoiceForcedConsultNativeMatch<TContext = unknown> =
   | { kind: "none"; question?: string }
   | { kind: "pending"; question?: string; handle: RealtimeVoiceForcedConsultHandle<TContext> }
@@ -39,12 +35,10 @@ export type RealtimeVoiceForcedConsultNativeMatch<TContext = unknown> =
       handle: RealtimeVoiceForcedConsultHandle<TContext>;
     };
 
-/** Options for treating recent native consults without a readable question as matches. */
 export type RealtimeVoiceForcedConsultNativeRecentOptions = {
   allowUnknownQuestion?: boolean;
 };
 
-/** State machine for queued, in-flight, delivered, and cancelled forced consults. */
 export type RealtimeVoiceForcedConsultCoordinator<TContext = unknown> = {
   prepare(
     question: string,
@@ -97,7 +91,6 @@ type RecentNativeConsult = {
   at: number;
 };
 
-/** Creates a bounded forced-consult coordinator with recent native-call de-dupe. */
 export function createRealtimeVoiceForcedConsultCoordinator<TContext = unknown>(
   options: RealtimeVoiceForcedConsultCoordinatorOptions = {},
 ): RealtimeVoiceForcedConsultCoordinator<TContext> {
