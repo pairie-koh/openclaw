@@ -7,7 +7,6 @@ export type RetryConfig = {
   jitter?: number;
 };
 
-/** Retry notification payload passed to onRetry observers. */
 export type RetryInfo = {
   attempt: number;
   maxAttempts: number;
@@ -16,7 +15,6 @@ export type RetryInfo = {
   label?: string;
 };
 
-/** Retry policy plus hooks for retry filtering, Retry-After, and logging. */
 export type RetryOptions = RetryConfig & {
   label?: string;
   shouldRetry?: (err: unknown, attempt: number) => boolean;
@@ -59,7 +57,6 @@ function resolveAttempts(value: unknown, fallback: number): number {
   return Math.max(1, value);
 }
 
-/** Merges retry overrides with defaults and clamps invalid delay/jitter values. */
 export function resolveRetryConfig(
   defaults: Required<RetryConfig> = DEFAULT_RETRY_CONFIG,
   overrides?: RetryConfig,
@@ -88,7 +85,6 @@ function applyJitter(delayMs: number, jitter: number): number {
   return Math.max(0, Math.round(delayMs * (1 + offset)));
 }
 
-/** Runs an async operation with legacy numeric retries or the full retry policy. */
 export async function retryAsync<T>(
   fn: () => Promise<T>,
   attemptsOrOptions: number | RetryOptions = 3,

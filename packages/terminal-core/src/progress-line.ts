@@ -1,6 +1,5 @@
 let activeStream: NodeJS.WriteStream | null = null;
 
-/** Register a TTY stream as owning the active progress line. */
 export function registerActiveProgressLine(stream: NodeJS.WriteStream): void {
   if (!stream.isTTY) {
     return;
@@ -8,7 +7,6 @@ export function registerActiveProgressLine(stream: NodeJS.WriteStream): void {
   activeStream = stream;
 }
 
-/** Clear the active terminal progress line if one is registered. */
 export function clearActiveProgressLine(): void {
   if (!activeStream?.isTTY) {
     return;
@@ -16,7 +14,6 @@ export function clearActiveProgressLine(): void {
   activeStream.write("\r\x1b[2K");
 }
 
-/** Unregister the active progress line, optionally only for a matching stream. */
 export function unregisterActiveProgressLine(stream?: NodeJS.WriteStream): void {
   if (!activeStream) {
     return;
