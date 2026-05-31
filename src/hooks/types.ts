@@ -7,7 +7,6 @@ export type HookInstallSpec = {
   bins?: string[];
 };
 
-/** Metadata parsed from HOOK.md frontmatter and OpenClaw hook manifests. */
 export type OpenClawHookMetadata = {
   always?: boolean;
   hookKey?: string;
@@ -27,15 +26,12 @@ export type OpenClawHookMetadata = {
   install?: HookInstallSpec[];
 };
 
-/** Resolved invocation policy for a hook entry. */
 export type HookInvocationPolicy = {
   enabled: boolean;
 };
 
-/** Parsed HOOK.md frontmatter key/value map. */
 export type ParsedHookFrontmatter = Record<string, string>;
 
-/** Discovered hook module with source and filesystem locations. */
 export type Hook = {
   name: string;
   description: string;
@@ -46,10 +42,8 @@ export type Hook = {
   handlerPath: string; // Path to handler module (handler.ts/js)
 };
 
-/** Source category for a discovered hook. */
 export type HookSource = Hook["source"];
 
-/** Loaded hook plus parsed metadata and resolved invocation policy. */
 export type HookEntry = {
   hook: Hook;
   frontmatter: ParsedHookFrontmatter;
@@ -57,7 +51,6 @@ export type HookEntry = {
   invocation?: HookInvocationPolicy;
 };
 
-/** Runtime facts used to evaluate whether a hook is eligible to load. */
 export type HookEligibilityContext = {
   remote?: {
     platforms: string[];

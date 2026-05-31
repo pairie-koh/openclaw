@@ -11,7 +11,6 @@ let cachedPythonPath: string | null | undefined;
 let gcloudBin: string | undefined;
 const MAX_OUTPUT_CHARS = 800;
 
-/** Clears cached executable lookup state for Gmail setup tests. */
 export function resetGmailSetupUtilsCachesForTest(): void {
   cachedPythonPath = undefined;
 }
@@ -119,7 +118,6 @@ function ensureGcloudOnPath(): boolean {
   return false;
 }
 
-/** Resolves a real Python executable for gcloud without trusting workspace shims. */
 export async function resolvePythonExecutablePath(): Promise<string | undefined> {
   if (cachedPythonPath !== undefined) {
     return cachedPythonPath ?? undefined;
@@ -166,7 +164,6 @@ async function runGcloudCommand(
   });
 }
 
-/** Ensures a required setup binary exists, installing via Homebrew on macOS. */
 export async function ensureDependency(bin: string, brewArgs: string[]) {
   if (bin === "gcloud" && ensureGcloudOnPath()) {
     return;
@@ -193,7 +190,6 @@ export async function ensureDependency(bin: string, brewArgs: string[]) {
   }
 }
 
-/** Ensures gcloud has an active authenticated account. */
 export async function ensureGcloudAuth() {
   const res = await runGcloudCommand(
     ["auth", "list", "--filter", "status:ACTIVE", "--format", "value(account)"],
@@ -208,7 +204,6 @@ export async function ensureGcloudAuth() {
   }
 }
 
-/** Runs a gcloud command with setup-safe environment and error handling. */
 export async function runGcloud(args: string[]) {
   const result = await runGcloudCommand(args, 120_000);
   if (result.code !== 0) {
@@ -217,7 +212,6 @@ export async function runGcloud(args: string[]) {
   return result;
 }
 
-/** Creates a Pub/Sub topic when it does not already exist. */
 export async function ensureTopic(projectId: string, topicName: string) {
   const describe = await runGcloudCommand(
     ["pubsub", "topics", "describe", topicName, "--project", projectId],
@@ -229,7 +223,6 @@ export async function ensureTopic(projectId: string, topicName: string) {
   await runGcloud(["pubsub", "topics", "create", topicName, "--project", projectId]);
 }
 
-/** Creates or updates a push subscription for the Gmail Pub/Sub topic. */
 export async function ensureSubscription(
   projectId: string,
   subscription: string,
@@ -267,7 +260,6 @@ export async function ensureSubscription(
   ]);
 }
 
-/** Configures Tailscale serve/funnel and returns the public Gmail webhook URL. */
 export async function ensureTailscaleEndpoint(params: {
   mode: "off" | "serve" | "funnel";
   path: string;
@@ -326,7 +318,6 @@ export async function ensureTailscaleEndpoint(params: {
   return params.token ? `${baseUrl}?token=${params.token}` : baseUrl;
 }
 
-/** Derives a Google Cloud project id from local gog credentials when possible. */
 export async function resolveProjectIdFromGogCredentials(): Promise<string | null> {
   const candidates = gogCredentialsPaths();
   for (const candidate of candidates) {

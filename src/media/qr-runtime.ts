@@ -7,12 +7,10 @@ const qrCodeRuntimeLoader = createLazyImportLoader<QrCodeRuntime>(() =>
   import("qrcode").then((mod) => mod.default ?? mod),
 );
 
-/** Loads the optional qrcode package once for QR generation callers. */
 export async function loadQrCodeRuntime(): Promise<QrCodeRuntime> {
   return await qrCodeRuntimeLoader.load();
 }
 
-/** Validates QR payload text before handing it to the QR runtime. */
 export function normalizeQrText(text: string): string {
   if (typeof text !== "string") {
     throw new TypeError("QR text must be a string.");

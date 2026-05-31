@@ -3,7 +3,6 @@ import { maxBytesForKind, type MediaKind } from "./constants.js";
 
 const MB = 1024 * 1024;
 
-/** Resolve the global configured media ceiling, in bytes, when set. */
 export function resolveConfiguredMediaMaxBytes(cfg?: OpenClawConfig): number | undefined {
   const configured = cfg?.agents?.defaults?.mediaMaxMb;
   if (typeof configured === "number" && Number.isFinite(configured) && configured > 0) {
@@ -12,12 +11,10 @@ export function resolveConfiguredMediaMaxBytes(cfg?: OpenClawConfig): number | u
   return undefined;
 }
 
-/** Resolve the byte ceiling for generated media of a given kind. */
 export function resolveGeneratedMediaMaxBytes(cfg: OpenClawConfig | undefined, kind: MediaKind) {
   return resolveConfiguredMediaMaxBytes(cfg) ?? maxBytesForKind(kind);
 }
 
-/** Resolve channel/account media ceiling overrides in megabytes. */
 export function resolveChannelAccountMediaMaxMb(params: {
   cfg: OpenClawConfig;
   channel?: string | null;

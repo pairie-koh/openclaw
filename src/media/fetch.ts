@@ -550,7 +550,6 @@ async function withMediaFetchRetry<T>(
   });
 }
 
-/** Validates and saves a successful response while deriving filename and content type. */
 export async function saveResponseMedia(
   res: Response,
   options: SaveResponseMediaOptions = {},
@@ -577,7 +576,6 @@ export async function saveResponseMedia(
   });
 }
 
-/** Fetches remote media through SSRF guards, retries, and stores it on disk. */
 export async function saveRemoteMedia(options: SaveRemoteMediaOptions): Promise<SavedRemoteMedia> {
   return await withMediaFetchRetry(options, () => saveRemoteMediaOnce(options));
 }
@@ -610,7 +608,6 @@ async function saveRemoteMediaOnce(options: SaveRemoteMediaOptions): Promise<Sav
   }
 }
 
-/** Fetches remote media through SSRF guards and returns a bounded in-memory buffer. */
 export async function readRemoteMediaBuffer(options: FetchMediaOptions): Promise<FetchMediaResult> {
   return await withMediaFetchRetry(options, () => readRemoteMediaBufferOnce(options));
 }

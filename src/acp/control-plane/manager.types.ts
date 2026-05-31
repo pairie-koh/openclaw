@@ -22,7 +22,6 @@ import type {
   AcpRuntimeStatus,
 } from "../runtime/types.js";
 
-/** Result of resolving persisted ACP session metadata for a session key. */
 export type AcpSessionResolution =
   | {
       kind: "none";
@@ -39,7 +38,6 @@ export type AcpSessionResolution =
       meta: SessionAcpMeta;
     };
 
-/** Inputs needed to create or resume an ACP session through the control plane. */
 export type AcpInitializeSessionInput = {
   cfg: OpenClawConfig;
   sessionKey: string;
@@ -51,13 +49,11 @@ export type AcpInitializeSessionInput = {
   backendId?: string;
 };
 
-/** Inline attachment passed from a control-plane turn to the runtime adapter. */
 export type AcpTurnAttachment = {
   mediaType: string;
   data: string;
 };
 
-/** Inputs for submitting a prompt or steering turn through an ACP session. */
 export type AcpRunTurnInput = {
   cfg: OpenClawConfig;
   sessionKey: string;
@@ -70,13 +66,11 @@ export type AcpRunTurnInput = {
   onEvent?: (event: AcpRuntimeEvent) => Promise<void> | void;
 };
 
-/** Control-plane lifecycle notification emitted around turn submission. */
 export type AcpTurnLifecycleEvent = {
   type: "prompt_submitted";
   at: number;
 };
 
-/** Inputs for closing runtime state and optionally clearing ACP session metadata. */
 export type AcpCloseSessionInput = {
   cfg: OpenClawConfig;
   sessionKey: string;
@@ -87,14 +81,12 @@ export type AcpCloseSessionInput = {
   requireAcpSession?: boolean;
 };
 
-/** Result of closing an ACP runtime session and its persisted metadata. */
 export type AcpCloseSessionResult = {
   runtimeClosed: boolean;
   runtimeNotice?: string;
   metaCleared: boolean;
 };
 
-/** Control-plane status view combining persisted ACP metadata and runtime status. */
 export type AcpSessionStatus = {
   sessionKey: string;
   backend: string;
@@ -109,7 +101,6 @@ export type AcpSessionStatus = {
   lastError?: string;
 };
 
-/** Point-in-time ACP manager counters for runtime cache, turn queue, and errors. */
 export type AcpManagerObservabilitySnapshot = {
   runtimeCache: {
     activeSessions: number;
@@ -128,14 +119,12 @@ export type AcpManagerObservabilitySnapshot = {
   errorsByCode: Record<string, number>;
 };
 
-/** Counts from startup reconciliation of ACP identities stored in session metadata. */
 export type AcpStartupIdentityReconcileResult = {
   checked: number;
   resolved: number;
   failed: number;
 };
 
-/** In-flight turn state held while the manager streams runtime events. */
 export type ActiveTurnState = {
   runtime: AcpRuntime;
   handle: AcpRuntimeHandle;
@@ -143,7 +132,6 @@ export type ActiveTurnState = {
   cancelPromise?: Promise<void>;
 };
 
-/** Accumulator for completed and failed ACP turn latency metrics. */
 export type TurnLatencyStats = {
   completed: number;
   failed: number;
@@ -151,7 +139,6 @@ export type TurnLatencyStats = {
   maxMs: number;
 };
 
-/** Injectable ACP manager dependencies used by production code and tests. */
 export type AcpSessionManagerDeps = {
   listAcpSessions: typeof listAcpSessionEntries;
   readSessionEntry: typeof readAcpSessionEntry;
@@ -160,7 +147,6 @@ export type AcpSessionManagerDeps = {
   requireRuntimeBackend: typeof requireAcpRuntimeBackend;
 };
 
-/** Production ACP manager dependency set backed by session metadata and runtime registries. */
 export const DEFAULT_DEPS: AcpSessionManagerDeps = {
   listAcpSessions: listAcpSessionEntries,
   readSessionEntry: readAcpSessionEntry,

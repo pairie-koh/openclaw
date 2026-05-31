@@ -15,7 +15,6 @@ async function loadHookInstallRuntime() {
   return hookInstallRuntimePromise;
 }
 
-/** Logger accepted by hook installation flows. */
 export type HookInstallLogger = {
   info?: (message: string) => void;
   warn?: (message: string) => void;
@@ -27,7 +26,6 @@ type HookPackageManifest = {
   dependencies?: Record<string, string>;
 } & Partial<Record<typeof MANIFEST_KEY, { hooks?: string[] }>>;
 
-/** Result returned after installing or updating hooks. */
 export type InstallHooksResult =
   | {
       ok: true;
@@ -40,7 +38,6 @@ export type InstallHooksResult =
     }
   | { ok: false; error: string };
 
-/** Integrity drift details for npm hook package verification. */
 export type HookNpmIntegrityDriftParams = {
   spec: string;
   expectedIntegrity: string;
@@ -88,7 +85,6 @@ function validateHookId(hookId: string): string | null {
   return null;
 }
 
-/** Resolves and validates the install directory for one hook id. */
 export function resolveHookInstallDir(hookId: string, hooksDir?: string): string {
   const hooksBase = hooksDir ? resolveUserPath(hooksDir) : path.join(CONFIG_DIR, "hooks");
   const hookIdError = validateHookId(hookId);
