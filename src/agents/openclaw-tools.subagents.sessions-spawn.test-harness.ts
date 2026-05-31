@@ -358,6 +358,18 @@ vi.mock("../config/sessions.js", () => ({
     ...existing,
     ...patch,
   }),
+  resolveAgentSessionDatabaseTargetsSync: (_cfg: unknown, agentId: string) => [
+    {
+      agentId,
+      databasePath: `test://${agentId}`,
+    },
+  ],
+  resolveAllAgentSessionDatabaseTargetsSync: () => [
+    {
+      agentId: "main",
+      databasePath: "test://main",
+    },
+  ],
   resolveAgentIdFromSessionKey: (sessionKey: string) =>
     sessionKey.match(/^agent:([^:]+)/)?.[1] ?? "main",
   resolveAgentMainSessionKey: (params: {
