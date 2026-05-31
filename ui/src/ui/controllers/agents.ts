@@ -19,7 +19,6 @@ import {
   isMissingOperatorReadScopeError,
 } from "./scope-errors.ts";
 
-/** Mutable UI state for agent lists, tool catalogs, and selected agent panels. */
 export type AgentsState = {
   client: GatewayBrowserClient | null;
   connected: boolean;
@@ -43,7 +42,6 @@ export type AgentsState = {
   agentsPanel?: "overview" | "files" | "tools" | "skills" | "channels" | "cron";
 };
 
-/** Agent controller state with config-save fields mixed in. */
 export type AgentsConfigSaveState = AgentsState & ConfigState;
 
 function hasSelectedAgentMismatch(state: AgentsState, agentId: string): boolean {

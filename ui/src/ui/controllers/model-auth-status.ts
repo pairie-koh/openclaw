@@ -3,7 +3,6 @@ import type { ModelAuthStatusResult } from "../types.ts";
 
 const FALLBACK: ModelAuthStatusResult = { ts: 0, providers: [] };
 
-/** Mutable state for the model-auth status panel. */
 export type ModelAuthStatusState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

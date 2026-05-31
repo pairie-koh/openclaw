@@ -11,7 +11,6 @@ import {
   setPathValue,
 } from "./config/form-utils.ts";
 
-/** Mutable UI state for raw config, form config, schema metadata, and update status. */
 export type ConfigState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

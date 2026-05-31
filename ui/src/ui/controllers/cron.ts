@@ -52,7 +52,6 @@ export type CronJobsLastStatusFilter = "all" | CronRunStatus | "unknown";
 /** Load outcome returned by cron run pagination helpers. */
 export type CronRunsLoadStatus = "ok" | "error" | "skipped";
 
-/** Mutable Control UI cron state shared by views and controller actions. */
 export type CronState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

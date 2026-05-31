@@ -45,7 +45,6 @@ export type ExecApprovalsSnapshot = {
 /** Gateway or remote node target for exec approvals RPCs. */
 export type ExecApprovalsTarget = { kind: "gateway" } | { kind: "node"; nodeId: string };
 
-/** Mutable app state required by the exec approvals controller. */
 export type ExecApprovalsState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

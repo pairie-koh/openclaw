@@ -41,7 +41,6 @@ export type ExecApprovalResolved = {
   ts?: number | null;
 };
 
-/** Mutable state slice used by the Control UI approval prompt controller. */
 export type ExecApprovalPromptState = {
   client: {
     request(method: string, params?: unknown): Promise<unknown>;

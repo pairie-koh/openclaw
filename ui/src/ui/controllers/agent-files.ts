@@ -6,7 +6,6 @@ import type {
   AgentsFilesSetResult,
 } from "../types.ts";
 
-/** Mutable state for agent file list, active file contents, drafts, and saves. */
 export type AgentFilesState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

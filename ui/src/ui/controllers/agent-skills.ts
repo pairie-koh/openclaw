@@ -1,7 +1,6 @@
 import type { GatewayBrowserClient } from "../gateway.ts";
 import type { SkillStatusReport } from "../types.ts";
 
-/** Mutable state for the selected agent's skill status report. */
 export type AgentSkillsState = {
   client: GatewayBrowserClient | null;
   connected: boolean;

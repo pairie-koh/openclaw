@@ -45,7 +45,6 @@ export type DevicePairingList = {
   paired: PairedDevice[];
 };
 
-/** Mutable state for the Devices view and pairing actions. */
 export type DevicesState = {
   client: GatewayBrowserClient | null;
   connected: boolean;
