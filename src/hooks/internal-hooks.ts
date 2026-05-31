@@ -40,10 +40,6 @@ export type GatewayStartupHookEvent = InternalHookEvent & {
   context: GatewayStartupHookContext;
 };
 
-// ============================================================================
-// Message Hook Events
-// ============================================================================
-
 export type MessageReceivedHookContext = {
   /** Sender identifier (e.g., phone number, user ID) */
   from: string;
