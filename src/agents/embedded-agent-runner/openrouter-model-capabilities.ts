@@ -34,10 +34,6 @@ const FETCH_TIMEOUT_MS = 10_000;
 const DISK_CACHE_FILENAME = "openrouter-models.json";
 const DISK_CACHE_VERSION = 3;
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 interface OpenRouterApiModel {
   id: string;
   name?: string;
@@ -81,10 +77,6 @@ interface DiskCachePayload {
   version?: number;
   models: Record<string, OpenRouterModelCapabilities>;
 }
-
-// ---------------------------------------------------------------------------
-// Disk cache
-// ---------------------------------------------------------------------------
 
 function resolveDiskCacheDir(): string {
   return join(resolveStateDir(), "cache");
@@ -153,10 +145,6 @@ function readDiskCache(): Map<string, OpenRouterModelCapabilities> | undefined {
   }
 }
 
-// ---------------------------------------------------------------------------
-// In-memory cache state
-// ---------------------------------------------------------------------------
-
 let cache: Map<string, OpenRouterModelCapabilities> | undefined;
 let fetchInFlight: Promise<void> | undefined;
 const skipNextMissRefresh = new Set<string>();
@@ -191,10 +179,6 @@ function parseModel(model: OpenRouterApiModel): OpenRouterModelCapabilities {
     },
   };
 }
-
-// ---------------------------------------------------------------------------
-// API fetch
-// ---------------------------------------------------------------------------
 
 async function doFetch(): Promise<void> {
   const controller = new AbortController();
@@ -241,10 +225,6 @@ function triggerFetch(): void {
     fetchInFlight = undefined;
   });
 }
-
-// ---------------------------------------------------------------------------
-// Public API
-// ---------------------------------------------------------------------------
 
 /**
  * Ensure the cache is populated. Checks in-memory first, then disk, then
