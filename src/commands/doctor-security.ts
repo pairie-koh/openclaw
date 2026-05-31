@@ -255,9 +255,6 @@ export async function collectSecurityWarnings(
   warnings.push(...collectPlaintextConfigSecretWarnings(cfg));
   warnings.push(...collectDurableExecApprovalWarnings(cfg));
 
-  // ===========================================
-  // GATEWAY NETWORK EXPOSURE CHECK
-  // ===========================================
   // Check for dangerous gateway binding configurations
   // that expose the gateway to network without proper auth
 

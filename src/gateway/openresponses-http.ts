@@ -826,10 +826,6 @@ export async function handleOpenResponsesHttpRequest(
     return true;
   }
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // Streaming mode
-  // ─────────────────────────────────────────────────────────────────────────
-
   setSseHeaders(res);
 
   let accumulatedText = "";
