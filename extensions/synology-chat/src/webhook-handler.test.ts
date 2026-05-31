@@ -534,13 +534,11 @@ describe("createWebhookHandler", () => {
       log,
     });
 
-    // First request succeeds
     const req1 = makeReq("POST", validBody);
     const res1 = makeRes();
     await handler(req1, res1);
     expect(res1.status).toBe(204);
 
-    // Second request should be rate limited
     const req2 = makeReq("POST", validBody);
     const res2 = makeRes();
     await handler(req2, res2);

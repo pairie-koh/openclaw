@@ -292,7 +292,6 @@ describe("xai video generation provider", () => {
       release: vi.fn(async () => {}),
     });
     fetchWithTimeoutMock
-      // First poll: in-progress payload mirroring xAI's real shape
       .mockResolvedValueOnce({
         json: async () => ({
           request_id: "req_pending",
@@ -300,7 +299,6 @@ describe("xai video generation provider", () => {
           progress: 42,
         }),
       })
-      // Second poll: complete
       .mockResolvedValueOnce({
         json: async () => ({
           request_id: "req_pending",

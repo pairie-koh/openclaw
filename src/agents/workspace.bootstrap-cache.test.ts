@@ -43,11 +43,9 @@ describe("workspace bootstrap file caching", () => {
       content: content1,
     });
 
-    // First load
     const agentsFile1 = await loadAgentsFile(workspaceDir);
     expectAgentsContent(agentsFile1, content1);
 
-    // Second load should use cached content (same mtime)
     const agentsFile2 = await loadAgentsFile(workspaceDir);
     expectAgentsContent(agentsFile2, content1);
 
@@ -66,7 +64,6 @@ describe("workspace bootstrap file caching", () => {
       content: content1,
     });
 
-    // First load
     const agentsFile1 = await loadAgentsFile(workspaceDir);
     expectAgentsContent(agentsFile1, content1);
 
@@ -80,7 +77,6 @@ describe("workspace bootstrap file caching", () => {
     const bumpedTime = new Date(Date.now() + 1_000);
     await fs.utimes(filePath, bumpedTime, bumpedTime);
 
-    // Second load should detect the change and return new content
     const agentsFile2 = await loadAgentsFile(workspaceDir);
     expectAgentsContent(agentsFile2, content2);
   });
@@ -145,14 +141,11 @@ describe("workspace bootstrap file caching", () => {
 
     await writeWorkspaceFile({ dir: workspaceDir, name: DEFAULT_AGENTS_FILENAME, content });
 
-    // First load
     const agentsFile1 = await loadAgentsFile(workspaceDir);
     expectAgentsContent(agentsFile1, content);
 
-    // Delete the file
     await fs.unlink(filePath);
 
-    // Second load should handle deletion gracefully
     const result2 = await loadWorkspaceBootstrapFiles(workspaceDir);
     const agentsFile2 = result2.find((f) => f.name === DEFAULT_AGENTS_FILENAME);
     expect(agentsFile2?.missing).toBe(true);

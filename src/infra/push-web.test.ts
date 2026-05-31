@@ -64,7 +64,6 @@ describe("resolveVapidKeys", () => {
     ) as { subject?: string };
     expect(persistedKeys.subject).toBe("https://openclaw.ai");
 
-    // Second call returns same keys.
     const keys2 = await resolveVapidKeys(tmpDir);
     expect(keys2.publicKey).toBe(keys.publicKey);
     expect(keys2.privateKey).toBe(keys.privateKey);

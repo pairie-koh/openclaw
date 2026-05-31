@@ -528,11 +528,9 @@ describe("extractGeminiCliCredentials", () => {
 
     clearCredentialsCache();
 
-    // First call
     const result1 = extractGeminiCliCredentials();
     expectFakeCliCredentials(result1);
 
-    // Second call should use cache (readFileSync not called again)
     const readCount = mockReadFileSync.mock.calls.length;
     const result2 = extractGeminiCliCredentials();
     expect(result2).toEqual(result1);
