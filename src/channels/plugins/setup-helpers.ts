@@ -478,7 +478,6 @@ function resolveSingleAccountPromotionTarget(params: { channel: ChannelSectionBa
 // When promoting a single-account channel config to multi-account,
 // move top-level account settings into accounts.default so the original
 // account keeps working without duplicate account values at channel root.
-/** Promotes single-account channel root keys into an account record for multi-account config. */
 export function moveSingleAccountChannelSectionToDefaultAccount(params: {
   cfg: OpenClawConfig;
   channelKey: string;

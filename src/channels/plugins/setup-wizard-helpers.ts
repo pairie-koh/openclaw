@@ -364,7 +364,6 @@ export function setTopLevelChannelDmPolicyWithAllowFrom(params: {
   });
 }
 
-/** Set nested DM policy and add wildcard allow-from when opening access. */
 export function setNestedChannelDmPolicyWithAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -395,7 +394,6 @@ export function setNestedChannelDmPolicyWithAllowFrom(params: {
   });
 }
 
-/** Set top-level group access policy for a channel. */
 export function setTopLevelChannelGroupPolicy(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -410,7 +408,6 @@ export function setTopLevelChannelGroupPolicy(params: {
   });
 }
 
-/** Create setup metadata for a top-level DM policy field. */
 export function createTopLevelChannelDmPolicy(params: {
   label: string;
   channel: string;
@@ -435,7 +432,6 @@ export function createTopLevelChannelDmPolicy(params: {
   };
 }
 
-/** Create setup metadata for a nested DM policy field. */
 export function createNestedChannelDmPolicy(params: {
   label: string;
   channel: string;
@@ -464,7 +460,6 @@ export function createNestedChannelDmPolicy(params: {
   };
 }
 
-/** Create a setter for top-level DM policy setup updates. */
 export function createTopLevelChannelDmPolicySetter(params: {
   channel: string;
   getAllowFrom?: (cfg: OpenClawConfig) => Array<string | number> | undefined;
@@ -478,7 +473,6 @@ export function createTopLevelChannelDmPolicySetter(params: {
     });
 }
 
-/** Create a setter for nested DM policy setup updates. */
 export function createNestedChannelDmPolicySetter(params: {
   channel: string;
   section: string;
@@ -496,7 +490,6 @@ export function createNestedChannelDmPolicySetter(params: {
     });
 }
 
-/** Create a setter for top-level allow-from setup updates. */
 export function createTopLevelChannelAllowFromSetter(params: {
   channel: string;
   enabled?: boolean;
@@ -510,7 +503,6 @@ export function createTopLevelChannelAllowFromSetter(params: {
     });
 }
 
-/** Create a setter for nested allow-from setup updates. */
 export function createNestedChannelAllowFromSetter(params: {
   channel: string;
   section: string;
@@ -526,7 +518,6 @@ export function createNestedChannelAllowFromSetter(params: {
     });
 }
 
-/** Create a setter for top-level group-policy setup updates. */
 export function createTopLevelChannelGroupPolicySetter(params: {
   channel: string;
   enabled?: boolean;
@@ -540,7 +531,6 @@ export function createTopLevelChannelGroupPolicySetter(params: {
     });
 }
 
-/** Set legacy top-level channel DM policy and open wildcard when needed. */
 export function setChannelDmPolicyWithAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -562,7 +552,6 @@ export function setChannelDmPolicyWithAllowFrom(params: {
   };
 }
 
-/** Set compat DM policy across legacy top-level and nested DM config shapes. */
 export function setCompatChannelDmPolicyWithAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -592,7 +581,6 @@ export function setCompatChannelDmPolicyWithAllowFrom(params: {
   });
 }
 
-/** Set compat allow-from entries across legacy DM config shapes. */
 export function setCompatChannelAllowFrom(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -605,7 +593,6 @@ export function setCompatChannelAllowFrom(params: {
   });
 }
 
-/** Set group policy for an account-scoped channel config. */
 export function setAccountGroupPolicyForChannel(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -620,7 +607,6 @@ export function setAccountGroupPolicyForChannel(params: {
   });
 }
 
-/** Set account-scoped DM allowlist and force allowlist policy. */
 export function setAccountDmAllowFromForChannel(params: {
   cfg: OpenClawConfig;
   channel: string;
@@ -635,7 +621,6 @@ export function setAccountDmAllowFromForChannel(params: {
   });
 }
 
-/** Create DM policy setup metadata that supports legacy and account-scoped configs. */
 export function createCompatChannelDmPolicy(params: {
   label: string;
   channel: string;
@@ -712,7 +697,6 @@ export function createCompatChannelDmPolicy(params: {
   };
 }
 
-/** Resolve group allowlist entries and emit setup notes on lookup failure. */
 export async function resolveGroupAllowlistWithLookupNotes<TResolved>(params: {
   label: string;
   prompter: Pick<WizardPrompter, "note">;
@@ -738,7 +722,6 @@ export async function resolveGroupAllowlistWithLookupNotes<TResolved>(params: {
   }
 }
 
-/** Create an account-scoped allow-from setup wizard section. */
 export function createAccountScopedAllowFromSection(params: {
   channel: string;
   credentialInputKey?: NonNullable<ChannelSetupWizard["allowFrom"]>["credentialInputKey"];
