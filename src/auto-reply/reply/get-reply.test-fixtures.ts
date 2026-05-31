@@ -38,7 +38,6 @@ export function buildGetReplyGroupCtx(overrides: Partial<MsgContext> = {}): MsgC
   };
 }
 
-/** Build a native command reset context targeting the main Telegram session. */
 export function buildNativeResetContext(): MsgContext {
   return {
     Provider: "telegram",

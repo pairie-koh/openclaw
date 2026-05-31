@@ -94,7 +94,6 @@ function commandExists(cmd: string): boolean {
   }
 }
 
-/** Return a managed or system PATH command for a supported helper tool. */
 export function getToolPath(tool: "fd" | "rg"): string | null {
   const config = TOOLS[tool];
   if (!config) {

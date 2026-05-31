@@ -54,7 +54,6 @@ function resolveInboundDedupeSessionScope(ctx: MsgContext): string {
   return `agent:${parsed.agentId}`;
 }
 
-/** Build a stable dedupe key from inbound route, message id, and agent session scope. */
 export function buildInboundDedupeKey(ctx: MsgContext): string | null {
   const provider =
     normalizeOptionalLowercaseString(ctx.OriginatingChannel ?? ctx.Provider ?? ctx.Surface) || "";
