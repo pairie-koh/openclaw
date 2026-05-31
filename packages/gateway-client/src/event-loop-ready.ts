@@ -1,6 +1,5 @@
 import { resolveFiniteTimeoutDelayMs } from "./timeouts.js";
 
-/** Result from sampling timer drift until the event loop is responsive enough. */
 export type EventLoopReadyResult = {
   ready: boolean;
   elapsedMs: number;
@@ -9,7 +8,6 @@ export type EventLoopReadyResult = {
   aborted: boolean;
 };
 
-/** Tuning knobs for event-loop readiness polling and cancellation. */
 export type EventLoopReadyOptions = {
   maxWaitMs?: number;
   intervalMs?: number;
@@ -27,7 +25,6 @@ function resolvePositiveInteger(value: number | undefined, fallback: number): nu
   return Number.isFinite(value) && value !== undefined ? Math.max(1, Math.floor(value)) : fallback;
 }
 
-/** Wait until consecutive timer checks stay below the drift threshold. */
 export async function waitForEventLoopReady(
   options: EventLoopReadyOptions = {},
 ): Promise<EventLoopReadyResult> {
