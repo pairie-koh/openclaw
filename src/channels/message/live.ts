@@ -47,14 +47,12 @@ export type FinalizableLivePreviewAdapter<TPayload, TId, TEdit> = {
   logPreviewEditFailure?: (error: unknown) => void;
 };
 
-/** Preserve generic inference while declaring a finalizable live preview adapter. */
 export function defineFinalizableLivePreviewAdapter<TPayload, TId, TEdit>(
   adapter: FinalizableLivePreviewAdapter<TPayload, TId, TEdit>,
 ): FinalizableLivePreviewAdapter<TPayload, TId, TEdit> {
   return adapter;
 }
 
-/** Create initial live preview state from an optional preview receipt/render. */
 export function createLiveMessageState<TPayload = unknown>(params?: {
   receipt?: MessageReceipt;
   lastRendered?: RenderedMessageBatch<TPayload>;
@@ -68,7 +66,6 @@ export function createLiveMessageState<TPayload = unknown>(params?: {
   };
 }
 
-/** Mark a live preview as finalized and disable further in-place edits. */
 export function markLiveMessageFinalized<TPayload>(
   state: LiveMessageState<TPayload>,
   receipt: MessageReceipt,
@@ -81,7 +78,6 @@ export function markLiveMessageFinalized<TPayload>(
   };
 }
 
-/** Create a standard receipt for a preview message id. */
 export function createPreviewMessageReceipt(params: {
   id: unknown;
   threadId?: string;

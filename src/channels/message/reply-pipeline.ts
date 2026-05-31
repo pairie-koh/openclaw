@@ -26,7 +26,6 @@ export type { CreateTypingCallbacksParams, TypingCallbacks };
 export { createReplyPrefixContext, createReplyPrefixOptions, createTypingCallbacks };
 export type { SourceReplyDeliveryMode };
 
-/** Resolve source reply delivery mode for a channel message pipeline. */
 export function resolveChannelSourceReplyDeliveryMode(params: {
   cfg: OpenClawConfig;
   ctx: SourceReplyDeliveryModeContext;
@@ -53,7 +52,6 @@ export type CreateChannelReplyPipelineParams = {
   transformReplyPayload?: (payload: ReplyPayload) => ReplyPayload | null;
 };
 
-/** Create channel reply pipeline helpers for one channel/account context. */
 export function createChannelReplyPipeline(
   params: CreateChannelReplyPipelineParams,
 ): ChannelReplyPipeline {

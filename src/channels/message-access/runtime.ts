@@ -259,7 +259,6 @@ function resolveResolverPolicy(params: {
  * Create a reusable ingress resolver for one channel account and identity
  * descriptor.
  */
-/** Create a reusable channel ingress resolver with bound config/runtime options. */
 export function createChannelIngressResolver(
   base: CreateChannelIngressResolverParams,
 ): ChannelIngressResolver {

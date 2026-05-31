@@ -68,7 +68,6 @@ function isPluginOwnedRuntimeBindingRecord(record: SessionBindingRecord | null):
   );
 }
 
-/** Override an agent route when config binds the conversation to a stateful target. */
 export function resolveConfiguredBindingRoute(
   params: {
     cfg: OpenClawConfig;

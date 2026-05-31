@@ -17,7 +17,6 @@ export type DurableMessageStateRecord = {
   errorMessage?: string;
 };
 
-/** Create a durable send state record from an intent and optional result. */
 export function createDurableMessageStateRecord(params: {
   intent: DurableMessageSendIntent;
   state?: DurableMessageSendState;

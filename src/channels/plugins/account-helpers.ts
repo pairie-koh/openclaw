@@ -12,7 +12,6 @@ import {
 } from "../../routing/session-key.js";
 import type { ChannelAccountSnapshot } from "./types.core.js";
 
-/** Create channel-specific account listing/default helpers with optional implicit account support. */
 export function createAccountListHelpers(
   channelKey: string,
   options?: {

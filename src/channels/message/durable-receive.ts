@@ -94,7 +94,6 @@ function sortPendingRecords<TPayload, TMetadata>(
   return records.toSorted((a, b) => a.receivedAt - b.receivedAt || a.id.localeCompare(b.id));
 }
 
-/** Create a durable inbound receive journal backed by keyed plugin-state stores. */
 export function createDurableInboundReceiveJournal<
   TPayload,
   TMetadata = unknown,

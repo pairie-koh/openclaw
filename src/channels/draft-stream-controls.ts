@@ -79,7 +79,6 @@ export function createFinalizableDraftStreamControls(params: {
   };
 }
 
-/** Create controls around an existing finalizable draft stream state object. */
 export function createFinalizableDraftStreamControlsForState(params: {
   throttleMs: number;
   state: FinalizableDraftStreamState;
@@ -99,7 +98,6 @@ export function createFinalizableDraftStreamControlsForState(params: {
   });
 }
 
-/** Stop a stream and read the last message id once in-flight sends settle. */
 export async function takeMessageIdAfterStop<T>(
   params: StopAndClearMessageIdParams<T>,
 ): Promise<T | undefined> {
@@ -109,7 +107,6 @@ export async function takeMessageIdAfterStop<T>(
   return messageId;
 }
 
-/** Stop a stream and delete the finalizable draft message when one exists. */
 export async function clearFinalizableDraftMessage<T>(
   params: ClearFinalizableDraftMessageParams<T>,
 ): Promise<void> {
@@ -129,7 +126,6 @@ export async function clearFinalizableDraftMessage<T>(
   }
 }
 
-/** Create a full finalizable draft lifecycle wrapper. */
 export function createFinalizableDraftLifecycle<T>(params: FinalizableDraftLifecycleParams<T>) {
   const controls = createFinalizableDraftStreamControlsForState({
     throttleMs: params.throttleMs,
