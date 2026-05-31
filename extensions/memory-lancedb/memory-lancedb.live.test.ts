@@ -14,7 +14,6 @@ describeLive("memory plugin live tests", () => {
     const { default: memoryPlugin } = await import("./index.js");
     const liveApiKey = OPENAI_API_KEY;
 
-    // Mock plugin API
     const registeredTools: any[] = [];
     const registeredClis: any[] = [];
     const registeredServices: any[] = [];

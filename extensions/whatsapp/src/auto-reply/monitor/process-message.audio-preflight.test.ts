@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-// Mock the lazy-loaded audio preflight runtime boundary
 const transcribeFirstAudioMock = vi.fn();
 const maybeSendAckReactionMock = vi.fn();
 
@@ -8,11 +7,9 @@ vi.mock("./audio-preflight.runtime.js", () => ({
   transcribeFirstAudio: (...args: unknown[]) => transcribeFirstAudioMock(...args),
 }));
 
-// Controllable shouldComputeCommandAuthorized for command-sync tests
 let shouldComputeCommandResult = false;
 let shouldComputeCommandBodies: string[] = [];
 
-// Minimal mocks for process-message dependencies
 vi.mock("../../accounts.js", () => ({
   resolveWhatsAppAccount: () => ({
     accountId: "default",

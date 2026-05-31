@@ -6,14 +6,11 @@ import { PREVIEW_MAX_CHARS, PREVIEW_MAX_LINES } from "./constants.ts";
  */
 export function formatToolOutputForSidebar(text: string): string {
   const trimmed = text.trim();
-  // Try to detect and format JSON
   if (trimmed.startsWith("{") || trimmed.startsWith("[")) {
     try {
       const parsed = JSON.parse(trimmed);
       return "```json\n" + JSON.stringify(parsed, null, 2) + "\n```";
-    } catch {
-      // Not valid JSON, return as-is
-    }
+    } catch {}
   }
   return text;
 }

@@ -305,7 +305,6 @@ vi.mock("./update-cli/restart-helper.js", () => ({
   runRestartScript: (...args: unknown[]) => runRestartScript(...args),
 }));
 
-// Mock doctor (heavy module; should not run in unit tests)
 vi.mock("../commands/doctor.js", () => ({
   doctorCommand: vi.fn(),
 }));

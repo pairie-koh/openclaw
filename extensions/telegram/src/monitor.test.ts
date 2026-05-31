@@ -352,7 +352,6 @@ vi.mock("./bot.js", () => ({
   },
 }));
 
-// Mock the grammyjs/runner to resolve immediately
 vi.mock("@grammyjs/runner", () => ({
   run: runSpy,
 }));
