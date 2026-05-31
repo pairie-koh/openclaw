@@ -62,8 +62,6 @@ import {
 import { uploadCompletePath, uploadPartFinishPath, uploadPreparePath } from "./routes.js";
 import type { TokenManager } from "./token.js";
 
-// ============ Public types ============
-
 /**
  * Raised when `upload_prepare` returns {@link UPLOAD_PREPARE_FALLBACK_CODE}
  * (40093002). Carries enough context for the outbound layer to render a
@@ -85,7 +83,6 @@ export class UploadDailyLimitExceededError extends Error {
   }
 }
 
-/** Chunked-upload progress callback payload. */
 interface ChunkedUploadProgress {
   completedParts: number;
   totalParts: number;
@@ -93,7 +90,6 @@ interface ChunkedUploadProgress {
   totalBytes: number;
 }
 
-/** Per-call options for {@link ChunkedMediaApi.uploadChunked}. */
 interface UploadChunkedOptions {
   scope: ChatScope;
   targetId: string;
@@ -111,7 +107,6 @@ interface UploadChunkedOptions {
   logPrefix?: string;
 }
 
-/** Configuration for the {@link ChunkedMediaApi} constructor. */
 interface ChunkedMediaApiConfig {
   logger?: EngineLogger;
   /** Upload cache adapter (optional; omit to disable caching). */
@@ -119,8 +114,6 @@ interface ChunkedMediaApiConfig {
   /** File name sanitizer — defaults to identity. */
   sanitizeFileName?: SanitizeFileNameFn;
 }
-
-// ============ Tuning constants ============
 
 const DEFAULT_CONCURRENT_PARTS = 1;
 
@@ -146,8 +139,6 @@ const PART_UPLOAD_TIMEOUT_MS = 300_000;
  * server contract).
  */
 const MD5_10M_SIZE = 10_002_432;
-
-// ============ Class ============
 
 /**
  * Chunked upload module. Stateless across calls — see
@@ -410,8 +401,6 @@ export class ChunkedMediaApi {
   }
 }
 
-// ============ Legacy functional facade ============
-
 /**
  * @deprecated The chunked uploader is always implemented.
  *
@@ -422,8 +411,6 @@ export class ChunkedMediaApi {
 export function isChunkedUploadImplemented(): boolean {
   return true;
 }
-
-// ============ Source resolution ============
 
 /**
  * Normalized chunked-upload input: everything the uploader needs to read
@@ -480,8 +467,6 @@ async function readPart(input: ChunkedInput, offset: number, length: number): Pr
   return bytesRead < length ? buf.subarray(0, bytesRead) : buf;
 }
 
-// ============ Hash computation ============
-
 /**
  * Stream the source once to compute md5 + sha1 + md5_10m.
  *
@@ -536,8 +521,6 @@ async function computeHashes(input: ChunkedInput): Promise<UploadPrepareHashes> 
 function createReadStreamFromHandle(handle: FileHandle): NodeJS.ReadableStream {
   return handle.createReadStream({ autoClose: false, start: 0 });
 }
-
-// ============ COS PUT ============
 
 /** Per-part retry budget for the COS PUT call (exponential backoff). */
 const PART_UPLOAD_MAX_RETRIES = 2;
@@ -618,8 +601,6 @@ async function putToPresignedUrl(
 
   throw lastError ?? new Error(`Part ${partIndex}/${totalParts} upload failed`);
 }
-
-// ============ Concurrency ============
 
 /**
  * Batch-mode concurrency limiter. Deliberately simple: dispatch N tasks at

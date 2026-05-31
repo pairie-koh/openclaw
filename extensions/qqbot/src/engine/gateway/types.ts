@@ -205,7 +205,6 @@ interface GatewayGroupOptions {
   sessionStoreReader?: import("../group/activation.js").SessionStoreReader;
 }
 
-/** Full gateway startup context. */
 export interface CoreGatewayContext {
   account: GatewayAccount;
   abortSignal: AbortSignal;
