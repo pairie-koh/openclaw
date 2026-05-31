@@ -1,13 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { sanitizeForPlainText, stripInternalRuntimeScaffolding } from "./sanitize-text.js";
 
-// ---------------------------------------------------------------------------
-// sanitizeForPlainText
-// ---------------------------------------------------------------------------
-
 describe("sanitizeForPlainText", () => {
-  // --- line breaks --------------------------------------------------------
-
   it("converts <br> to newline", () => {
     expect(sanitizeForPlainText("hello<br>world")).toBe("hello\nworld");
   });
@@ -16,9 +10,6 @@ describe("sanitizeForPlainText", () => {
     expect(sanitizeForPlainText("a<br/>b")).toBe("a\nb");
     expect(sanitizeForPlainText("a<br />b")).toBe("a\nb");
   });
-
-  // --- inline formatting --------------------------------------------------
-
   it("converts <b> and <strong> to WhatsApp bold", () => {
     expect(sanitizeForPlainText("<b>bold</b>")).toBe("*bold*");
     expect(sanitizeForPlainText("<strong>bold</strong>")).toBe("*bold*");
@@ -38,9 +29,6 @@ describe("sanitizeForPlainText", () => {
   it("converts <code> to backtick wrapping", () => {
     expect(sanitizeForPlainText("<code>foo()</code>")).toBe("`foo()`");
   });
-
-  // --- block elements -----------------------------------------------------
-
   it("converts <p> and <div> to newlines", () => {
     expect(sanitizeForPlainText("<p>paragraph</p>")).toBe("\nparagraph\n");
   });
@@ -55,9 +43,6 @@ describe("sanitizeForPlainText", () => {
       "• item one\n• item two\n",
     );
   });
-
-  // --- tag stripping ------------------------------------------------------
-
   it("strips unknown/remaining tags", () => {
     expect(sanitizeForPlainText('<span class="x">text</span>')).toBe("text");
     expect(sanitizeForPlainText('<a href="https://example.com">link</a>')).toBe("link");
@@ -86,9 +71,6 @@ describe("sanitizeForPlainText", () => {
       "See https://example.com/path?q=1 now",
     );
   });
-
-  // --- passthrough --------------------------------------------------------
-
   it("passes through clean text unchanged", () => {
     expect(sanitizeForPlainText("hello world")).toBe("hello world");
   });
@@ -102,9 +84,6 @@ describe("sanitizeForPlainText", () => {
     // immediately after a tag-like sequence.
     expect(sanitizeForPlainText("a < b && c > d")).toBe("a < b && c > d");
   });
-
-  // --- mixed content ------------------------------------------------------
-
   it("handles mixed HTML content", () => {
     const input = "Hello<br><b>world</b> this is <i>nice</i>";
     expect(sanitizeForPlainText(input)).toBe("Hello\n*world* this is _nice_");

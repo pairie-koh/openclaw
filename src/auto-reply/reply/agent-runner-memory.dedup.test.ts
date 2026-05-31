@@ -180,10 +180,6 @@ describe("compaction event completion detection", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Pending prompt inclusion in hash
-// ---------------------------------------------------------------------------
-
 describe("pending prompt inclusion in hash", () => {
   it("hash differs when pending prompt is included vs excluded", () => {
     const transcript = [

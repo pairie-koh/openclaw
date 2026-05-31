@@ -14,9 +14,6 @@ afterEach(() => {
   resetPluginStateStoreForTests();
 });
 
-// ---------------------------------------------------------------------------
-// Runtime smoke
-// ---------------------------------------------------------------------------
 describe("runtime smoke", () => {
   it("writes and reads a value", async () => {
     await withOpenClawTestState({ label: "e2e-smoke-rw" }, async () => {
@@ -48,9 +45,6 @@ describe("runtime smoke", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Persistence
-// ---------------------------------------------------------------------------
 describe("persistence", () => {
   it("survives close and reopen of the store", async () => {
     await withOpenClawTestState({ label: "e2e-persist" }, async () => {
@@ -75,9 +69,6 @@ describe("persistence", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// TTL
-// ---------------------------------------------------------------------------
 describe("TTL", () => {
   it("hides expired values and sweep removes the row", async () => {
     await withOpenClawTestState({ label: "e2e-ttl" }, async () => {
@@ -114,9 +105,6 @@ describe("TTL", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Isolation
-// ---------------------------------------------------------------------------
 describe("isolation", () => {
   it("segregates plugins sharing namespace and key", async () => {
     await withOpenClawTestState({ label: "e2e-isolation" }, async () => {
@@ -143,9 +131,6 @@ describe("isolation", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Limits
-// ---------------------------------------------------------------------------
 describe("limits", () => {
   it("accepts a value at the 64 KB boundary", async () => {
     await withOpenClawTestState({ label: "e2e-limit-accept" }, async () => {
@@ -200,9 +185,6 @@ describe("limits", () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Failure safety
-// ---------------------------------------------------------------------------
 describe("failure safety", () => {
   it("probe returns redacted diagnostics without leaking stored values", async () => {
     await withOpenClawTestState({ label: "e2e-fail-probe" }, async () => {
